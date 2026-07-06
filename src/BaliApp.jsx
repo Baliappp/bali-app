@@ -132,7 +132,7 @@ const T = {
     hverif_code: "Code commande (BAL-...)", hverif_pin: "Code PIN du client (4 chiffres)",
     hverif_btn: "Vérifier et remettre", hverif_ok: "✅ Code correct — colis remis au client !",
     hverif_bad: "❌ Code PIN incorrect — ne remets pas le colis", hverif_notfound: "Commande introuvable ou déjà remise",
-    hverif_wrongstatus: "Ce colis n'est pas encore prêt à être remis",
+    hverif_wrongstatus: "Ce colis n'est pas encore prêt à être remis", real_parcels: "Colis réels de bali", p_to_receive: "À réceptionner (dépôt vendeur)", p_to_handover: "À remettre au client", p_demo: "démo", p_none: "Aucun colis réel en circulation pour l'instant",
     sale_new_banner: "🎉 Nouvelle vente ! Dépose le colis au point bali", to_deposit: "à déposer",
     order_pin_hidden: "Code masqué pour ta sécurité",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
@@ -298,7 +298,7 @@ const T = {
     hverif_code: "كود الطلبية (BAL-...)", hverif_pin: "كود PIN ديال الكليان (4 أرقام)",
     hverif_btn: "تحقق وسلّم", hverif_ok: "✅ الكود صحيح — الكولية تسلّمات للكليان!",
     hverif_bad: "❌ كود PIN غالط — ما تسلّمش الكولية", hverif_notfound: "الطلبية ما لقيناهاش ولا تسلّمات",
-    hverif_wrongstatus: "هاد الكولية مازال ماشي وجدة للتسليم",
+    hverif_wrongstatus: "هاد الكولية مازال ماشي وجدة للتسليم", real_parcels: "الكوليات الحقيقية ديال بالي", p_to_receive: "خاصك تستقبل (من البائع)", p_to_handover: "خاصك تسلم للكليان", p_demo: "ديمو", p_none: "ما كاين حتى كولية حقيقية دابا",
     sale_new_banner: "🎉 بيعة جديدة! سيفط الكولية للنقطة", to_deposit: "خاصها تسيفط",
     order_pin_hidden: "الكود مخبي للأمان ديالك",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
@@ -464,7 +464,7 @@ const T = {
     hverif_code: "رمز الطلب (BAL-...)", hverif_pin: "رمز PIN للعميل (4 أرقام)",
     hverif_btn: "تحقق وسلّم", hverif_ok: "✅ الرمز صحيح — تم تسليم الطرد!",
     hverif_bad: "❌ رمز PIN خاطئ — لا تسلّم الطرد", hverif_notfound: "الطلب غير موجود أو سُلّم مسبقاً",
-    hverif_wrongstatus: "هذا الطرد ليس جاهزاً للتسليم بعد",
+    hverif_wrongstatus: "هذا الطرد ليس جاهزاً للتسليم بعد", real_parcels: "طرود بالي الحقيقية", p_to_receive: "للاستلام (من البائع)", p_to_handover: "للتسليم للعميل", p_demo: "تجريبي", p_none: "لا توجد طرود حقيقية حالياً",
     sale_new_banner: "🎉 عملية بيع جديدة! أودع الطرد في النقطة", to_deposit: "للإيداع",
     order_pin_hidden: "الرمز مخفي لأمانك",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
@@ -637,7 +637,7 @@ const T = {
     hverif_code: "Order code (BAL-...)", hverif_pin: "Customer PIN (4 digits)",
     hverif_btn: "Verify and hand over", hverif_ok: "✅ Correct code — parcel handed to the customer!",
     hverif_bad: "❌ Wrong PIN — do not hand over the parcel", hverif_notfound: "Order not found or already handed over",
-    hverif_wrongstatus: "This parcel is not ready to be handed over yet",
+    hverif_wrongstatus: "This parcel is not ready to be handed over yet", real_parcels: "Real bali parcels", p_to_receive: "To receive (seller drop-off)", p_to_handover: "To hand to customer", p_demo: "demo", p_none: "No real parcels in circulation yet",
     sale_new_banner: "🎉 New sale! Drop the parcel at the bali point", to_deposit: "to drop off",
     order_pin_hidden: "Code hidden for your security",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
@@ -803,7 +803,7 @@ const T = {
     hverif_code: "Código de pedido (BAL-...)", hverif_pin: "PIN del cliente (4 dígitos)",
     hverif_btn: "Verificar y entregar", hverif_ok: "✅ Código correcto — ¡paquete entregado al cliente!",
     hverif_bad: "❌ PIN incorrecto — no entregues el paquete", hverif_notfound: "Pedido no encontrado o ya entregado",
-    hverif_wrongstatus: "Este paquete aún no está listo para entregar",
+    hverif_wrongstatus: "Este paquete aún no está listo para entregar", real_parcels: "Paquetes reales bali", p_to_receive: "Por recibir (depósito vendedor)", p_to_handover: "Por entregar al cliente", p_demo: "demo", p_none: "No hay paquetes reales en circulación aún",
     sale_new_banner: "🎉 ¡Nueva venta! Deposita el paquete en el punto bali", to_deposit: "por depositar",
     order_pin_hidden: "Código oculto por tu seguridad",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
@@ -1210,6 +1210,17 @@ function BaliAppScreen() {
   const [hvPin, setHvPin] = useState("");
   const [hvMsg, setHvMsg] = useState(null); // { ok, text }
   const [hvLoading, setHvLoading] = useState(false);
+  const [pOrders, setPOrders] = useState([]);
+
+  /* Charger les vrais colis qui transitent par le point bali */
+  const loadPartnerOrders = async () => {
+    const { data } = await supabase.from("orders")
+      .select("*, items(title, category)")
+      .in("status", ["paid", "dropped", "in_transit", "ready"])
+      .order("created_at", { ascending: false })
+      .limit(50);
+    setPOrders(data || []);
+  };
 
   /* Le hanoutier vérifie le PIN et remet le colis (cœur de sécurité A4.3) */
   const verifyAndHandover = async () => {
@@ -1231,6 +1242,7 @@ function BaliAppScreen() {
       });
       setHvMsg({ ok: true, text: t("hverif_ok") });
       setHvCode(""); setHvPin("");
+      loadPartnerOrders();
     } catch (e) {
       setHvMsg({ ok: false, text: "⚠️ " + (e.message || "Erreur") });
     } finally {
@@ -3491,7 +3503,7 @@ function BaliAppScreen() {
                 <p className="text-[11px] font-bold"><span className="text-stone-500">Adresse : </span>12 rue Ibn Sina, Maârif</p>
                 <p className="text-[11px] font-bold"><span className="text-stone-500">Versement : </span>{pObRib.length === 24 ? "RIB •••" + pObRib.slice(-4) : "Espèces · Wafacash"}</p>
               </div>
-              <button onClick={() => { setPObStep(-1); setAppMode("partner"); setPScreen("dash"); setPTab("colis"); }}
+              <button onClick={() => { setPObStep(-1); setAppMode("partner"); setPScreen("dash"); setPTab("colis"); loadPartnerOrders(); }}
                 className="w-full mt-5 bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl">
                 Voir le tableau de bord (démo) →
               </button>
@@ -3810,7 +3822,7 @@ function BaliAppScreen() {
             </button>
 
             {!delivered && (
-              <button onClick={() => { setOrderOpen(false); setAppMode("partner"); setPScreen("dash"); }}
+              <button onClick={() => { setOrderOpen(false); setAppMode("partner"); setPScreen("dash"); loadPartnerOrders(); }}
                 className="w-full border-2 border-dashed border-stone-300 text-stone-600 text-xs font-extrabold py-3.5 rounded-2xl flex items-center justify-center gap-2">
                 <Store size={14} /> {t("try_partner")}
               </button>
@@ -3926,7 +3938,41 @@ function BaliAppScreen() {
 
                   <p className="text-[10px] font-extrabold text-stone-500 pt-1">COLIS DU JOUR</p>
 
-                  {/* Colis 1 — le retrait de la démo */}
+                  {/* ---- VRAIS COLIS bali ---- */}
+                  {pOrders.length > 0 && (
+                    <>
+                      <div className="flex items-center gap-2 pt-1">
+                        <p className="text-[10px] font-extrabold text-indigo-600">🟢 {t("real_parcels")}</p>
+                        <span className="text-[9px] font-bold bg-indigo-100 text-indigo-600 px-1.5 py-0.5 rounded-full">{pOrders.length}</span>
+                      </div>
+                      {pOrders.map((o) => {
+                        const emo = { femmes: "👗", hommes: "👕", enfants: "🧸", tech: "📱", maison: "🏠", trad: "👘", sneakers: "👟" }[o.items && o.items.category] || "📦";
+                        const toHand = o.status === "dropped" || o.status === "ready" || o.status === "in_transit";
+                        return (
+                          <div key={o.id} className="w-full bg-white rounded-2xl p-3.5 shadow-sm flex items-center gap-3 border border-indigo-50">
+                            <div className="w-11 h-11 rounded-xl bg-indigo-50 flex items-center justify-center text-xl shrink-0">{emo}</div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-extrabold text-stone-900">{o.code}</p>
+                              <p className="text-[10px] text-stone-500 font-semibold truncate">
+                                {o.items && o.items.title ? o.items.title : "Article"} · {o.total_dh} DH
+                              </p>
+                              <p className="text-[9px] font-bold mt-0.5">
+                                {o.status === "paid"
+                                  ? <span className="text-amber-600">📥 {t("p_to_receive")}</span>
+                                  : <span className="text-indigo-600">📤 {t("p_to_handover")}</span>}
+                              </p>
+                            </div>
+                            {toHand && (
+                              <span className="text-[9px] font-extrabold bg-indigo-100 text-indigo-700 px-2 py-1 rounded-full shrink-0">PIN</span>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </>
+                  )}
+
+                  <p className="text-[9px] font-bold text-stone-400 pt-2">— {t("p_demo")} —</p>
+
                   <button onClick={() => setPParcel({ emoji: "👟", code: ORDER.code, title: ORDER.item.title, who: "Abdel B.", slot: ORDER.point.slot, status: delivered ? "Remis ✅ 14:36" : "À retirer", note: delivered ? "Chaîne complète : Vendeur → Hanout → Acheteur. Rien à faire." : "Déjà payé en ligne. Vérifie le QR + PIN, laisse le client inspecter, puis remets. Rien à encaisser." })}
                     className="w-full text-left bg-white rounded-2xl p-3.5 shadow-sm flex items-center gap-3">
                     <div className="w-11 h-11 rounded-xl bg-stone-100 flex items-center justify-center text-xl">👟</div>
