@@ -1,0 +1,3245 @@
+import React, { useState, useEffect } from "react";
+import {
+  Home, Search, Plus, MessageCircle, User, Heart, ChevronLeft, ShieldCheck,
+  Truck, Star, MapPin, Camera, BadgeCheck, Send, Bell, SlidersHorizontal,
+  Wallet, X, Check, Banknote, Package, Globe, Sparkles, Loader2, Store, Zap,
+  Video, HeartHandshake, QrCode, Phone, Navigation, Lock, AlertTriangle,
+  CheckCircle2, ArrowLeft, Timer, Share2, Smartphone, CreditCard
+} from "lucide-react";
+
+/* ------------------------------------------------------------------ */
+/* BALI v3 — le souk dans ta poche.                                    */
+/* Annonce IA réelle · Points hanout · Score acheteur · Mode Sadaqa    */
+/* ------------------------------------------------------------------ */
+
+const FontStyles = () => (
+  <style>{`
+    @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Tajawal:wght@500;700;800&family=Noto+Sans+Tifinagh&display=swap');
+    .font-display { font-family: 'Unbounded', 'Tajawal', 'Noto Sans Tifinagh', system-ui, sans-serif; }
+    .font-app { font-family: 'Plus Jakarta Sans', 'Tajawal', 'Noto Sans Tifinagh', system-ui, sans-serif; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    @keyframes scanmove { 0% { top: 10%; } 50% { top: 86%; } 100% { top: 10%; } }
+    .scanline { animation: scanmove 2.2s ease-in-out infinite; }
+  `}</style>
+);
+
+const Star8 = ({ size = 16, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" className={className} fill="currentColor">
+    <path d="M12 0l2.3 6.1 6.1-2.5-2.5 6.1L24 12l-6.1 2.3 2.5 6.1-6.1-2.5L12 24l-2.3-6.1-6.1 2.5 2.5-6.1L0 12l6.1-2.3-2.5-6.1 6.1 2.5L12 0z" />
+  </svg>
+);
+
+/* QR dynamique — régénéré côté serveur toutes les 60 s en production */
+const QRCodeSVG = ({ seed, size = 172 }) => {
+  const N = 25;
+  let s = 0;
+  for (let i = 0; i < seed.length; i++) s = (s * 131 + seed.charCodeAt(i)) >>> 0;
+  const rnd = () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
+  const inFinder = (r, c) => (r < 7 && c < 7) || (r < 7 && c >= N - 7) || (r >= N - 7 && c < 7);
+  const finderDark = (r, c) => {
+    const fr = r >= N - 7 ? r - (N - 7) : r;
+    const fc = c >= N - 7 ? c - (N - 7) : c;
+    return fr === 0 || fr === 6 || fc === 0 || fc === 6 || (fr >= 2 && fr <= 4 && fc >= 2 && fc <= 4);
+  };
+  const cells = [];
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      const dark = inFinder(r, c) ? finderDark(r, c) : rnd() < 0.45;
+      if (dark) cells.push(r + "-" + c);
+    }
+  }
+  return (
+    <svg viewBox={"0 0 " + N + " " + N} width={size} height={size} shapeRendering="crispEdges">
+      <rect width={N} height={N} fill="white" />
+      {cells.map((k) => {
+        const [r, c] = k.split("-").map(Number);
+        return <rect key={k} x={c} y={r} width={1} height={1} fill="#1c1917" />;
+      })}
+    </svg>
+  );
+};
+
+/* ------------------------------------------------------------------ */
+/* LANGUES                                                             */
+/* ------------------------------------------------------------------ */
+
+const LANGS = [
+  { id: "fr", name: "Français", flag: "🇫🇷", dir: "ltr" },
+  { id: "dar", name: "الدارجة المغربية", flag: "🇲🇦", dir: "rtl" },
+  { id: "ar", name: "العربية", flag: "ع", dir: "rtl" },
+  { id: "zgh", name: "ⵜⴰⵎⴰⵣⵉⵖⵜ", flag: "ⵣ", dir: "ltr", beta: true },
+  { id: "en", name: "English", flag: "🇬🇧", dir: "ltr" },
+  { id: "es", name: "Español", flag: "🇪🇸", dir: "ltr" },
+];
+
+const T = {
+  fr: {
+    nav_home: "Accueil", nav_explore: "Explorer", nav_sell: "Vendre", nav_msg: "Messages", nav_profile: "Profil",
+    search_ph: "Caftan, iPhone, Air Force…", banner1: "Vide ton armoire, remplis ton portefeuille",
+    banner2: "0% commission vendeur · Retrait au hanout du quartier 🇲🇦", selection: "Sélection du jour",
+    f_all: "Tout", f_sneakers: "Sneakers", f_tech: "Tech", f_femmes: "Femmes", f_hommes: "Hommes", f_trad: "Traditionnel",
+    explore: "Explorer", search_on: "Rechercher sur bali…", trends: "TENDANCES 🔥", categories: "CATÉGORIES",
+    cat_femmes: "Femmes", cat_hommes: "Hommes", cat_enfants: "Enfants", cat_sneakers: "Sneakers",
+    cat_tech: "Tech", cat_maison: "Maison", cat_trad: "Traditionnel", cat_sport: "Sport",
+    sell_title: "Vendre un article", sell_sub: "Gratuit. Tu reçois 100% du prix de vente.",
+    add_photo: "Ajouter", title_ph: "Titre — ex : Sneakers Adidas Samba 41",
+    desc_ph: "Description — état, taille, détails…",
+    cat_label: "CATÉGORIE", cond_label: "ÉTAT", price_label: "PRIX",
+    conds: ["Neuf avec étiquette", "Comme neuf", "Très bon état", "Bon état"],
+    scats: ["Femmes", "Hommes", "Enfants", "Tech", "Maison", "Traditionnel"],
+    you_receive: "Tu reçois", buyer_pays: "L'acheteur paie {x} DH (protection bali incluse)", publish: "Publier l'article",
+    messages: "Messages", write_msg: "Écris un message…",
+    offer_label: "Offre de prix", accept: "Accepter", counter: "Contre-offre", accepted: "Offre acceptée",
+    waiting: "En attente de réponse…", buy: "Acheter", make_offer: "Faire une offre",
+    negotiate: "Négocie le prix 🤝", listed: "Prix affiché", your_price: "Ton prix", send_offer: "Envoyer l'offre",
+    cod: "Paiement à la livraison", protection: "Protection bali",
+    how_title: "Comment ça marche",
+    how_text: "Tu commandes → le vendeur expédie sous 3 jours → tu paies à la livraison ou en ligne → bali libère l'argent au vendeur une fois l'article conforme. Zéro arnaque.",
+    wach: "Wach mazal ? 👀", with_prot: "avec protection", prot_incl: "protection incluse", sales_w: "ventes",
+    member: "Membre depuis 2026", wallet: "PORTEFEUILLE BALI", transfer: "Virer vers ma banque",
+    dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
+    s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
+    language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta",
+    t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
+    t_accepted: "Offre acceptée — safi, c'est vendu ! 🎉", t_published: "Sahiti ! « {t} » est en ligne 🎉",
+    t_order: "Commande simulée — paiement à la livraison ✅", t_need: "Ajoute un titre et un prix 🙂",
+    ai_cta1: "Annonce IA", ai_cta2: "Prends une photo — l'IA écrit l'annonce et estime le prix du marché",
+    ai_btn: "Créer avec l'IA", ai_loading: "L'IA analyse ta photo…",
+    ai_sub_loading: "Détection de l'article · estimation du prix marché marocain",
+    ai_done: "Annonce générée ✨ Vérifie et ajuste", ai_error: "L'IA n'a pas pu analyser la photo — réessaie ou remplis à la main",
+    ai_invalid: "Photo non reconnue comme un article vendable — essaie un autre angle",
+    ai_sugg: "Prix suggéré par l'IA", ai_range: "Fourchette marché",
+    delivery_label: "LIVRAISON", d_point: "Point bali · Hanout Al Amal (650 m)",
+    d_home: "Domicile · Amana", d_express: "Express · Cathedis",
+    sadaqa: "Mode Sadaqa 🤲", sadaqa_sub: "Le montant de la vente est reversé à une association",
+    sadaqa_on: "Tu donnes {x} DH à l'association partenaire 🤲",
+    b_score: "Fiabilité acheteur", b_refus: "0 colis refusé",
+    b_trust: "Les vendeurs te font confiance — tes offres passent en priorité",
+    video_b: "Emballage filmé", total_w: "Total",
+    ticket_title: "Ticket de retrait", my_order: "Ma commande",
+    order_ready: "Ton colis est arrivé au point relais 🎉",
+    order_confirm_prompt: "Colis retiré — confirme la réception 👇",
+    view_ticket: "Voir mon ticket", show_pin: "Afficher le PIN", hide_pin: "Masquer le PIN",
+    pin_warn: "Ne partage jamais ce code. Seul le hanoutier te le demandera, en main propre au moment de la remise.",
+    cod_pay: "À payer au retrait", qr_regen: "Nouveau QR dans {s} s", single_use: "usage unique",
+    point_relay: "Point relais", route: "Itinéraire", call_w: "Appeler",
+    tl_ordered: "Commandée", tl_dropped: "Déposée par le vendeur", tl_transit: "En transit",
+    tl_arrived: "Arrivée au point relais", tl_picked: "Retirée",
+    pickup_by: "À retirer avant le {d} — sinon retour au vendeur",
+    secu_line: "Remise sécurisée : QR dynamique · code PIN · scan géolocalisé",
+    try_partner: "Tester côté hanoutier (démo)",
+    confirm_q: "Article conforme ?", confirm_ok: "Oui — libérer le paiement", confirm_ko: "Signaler un problème",
+    funds_ok: "Paiement libéré au vendeur ✅ Merci !",
+    funds_frozen: "Fonds gelés. Notre équipe te contacte sous 24 h.",
+    check_title: "bali Check ✅", check_l1: "IMEI vérifié auprès des opérateurs", check_l2: "Non déclaré volé · facture contrôlée",
+    imei_label: "IMEI (vérification anti-vol automatique)", imei_ph: "Tape *#06# sur le téléphone",
+    inspect_title: "Inspecte avant de confirmer", insp_1: "L'article correspond aux photos",
+    insp_2: "Il fonctionne / bon état général", insp_3: "Taille et modèle corrects",
+    inspect_hint: "Fais-le au hanout avant de partir — le paiement n'est libéré qu'après ta confirmation.",
+    discreet: "Mode Discret 🔒", discreet_sub: "Nom et photo masqués. Contact uniquement via la messagerie bali.",
+    discreet_badge: "Profil discret",
+    pay_title: "bali Pay", recharge: "Recharger en espèces",
+    cashin_txt: "Recharge chez plus de 4 000 agents partenaires (Cash Plus, Wafacash, Barid Cash) ou par carte — crédité instantanément. Sans compte bancaire.",
+    cote_line: "Cote bali · basée sur {n} ventes similaires au Maroc",
+    share_toast: "Lien de l'annonce copié — partage-le sur WhatsApp 📲",
+    trust_title: "Garanties & aide humaine",
+    trust_help_sub: "Réponse en moins de 2 h · darija, français, arabe · 7 j/7",
+    trust_agent: "Amina · Support bali · en ligne",
+    trust_whatsapp: "Continuer sur WhatsApp",
+    trust_toast: "Ouverture de WhatsApp 📲 (démo)",
+    g1: "Un humain te répond en moins de 2 h — jamais de robot en boucle.",
+    g2: "Litige tranché en 72 h max, sur preuves : vidéo d'emballage + inspection au retrait.",
+    g3: "Vendeur ET acheteur protégés — la chaîne de responsabilité désigne le maillon fautif.",
+    g4: "Zéro frais caché : tout est affiché avant de payer.",
+    g5: "Aucun compte bloqué sans examen humain et droit de réponse.",
+    results_w: "{n} résultats", no_results: "Aucun résultat pour « {q} »",
+    try_else: "Essaie un autre mot-clé ou explore les catégories 👇",
+    follow: "Suivre", t_followed: "Tu suis {n} ✅", items_w: "articles",
+    ob_continue: "Continuer", ob_skip: "Passer",
+    ob_title2: "Le souk dans ta poche",
+    ob_v1: "0% commission vendeur — tu gardes 100% du prix",
+    ob_v2: "Paiement 100% sécurisé · retrait au hanout du quartier",
+    ob_v3: "Acheteur et vendeur protégés — un humain répond en 2 h",
+    ob_phone: "Ton numéro de téléphone", ob_send: "Recevoir le code SMS",
+    ob_code: "Entre le code reçu par SMS", ob_hint: "Démo : n'importe quel code à 4 chiffres",
+    ob_done: "Marhba bik f bali ! 🎉",
+    notifs_title: "Notifications",
+    n1: "💰 Salma.R propose 800 DH pour le caftan · il y a 5 min",
+    n2: "📦 Ta commande BAL-7F2K9 est arrivée au point relais · il y a 2 h",
+    n3: "❤️ L'iPhone 12 que tu suis a baissé à 3 800 DH · il y a 6 h",
+    n4: "👤 Imane_Tng suit ton dressing · hier",
+    checkout_title: "Confirmer la commande", pay_method: "PAIEMENT",
+    pm_card: "Carte bancaire · CMI", pm_wallet: "Solde bali Pay · 340 DH",
+    insufficient: "Solde insuffisant", confirm_order: "Confirmer la commande ✅",
+    t_paid: "Paiement accepté — commande confirmée ✅",
+    pm_pickup: "Paie au retrait · dans l'app, après inspection",
+    tsbiq: "Acompte de réservation",
+    tsbiq_waived: "0 DH — ton score fiabilité 98% t'en dispense",
+    tsbiq_new: "Les nouveaux comptes réservent avec 20% d'acompte",
+    reserve_note: "Le vendeur n'expédie qu'après ta réservation. Pas venu sous 7 jours ? Retour gratuit pour lui, indemnisé par l'acompte — et ton score baisse.",
+    no_cash_hanout: "Le hanoutier ne touche jamais d'argent : tout passe par l'app.",
+    pay_release: "Payer {x} DH — libérer le vendeur ✅",
+    seller_guar_t: "Garantie vendeur",
+    seller_guar: "Si l'acheteur ne vient pas retirer : retour gratuit + indemnité prélevée sur son acompte. Tu ne perds jamais un dirham.",
+    t_reserved: "Réservation confirmée ✅ Le vendeur peut expédier 📦",
+    gift_title: "Cadeau de bienvenue", gift_claim: "J'en profite 🎉",
+    gift_text: "−20 DH sur ta première commande, appliqués automatiquement au paiement.",
+    gift_applied: "Code MARHBA20 activé — −20 DH sur ta 1ère commande ✅",
+    deals_title: "⚡ Deals du jour", ends_in: "Se termine dans {t}",
+    viewers_line: "{n} personnes regardent cet article en ce moment",
+    hot_badge: "Très demandé",
+    s1: "Commande", s2: "Retire au hanout", s3: "Inspecte & récupère",
+    become_point: "Devenir point bali 🏪", become_sub: "Gagne 4 à 5 DH par colis · zéro espèces à gérer",
+    paid_t: "Déjà payé", paid_sub: "Ton argent est sécurisé chez bali. Le vendeur n'est payé qu'après ton inspection au retrait.",
+    no_card: "Pas de carte bancaire ?",
+    opt_cash: "Recharger en espèces chez un agent (Cash Plus, Wafacash…) — article réservé 48 h",
+    opt_khel: "Khellesli — un proche paie pour toi, par lien WhatsApp",
+    khel_toast: "Lien de paiement envoyé sur WhatsApp 📲 (démo)",
+    d_amana_point: "Amana (Poste) → ton point bali · inspection au retrait",
+    d_amana_home: "Amana (Poste) → domicile",
+    d_express_far: "Express Cathedis → domicile",
+    reco: "Recommandé",
+    smart_route: "Trajet optimisé automatiquement · {a} ↔ {b}",
+    far_protect: "Longue distance : colis assuré — vendeur remboursé à 100% si perte du transporteur.",
+    eta_tmw: "demain", eta_12: "1-2 j", eta_today: "aujourd'hui", eta_24: "2-4 j", eta_2448: "24-48 h",
+    sale_card_todo: "Vendu ! Dépose ton colis 📦", sale_card_done: "Colis déposé — en route 🚚",
+    deposit_title: "Dépôt du colis",
+    dep_status_todo: "À déposer", dep_status_ok: "Déposé ✅",
+    dep_show: "Montre ce QR au hanoutier — il scanne et prend la garde du colis.",
+    dep_before: "Dépose avant le {d} — sinon la vente est annulée et l'acheteur remboursé",
+    dep_tip1: "Emballe bien (sachet + scotch)", dep_tip2: "Filme l'emballage 🎥 — ta preuve en cas de litige",
+    dep_tip3: "Écris le code {c} sur le colis",
+    dep_btn: "Simuler le dépôt au hanout (démo)",
+    dep_done_note: "Garde transférée au hanout ✅ En route vers {n}",
+    after_insp: "versés sur ton solde après l'inspection de l'acheteur · 0% commission",
+    tl_sold: "Vendu 🎉", tl_paid2: "Argent versé",
+  },
+  dar: {
+    nav_home: "الرئيسية", nav_explore: "قلّب", nav_sell: "بيع", nav_msg: "الميساجات", nav_profile: "البروفيل",
+    search_ph: "قفطان، آيفون، سبرديلة…", banner1: "خوّي الخزانة ديالك وعمّر الجيب",
+    banner2: "0% كوميسيون على البائع · جيب السلعة من حانوت الحي 🇲🇦", selection: "اختيارات اليوم",
+    f_all: "كلشي", f_sneakers: "سبرديلات", f_tech: "تيك", f_femmes: "نساء", f_hommes: "رجال", f_trad: "تقليدي",
+    explore: "قلّب", search_on: "قلّب ف bali…", trends: "اللي طالع 🔥", categories: "الفئات",
+    cat_femmes: "نساء", cat_hommes: "رجال", cat_enfants: "دراري", cat_sneakers: "سبرديلات",
+    cat_tech: "تيك", cat_maison: "دار", cat_trad: "تقليدي", cat_sport: "سبور",
+    sell_title: "بيع شي حاجة", sell_sub: "فابور. كتاخد 100% ديال الثمن.",
+    add_photo: "زيد", title_ph: "العنوان — مثلا: سبرديلة أديداس 41",
+    desc_ph: "الوصف — الحالة، القياس، التفاصيل…",
+    cat_label: "الفئة", cond_label: "الحالة", price_label: "الثمن",
+    conds: ["جديدة بالتيكي", "بحال جديدة", "مزيانة بزاف", "مزيانة"],
+    scats: ["نساء", "رجال", "دراري", "تيك", "دار", "تقليدي"],
+    you_receive: "كتاخد", buyer_pays: "الشاري كيخلص {x} درهم (الحماية ديال bali داخلة)", publish: "نشر",
+    messages: "الميساجات", write_msg: "كتب ميساج…",
+    offer_label: "عرض ديال الثمن", accept: "قبل", counter: "عرض آخر", accepted: "تقبل العرض",
+    waiting: "كنتسناو الجواب…", buy: "شري", make_offer: "دير عرض",
+    negotiate: "تفاوض على الثمن 🤝", listed: "الثمن المعروض", your_price: "الثمن ديالك", send_offer: "صيفط العرض",
+    cod: "الخلاص عند التسليم", protection: "حماية bali",
+    how_title: "كيفاش خدامة",
+    how_text: "كتكوموندي ← البائع كيصيفط ف 3 أيام ← كتخلص عند التسليم ولا أونلاين ← bali كيحوّل الفلوس للبائع ملي توصلك السلعة مزيانة. والو نصب.",
+    wach: "واش مازال؟ 👀", with_prot: "مع الحماية", prot_incl: "الحماية داخلة", sales_w: "بيعات",
+    member: "عضو من 2026", wallet: "البزطام ديال BALI", transfer: "حوّل للبانكة",
+    dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
+    s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
+    language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا",
+    t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
+    t_accepted: "تقبل العرض — صافي، تباعت! 🎉", t_published: "صحيتي! « {t} » ولات أونلاين 🎉",
+    t_order: "كوموند تجريبية — الخلاص عند التسليم ✅", t_need: "زيد العنوان والثمن 🙂",
+    ai_cta1: "إعلان بالـ IA", ai_cta2: "صوّر السلعة — الـ IA يكتب الإعلان ويقدّر ثمن السوق",
+    ai_btn: "صاوب بالـ IA", ai_loading: "الـ IA كيحلل التصويرة…",
+    ai_sub_loading: "كشف السلعة · تقدير ثمن السوق المغربي",
+    ai_done: "تصاوب الإعلان ✨ تأكد وعدّل", ai_error: "الـ IA ماقدرش يحلل التصويرة — عاود ولا عمّر بيدك",
+    ai_invalid: "التصويرة ماشي ديال سلعة للبيع — جرب زاوية أخرى",
+    ai_sugg: "الثمن اللي اقترح الـ IA", ai_range: "فورشيطة السوق",
+    delivery_label: "التوصيل", d_point: "نقطة bali · حانوت الأمل (650 م)",
+    d_home: "للدار · أمانة", d_express: "إكسبريس · كاتيديس",
+    sadaqa: "وضع الصدقة 🤲", sadaqa_sub: "فلوس البيعة كيمشيو لجمعية خيرية",
+    sadaqa_on: "غادي تعطي {x} درهم للجمعية 🤲",
+    b_score: "موثوقية الشاري", b_refus: "0 كوليات مرفوضة",
+    b_trust: "الباعة كيتيقو فيك — العروض ديالك كتدوز الأولى",
+    video_b: "التغليف مصوّر", total_w: "المجموع",
+    ticket_title: "تيكي ديال الاستلام", my_order: "الطلبية ديالي",
+    order_ready: "الكولية ديالك وصلات لنقطة bali 🎉",
+    order_confirm_prompt: "خديتي الكولية — أكّد الاستلام 👇",
+    view_ticket: "شوف التيكي", show_pin: "بيّن الكود", hide_pin: "خبّي الكود",
+    pin_warn: "ما تعطي هاد الكود لحتى واحد. غير مول الحانوت اللي غادي يطلبو منك وجها لوجه فاش تاخد الكولية.",
+    cod_pay: "تخلص فاش تاخد", qr_regen: "QR جديد ف {s} ثانية", single_use: "استعمال واحد",
+    point_relay: "نقطة الاستلام", route: "الطريق", call_w: "عيّط",
+    tl_ordered: "تطلبات", tl_dropped: "حطّها البائع", tl_transit: "ف الطريق",
+    tl_arrived: "وصلات للنقطة", tl_picked: "تخدات",
+    pickup_by: "خودها قبل {d} — ولا غادي ترجع للبائع",
+    secu_line: "تسليم مأمّن: QR متجدد · كود PIN · سكان بالموقع",
+    try_partner: "جرّب الجيهة ديال مول الحانوت (ديمو)",
+    confirm_q: "السلعة مزيانة؟", confirm_ok: "آه — سرّح الفلوس", confirm_ko: "بلّغ على مشكل",
+    funds_ok: "تسرّحو الفلوس للبائع ✅ شكرا!",
+    funds_frozen: "الفلوس محبوسة. الفريق غادي يتواصل معاك ف 24 ساعة.",
+    check_title: "bali Check ✅", check_l1: "IMEI متأكد منو عند الأوبيراتورات", check_l2: "ماشي مسروق · الفاكتورة متأكدة",
+    imei_label: "IMEI (تأكد أوتوماتيكي ضد السرقة)", imei_ph: "دير *#06# ف التيليفون",
+    inspect_title: "عاين قبل ما تأكد", insp_1: "السلعة بحال التصاور",
+    insp_2: "خدامة / حالة مزيانة", insp_3: "القياس والموديل صحاح",
+    inspect_hint: "دير هادشي ف الحانوت قبل ما تخرج — الفلوس ما كيتسرحو غير من بعد التأكيد ديالك.",
+    discreet: "الوضع الخفي 🔒", discreet_sub: "السمية والتصويرة مخبيين. التواصل غير عبر ميساجات bali.",
+    discreet_badge: "بروفيل خفي",
+    pay_title: "bali Pay", recharge: "عمّر بالفلوس",
+    cashin_txt: "عمّر عند أكثر من 4000 وكيل شريك (كاش بلوس، وفاكاش، بريد كاش) ولا بالكارطة — كيتعمر دغيا. بلا حساب بنكي.",
+    cote_line: "كوط bali · مبنية على {n} بيعة بحالها ف المغرب",
+    share_toast: "تكوبيا الرابط — شاركو ف الواتساب 📲",
+    trust_title: "الضمانات والمساعدة الآدمية",
+    trust_help_sub: "الجواب ف أقل من ساعتين · بالدارجة والفرنسية والعربية · 7/7",
+    trust_agent: "أمينة · دعم bali · متصلة",
+    trust_whatsapp: "كمّل ف الواتساب",
+    trust_toast: "الواتساب كيتحل 📲 (ديمو)",
+    g1: "بنادم حقيقي كيجاوبك ف أقل من ساعتين — ماشي روبو كيعاود نفس الهضرة.",
+    g2: "النزاع كيتفصل ف 72 ساعة على الأكثر، بالحجة: فيديو التغليف + المعاينة فاش كتاخد.",
+    g3: "البائع والشاري بجوج محميين — سلسلة المسؤولية كتبين شكون غلط.",
+    g4: "والو مصاريف مخبية: كلشي مبين قبل ما تخلص.",
+    g5: "حتى كونط ما كيتبلوكا بلا مراجعة آدمية وحق الجواب.",
+    results_w: "{n} نتيجة", no_results: "ما لقينا والو على « {q} »",
+    try_else: "جرب كلمة أخرى ولا قلب ف الفئات 👇",
+    follow: "تابع", t_followed: "راك كتبع {n} ✅", items_w: "سلعة",
+    ob_continue: "كمل", ob_skip: "دوز",
+    ob_title2: "السوق ف جيبك",
+    ob_v1: "0% كوميسيون على البائع — كتاخد 100% ديال الثمن",
+    ob_v2: "الخلاص مأمن 100% · جيب السلعة من حانوت الحي",
+    ob_v3: "الشاري والبائع محميين — بنادم كيجاوب ف ساعتين",
+    ob_phone: "رقم التيليفون ديالك", ob_send: "توصل بكود SMS",
+    ob_code: "دخل الكود اللي وصلك", ob_hint: "ديمو: أي كود ب 4 أرقام",
+    ob_done: "مرحبا بيك ف bali! 🎉",
+    notifs_title: "الإشعارات",
+    n1: "💰 Salma.R عرضات 800 درهم على القفطان · هادي 5 دقايق",
+    n2: "📦 الطلبية BAL-7F2K9 وصلات لنقطة الاستلام · هادي ساعتين",
+    n3: "❤️ الآيفون 12 اللي كتبع نقص ل 3800 درهم · هادي 6 سوايع",
+    n4: "👤 Imane_Tng ولات كتبع الدريسينڭ ديالك · البارح",
+    checkout_title: "أكد الطلبية", pay_method: "الخلاص",
+    pm_card: "الكارطة البنكية · CMI", pm_wallet: "رصيد bali Pay · 340 درهم",
+    insufficient: "الرصيد ما كافيش", confirm_order: "أكد الطلبية ✅",
+    t_paid: "تقبل الخلاص — تأكدات الطلبية ✅",
+    pm_pickup: "خلص فاش تاخد · ف الأبليكاسيون، من بعد المعاينة",
+    tsbiq: "التسبيق ديال الحجز",
+    tsbiq_waived: "0 درهم — السكور ديالك 98% كيعفيك منو",
+    tsbiq_new: "الكونطات الجداد كيحجزو ب 20% تسبيق",
+    reserve_note: "البائع ما كيصيفطش حتى تأكد الحجز ديالك. ما جيتيش ف 7 أيام؟ الرجوع فابور ليه، معوض من التسبيق — والسكور ديالك كينقص.",
+    no_cash_hanout: "مول الحانوت عمرو ما كيشد الفلوس: كلشي كيدوز من الأبليكاسيون.",
+    pay_release: "خلص {x} درهم — سرح البائع ✅",
+    seller_guar_t: "ضمانة البائع",
+    seller_guar: "إلا ما جاش الشاري ياخد السلعة: الرجوع فابور + تعويض من التسبيق ديالو. عمرك ما كتخسر درهم.",
+    t_reserved: "تأكد الحجز ✅ البائع يقدر يصيفط 📦",
+    gift_title: "هدية الترحيب", gift_claim: "نستافد 🎉",
+    gift_text: "−20 درهم على أول طلبية ديالك، كيتحسبو أوتوماتيكيا فاش كتخلص.",
+    gift_applied: "تفعّل الكود MARHBA20 — ناقص 20 درهم على أول طلبية ✅",
+    deals_title: "⚡ ديلات اليوم", ends_in: "كيسالي ف {t}",
+    viewers_line: "{n} ديال الناس كيشوفو هاد السلعة دابا",
+    hot_badge: "مطلوبة بزاف",
+    s1: "كوموندي", s2: "خود من الحانوت", s3: "عاين وخود",
+    become_point: "ولي نقطة bali 🏪", become_sub: "ربح 4-5 دراهم على كل كولية · بلا ما تشد الفلوس",
+    paid_t: "خالص", paid_sub: "الفلوس ديالك محفوظين عند bali. البائع ما كيتخلصش حتى تعاين السلعة فاش تاخدها.",
+    no_card: "ما عندكش الكارطة البنكية؟",
+    opt_cash: "عمّر بالفلوس عند وكيل (كاش بلوس، وفاكاش…) — السلعة محجوزة 48 ساعة",
+    opt_khel: "خلّصلي — شي قريب يخلص عليك، برابط واتساب",
+    khel_toast: "تصيفط رابط الخلاص ف الواتساب 📲 (ديمو)",
+    d_amana_point: "أمانة (البوسطة) → نقطة bali ديالك · المعاينة فاش تاخد",
+    d_amana_home: "أمانة (البوسطة) → للدار",
+    d_express_far: "إكسبريس كاتيديس → للدار",
+    reco: "اللي ننصحو بيه",
+    smart_route: "الطريق تختار أوتوماتيكيا · {a} ↔ {b}",
+    far_protect: "مسافة بعيدة: الكولية مأمنة — البائع كيتعوض 100% إلا ضاعت عند الناقل.",
+    eta_tmw: "غدا", eta_12: "1-2 أيام", eta_today: "اليوم", eta_24: "2-4 أيام", eta_2448: "24-48 ساعة",
+    sale_card_todo: "تباعت! حط الكولية 📦", sale_card_done: "الكولية تحطات — ف الطريق 🚚",
+    deposit_title: "إيداع الكولية",
+    dep_status_todo: "خاصها تتحط", dep_status_ok: "تحطات ✅",
+    dep_show: "ورّي هاد الـ QR لمول الحانوت — كيسكاني وكياخد الكولية ف عهدتو.",
+    dep_before: "حطها قبل {d} — ولا البيعة كتلغى والشاري كيتعوض",
+    dep_tip1: "غلّفها مزيان (ميكة + سكوتش)", dep_tip2: "صوّر التغليف 🎥 — الحجة ديالك إلا وقع مشكل",
+    dep_tip3: "كتب الكود {c} على الكولية",
+    dep_btn: "جرّب الإيداع ف الحانوت (ديمو)",
+    dep_done_note: "العهدة تحولات للحانوت ✅ ف الطريق ل {n}",
+    after_insp: "كيتحطو ف الرصيد ديالك من بعد معاينة الشاري · 0% كوميسيون",
+    tl_sold: "تباعت 🎉", tl_paid2: "الفلوس توصلو",
+  },
+  ar: {
+    nav_home: "الرئيسية", nav_explore: "استكشف", nav_sell: "بيع", nav_msg: "الرسائل", nav_profile: "حسابي",
+    search_ph: "قفطان، آيفون، حذاء رياضي…", banner1: "أفرغ خزانتك واملأ محفظتك",
+    banner2: "0% عمولة على البائع · الاستلام من حانوت الحي 🇲🇦", selection: "اختيارات اليوم",
+    f_all: "الكل", f_sneakers: "أحذية", f_tech: "إلكترونيات", f_femmes: "نساء", f_hommes: "رجال", f_trad: "تقليدي",
+    explore: "استكشف", search_on: "ابحث في bali…", trends: "الرائج 🔥", categories: "الفئات",
+    cat_femmes: "نساء", cat_hommes: "رجال", cat_enfants: "أطفال", cat_sneakers: "أحذية رياضية",
+    cat_tech: "إلكترونيات", cat_maison: "منزل", cat_trad: "تقليدي", cat_sport: "رياضة",
+    sell_title: "بيع منتج", sell_sub: "مجاني. تحصل على 100% من سعر البيع.",
+    add_photo: "أضف", title_ph: "العنوان — مثال: حذاء أديداس مقاس 41",
+    desc_ph: "الوصف — الحالة، المقاس، التفاصيل…",
+    cat_label: "الفئة", cond_label: "الحالة", price_label: "السعر",
+    conds: ["جديد بالملصق", "كالجديد", "حالة جيدة جدا", "حالة جيدة"],
+    scats: ["نساء", "رجال", "أطفال", "إلكترونيات", "منزل", "تقليدي"],
+    you_receive: "تحصل على", buyer_pays: "يدفع المشتري {x} درهم (شاملة حماية bali)", publish: "انشر المنتج",
+    messages: "الرسائل", write_msg: "اكتب رسالة…",
+    offer_label: "عرض سعر", accept: "قبول", counter: "عرض مضاد", accepted: "تم قبول العرض",
+    waiting: "في انتظار الرد…", buy: "اشتر", make_offer: "قدّم عرضا",
+    negotiate: "فاوض على السعر 🤝", listed: "السعر المعروض", your_price: "سعرك", send_offer: "أرسل العرض",
+    cod: "الدفع عند الاستلام", protection: "حماية bali",
+    how_title: "كيف يعمل",
+    how_text: "تطلب ← يشحن البائع خلال 3 أيام ← تدفع عند الاستلام أو عبر الإنترنت ← يحوّل bali المال للبائع بعد التأكد من مطابقة المنتج. صفر احتيال.",
+    wach: "هل مازال متوفرا؟ 👀", with_prot: "مع الحماية", prot_incl: "شاملة الحماية", sales_w: "مبيعات",
+    member: "عضو منذ 2026", wallet: "محفظة BALI", transfer: "تحويل إلى حسابي البنكي",
+    dressing: "خزانتي", sell_new: "بيع منتج جديد",
+    s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
+    language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي",
+    t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
+    t_accepted: "تم قبول العرض — مبروك، تم البيع! 🎉", t_published: "« {t} » أصبح متاحا الآن 🎉",
+    t_order: "طلب تجريبي — الدفع عند الاستلام ✅", t_need: "أضف عنوانا وسعرا 🙂",
+    ai_cta1: "إعلان بالذكاء الاصطناعي", ai_cta2: "صوّر المنتج — الذكاء الاصطناعي يكتب الإعلان ويقدّر السعر",
+    ai_btn: "أنشئ بالذكاء الاصطناعي", ai_loading: "جارٍ تحليل الصورة…",
+    ai_sub_loading: "التعرف على المنتج · تقدير سعر السوق المغربي",
+    ai_done: "تم إنشاء الإعلان ✨ راجع وعدّل", ai_error: "تعذر تحليل الصورة — أعد المحاولة أو املأ يدويا",
+    ai_invalid: "الصورة ليست لمنتج قابل للبيع — جرب زاوية أخرى",
+    ai_sugg: "السعر المقترح", ai_range: "نطاق السوق",
+    delivery_label: "التوصيل", d_point: "نقطة bali · حانوت الأمل (650 م)",
+    d_home: "إلى المنزل · أمانة", d_express: "سريع · كاتيديس",
+    sadaqa: "وضع الصدقة 🤲", sadaqa_sub: "يُحوَّل مبلغ البيع إلى جمعية خيرية",
+    sadaqa_on: "ستتبرع بـ {x} درهم للجمعية 🤲",
+    b_score: "موثوقية المشتري", b_refus: "0 طرود مرفوضة",
+    b_trust: "البائعون يثقون بك — عروضك لها الأولوية",
+    video_b: "تغليف موثق بالفيديو", total_w: "المجموع",
+    ticket_title: "تذكرة الاستلام", my_order: "طلبي",
+    order_ready: "وصل طردك إلى نقطة bali 🎉",
+    order_confirm_prompt: "تم استلام الطرد — أكّد الاستلام 👇",
+    view_ticket: "عرض التذكرة", show_pin: "إظهار الرمز", hide_pin: "إخفاء الرمز",
+    pin_warn: "لا تشارك هذا الرمز أبداً. صاحب المحل وحده سيطلبه منك وجهاً لوجه عند التسليم.",
+    cod_pay: "الدفع عند الاستلام", qr_regen: "رمز QR جديد خلال {s} ث", single_use: "استخدام واحد",
+    point_relay: "نقطة الاستلام", route: "الاتجاهات", call_w: "اتصال",
+    tl_ordered: "تم الطلب", tl_dropped: "أودعها البائع", tl_transit: "في الطريق",
+    tl_arrived: "وصلت إلى النقطة", tl_picked: "تم الاستلام",
+    pickup_by: "استلمها قبل {d} — وإلا تُعاد إلى البائع",
+    secu_line: "تسليم آمن: QR متجدد · رمز PIN · مسح بالموقع الجغرافي",
+    try_partner: "جرّب واجهة صاحب المحل (تجريبي)",
+    confirm_q: "هل المنتج مطابق؟", confirm_ok: "نعم — حرّر الدفع", confirm_ko: "الإبلاغ عن مشكلة",
+    funds_ok: "تم تحويل المال إلى البائع ✅ شكراً!",
+    funds_frozen: "الأموال مجمّدة. سيتواصل معك فريقنا خلال 24 ساعة.",
+    check_title: "bali Check ✅", check_l1: "تم التحقق من IMEI لدى المشغلين", check_l2: "غير مبلّغ عنه كمسروق · فاتورة موثقة",
+    imei_label: "IMEI (تحقق تلقائي ضد السرقة)", imei_ph: "اطلب *#06# على الهاتف",
+    inspect_title: "افحص قبل التأكيد", insp_1: "المنتج مطابق للصور",
+    insp_2: "يعمل / حالة جيدة", insp_3: "المقاس والموديل صحيحان",
+    inspect_hint: "افعل ذلك في المحل قبل المغادرة — لا يُحوَّل المال إلا بعد تأكيدك.",
+    discreet: "الوضع الخاص 🔒", discreet_sub: "الاسم والصورة مخفيان. التواصل عبر رسائل bali فقط.",
+    discreet_badge: "ملف خاص",
+    pay_title: "bali Pay", recharge: "شحن نقداً",
+    cashin_txt: "اشحن لدى أكثر من 4000 وكيل شريك (كاش بلوس، وفاكاش، بريد كاش) أو بالبطاقة — يُقيَّد فوراً. بدون حساب بنكي.",
+    cote_line: "مؤشر bali · مبني على {n} عملية بيع مماثلة في المغرب",
+    share_toast: "تم نسخ رابط الإعلان — شاركه على واتساب 📲",
+    trust_title: "الضمانات والدعم البشري",
+    trust_help_sub: "رد خلال أقل من ساعتين · بالدارجة والفرنسية والعربية · 7/7",
+    trust_agent: "أمينة · دعم bali · متصلة",
+    trust_whatsapp: "المتابعة عبر واتساب",
+    trust_toast: "فتح واتساب 📲 (تجريبي)",
+    g1: "إنسان حقيقي يرد عليك خلال أقل من ساعتين — لا روبوتات تكرر نفس الرسالة.",
+    g2: "يُحسم النزاع خلال 72 ساعة كحد أقصى، بالأدلة: فيديو التغليف + الفحص عند الاستلام.",
+    g3: "البائع والمشتري محميان معاً — سلسلة المسؤولية تحدد الطرف المخطئ.",
+    g4: "لا رسوم خفية: كل شيء معروض قبل الدفع.",
+    g5: "لا يُحظر أي حساب دون مراجعة بشرية وحق الرد.",
+    results_w: "{n} نتيجة", no_results: "لا نتائج لـ « {q} »",
+    try_else: "جرّب كلمة أخرى أو استكشف الفئات 👇",
+    follow: "متابعة", t_followed: "أنت تتابع {n} ✅", items_w: "منتجات",
+    ob_continue: "متابعة", ob_skip: "تخطي",
+    ob_title2: "السوق في جيبك",
+    ob_v1: "0% عمولة على البائع — تحتفظ بـ 100% من السعر",
+    ob_v2: "دفع آمن 100% · الاستلام من حانوت الحي",
+    ob_v3: "المشتري والبائع محميان — إنسان يرد خلال ساعتين",
+    ob_phone: "رقم هاتفك", ob_send: "استلام رمز SMS",
+    ob_code: "أدخل الرمز المستلم", ob_hint: "تجريبي: أي رمز من 4 أرقام",
+    ob_done: "مرحباً بك في bali! 🎉",
+    notifs_title: "الإشعارات",
+    n1: "💰 عرضت Salma.R مبلغ 800 درهم للقفطان · قبل 5 دقائق",
+    n2: "📦 وصل طلبك BAL-7F2K9 إلى نقطة الاستلام · قبل ساعتين",
+    n3: "❤️ انخفض سعر آيفون 12 الذي تتابعه إلى 3800 درهم · قبل 6 ساعات",
+    n4: "👤 Imane_Tng تتابع خزانتك · أمس",
+    checkout_title: "تأكيد الطلب", pay_method: "الدفع",
+    pm_card: "بطاقة بنكية · CMI", pm_wallet: "رصيد bali Pay · 340 درهم",
+    insufficient: "رصيد غير كافٍ", confirm_order: "تأكيد الطلب ✅",
+    t_paid: "تم قبول الدفع — تأكد الطلب ✅",
+    pm_pickup: "ادفع عند الاستلام · في التطبيق، بعد الفحص",
+    tsbiq: "عربون الحجز",
+    tsbiq_waived: "0 درهم — درجة موثوقيتك 98% تعفيك منه",
+    tsbiq_new: "الحسابات الجديدة تحجز بعربون 20%",
+    reserve_note: "لا يشحن البائع إلا بعد تأكيد حجزك. لم تأتِ خلال 7 أيام؟ إرجاع مجاني له، يُعوَّض من العربون — وتنخفض درجتك.",
+    no_cash_hanout: "صاحب المحل لا يلمس المال أبداً: كل شيء يمر عبر التطبيق.",
+    pay_release: "ادفع {x} درهم — حرّر البائع ✅",
+    seller_guar_t: "ضمان البائع",
+    seller_guar: "إذا لم يأتِ المشتري للاستلام: إرجاع مجاني + تعويض من عربونه. لن تخسر درهماً أبداً.",
+    t_reserved: "تأكد الحجز ✅ يمكن للبائع الشحن 📦",
+    gift_title: "هدية الترحيب", gift_claim: "أستفيد 🎉",
+    gift_text: "خصم 20 درهماً على طلبك الأول، يُطبَّق تلقائياً عند الدفع.",
+    gift_applied: "تم تفعيل رمز MARHBA20 — خصم 20 درهماً على طلبك الأول ✅",
+    deals_title: "⚡ عروض اليوم", ends_in: "ينتهي خلال {t}",
+    viewers_line: "{n} أشخاص يشاهدون هذا المنتج الآن",
+    hot_badge: "مطلوب جداً",
+    s1: "اطلب", s2: "استلم من المحل", s3: "افحص واستلم",
+    become_point: "كن نقطة bali 🏪", become_sub: "اربح 4-5 دراهم لكل طرد · دون لمس النقود",
+    paid_t: "مدفوع", paid_sub: "أموالك محفوظة لدى bali. لا يُدفع للبائع إلا بعد فحصك عند الاستلام.",
+    no_card: "لا تملك بطاقة بنكية؟",
+    opt_cash: "اشحن نقداً لدى وكيل (كاش بلوس، وفاكاش…) — المنتج محجوز 48 ساعة",
+    opt_khel: "خلّصلي — قريب يدفع عنك عبر رابط واتساب",
+    khel_toast: "تم إرسال رابط الدفع عبر واتساب 📲 (تجريبي)",
+    d_amana_point: "أمانة (البريد) → نقطة bali الخاصة بك · فحص عند الاستلام",
+    d_amana_home: "أمانة (البريد) → المنزل",
+    d_express_far: "إكسبريس كاتيديس → المنزل",
+    reco: "موصى به",
+    smart_route: "مسار محدد تلقائياً · {a} ↔ {b}",
+    far_protect: "مسافة طويلة: الطرد مؤمَّن — يُعوَّض البائع 100% إن فُقد لدى الناقل.",
+    eta_tmw: "غداً", eta_12: "1-2 أيام", eta_today: "اليوم", eta_24: "2-4 أيام", eta_2448: "24-48 ساعة",
+    sale_card_todo: "بيع! أودع طردك 📦", sale_card_done: "أُودع الطرد — في الطريق 🚚",
+    deposit_title: "إيداع الطرد",
+    dep_status_todo: "بانتظار الإيداع", dep_status_ok: "تم الإيداع ✅",
+    dep_show: "أرِ هذا الرمز لصاحب المحل — يمسحه ويتسلم الطرد في عهدته.",
+    dep_before: "أودعه قبل {d} — وإلا تُلغى البيعة ويُعوَّض المشتري",
+    dep_tip1: "غلّفه جيداً (كيس + شريط لاصق)", dep_tip2: "صوّر التغليف 🎥 — دليلك عند أي نزاع",
+    dep_tip3: "اكتب الرمز {c} على الطرد",
+    dep_btn: "محاكاة الإيداع في المحل (تجريبي)",
+    dep_done_note: "انتقلت العهدة إلى المحل ✅ في الطريق إلى {n}",
+    after_insp: "تُضاف إلى رصيدك بعد فحص المشتري · 0% عمولة",
+    tl_sold: "بيع 🎉", tl_paid2: "تم تحويل المال",
+  },
+  zgh: {
+    nav_home: "ⴰⵎⵣⵡⴰⵔⵓ", nav_explore: "ⴰⵔⵣⵣⵓ", nav_sell: "ⵣⵣⵏⵣ", nav_msg: "ⵜⵉⴱⵔⴰⵜⵉⵏ", nav_profile: "ⴰⵎⵉⴹⴰⵏ",
+    selection: "ⴰⵙⵜⴰⵢ ⵏ ⵡⴰⵙⵙ", explore: "ⴰⵔⵣⵣⵓ", categories: "ⵜⴰⴳⴳⴰⵢⵉⵏ",
+    sell_title: "ⵣⵣⵏⵣ", price_label: "ⴰⵜⵉⴳ", publish: "ⵙⵙⵓⴼⵖ",
+    messages: "ⵜⵉⴱⵔⴰⵜⵉⵏ", accept: "ⵇⴱⵍ", buy: "ⵙⵖ", send_offer: "ⴰⵣⵏ ⴰⵙⵓⵎⵔ",
+    wach: "ⵉⵙ ⵙⵓⵍ ⵉⵍⵍⴰ? 👀", language: "ⵜⵓⵜⵍⴰⵢⵜ", choose_lang: "ⴼⵔⵏ ⵜⵓⵜⵍⴰⵢⵜ",
+  },
+  en: {
+    nav_home: "Home", nav_explore: "Explore", nav_sell: "Sell", nav_msg: "Messages", nav_profile: "Profile",
+    search_ph: "Caftan, iPhone, Air Force…", banner1: "Empty your closet, fill your wallet",
+    banner2: "0% seller fees · Pickup at your local hanout 🇲🇦", selection: "Today's picks",
+    f_all: "All", f_sneakers: "Sneakers", f_tech: "Tech", f_femmes: "Women", f_hommes: "Men", f_trad: "Traditional",
+    explore: "Explore", search_on: "Search on bali…", trends: "TRENDING 🔥", categories: "CATEGORIES",
+    cat_femmes: "Women", cat_hommes: "Men", cat_enfants: "Kids", cat_sneakers: "Sneakers",
+    cat_tech: "Tech", cat_maison: "Home", cat_trad: "Traditional", cat_sport: "Sports",
+    sell_title: "Sell an item", sell_sub: "Free. You keep 100% of the sale price.",
+    add_photo: "Add", title_ph: "Title — e.g. Adidas Samba sneakers 41",
+    desc_ph: "Description — condition, size, details…",
+    cat_label: "CATEGORY", cond_label: "CONDITION", price_label: "PRICE",
+    conds: ["New with tags", "Like new", "Very good", "Good"],
+    scats: ["Women", "Men", "Kids", "Tech", "Home", "Traditional"],
+    you_receive: "You receive", buyer_pays: "Buyer pays {x} DH (bali protection included)", publish: "List item",
+    messages: "Messages", write_msg: "Write a message…",
+    offer_label: "Price offer", accept: "Accept", counter: "Counter-offer", accepted: "Offer accepted",
+    waiting: "Waiting for reply…", buy: "Buy", make_offer: "Make an offer",
+    negotiate: "Negotiate the price 🤝", listed: "Listed price", your_price: "Your price", send_offer: "Send offer",
+    cod: "Cash on delivery", protection: "bali protection",
+    how_title: "How it works",
+    how_text: "You order → the seller ships within 3 days → you pay on delivery or online → bali releases the money once the item checks out. Zero scams.",
+    wach: "Still available? 👀", with_prot: "with protection", prot_incl: "protection included", sales_w: "sales",
+    member: "Member since 2026", wallet: "BALI WALLET", transfer: "Transfer to my bank",
+    dressing: "My closet", sell_new: "Sell a new item",
+    s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
+    language: "Language", choose_lang: "Choose your language", beta: "beta",
+    t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
+    t_accepted: "Offer accepted — sold! 🎉", t_published: "\u201C{t}\u201D is now live 🎉",
+    t_order: "Order simulated — cash on delivery ✅", t_need: "Add a title and a price 🙂",
+    ai_cta1: "AI listing", ai_cta2: "Snap a photo — AI writes the listing and prices it for the market",
+    ai_btn: "Create with AI", ai_loading: "AI is analyzing your photo…",
+    ai_sub_loading: "Detecting the item · estimating Moroccan market price",
+    ai_done: "Listing generated ✨ Review and adjust", ai_error: "AI couldn't analyze the photo — retry or fill manually",
+    ai_invalid: "Photo not recognized as a sellable item — try another angle",
+    ai_sugg: "AI suggested price", ai_range: "Market range",
+    delivery_label: "DELIVERY", d_point: "bali point · Hanout Al Amal (650 m)",
+    d_home: "Home · Amana", d_express: "Express · Cathedis",
+    sadaqa: "Sadaqa mode 🤲", sadaqa_sub: "Sale proceeds go to a charity",
+    sadaqa_on: "You donate {x} DH to the partner charity 🤲",
+    b_score: "Buyer reliability", b_refus: "0 refused parcels",
+    b_trust: "Sellers trust you — your offers get priority",
+    video_b: "Packing on video", total_w: "Total",
+    ticket_title: "Pickup ticket", my_order: "My order",
+    order_ready: "Your parcel arrived at the bali point 🎉",
+    order_confirm_prompt: "Parcel picked up — confirm reception 👇",
+    view_ticket: "View my ticket", show_pin: "Show PIN", hide_pin: "Hide PIN",
+    pin_warn: "Never share this code. Only the shopkeeper will ask for it, in person, at handover.",
+    cod_pay: "Pay on pickup", qr_regen: "New QR in {s}s", single_use: "single use",
+    point_relay: "Pickup point", route: "Directions", call_w: "Call",
+    tl_ordered: "Ordered", tl_dropped: "Dropped by seller", tl_transit: "In transit",
+    tl_arrived: "Arrived at point", tl_picked: "Picked up",
+    pickup_by: "Pick up before {d} — or it returns to the seller",
+    secu_line: "Secure handover: rotating QR · PIN code · geolocated scan",
+    try_partner: "Try the shopkeeper side (demo)",
+    confirm_q: "Item as described?", confirm_ok: "Yes — release payment", confirm_ko: "Report an issue",
+    funds_ok: "Payment released to the seller ✅ Thanks!",
+    funds_frozen: "Funds frozen. Our team will contact you within 24h.",
+    check_title: "bali Check ✅", check_l1: "IMEI verified with carriers", check_l2: "Not reported stolen · invoice checked",
+    imei_label: "IMEI (automatic anti-theft check)", imei_ph: "Dial *#06# on the phone",
+    inspect_title: "Inspect before confirming", insp_1: "Item matches the photos",
+    insp_2: "Works / good overall condition", insp_3: "Right size and model",
+    inspect_hint: "Do it at the hanout before leaving — payment is only released after you confirm.",
+    discreet: "Discreet mode 🔒", discreet_sub: "Name and photo hidden. Contact via bali messages only.",
+    discreet_badge: "Discreet profile",
+    pay_title: "bali Pay", recharge: "Top up with cash",
+    cashin_txt: "Top up at 4,000+ partner agents (Cash Plus, Wafacash, Barid Cash) or by card — credited instantly. No bank account needed.",
+    cote_line: "bali index · based on {n} similar sales in Morocco",
+    share_toast: "Listing link copied — share it on WhatsApp 📲",
+    trust_title: "Guarantees & human support",
+    trust_help_sub: "Reply in under 2h · Darija, French, Arabic · 7/7",
+    trust_agent: "Amina · bali Support · online",
+    trust_whatsapp: "Continue on WhatsApp",
+    trust_toast: "Opening WhatsApp 📲 (demo)",
+    g1: "A real human replies in under 2 hours — never a bot on a loop.",
+    g2: "Disputes settled within 72h max, on evidence: packing video + pickup inspection.",
+    g3: "Seller AND buyer protected — the custody chain shows who's at fault.",
+    g4: "Zero hidden fees: everything is shown before you pay.",
+    g5: "No account ever blocked without human review and a right to reply.",
+    results_w: "{n} results", no_results: "No results for \u201C{q}\u201D",
+    try_else: "Try another keyword or browse categories 👇",
+    follow: "Follow", t_followed: "You follow {n} ✅", items_w: "items",
+    ob_continue: "Continue", ob_skip: "Skip",
+    ob_title2: "The souk in your pocket",
+    ob_v1: "0% seller fees — you keep 100% of the price",
+    ob_v2: "100% secure payment · pick up at your local hanout",
+    ob_v3: "Buyer and seller protected — a human replies in 2h",
+    ob_phone: "Your phone number", ob_send: "Get SMS code",
+    ob_code: "Enter the code you received", ob_hint: "Demo: any 4-digit code",
+    ob_done: "Welcome to bali! 🎉",
+    notifs_title: "Notifications",
+    n1: "💰 Salma.R offered 800 DH for the caftan · 5 min ago",
+    n2: "📦 Your order BAL-7F2K9 arrived at the pickup point · 2h ago",
+    n3: "❤️ The iPhone 12 you follow dropped to 3,800 DH · 6h ago",
+    n4: "👤 Imane_Tng now follows your closet · yesterday",
+    checkout_title: "Confirm order", pay_method: "PAYMENT",
+    pm_card: "Bank card · CMI", pm_wallet: "bali Pay balance · 340 DH",
+    insufficient: "Insufficient balance", confirm_order: "Confirm order ✅",
+    t_paid: "Payment accepted — order confirmed ✅",
+    pm_pickup: "Pay at pickup · in-app, after inspection",
+    tsbiq: "Reservation deposit",
+    tsbiq_waived: "0 DH — your 98% reliability score waives it",
+    tsbiq_new: "New accounts reserve with a 20% deposit",
+    reserve_note: "The seller only ships once your reservation is confirmed. No-show within 7 days? Free return for them, covered by the deposit — and your score drops.",
+    no_cash_hanout: "The shopkeeper never touches money: everything goes through the app.",
+    pay_release: "Pay {x} DH — release the seller ✅",
+    seller_guar_t: "Seller guarantee",
+    seller_guar: "If the buyer never picks up: free return + compensation from their deposit. You never lose a dirham.",
+    t_reserved: "Reservation confirmed ✅ The seller can ship 📦",
+    gift_title: "Welcome gift", gift_claim: "Claim it 🎉",
+    gift_text: "−20 DH off your first order, applied automatically at checkout.",
+    gift_applied: "Code MARHBA20 activated — 20 DH off your first order ✅",
+    deals_title: "⚡ Today's deals", ends_in: "Ends in {t}",
+    viewers_line: "{n} people are viewing this item right now",
+    hot_badge: "In demand",
+    s1: "Order", s2: "Pick up at hanout", s3: "Inspect & collect",
+    become_point: "Become a bali point 🏪", become_sub: "Earn 4–5 DH per parcel · zero cash to handle",
+    paid_t: "Already paid", paid_sub: "Your money is held safely by bali. The seller only gets paid after your inspection at pickup.",
+    no_card: "No bank card?",
+    opt_cash: "Top up with cash at an agent (Cash Plus, Wafacash…) — item held 48h",
+    opt_khel: "Khellesli — a relative pays for you via WhatsApp link",
+    khel_toast: "Payment link sent on WhatsApp 📲 (demo)",
+    d_amana_point: "Amana (Post) → your bali point · inspection at pickup",
+    d_amana_home: "Amana (Post) → home",
+    d_express_far: "Cathedis Express → home",
+    reco: "Recommended",
+    smart_route: "Route optimized automatically · {a} ↔ {b}",
+    far_protect: "Long distance: parcel insured — seller refunded 100% if the carrier loses it.",
+    eta_tmw: "tomorrow", eta_12: "1-2 d", eta_today: "today", eta_24: "2-4 d", eta_2448: "24-48 h",
+    sale_card_todo: "Sold! Drop off your parcel 📦", sale_card_done: "Parcel dropped — on its way 🚚",
+    deposit_title: "Parcel drop-off",
+    dep_status_todo: "To drop off", dep_status_ok: "Dropped ✅",
+    dep_show: "Show this QR to the shopkeeper — they scan it and take custody.",
+    dep_before: "Drop off before {d} — or the sale is cancelled and the buyer refunded",
+    dep_tip1: "Pack it well (bag + tape)", dep_tip2: "Film the packing 🎥 — your proof in a dispute",
+    dep_tip3: "Write the code {c} on the parcel",
+    dep_btn: "Simulate the drop-off (demo)",
+    dep_done_note: "Custody transferred to the hanout ✅ On its way to {n}",
+    after_insp: "credited to your balance after the buyer's inspection · 0% fees",
+    tl_sold: "Sold 🎉", tl_paid2: "Money paid out",
+  },
+  es: {
+    nav_home: "Inicio", nav_explore: "Explorar", nav_sell: "Vender", nav_msg: "Mensajes", nav_profile: "Perfil",
+    search_ph: "Caftán, iPhone, Air Force…", banner1: "Vacía tu armario, llena tu cartera",
+    banner2: "0% comisión al vendedor · Recogida en el hanout del barrio 🇲🇦", selection: "Selección del día",
+    f_all: "Todo", f_sneakers: "Zapatillas", f_tech: "Tech", f_femmes: "Mujer", f_hommes: "Hombre", f_trad: "Tradicional",
+    explore: "Explorar", search_on: "Buscar en bali…", trends: "TENDENCIAS 🔥", categories: "CATEGORÍAS",
+    cat_femmes: "Mujer", cat_hommes: "Hombre", cat_enfants: "Niños", cat_sneakers: "Zapatillas",
+    cat_tech: "Tech", cat_maison: "Hogar", cat_trad: "Tradicional", cat_sport: "Deporte",
+    sell_title: "Vender un artículo", sell_sub: "Gratis. Recibes el 100% del precio.",
+    add_photo: "Añadir", title_ph: "Título — ej.: Adidas Samba 41",
+    desc_ph: "Descripción — estado, talla, detalles…",
+    cat_label: "CATEGORÍA", cond_label: "ESTADO", price_label: "PRECIO",
+    conds: ["Nuevo con etiqueta", "Como nuevo", "Muy buen estado", "Buen estado"],
+    scats: ["Mujer", "Hombre", "Niños", "Tech", "Hogar", "Tradicional"],
+    you_receive: "Recibes", buyer_pays: "El comprador paga {x} DH (protección bali incluida)", publish: "Publicar",
+    messages: "Mensajes", write_msg: "Escribe un mensaje…",
+    offer_label: "Oferta de precio", accept: "Aceptar", counter: "Contraoferta", accepted: "Oferta aceptada",
+    waiting: "Esperando respuesta…", buy: "Comprar", make_offer: "Hacer una oferta",
+    negotiate: "Negocia el precio 🤝", listed: "Precio publicado", your_price: "Tu precio", send_offer: "Enviar oferta",
+    cod: "Pago contra entrega", protection: "Protección bali",
+    how_title: "Cómo funciona",
+    how_text: "Pides → el vendedor envía en 3 días → pagas al recibir o en línea → bali libera el dinero cuando el artículo está conforme. Cero estafas.",
+    wach: "¿Sigue disponible? 👀", with_prot: "con protección", prot_incl: "protección incluida", sales_w: "ventas",
+    member: "Miembro desde 2026", wallet: "CARTERA BALI", transfer: "Transferir a mi banco",
+    dressing: "Mi armario", sell_new: "Vender otro artículo",
+    s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
+    language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta",
+    t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
+    t_accepted: "Oferta aceptada — ¡vendido! 🎉", t_published: "«{t}» ya está en línea 🎉",
+    t_order: "Pedido simulado — pago contra entrega ✅", t_need: "Añade un título y un precio 🙂",
+    ai_cta1: "Anuncio con IA", ai_cta2: "Haz una foto — la IA redacta el anuncio y estima el precio",
+    ai_btn: "Crear con IA", ai_loading: "La IA analiza tu foto…",
+    ai_sub_loading: "Detectando el artículo · estimando el precio del mercado",
+    ai_done: "Anuncio generado ✨ Revisa y ajusta", ai_error: "La IA no pudo analizar la foto — reintenta o rellena a mano",
+    ai_invalid: "La foto no parece un artículo en venta — prueba otro ángulo",
+    ai_sugg: "Precio sugerido por la IA", ai_range: "Rango de mercado",
+    delivery_label: "ENTREGA", d_point: "Punto bali · Hanout Al Amal (650 m)",
+    d_home: "Domicilio · Amana", d_express: "Exprés · Cathedis",
+    sadaqa: "Modo Sadaqa 🤲", sadaqa_sub: "El importe se dona a una asociación",
+    sadaqa_on: "Donas {x} DH a la asociación 🤲",
+    b_score: "Fiabilidad del comprador", b_refus: "0 paquetes rechazados",
+    b_trust: "Los vendedores confían en ti — tus ofertas tienen prioridad",
+    video_b: "Embalaje en vídeo", total_w: "Total",
+    ticket_title: "Ticket de recogida", my_order: "Mi pedido",
+    order_ready: "Tu paquete llegó al punto bali 🎉",
+    order_confirm_prompt: "Paquete recogido — confirma la recepción 👇",
+    view_ticket: "Ver mi ticket", show_pin: "Mostrar PIN", hide_pin: "Ocultar PIN",
+    pin_warn: "Nunca compartas este código. Solo el tendero te lo pedirá, en persona, en la entrega.",
+    cod_pay: "Pagar al recoger", qr_regen: "Nuevo QR en {s}s", single_use: "uso único",
+    point_relay: "Punto de recogida", route: "Cómo llegar", call_w: "Llamar",
+    tl_ordered: "Pedido", tl_dropped: "Depositado por el vendedor", tl_transit: "En camino",
+    tl_arrived: "Llegó al punto", tl_picked: "Recogido",
+    pickup_by: "Recógelo antes del {d} — o vuelve al vendedor",
+    secu_line: "Entrega segura: QR rotativo · código PIN · escaneo geolocalizado",
+    try_partner: "Probar el lado del tendero (demo)",
+    confirm_q: "¿Artículo conforme?", confirm_ok: "Sí — liberar el pago", confirm_ko: "Reportar un problema",
+    funds_ok: "Pago liberado al vendedor ✅ ¡Gracias!",
+    funds_frozen: "Fondos congelados. Te contactamos en 24h.",
+    check_title: "bali Check ✅", check_l1: "IMEI verificado con los operadores", check_l2: "No denunciado robado · factura comprobada",
+    imei_label: "IMEI (verificación antirrobo automática)", imei_ph: "Marca *#06# en el teléfono",
+    inspect_title: "Inspecciona antes de confirmar", insp_1: "El artículo coincide con las fotos",
+    insp_2: "Funciona / buen estado", insp_3: "Talla y modelo correctos",
+    inspect_hint: "Hazlo en el hanout antes de salir — el pago solo se libera tras tu confirmación.",
+    discreet: "Modo discreto 🔒", discreet_sub: "Nombre y foto ocultos. Contacto solo por mensajes bali.",
+    discreet_badge: "Perfil discreto",
+    pay_title: "bali Pay", recharge: "Recargar en efectivo",
+    cashin_txt: "Recarga en más de 4.000 agentes (Cash Plus, Wafacash, Barid Cash) o con tarjeta — al instante. Sin cuenta bancaria.",
+    cote_line: "Índice bali · basado en {n} ventas similares en Marruecos",
+    share_toast: "Enlace copiado — compártelo en WhatsApp 📲",
+    trust_title: "Garantías y soporte humano",
+    trust_help_sub: "Respuesta en menos de 2h · dariya, francés, árabe · 7/7",
+    trust_agent: "Amina · Soporte bali · en línea",
+    trust_whatsapp: "Continuar en WhatsApp",
+    trust_toast: "Abriendo WhatsApp 📲 (demo)",
+    g1: "Un humano real te responde en menos de 2 horas — nunca un bot en bucle.",
+    g2: "Disputas resueltas en máx. 72h, con pruebas: vídeo de embalaje + inspección al recoger.",
+    g3: "Vendedor Y comprador protegidos — la cadena de custodia señala al responsable.",
+    g4: "Cero comisiones ocultas: todo se muestra antes de pagar.",
+    g5: "Ninguna cuenta bloqueada sin revisión humana y derecho a réplica.",
+    results_w: "{n} resultados", no_results: "Sin resultados para «{q}»",
+    try_else: "Prueba otra palabra o explora las categorías 👇",
+    follow: "Seguir", t_followed: "Sigues a {n} ✅", items_w: "artículos",
+    ob_continue: "Continuar", ob_skip: "Saltar",
+    ob_title2: "El zoco en tu bolsillo",
+    ob_v1: "0% comisión al vendedor — te quedas el 100% del precio",
+    ob_v2: "Pago 100% seguro · recogida en el hanout del barrio",
+    ob_v3: "Comprador y vendedor protegidos — un humano responde en 2h",
+    ob_phone: "Tu número de teléfono", ob_send: "Recibir código SMS",
+    ob_code: "Introduce el código recibido", ob_hint: "Demo: cualquier código de 4 cifras",
+    ob_done: "¡Bienvenido a bali! 🎉",
+    notifs_title: "Notificaciones",
+    n1: "💰 Salma.R ofrece 800 DH por el caftán · hace 5 min",
+    n2: "📦 Tu pedido BAL-7F2K9 llegó al punto de recogida · hace 2h",
+    n3: "❤️ El iPhone 12 que sigues bajó a 3.800 DH · hace 6h",
+    n4: "👤 Imane_Tng sigue tu armario · ayer",
+    checkout_title: "Confirmar pedido", pay_method: "PAGO",
+    pm_card: "Tarjeta bancaria · CMI", pm_wallet: "Saldo bali Pay · 340 DH",
+    insufficient: "Saldo insuficiente", confirm_order: "Confirmar pedido ✅",
+    t_paid: "Pago aceptado — pedido confirmado ✅",
+    pm_pickup: "Paga al recoger · en la app, tras la inspección",
+    tsbiq: "Depósito de reserva",
+    tsbiq_waived: "0 DH — tu fiabilidad del 98% te exime",
+    tsbiq_new: "Las cuentas nuevas reservan con un 20% de depósito",
+    reserve_note: "El vendedor solo envía tras confirmar tu reserva. ¿No vienes en 7 días? Devolución gratis para él, cubierta por el depósito — y tu puntuación baja.",
+    no_cash_hanout: "El tendero nunca toca el dinero: todo pasa por la app.",
+    pay_release: "Paga {x} DH — libera al vendedor ✅",
+    seller_guar_t: "Garantía del vendedor",
+    seller_guar: "Si el comprador no recoge: devolución gratis + compensación de su depósito. Nunca pierdes un dírham.",
+    t_reserved: "Reserva confirmada ✅ El vendedor puede enviar 📦",
+    gift_title: "Regalo de bienvenida", gift_claim: "Lo aprovecho 🎉",
+    gift_text: "−20 DH en tu primer pedido, aplicados automáticamente al pagar.",
+    gift_applied: "Código MARHBA20 activado — 20 DH menos en tu primer pedido ✅",
+    deals_title: "⚡ Ofertas del día", ends_in: "Termina en {t}",
+    viewers_line: "{n} personas están viendo este artículo ahora",
+    hot_badge: "Muy solicitado",
+    s1: "Pide", s2: "Recoge en el hanout", s3: "Inspecciona y recoge",
+    become_point: "Conviértete en punto bali 🏪", become_sub: "Gana 4–5 DH por paquete · sin manejar efectivo",
+    paid_t: "Ya pagado", paid_sub: "Tu dinero está protegido por bali. El vendedor solo cobra tras tu inspección al recoger.",
+    no_card: "¿Sin tarjeta bancaria?",
+    opt_cash: "Recarga en efectivo en un agente (Cash Plus, Wafacash…) — artículo reservado 48h",
+    opt_khel: "Khellesli — un allegado paga por ti, por enlace WhatsApp",
+    khel_toast: "Enlace de pago enviado por WhatsApp 📲 (demo)",
+    d_amana_point: "Amana (Correos) → tu punto bali · inspección al recoger",
+    d_amana_home: "Amana (Correos) → domicilio",
+    d_express_far: "Cathedis Exprés → domicilio",
+    reco: "Recomendado",
+    smart_route: "Ruta optimizada automáticamente · {a} ↔ {b}",
+    far_protect: "Larga distancia: paquete asegurado — vendedor reembolsado al 100% si el transportista lo pierde.",
+    eta_tmw: "mañana", eta_12: "1-2 d", eta_today: "hoy", eta_24: "2-4 d", eta_2448: "24-48 h",
+    sale_card_todo: "¡Vendido! Deposita tu paquete 📦", sale_card_done: "Paquete depositado — en camino 🚚",
+    deposit_title: "Depósito del paquete",
+    dep_status_todo: "Por depositar", dep_status_ok: "Depositado ✅",
+    dep_show: "Muestra este QR al tendero — lo escanea y toma la custodia.",
+    dep_before: "Deposítalo antes del {d} — o la venta se cancela y se reembolsa al comprador",
+    dep_tip1: "Embálalo bien (bolsa + cinta)", dep_tip2: "Graba el embalaje 🎥 — tu prueba ante disputas",
+    dep_tip3: "Escribe el código {c} en el paquete",
+    dep_btn: "Simular el depósito (demo)",
+    dep_done_note: "Custodia transferida al hanout ✅ En camino hacia {n}",
+    after_insp: "abonados a tu saldo tras la inspección del comprador · 0% comisión",
+    tl_sold: "Vendido 🎉", tl_paid2: "Dinero abonado",
+  },
+};
+
+/* ------------------------------------------------------------------ */
+/* DONNÉES                                                             */
+/* ------------------------------------------------------------------ */
+
+const CATEGORIES = [
+  { id: "femmes", emoji: "👗", grad: "from-rose-100 to-pink-200" },
+  { id: "hommes", emoji: "🧥", grad: "from-sky-100 to-blue-200" },
+  { id: "enfants", emoji: "🧸", grad: "from-amber-100 to-orange-200" },
+  { id: "sneakers", emoji: "👟", grad: "from-stone-100 to-stone-300" },
+  { id: "tech", emoji: "📱", grad: "from-violet-100 to-indigo-200" },
+  { id: "maison", emoji: "🛋️", grad: "from-emerald-100 to-teal-200" },
+  { id: "trad", emoji: "🪡", grad: "from-yellow-100 to-amber-200" },
+  { id: "sport", emoji: "⚽", grad: "from-lime-100 to-green-200" },
+];
+
+const ITEMS = [
+  {
+    id: 1, title: "Air Force 1 blanches", brand: "Nike", size: "42", cond: 2, video: true, oldPrice: 550,
+    price: 450, city: "Casablanca", likes: 23, emoji: "👟", grad: "from-stone-100 to-stone-300",
+    cat: "sneakers", seller: { name: "Yassine_Casa", rating: 4.8, sales: 34 },
+    desc: "Portées 5-6 fois, aucune trace. Boîte d'origine incluse. Envoi rapide via Amana."
+  },
+  {
+    id: 2, title: "Caftan vert brodé main", brand: "Artisanat Fès", size: "M", cond: 1, video: false, discreet: true,
+    price: 900, city: "Rabat", likes: 41, emoji: "✨", grad: "from-emerald-100 to-teal-200",
+    cat: "trad", seller: { name: "Salma.R", rating: 5.0, sales: 12 },
+    desc: "Porté une seule fois pour un mariage. Broderie sfifa dorée, tissu de qualité."
+  },
+  {
+    id: 3, title: "iPhone 12 128 Go débloqué", brand: "Apple", size: "—", cond: 3, video: true, imei: true,
+    price: 3800, city: "Marrakech", likes: 67, emoji: "📱", grad: "from-violet-100 to-indigo-200",
+    cat: "tech", seller: { name: "MehdiTech", rating: 4.9, sales: 58 },
+    desc: "Batterie 87%. Écran nickel, petite rayure au dos. Facture dispo. Tous opérateurs."
+  },
+  {
+    id: 4, title: "Sac bandoulière neuf", brand: "Zara", size: "—", cond: 0, video: false,
+    price: 180, city: "Tanger", likes: 15, emoji: "👜", grad: "from-rose-100 to-pink-200",
+    cat: "femmes", seller: { name: "Imane_Tng", rating: 4.7, sales: 21 },
+    desc: "Jamais porté, étiquette encore dessus. Cadeau en double."
+  },
+  {
+    id: 5, title: "Manette PS5 DualSense", brand: "Sony", size: "—", cond: 2, video: true, oldPrice: 520,
+    price: 420, city: "Casablanca", likes: 29, emoji: "🎮", grad: "from-sky-100 to-blue-200",
+    cat: "tech", seller: { name: "GamerAnas", rating: 4.6, sales: 17 },
+    desc: "Fonctionne parfaitement, sticks impeccables. Vendue avec câble USB-C."
+  },
+  {
+    id: 6, title: "Djellaba homme laine", brand: "Fait main", size: "L", cond: 2, video: false,
+    price: 350, city: "Fès", likes: 18, emoji: "🧥", grad: "from-yellow-100 to-amber-200",
+    cat: "trad", seller: { name: "Hamza.Fes", rating: 4.9, sales: 26 },
+    desc: "Laine véritable, coupe classique. Parfaite pour l'hiver et les fêtes."
+  },
+  {
+    id: 7, title: "Montre Casio vintage", brand: "Casio", size: "—", cond: 3, video: false,
+    price: 250, city: "Agadir", likes: 33, emoji: "⌚", grad: "from-amber-100 to-orange-200",
+    cat: "hommes", seller: { name: "Vintage_Agadir", rating: 4.8, sales: 44 },
+    desc: "Modèle A168, pile neuve. Quelques micro-rayures, charme vintage garanti."
+  },
+  {
+    id: 8, title: "Haut Tech Fleece", brand: "Nike", size: "M", cond: 2, video: false, oldPrice: 450,
+    price: 380, city: "Casablanca", likes: 21, emoji: "🧢", grad: "from-lime-100 to-green-200",
+    cat: "hommes", seller: { name: "Yassine_Casa", rating: 4.8, sales: 34 },
+    desc: "Authentique, acheté au Morocco Mall. Taille M, coupe normale."
+  },
+];
+
+/* Protection acheteur : 8% + 10 DH (le vendeur reçoit 100%) */
+const fee = (p) => Math.round(p * 0.08) + 10;
+const totalBuyer = (p) => p + fee(p);
+
+const FILTER_IDS = ["all", "sneakers", "tech", "femmes", "hommes", "trad"];
+
+/* Routage intelligent : hanout si proche, Poste/transporteur si loin */
+const USER_CITY = "Casablanca";
+const LOCAL_DELIV = [
+  { key: "d_point", price: 15, icon: Store, eta: "eta_tmw", reco: true },
+  { key: "d_home", price: 25, icon: Truck, eta: "eta_12" },
+  { key: "d_express", price: 30, icon: Zap, eta: "eta_today" },
+];
+const FAR_DELIV = [
+  { key: "d_amana_point", price: 25, icon: Store, eta: "eta_24", reco: true },
+  { key: "d_amana_home", price: 30, icon: Truck, eta: "eta_24" },
+  { key: "d_express_far", price: 45, icon: Zap, eta: "eta_2448" },
+];
+const delivFor = (i) => (i.city === USER_CITY ? LOCAL_DELIV : FAR_DELIV);
+
+/* Commande de démonstration pour le circuit point relais */
+const ORDER = {
+  code: "BAL-7F2K9",
+  pin: "4382",
+  item: { title: "Air Force 1 blanches", emoji: "👟", grad: "from-stone-100 to-stone-300", price: 450 },
+  fee: 46, delivery: 15, total: 511, cod: false,
+  point: {
+    name: "Hanout Al Amal", owner: "Si Mohamed",
+    addr: "12 rue Ibn Sina, Maârif — Casablanca",
+    dist: "650 m", hours: "7h–23h · 7j/7", slot: "B3",
+  },
+  deadline: "10 juil.",
+};
+
+/* Vente de démonstration pour le circuit dépôt vendeur */
+const SALE = {
+  code: "BAL-8R4W2",
+  item: { title: "Haut Tech Fleece", emoji: "🧢", grad: "from-lime-100 to-green-200", price: 380 },
+  buyer: "Kenza M.",
+  deadline: "jeu. 9 juil.",
+};
+
+export default function BaliApp() {
+  const [lang, setLang] = useState("fr");
+  const [langOpen, setLangOpen] = useState(false);
+  const [tab, setTab] = useState("home");
+  const [item, setItem] = useState(null);
+  const [filter, setFilter] = useState("all");
+  const [liked, setLiked] = useState({});
+  const [offerOpen, setOfferOpen] = useState(false);
+  const [offerValue, setOfferValue] = useState("");
+  const [toast, setToast] = useState(null);
+  const [activeThread, setActiveThread] = useState(null);
+  const [deliveryI, setDeliveryI] = useState(0);
+  const [threads, setThreads] = useState([
+    {
+      id: "t1", name: "Salma.R", itemTitle: "Caftan vert brodé main", emoji: "✨",
+      messages: [
+        { from: "me", text: "Salam ! Le caftan est toujours disponible ?" },
+        { from: "them", text: "Wa alaykoum salam, oui mazal ! 😊" },
+        { from: "them", type: "offer", amount: 800, status: "pending", text: "Je peux te le faire à 800 DH si tu prends aujourd'hui." },
+      ],
+    },
+  ]);
+
+  /* Formulaire de vente */
+  const [sellTitle, setSellTitle] = useState("");
+  const [sellDesc, setSellDesc] = useState("");
+  const [sellPrice, setSellPrice] = useState("");
+  const [sellCondI, setSellCondI] = useState(2);
+  const [sellCatI, setSellCatI] = useState(0);
+  const [sadaqaOn, setSadaqaOn] = useState(false);
+
+  /* IA */
+  const [aiState, setAiState] = useState("idle"); // idle | loading | done | error | invalid
+  const [aiResult, setAiResult] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
+
+  /* Point relais — deux faces du système */
+  const [appMode, setAppMode] = useState("client"); // client | partner
+  const [orderOpen, setOrderOpen] = useState(false);
+  const [orderStatus, setOrderStatus] = useState("ready"); // ready | delivered | confirmed | disputed
+  const [pinShown, setPinShown] = useState(false);
+  const [qrSeed, setQrSeed] = useState(1);
+  const [qrLeft, setQrLeft] = useState(60);
+  const [pScreen, setPScreen] = useState("dash"); // dash | scan | verify | locked | collect | done
+  const [pinInput, setPinInput] = useState("");
+  const [pinTries, setPinTries] = useState(0);
+  const [pTab, setPTab] = useState("colis");
+  const [acceptOn, setAcceptOn] = useState(true);
+  const [pParcel, setPParcel] = useState(null);
+  const [pObStep, setPObStep] = useState(-1); // -1 fermé · 0 hanout · 1 adresse · 2 versements · 3 envoyé
+  const [pObName, setPObName] = useState("");
+  const [pObPhotos, setPObPhotos] = useState([false, false]);
+  const [pObRib, setPObRib] = useState("");
+  const [depositOpen, setDepositOpen] = useState(false);
+  const [depoChecks, setDepoChecks] = useState([false, false, false]);
+  const [depositDone, setDepositDone] = useState(false);
+  const [imeiVal, setImeiVal] = useState("");
+  const [discreetOn, setDiscreetOn] = useState(false);
+  const [inspChecks, setInspChecks] = useState([false, false, false]);
+  const [payOpen, setPayOpen] = useState(false);
+  const [trustOpen, setTrustOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [sellerView, setSellerView] = useState(null);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const [notifRead, setNotifRead] = useState(false);
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [payMethodI, setPayMethodI] = useState(0);
+  const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 terminé
+  const [obPhone, setObPhone] = useState("");
+  const [obCode, setObCode] = useState("");
+  const [dealLeft, setDealLeft] = useState(16331); // compte à rebours deals du jour
+  const [saleOpen, setSaleOpen] = useState(false);
+  const [saleDropped, setSaleDropped] = useState(false);
+
+  const cur = LANGS.find((l) => l.id === lang);
+  const t = (k) => (T[lang] && T[lang][k] !== undefined ? T[lang][k] : T.fr[k]);
+  const tf = (k, vars) =>
+    Object.entries(vars).reduce((s, [key, v]) => s.replace("{" + key + "}", v), t(k));
+
+  /* QR dynamique : régénération toutes les 60 s quand le ticket est affiché */
+  useEffect(() => {
+    if (!orderOpen || orderStatus !== "ready") return;
+    const iv = setInterval(() => {
+      setQrLeft((s) => {
+        if (s <= 1) {
+          setQrSeed((q) => q + 1);
+          return 60;
+        }
+        return s - 1;
+      });
+    }, 1000);
+    return () => clearInterval(iv);
+  }, [orderOpen, orderStatus]);
+
+  /* Compte à rebours deals — actif uniquement sur l'accueil (performance) */
+  useEffect(() => {
+    if (obStep < 5 || appMode !== "client" || tab !== "home") return;
+    const iv = setInterval(() => setDealLeft((s) => (s > 0 ? s - 1 : 86399)), 1000);
+    return () => clearInterval(iv);
+  }, [tab, appMode, obStep]);
+
+  const fmtT = (s) =>
+    String(Math.floor(s / 3600)).padStart(2, "0") + ":" +
+    String(Math.floor((s % 3600) / 60)).padStart(2, "0") + ":" +
+    String(s % 60).padStart(2, "0");
+
+  const showToast = (msg) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 2800);
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* ANNONCE IA — simulation de démo (infaillible)                      */
+  /* En production : remplacer par un appel à un backend qui utilise    */
+  /* l'API Claude Vision. Ici on simule pour tester l'expérience.        */
+  /* ---------------------------------------------------------------- */
+
+  const AI_ITEMS = [
+    {
+      titles: { fr: "Sneakers Nike Air Force 1", dar: "سبرديلة نايك بيضاء", ar: "حذاء رياضي أبيض أصلي", en: "White Nike sneakers", es: "Zapatillas Nike blancas" },
+      brands: ["Nike", "Adidas", "Puma"], sizes: ["39", "40", "41", "42", "43"], cat: 3,
+      prices: { min: 350, sugg: 450, max: 550 },
+      descs: {
+        fr: "Très bien conservées, portées quelques fois. Boîte d'origine incluse. État impeccable.",
+        dar: "مزيانين بزاف، تلبسو غير شي مرات. الصندوق الأصلي معاهم. حالة ممتازة.",
+        ar: "بحالة ممتازة، ارتديتها قليلاً فقط. الصندوق الأصلي مرفق. كالجديدة تقريباً.",
+        en: "Barely worn, in great shape. Original box included. Impeccable condition.",
+        es: "Muy bien conservadas, usadas pocas veces. Caja original incluida.",
+      },
+    },
+    {
+      titles: { fr: "Caftan vert brodé main", dar: "قفطان أخضر مطرز باليد", ar: "قفطان أخضر مطرز يدوياً", en: "Green embroidered caftan", es: "Caftán verde bordado a mano" },
+      brands: ["Artisanat Fès", "Fait main", "Créateur local"], sizes: ["S", "M", "L", "XL"], cat: 5,
+      prices: { min: 750, sugg: 900, max: 1100 },
+      descs: {
+        fr: "Broderie sfifa dorée magnifique. Porté une seule fois pour un mariage. Tissu premium, excellent état.",
+        dar: "تطريز السفيفة ديال الذهب زوين بزاف. تلبس مرة وحدة ف عرس. لقماش ممتاز، حالة زوينة.",
+        ar: "تطريز ذهبي رائع. ارتدي مرة واحدة في عرس. قماش فاخر بحالة ممتازة.",
+        en: "Beautiful golden sfifa embroidery. Worn once for a wedding. Premium fabric, excellent condition.",
+        es: "Precioso bordado sfifa dorado. Usado una sola vez en una boda. Tejido premium.",
+      },
+    },
+    {
+      titles: { fr: "iPhone 12 128 Go débloqué", dar: "آيفون 12 128 جيڭا", ar: "آيفون 12 بذاكرة 128", en: "iPhone 12 128GB unlocked", es: "iPhone 12 128GB libre" },
+      brands: ["Apple"], sizes: ["—"], cat: 3,
+      prices: { min: 3500, sugg: 3800, max: 4200 },
+      descs: {
+        fr: "Batterie 85%. Écran impeccable. Petite rayure au dos, imperceptible. Tous opérateurs, facture dispo.",
+        dar: "لبطري 85%. لكران نقي. شي شرط صغير ف اللور ما كيبانش. كاع الشبكات، لفاكتورة كاينة.",
+        ar: "البطارية 85%. الشاشة نظيفة. خدش صغير في الظهر غير ملحوظ. جميع الشبكات، الفاتورة متوفرة.",
+        en: "Battery 85%. Flawless screen. Tiny scratch on the back, barely visible. All carriers, receipt available.",
+        es: "Batería 85%. Pantalla impecable. Pequeño rasguño atrás, imperceptible. Todos los operadores.",
+      },
+    },
+    {
+      titles: { fr: "Montre Casio vintage", dar: "ماڭانة كاسيو قديمة", ar: "ساعة كاسيو كلاسيكية", en: "Casio vintage watch", es: "Reloj Casio vintage" },
+      brands: ["Casio", "Citizen", "Timex"], sizes: ["—"], cat: 1,
+      prices: { min: 180, sugg: 250, max: 320 },
+      descs: {
+        fr: "Modèle classique A168. Pile neuve. Quelques micro-rayures, charme vintage garanti.",
+        dar: "لموديل الكلاسيكي A168. لبيلة جديدة. شي شروط صغار، الجمال ديال القديم.",
+        ar: "الموديل الكلاسيكي A168. بطارية جديدة. خدوش دقيقة، سحر عتيق مضمون.",
+        en: "Classic A168 model. New battery. A few micro-scratches, guaranteed vintage charm.",
+        es: "Modelo clásico A168. Pila nueva. Algún micro-rasguño, encanto vintage.",
+      },
+    },
+    {
+      titles: { fr: "Sac à main Zara neuf", dar: "ساك زارا جديد", ar: "حقيبة يد زارا جديدة", en: "New Zara handbag", es: "Bolso Zara nuevo" },
+      brands: ["Zara", "Mango", "H&M"], sizes: ["—"], cat: 0,
+      prices: { min: 150, sugg: 180, max: 220 },
+      descs: {
+        fr: "Jamais porté, étiquette encore dessus. Cadeau en double, parfait état.",
+        dar: "عمرو ما تلبس، التيكي مازال فيه. كادو مزدوج، حالة تمام.",
+        ar: "لم تُستعمل، الملصق لا يزال عليها. هدية مكررة، حالة مثالية.",
+        en: "Never used, tag still on. Duplicate gift, perfect condition.",
+        es: "Sin usar, con etiqueta. Regalo duplicado, estado perfecto.",
+      },
+    },
+  ];
+
+  const analyzePhoto = async (file) => {
+    if (!file) return;
+    setAiState("loading");
+    setAiResult(null);
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    setPhotoUrl(URL.createObjectURL(file));
+
+    /* Délai simulé de traitement IA */
+    await new Promise((res) => setTimeout(res, 2000));
+
+    const isHighQuality = file.size > 400000; /* grosse photo = meilleur état supposé */
+    const it = AI_ITEMS[Math.floor(Math.random() * AI_ITEMS.length)];
+    const brand = it.brands[Math.floor(Math.random() * it.brands.length)];
+    const size = it.sizes[Math.floor(Math.random() * it.sizes.length)];
+    const cond = it.cat === 3 && brand === "Apple" ? 2 : isHighQuality ? 1 : 2;
+
+    setSellTitle((it.titles[lang] || it.titles.fr).slice(0, 60));
+    setSellDesc(it.descs[lang] || it.descs.fr);
+    setSellPrice(String(it.prices.sugg));
+    setSellCatI(it.cat);
+    setSellCondI(cond);
+    setAiResult({ brand, size, sugg: it.prices.sugg, min: it.prices.min, max: it.prices.max, n: 900 + Math.floor(Math.random() * 1400) });
+    setAiState("done");
+    showToast(t("ai_done"));
+  };
+
+  const toggleLike = (id, e) => {
+    e.stopPropagation();
+    setLiked((l) => ({ ...l, [id]: !l[id] }));
+  };
+
+  const openItem = (it) => {
+    setDeliveryI(0);
+    setCheckoutOpen(false);
+    setPayMethodI(0);
+    setItem(it);
+  };
+
+  const sendQuickMsg = (it) => {
+    const th = {
+      id: "t" + Date.now(), name: it.seller.name, itemTitle: it.title, emoji: it.emoji,
+      messages: [{ from: "me", text: t("wach") }],
+    };
+    setThreads((prev) => [th, ...prev]);
+    setItem(null);
+    setTab("msg");
+    setActiveThread(th.id);
+    showToast(tf("t_msg_sent", { n: it.seller.name }));
+  };
+
+  const sendOffer = (it) => {
+    const amount = parseInt(offerValue, 10);
+    if (!amount || amount <= 0) return;
+    const th = {
+      id: "t" + Date.now(), name: it.seller.name, itemTitle: it.title, emoji: it.emoji,
+      messages: [{ from: "me", type: "offer", amount, status: "sent" }],
+    };
+    setThreads((prev) => [th, ...prev]);
+    setOfferOpen(false);
+    setOfferValue("");
+    setItem(null);
+    showToast(tf("t_offer_sent", { x: amount }));
+  };
+
+  const acceptOffer = (threadId, msgIndex) => {
+    setThreads((prev) =>
+      prev.map((th) =>
+        th.id !== threadId ? th : {
+          ...th,
+          messages: th.messages.map((m, i) => (i === msgIndex ? { ...m, status: "accepted" } : m)),
+        }
+      )
+    );
+    showToast(t("t_accepted"));
+  };
+
+  const publish = () => {
+    if (!sellTitle || !sellPrice) {
+      showToast(t("t_need"));
+      return;
+    }
+    showToast(tf("t_published", { t: sellTitle }));
+    setSellTitle("");
+    setSellDesc("");
+    setSellPrice("");
+    setSadaqaOn(false);
+    setAiState("idle");
+    setAiResult(null);
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    setPhotoUrl(null);
+  };
+
+  const filteredItems = filter === "all" ? ITEMS : ITEMS.filter((i) => i.cat === filter);
+  const thread = threads.find((th) => th.id === activeThread);
+
+  /* ---------------------------------------------------------------- */
+  /* Écrans (appelés comme fonctions pour préserver le focus clavier)  */
+  /* ---------------------------------------------------------------- */
+
+  const itemCard = (it) => (
+    <button key={it.id} onClick={() => openItem(it)} className="text-left bg-white rounded-2xl overflow-hidden shadow-sm active:scale-95 transition-transform">
+      <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center`}>
+        <span className="text-6xl">{it.emoji}</span>
+        {it.video && (
+          <span className="absolute bottom-2 left-2 bg-stone-900/80 text-white rounded-full p-1.5">
+            <Video size={11} />
+          </span>
+        )}
+        <button onClick={(e) => toggleLike(it.id, e)}
+          className="absolute top-2 right-2 bg-white/90 rounded-full px-2 py-1 flex items-center gap-1 shadow-sm">
+          <Heart size={14} className={liked[it.id] ? "text-rose-500 fill-rose-500" : "text-stone-500"} />
+          <span className="text-xs font-semibold text-stone-600">{it.likes + (liked[it.id] ? 1 : 0)}</span>
+        </button>
+      </div>
+      <div className="p-3">
+        <p className="text-sm font-bold text-stone-900 truncate">{it.title}</p>
+        <p className="text-xs text-stone-500 mt-0.5">{it.brand}{it.size !== "—" ? " · " + it.size : ""} · {t("conds")[it.cond]}</p>
+        <div className="flex items-baseline justify-between mt-2">
+          <p className="text-base font-extrabold text-orange-600">
+            {it.price} DH
+            {it.oldPrice && <span className="text-[10px] text-stone-400 line-through font-semibold"> {it.oldPrice}</span>}
+          </p>
+          <p className="text-[10px] text-stone-400 flex items-center gap-0.5">
+            <MapPin size={10} /> {it.city}
+          </p>
+        </div>
+        <p className="text-[10px] text-emerald-700 font-semibold mt-1 flex items-center gap-1">
+          <ShieldCheck size={11} /> {totalBuyer(it.price)} DH · {t("prot_incl")}
+        </p>
+      </div>
+    </button>
+  );
+
+  const dealCard = (it) => (
+    <button key={it.id} onClick={() => openItem(it)}
+      className="shrink-0 w-36 bg-white rounded-2xl overflow-hidden shadow-sm text-left active:scale-95 transition-transform">
+      <div className={`relative h-24 bg-gradient-to-br ${it.grad} flex items-center justify-center`}>
+        <span className="text-4xl">{it.emoji}</span>
+        <span className="absolute top-1.5 left-1.5 bg-rose-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full">
+          −{Math.round((1 - it.price / it.oldPrice) * 100)}%
+        </span>
+      </div>
+      <div className="p-2.5">
+        <p className="text-[11px] font-bold text-stone-900 truncate">{it.title}</p>
+        <p className="text-sm font-extrabold text-orange-600">
+          {it.price} DH <span className="text-[10px] text-stone-400 line-through font-semibold">{it.oldPrice}</span>
+        </p>
+      </div>
+    </button>
+  );
+
+  const homeScreen = () => (
+    <div className="pb-28">
+      <div className="px-5 pt-5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Star8 size={22} className="text-indigo-600" />
+          <span className="font-display font-extrabold text-2xl text-stone-900 tracking-tight">bali</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={() => setLangOpen(true)}
+            className="flex items-center gap-1.5 p-2 px-3 bg-white rounded-full shadow-sm">
+            <Globe size={16} className="text-indigo-600" />
+            <span className="text-xs font-extrabold text-stone-700 uppercase">{lang === "zgh" ? "ⵣ" : lang === "dar" ? "دا" : lang}</span>
+          </button>
+          <button onClick={() => { setNotifOpen(true); setNotifRead(true); }} className="relative p-2 bg-white rounded-full shadow-sm">
+            <Bell size={18} className="text-stone-700" />
+            {!notifRead && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full" />}
+          </button>
+        </div>
+      </div>
+
+      <div className="px-5 mt-4 flex gap-2">
+        <button onClick={() => setTab("search")}
+          className="flex-1 flex items-center gap-2 bg-white rounded-2xl px-4 py-3 shadow-sm text-left">
+          <Search size={17} className="text-stone-400" />
+          <span className="text-sm text-stone-400">{t("search_ph")}</span>
+        </button>
+        <button className="bg-white rounded-2xl px-3 shadow-sm">
+          <SlidersHorizontal size={17} className="text-stone-600" />
+        </button>
+      </div>
+
+      {/* Une seule bannière : promesse + cadeau */}
+      <div className="mx-5 mt-4 relative overflow-hidden rounded-3xl bg-indigo-600 text-white p-5">
+        <Star8 size={90} className="absolute -right-4 -top-5 text-indigo-500 opacity-60" />
+        <p className="font-display font-bold text-lg leading-snug relative">{t("banner1")}</p>
+        <p className="text-indigo-200 text-xs mt-1.5 font-semibold relative">{t("banner2")}</p>
+        <button onClick={() => showToast(t("gift_applied"))}
+          className="relative mt-3 inline-flex items-center gap-2 border border-dashed border-amber-300 rounded-full px-3 py-1.5 active:scale-95 transition-transform">
+          <span className="text-sm">🎁</span>
+          <span className="text-[11px] font-extrabold text-amber-300 tracking-wide">MARHBA20 · −20 DH</span>
+        </button>
+      </div>
+
+      {/* Le parcours en 3 étapes — compris en 3 secondes */}
+      <div className="px-5 mt-3">
+        <button onClick={() => setTrustOpen(true)}
+          className="w-full bg-white rounded-2xl p-3 shadow-sm flex items-center gap-1">
+          <div className="flex-1 flex flex-col items-center gap-0.5">
+            <span className="text-lg">🛒</span>
+            <span className="text-[9px] font-extrabold text-stone-600 text-center leading-tight">{t("s1")}</span>
+          </div>
+          <ChevronLeft size={13} className={`text-stone-300 shrink-0 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+          <div className="flex-1 flex flex-col items-center gap-0.5">
+            <span className="text-lg">🏪</span>
+            <span className="text-[9px] font-extrabold text-stone-600 text-center leading-tight">{t("s2")}</span>
+          </div>
+          <ChevronLeft size={13} className={`text-stone-300 shrink-0 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+          <div className="flex-1 flex flex-col items-center gap-0.5">
+            <span className="text-lg">✅</span>
+            <span className="text-[9px] font-extrabold text-stone-600 text-center leading-tight">{t("s3")}</span>
+          </div>
+        </button>
+      </div>
+
+      {/* Suivi de commande */}
+      {orderStatus !== "confirmed" && orderStatus !== "disputed" && (
+        <div className="px-5 mt-3">
+          <button onClick={() => setOrderOpen(true)}
+            className="w-full bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3 text-left active:scale-95 transition-transform">
+            <div className="w-11 h-11 rounded-2xl bg-emerald-50 flex items-center justify-center text-xl">📦</div>
+            <div className="flex-1">
+              <p className="text-xs font-extrabold text-stone-900">
+                {orderStatus === "ready" ? t("order_ready") : t("order_confirm_prompt")}
+              </p>
+              <p className="text-[10px] text-indigo-600 font-bold mt-0.5">{t("view_ticket")} →</p>
+            </div>
+            <span className="text-[10px] font-extrabold bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">{ORDER.code}</span>
+          </button>
+        </div>
+      )}
+
+      {/* Deals du jour — urgence */}
+      <div className="mt-5">
+        <div className="px-5 flex items-center justify-between">
+          <p className="text-sm font-extrabold text-stone-900">{t("deals_title")}</p>
+          <span className="text-[10px] font-extrabold bg-rose-50 text-rose-600 px-2.5 py-1 rounded-full">
+            ⏳ {tf("ends_in", { t: fmtT(dealLeft) })}
+          </span>
+        </div>
+        <div className="flex gap-3 px-5 mt-3 overflow-x-auto no-scrollbar">
+          {ITEMS.filter((i) => i.oldPrice).map((it) => dealCard(it))}
+        </div>
+      </div>
+
+      <div className="flex gap-2 px-5 mt-5 overflow-x-auto no-scrollbar">
+        {FILTER_IDS.map((f) => (
+          <button key={f} onClick={() => setFilter(f)}
+            className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
+              filter === f ? "bg-stone-900 text-white" : "bg-white text-stone-600 shadow-sm"}`}>
+            {t("f_" + f)}
+          </button>
+        ))}
+      </div>
+
+      <p className="px-5 mt-5 mb-3 text-sm font-extrabold text-stone-900">{t("selection")}</p>
+      <div className="px-5 grid grid-cols-2 gap-3">
+        {filteredItems.map((it) => itemCard(it))}
+      </div>
+    </div>
+  );
+
+  const searchScreen = () => {
+    const q = query.trim().toLowerCase();
+    const results = q
+      ? ITEMS.filter((i) => (i.title + " " + i.brand + " " + i.city + " " + i.cat).toLowerCase().includes(q))
+      : [];
+    return (
+      <div className="pb-28 px-5 pt-5">
+        <p className="font-display font-bold text-xl text-stone-900">{t("explore")}</p>
+        <div className="flex items-center gap-2 bg-white rounded-2xl px-4 shadow-sm mt-4 focus-within:ring-2 focus-within:ring-indigo-400">
+          <Search size={17} className="text-stone-400 shrink-0" />
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search_on")}
+            className="flex-1 py-3 text-sm font-medium outline-none bg-transparent" />
+          {query && (
+            <button onClick={() => setQuery("")}><X size={16} className="text-stone-400" /></button>
+          )}
+        </div>
+
+        {q ? (
+          results.length > 0 ? (
+            <>
+              <p className="text-xs font-bold text-stone-500 mt-5 mb-3">{tf("results_w", { n: results.length })}</p>
+              <div className="grid grid-cols-2 gap-3">{results.map((it) => itemCard(it))}</div>
+            </>
+          ) : (
+            <div className="mt-12 text-center">
+              <p className="text-4xl">🔍</p>
+              <p className="text-sm font-extrabold text-stone-900 mt-3">{tf("no_results", { q: query })}</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">{t("try_else")}</p>
+            </div>
+          )
+        ) : (
+          <>
+            <p className="text-xs font-bold text-stone-500 mt-5 mb-2">{t("trends")}</p>
+            <div className="flex flex-wrap gap-2">
+              {["caftan", "iPhone", "Air Force", "PS5", "djellaba", "montre"].map((tr) => (
+                <button key={tr} onClick={() => setQuery(tr)}
+                  className="bg-white px-3 py-1.5 rounded-full text-xs font-semibold text-indigo-600 shadow-sm active:scale-95 transition-transform">{tr}</button>
+              ))}
+            </div>
+            <p className="text-xs font-bold text-stone-500 mt-6 mb-3">{t("categories")}</p>
+            <div className="grid grid-cols-2 gap-3">
+              {CATEGORIES.map((c) => (
+                <button key={c.id} onClick={() => { setFilter(FILTER_IDS.includes(c.id) ? c.id : "all"); setTab("home"); }}
+                  className={`rounded-2xl p-4 bg-gradient-to-br ${c.grad} flex items-center gap-3 active:scale-95 transition-transform`}>
+                  <span className="text-3xl">{c.emoji}</span>
+                  <span className="text-sm font-bold text-stone-800">{t("cat_" + c.id)}</span>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
+  const sellScreen = () => (
+    <div className="pb-28 px-5 pt-5">
+      <p className="font-display font-bold text-xl text-stone-900">{t("sell_title")}</p>
+      <p className="text-xs text-stone-500 mt-1 font-medium">{t("sell_sub")}</p>
+
+      {/* --- ANNONCE IA --- */}
+      <div className="mt-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white p-5">
+        <Star8 size={80} className="absolute -right-4 -top-4 text-white opacity-10" />
+        {aiState === "loading" ? (
+          <div className="flex items-center gap-4">
+            {photoUrl && <img src={photoUrl} alt="" className="w-16 h-16 rounded-2xl object-cover border-2 border-white/30" />}
+            <div className="flex-1">
+              <p className="font-display font-bold text-sm flex items-center gap-2">
+                <Loader2 size={16} className="animate-spin" /> {t("ai_loading")}
+              </p>
+              <p className="text-[11px] text-indigo-200 mt-1 animate-pulse">{t("ai_sub_loading")}</p>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <p className="font-display font-bold text-base flex items-center gap-2">
+              <Sparkles size={17} /> {t("ai_cta1")}
+            </p>
+            <p className="text-[11px] text-indigo-200 mt-1 font-semibold leading-relaxed">{t("ai_cta2")}</p>
+            <label className="mt-3 inline-flex items-center gap-2 bg-white text-indigo-700 text-xs font-extrabold px-4 py-2.5 rounded-full cursor-pointer active:scale-95 transition-transform">
+              <Camera size={14} /> {t("ai_btn")}
+              <input type="file" accept="image/*" className="hidden"
+                onChange={(e) => analyzePhoto(e.target.files && e.target.files[0])} />
+            </label>
+            {aiState === "error" && <p className="text-[11px] text-amber-200 font-bold mt-2">⚠️ {t("ai_error")}</p>}
+            {aiState === "invalid" && <p className="text-[11px] text-amber-200 font-bold mt-2">⚠️ {t("ai_invalid")}</p>}
+          </div>
+        )}
+      </div>
+
+      {/* Résultat IA : fourchette de prix */}
+      {aiState === "done" && aiResult && (
+        <div className="mt-3 bg-white rounded-2xl p-4 shadow-sm border border-indigo-100">
+          <p className="text-xs font-extrabold text-indigo-700 flex items-center gap-1.5">
+            <Sparkles size={13} /> {t("ai_sugg")}
+          </p>
+          <p className="text-[11px] text-stone-500 font-semibold mt-1">
+            {aiResult.brand}{aiResult.size !== "—" ? " · " + aiResult.size : ""} · {t("ai_range")} : {aiResult.min}–{aiResult.max} DH
+          </p>
+          <p className="text-[10px] text-indigo-500 font-bold mt-1">📊 {tf("cote_line", { n: aiResult.n || 1247 })}</p>
+          <div className="flex gap-2 mt-3">
+            {[aiResult.min, aiResult.sugg, aiResult.max].map((p, i) => (
+              <button key={i} onClick={() => setSellPrice(String(p))}
+                className={`flex-1 py-2.5 rounded-xl text-sm font-extrabold ${
+                  sellPrice === String(p)
+                    ? "bg-indigo-600 text-white"
+                    : i === 1 ? "bg-indigo-50 text-indigo-700 border border-indigo-200" : "bg-stone-100 text-stone-600"}`}>
+                {p} DH
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Photos */}
+      <div className="grid grid-cols-4 gap-2 mt-4">
+        <label className="aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-indigo-50 flex flex-col items-center justify-center gap-1 cursor-pointer overflow-hidden">
+          {photoUrl ? (
+            <img src={photoUrl} alt="" className="w-full h-full object-cover" />
+          ) : (
+            <>
+              <Camera size={20} className="text-indigo-500" />
+              <span className="text-[10px] font-bold text-indigo-500">{t("add_photo")}</span>
+            </>
+          )}
+          <input type="file" accept="image/*" className="hidden"
+            onChange={(e) => analyzePhoto(e.target.files && e.target.files[0])} />
+        </label>
+        {[1, 2, 3].map((i) => (
+          <div key={i} className="aspect-square rounded-2xl bg-stone-200/60" />
+        ))}
+      </div>
+
+      {/* Champs */}
+      <div className="mt-5 space-y-3">
+        <input value={sellTitle} onChange={(e) => setSellTitle(e.target.value)}
+          placeholder={t("title_ph")}
+          className="w-full bg-white rounded-2xl px-4 py-3.5 text-sm font-medium shadow-sm outline-none focus:ring-2 focus:ring-indigo-400" />
+
+        <textarea value={sellDesc} onChange={(e) => setSellDesc(e.target.value)}
+          placeholder={t("desc_ph")} rows={3}
+          className="w-full bg-white rounded-2xl px-4 py-3.5 text-sm font-medium shadow-sm outline-none focus:ring-2 focus:ring-indigo-400 resize-none" />
+
+        <div>
+          <p className="text-xs font-bold text-stone-500 mb-2 mt-4">{t("cat_label")}</p>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar">
+            {t("scats").map((c, i) => (
+              <button key={i} onClick={() => setSellCatI(i)}
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap ${
+                  sellCatI === i ? "bg-indigo-600 text-white" : "bg-white text-stone-600 shadow-sm"}`}>
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="text-xs font-bold text-stone-500 mb-2 mt-4">{t("cond_label")}</p>
+          <div className="flex gap-2 overflow-x-auto no-scrollbar">
+            {t("conds").map((c, i) => (
+              <button key={i} onClick={() => setSellCondI(i)}
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap ${
+                  sellCondI === i ? "bg-indigo-600 text-white" : "bg-white text-stone-600 shadow-sm"}`}>
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="text-xs font-bold text-stone-500 mb-2 mt-4">{t("price_label")}</p>
+          <div className="flex items-center bg-white rounded-2xl px-4 shadow-sm focus-within:ring-2 focus-within:ring-indigo-400">
+            <input value={sellPrice} onChange={(e) => setSellPrice(e.target.value.replace(/[^0-9]/g, ""))}
+              placeholder="0" inputMode="numeric"
+              className="flex-1 py-3.5 text-sm font-bold outline-none bg-transparent" />
+            <span className="text-sm font-extrabold text-stone-400">DH</span>
+          </div>
+        </div>
+
+        {/* IMEI obligatoire pour la tech — anti-recel */}
+        {sellCatI === 3 && (
+          <div>
+            <p className="text-xs font-bold text-stone-500 mb-2 mt-4 flex items-center gap-1.5">
+              <Smartphone size={13} className="text-indigo-600" /> {t("imei_label")}
+            </p>
+            <input value={imeiVal} onChange={(e) => setImeiVal(e.target.value.replace(/[^0-9]/g, "").slice(0, 15))}
+              placeholder={t("imei_ph")} inputMode="numeric"
+              className="w-full bg-white rounded-2xl px-4 py-3.5 text-sm font-medium shadow-sm outline-none focus:ring-2 focus:ring-indigo-400" />
+            {imeiVal.length === 15 && (
+              <p className="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1">
+                <ShieldCheck size={12} /> {t("check_l1")} ✅
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Options — regroupées, compactes */}
+        <div className="bg-white rounded-2xl shadow-sm divide-y divide-stone-100">
+          <button onClick={() => setSadaqaOn(!sadaqaOn)} className="w-full p-3.5 flex items-center gap-3">
+            <span className="text-lg">🤲</span>
+            <div className="flex-1 text-left">
+              <p className="text-xs font-extrabold text-stone-900">{t("sadaqa")}</p>
+              <p className="text-[10px] text-stone-500 font-semibold">{t("sadaqa_sub")}</p>
+            </div>
+            <div className={`w-10 h-5 rounded-full p-0.5 transition-colors shrink-0 ${sadaqaOn ? "bg-emerald-500" : "bg-stone-200"}`}>
+              <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${sadaqaOn ? "translate-x-5" : ""}`} />
+            </div>
+          </button>
+          <button onClick={() => setDiscreetOn(!discreetOn)} className="w-full p-3.5 flex items-center gap-3">
+            <span className="text-lg">🔒</span>
+            <div className="flex-1 text-left">
+              <p className="text-xs font-extrabold text-stone-900">{t("discreet")}</p>
+              <p className="text-[10px] text-stone-500 font-semibold">{t("discreet_sub")}</p>
+            </div>
+            <div className={`w-10 h-5 rounded-full p-0.5 transition-colors shrink-0 ${discreetOn ? "bg-indigo-600" : "bg-stone-200"}`}>
+              <div className={`w-4 h-4 bg-white rounded-full shadow transition-transform ${discreetOn ? "translate-x-5" : ""}`} />
+            </div>
+          </button>
+        </div>
+
+        {sellPrice && (
+          <div className={`rounded-2xl p-4 flex items-start gap-3 border ${
+            sadaqaOn ? "bg-emerald-50 border-emerald-200" : "bg-emerald-50 border-emerald-200"}`}>
+            <Banknote size={18} className="text-emerald-600 mt-0.5" />
+            <div>
+              {sadaqaOn ? (
+                <p className="text-sm font-extrabold text-emerald-800">{tf("sadaqa_on", { x: sellPrice })}</p>
+              ) : (
+                <p className="text-sm font-extrabold text-emerald-800">{t("you_receive")} {sellPrice} DH</p>
+              )}
+              <p className="text-xs text-emerald-700 mt-0.5">
+                {tf("buyer_pays", { x: totalBuyer(parseInt(sellPrice, 10) || 0) })}
+              </p>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-start gap-3">
+          <ShieldCheck size={18} className="text-emerald-600 mt-0.5 shrink-0" />
+          <div>
+            <p className="text-xs font-extrabold text-emerald-800">{t("seller_guar_t")}</p>
+            <p className="text-[11px] text-emerald-700 font-semibold mt-0.5 leading-relaxed">{t("seller_guar")}</p>
+          </div>
+        </div>
+
+        <button onClick={publish}
+          className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-2 active:scale-95 transition-transform">
+          {t("publish")}
+        </button>
+      </div>
+    </div>
+  );
+
+  const offerBubble = (m, i, tId) => (
+    <div key={i} className={`max-w-[80%] rounded-2xl p-3.5 ${m.from === "me" ? "ml-auto bg-indigo-600 text-white" : "bg-white shadow-sm"}`}>
+      <p className={`text-xs font-bold ${m.from === "me" ? "text-indigo-200" : "text-indigo-600"}`}>💰 {t("offer_label")}</p>
+      <p className="text-xl font-extrabold mt-1">{m.amount} DH</p>
+      {m.text && <p className={`text-xs mt-1 ${m.from === "me" ? "text-indigo-100" : "text-stone-500"}`}>{m.text}</p>}
+      {m.status === "accepted" ? (
+        <p className="text-xs font-bold mt-2 flex items-center gap-1 text-emerald-600">
+          <Check size={13} /> {t("accepted")}
+        </p>
+      ) : m.from === "them" ? (
+        <div className="flex gap-2 mt-3">
+          <button onClick={() => acceptOffer(tId, i)}
+            className="flex-1 bg-emerald-600 text-white text-xs font-bold py-2 rounded-xl">{t("accept")}</button>
+          <button className="flex-1 bg-stone-100 text-stone-700 text-xs font-bold py-2 rounded-xl">{t("counter")}</button>
+        </div>
+      ) : (
+        <p className="text-[10px] mt-1.5 text-indigo-200 font-semibold">{t("waiting")}</p>
+      )}
+    </div>
+  );
+
+  const messagesScreen = () => {
+    if (thread) {
+      return (
+        <div className="pb-28 flex flex-col min-h-full">
+          <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setActiveThread(null)}><ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} /></button>
+            <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-extrabold text-indigo-600">
+              {thread.name[0]}
+            </div>
+            <div>
+              <p className="text-sm font-extrabold text-stone-900">{thread.name}</p>
+              <p className="text-[10px] text-stone-400 font-semibold">{thread.emoji} {thread.itemTitle}</p>
+            </div>
+          </div>
+          <div className="flex-1 px-5 pt-4 space-y-3">
+            {thread.messages.map((m, i) =>
+              m.type === "offer" ? offerBubble(m, i, thread.id) : (
+                <div key={i} className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm font-medium ${
+                  m.from === "me" ? "ml-auto bg-indigo-600 text-white" : "bg-white shadow-sm text-stone-800"}`}>
+                  {m.text}
+                </div>
+              )
+            )}
+          </div>
+          <div className="px-5 mt-4 flex gap-2">
+            <div className="flex-1 bg-white rounded-2xl px-4 py-3 text-sm text-stone-400 shadow-sm">{t("write_msg")}</div>
+            <button className="bg-indigo-600 rounded-2xl px-4 text-white"><Send size={17} className={cur.dir === "rtl" ? "rotate-180" : ""} /></button>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div className="pb-28 px-5 pt-5">
+        <p className="font-display font-bold text-xl text-stone-900">{t("messages")}</p>
+        <div className="mt-4 space-y-2">
+          {threads.map((th) => (
+            <button key={th.id} onClick={() => setActiveThread(th.id)}
+              className="w-full bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm text-left active:scale-95 transition-transform">
+              <div className="w-11 h-11 rounded-full bg-indigo-100 flex items-center justify-center text-base font-extrabold text-indigo-600">
+                {th.name[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-extrabold text-stone-900">{th.name}</p>
+                <p className="text-xs text-stone-500 truncate">
+                  {th.messages[th.messages.length - 1].type === "offer"
+                    ? "💰 " + th.messages[th.messages.length - 1].amount + " DH"
+                    : th.messages[th.messages.length - 1].text}
+                </p>
+              </div>
+              <span className="text-2xl">{th.emoji}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
+  const profileScreen = () => (
+    <div className="pb-28 px-5 pt-5">
+      <div className="flex items-center gap-4">
+        <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-display font-extrabold text-white">A</div>
+        <div>
+          <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-1.5">
+            Abdel <BadgeCheck size={17} className="text-indigo-600" />
+          </p>
+          <p className="text-xs text-stone-500 font-semibold flex items-center gap-1 mt-0.5">
+            <Star size={12} className="text-amber-500 fill-amber-500" /> 4,9 · 12 {t("sales_w")} · {t("member")}
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-3 gap-2 mt-5">
+        {[["12", t("s_sales")], ["48", t("s_followers")], ["23", t("s_favs")]].map(([n, l]) => (
+          <div key={l} className="bg-white rounded-2xl p-3 text-center shadow-sm">
+            <p className="text-lg font-extrabold text-stone-900">{n}</p>
+            <p className="text-[10px] font-bold text-stone-400">{l}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Vente en cours — dépôt du colis */}
+      <button onClick={() => setSaleOpen(true)}
+        className="w-full mt-4 bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3 text-left active:scale-95 transition-transform">
+        <div className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${SALE.item.grad} flex items-center justify-center text-xl shrink-0`}>{SALE.item.emoji}</div>
+        <div className="flex-1 min-w-0">
+          <p className="text-xs font-extrabold text-stone-900">{saleDropped ? t("sale_card_done") : t("sale_card_todo")}</p>
+          <p className="text-[10px] text-indigo-600 font-bold mt-0.5 truncate">{SALE.item.title} · {SALE.item.price} DH →</p>
+        </div>
+        <span className={`text-[10px] font-extrabold px-2 py-1 rounded-full shrink-0 ${saleDropped ? "bg-emerald-50 text-emerald-700" : "bg-amber-50 text-amber-700"}`}>
+          {saleDropped ? t("dep_status_ok") : t("dep_status_todo")}
+        </span>
+      </button>
+
+      {/* Score de fiabilité acheteur — l'arme anti-refus COD */}
+      <div className="mt-4 bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3">
+        <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center">
+          <ShieldCheck size={22} className="text-emerald-600" />
+        </div>
+        <div className="flex-1">
+          <p className="text-sm font-extrabold text-stone-900">{t("b_score")} · <span className="text-emerald-600">98%</span></p>
+          <p className="text-[11px] text-stone-500 font-semibold">{t("b_refus")} ✅ — {t("b_trust")}</p>
+        </div>
+      </div>
+
+      {/* Garanties & aide humaine */}
+      <button onClick={() => setTrustOpen(true)}
+        className="w-full mt-3 bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+        <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center">
+          <HeartHandshake size={18} className="text-emerald-600" />
+        </div>
+        <div className="flex-1 text-left">
+          <p className="text-sm font-extrabold text-stone-900">{t("trust_title")}</p>
+          <p className="text-[11px] text-stone-500 font-semibold">{t("trust_help_sub")}</p>
+        </div>
+      </button>
+
+      {/* Devenir point bali — la porte d'entrée du réseau */}
+      <button onClick={() => { setPObStep(0); setPObName(""); setPObPhotos([false, false]); setPObRib(""); }}
+        className="w-full mt-3 bg-stone-900 rounded-2xl p-4 flex items-center gap-3 relative overflow-hidden">
+        <Star8 size={46} className="absolute -right-1 -top-2 text-stone-800" />
+        <div className="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center relative shrink-0">
+          <Store size={18} className="text-stone-900" />
+        </div>
+        <div className="flex-1 text-left relative">
+          <p className="text-sm font-extrabold text-white">{t("become_point")}</p>
+          <p className="text-[11px] text-stone-400 font-semibold">{t("become_sub")}</p>
+        </div>
+      </button>
+
+      <div className="mt-4 bg-indigo-600 rounded-3xl p-5 text-white relative overflow-hidden">
+        <Star8 size={70} className="absolute -right-3 -bottom-4 text-indigo-500 opacity-50" />
+        <p className="text-xs font-bold text-indigo-200 flex items-center gap-1.5"><Wallet size={14} /> {t("wallet")}</p>
+        <p className="font-display font-extrabold text-3xl mt-2">340 DH</p>
+        <div className="flex gap-2 mt-3 relative">
+          <button onClick={() => setPayOpen(true)}
+            className="bg-amber-400 text-stone-900 text-xs font-extrabold px-4 py-2 rounded-full">{t("recharge")}</button>
+          <button className="bg-white text-indigo-700 text-xs font-extrabold px-4 py-2 rounded-full">{t("transfer")}</button>
+        </div>
+      </div>
+
+      <button onClick={() => setLangOpen(true)}
+        className="w-full mt-4 bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+        <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center">
+          <Globe size={18} className="text-indigo-600" />
+        </div>
+        <div className="flex-1 text-left">
+          <p className="text-sm font-extrabold text-stone-900">{t("language")}</p>
+          <p className="text-xs text-stone-500 font-semibold">{cur.name}</p>
+        </div>
+        <span className="text-lg">{cur.flag}</span>
+      </button>
+
+      <p className="text-sm font-extrabold text-stone-900 mt-6 mb-3">{t("dressing")}</p>
+      <div className="grid grid-cols-2 gap-3">
+        {ITEMS.slice(0, 2).map((it) => itemCard(it))}
+      </div>
+      <button onClick={() => setTab("sell")}
+        className="w-full mt-4 border-2 border-dashed border-indigo-300 text-indigo-600 font-bold text-sm py-4 rounded-2xl flex items-center justify-center gap-2">
+        <Plus size={16} /> {t("sell_new")}
+      </button>
+    </div>
+  );
+
+  /* ---------------------------------------------------------------- */
+  /* Fiche article + feuilles                                          */
+  /* ---------------------------------------------------------------- */
+
+  const itemDetail = (it) => (
+    <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+      <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app">
+        <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center`}>
+          <span className="text-9xl">{it.emoji}</span>
+          <button onClick={() => setItem(null)} className="absolute top-4 left-4 bg-white/90 p-2 rounded-full shadow">
+            <ChevronLeft size={20} className={`text-stone-800 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+          </button>
+          <button onClick={(e) => toggleLike(it.id, e)} className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow">
+            <Heart size={20} className={liked[it.id] ? "text-rose-500 fill-rose-500" : "text-stone-600"} />
+          </button>
+          <button onClick={() => showToast(t("share_toast"))} className="absolute top-16 right-4 bg-white/90 p-2 rounded-full shadow">
+            <Share2 size={18} className="text-stone-600" />
+          </button>
+        </div>
+
+        <div className="p-5 pb-44">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="font-display font-bold text-lg text-stone-900 leading-snug">{it.title}</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">{it.brand}{it.size !== "—" ? " · " + it.size : ""} · {t("conds")[it.cond]}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-2xl font-extrabold text-orange-600">{it.price} DH</p>
+              {it.oldPrice && <p className="text-[11px] text-stone-400 line-through font-semibold">{it.oldPrice} DH</p>}
+              <p className="text-[10px] text-stone-400 font-semibold">{totalBuyer(it.price)} DH {t("with_prot")}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mt-3">
+            <span className="text-[11px] text-rose-600 font-bold w-full">👀 {tf("viewers_line", { n: (it.likes % 4) + 2 })}</span>
+            {it.likes > 30 && (
+              <span className="flex items-center gap-1 bg-rose-50 text-rose-600 text-[11px] font-bold px-3 py-1.5 rounded-full">
+                🔥 {t("hot_badge")}
+              </span>
+            )}
+            <span className="flex items-center gap-1 bg-indigo-50 text-indigo-700 text-[11px] font-bold px-3 py-1.5 rounded-full">
+              <ShieldCheck size={12} /> {t("protection")}
+            </span>
+            {it.video && (
+              <span className="flex items-center gap-1 bg-stone-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-full">
+                <Video size={12} /> {t("video_b")}
+              </span>
+            )}
+          </div>
+
+          <p className="text-sm text-stone-600 leading-relaxed mt-4">{it.desc}</p>
+
+          {/* bali Check — vérification anti-vol et authenticité */}
+          {it.imei && (
+            <div className="mt-4 bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+              <p className="text-xs font-extrabold text-emerald-800 flex items-center gap-1.5">
+                <ShieldCheck size={14} /> {t("check_title")}
+              </p>
+              <p className="text-[11px] text-emerald-700 font-semibold mt-1.5">✓ {t("check_l1")}</p>
+              <p className="text-[11px] text-emerald-700 font-semibold mt-0.5">✓ {t("check_l2")}</p>
+            </div>
+          )}
+
+          {/* Livraison intelligente : hanout si proche, Poste si loin */}
+          <p className="text-xs font-bold text-stone-500 mt-5 mb-2">{t("delivery_label")}</p>
+          {it.city !== USER_CITY && (
+            <p className="text-[10px] text-indigo-600 font-bold mb-2">🤖 {tf("smart_route", { a: USER_CITY, b: it.city })}</p>
+          )}
+          <div className="space-y-2">
+            {delivFor(it).map((d, i) => {
+              const DIcon = d.icon;
+              const active = deliveryI === i;
+              return (
+                <button key={d.key} onClick={() => setDeliveryI(i)}
+                  className={`w-full flex items-center gap-3 p-3 rounded-2xl border transition-colors ${
+                    active ? "bg-indigo-50 border-indigo-300" : "bg-white border-transparent shadow-sm"}`}>
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${active ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-500"}`}>
+                    <DIcon size={16} />
+                  </div>
+                  <div className="flex-1 text-left">
+                    <p className={`text-xs font-extrabold flex items-center gap-1.5 flex-wrap ${active ? "text-indigo-800" : "text-stone-700"}`}>
+                      {t(d.key)}
+                      {d.reco && (
+                        <span className="text-[9px] font-extrabold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full">{t("reco")}</span>
+                      )}
+                    </p>
+                    <p className="text-[9px] text-stone-400 font-bold mt-0.5">⏱ {t(d.eta)}</p>
+                  </div>
+                  <p className={`text-xs font-extrabold shrink-0 ${active ? "text-indigo-700" : "text-stone-500"}`}>{d.price} DH</p>
+                </button>
+              );
+            })}
+          </div>
+          {it.city !== USER_CITY && (
+            <p className="text-[10px] text-emerald-700 font-bold mt-2 flex items-start gap-1.5">
+              <ShieldCheck size={12} className="mt-0.5 shrink-0" /> {t("far_protect")}
+            </p>
+          )}
+
+          <div className="mt-5 bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+            <button onClick={() => { setItem(null); setSellerView(it.seller.name); }}
+              className="flex items-center gap-3 flex-1 text-left">
+              <div className="w-11 h-11 rounded-full bg-indigo-100 flex items-center justify-center text-base font-extrabold text-indigo-600 shrink-0">
+                {it.discreet ? "S" : it.seller.name[0]}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-extrabold text-stone-900 flex items-center gap-1.5">
+                  {it.discreet ? "S." : it.seller.name}
+                  {it.discreet && (
+                    <span className="text-[9px] font-extrabold bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Lock size={9} /> {t("discreet_badge")}
+                    </span>
+                  )}
+                </p>
+                <p className="text-[11px] text-stone-500 font-semibold flex items-center gap-1">
+                  <Star size={11} className="text-amber-500 fill-amber-500" /> {it.seller.rating} · {it.seller.sales} {t("sales_w")} · <MapPin size={10} /> {it.city}
+                </p>
+              </div>
+            </button>
+            <button onClick={() => sendQuickMsg(it)}
+              className="bg-stone-100 text-stone-800 text-[11px] font-extrabold px-3 py-2 rounded-full whitespace-nowrap">
+              {t("wach")}
+            </button>
+          </div>
+
+          <button onClick={() => setTrustOpen(true)}
+            className="w-full mt-4 bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-indigo-50 flex items-center justify-center shrink-0">
+              <Package size={16} className="text-indigo-600" />
+            </div>
+            <p className="flex-1 text-left text-xs font-extrabold text-stone-900">{t("how_title")} · {t("trust_title")}</p>
+            <ChevronLeft size={16} className={`text-stone-400 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+          </button>
+        </div>
+
+        <div className="fixed bottom-0 inset-x-0 flex justify-center">
+          <div className="w-full max-w-md bg-white border-t border-stone-100 p-4 flex gap-3">
+            <button onClick={() => { setOfferValue(String(Math.round(it.price * 0.9))); setOfferOpen(true); }}
+              className="flex-1 border-2 border-indigo-600 text-indigo-600 font-extrabold text-sm py-3.5 rounded-2xl">
+              {t("make_offer")}
+            </button>
+            <button onClick={() => { setPayMethodI(0); setCheckoutOpen(true); }}
+              className="flex-1 bg-indigo-600 text-white font-extrabold text-sm py-3.5 rounded-2xl">
+              {t("buy")} · {totalBuyer(it.price) + delivFor(it)[deliveryI].price} DH
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {offerOpen && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setOfferOpen(false)}>
+          <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <p className="font-display font-bold text-lg text-stone-900">{t("negotiate")}</p>
+              <button onClick={() => setOfferOpen(false)}><X size={20} className="text-stone-400" /></button>
+            </div>
+            <p className="text-xs text-stone-500 font-semibold mt-1">{t("listed")} : {it.price} DH</p>
+            <div className="flex gap-2 mt-4">
+              {[0.9, 0.85, 0.8].map((r) => (
+                <button key={r} onClick={() => setOfferValue(String(Math.round(it.price * r)))}
+                  className={`flex-1 py-3 rounded-2xl text-sm font-extrabold ${
+                    offerValue === String(Math.round(it.price * r))
+                      ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-700"}`}>
+                  {Math.round(it.price * r)} DH
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center bg-stone-100 rounded-2xl px-4 mt-3">
+              <input value={offerValue} onChange={(e) => setOfferValue(e.target.value.replace(/[^0-9]/g, ""))}
+                inputMode="numeric" placeholder={t("your_price")}
+                className="flex-1 py-3.5 bg-transparent text-sm font-extrabold outline-none" />
+              <span className="text-sm font-extrabold text-stone-400">DH</span>
+            </div>
+            <p className="text-[11px] text-emerald-700 font-bold mt-3 flex items-center gap-1.5">
+              <ShieldCheck size={13} /> {t("b_score")} 98% — {t("b_trust")}
+            </p>
+            <button onClick={() => sendOffer(it)}
+              className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-3 active:scale-95 transition-transform">
+              {t("send_offer")}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Checkout — choix du paiement */}
+      {checkoutOpen && (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setCheckoutOpen(false)}>
+          <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <p className="font-display font-bold text-lg text-stone-900">{t("checkout_title")}</p>
+              <button onClick={() => setCheckoutOpen(false)}><X size={20} className="text-stone-400" /></button>
+            </div>
+
+            <div className="mt-4 bg-stone-50 rounded-2xl p-4 flex items-center gap-3">
+              <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${it.grad} flex items-center justify-center text-2xl`}>{it.emoji}</div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-extrabold text-stone-900 truncate">{it.title}</p>
+                <p className="text-[10px] text-stone-500 font-semibold">
+                  {it.price} + {fee(it.price)} ({t("protection")}) + {delivFor(it)[deliveryI].price} DH
+                </p>
+                <p className="text-[10px] text-rose-600 font-extrabold mt-0.5">🎁 MARHBA20 · −20 DH</p>
+              </div>
+              <div className="text-right shrink-0">
+                <p className="text-[10px] text-stone-400 line-through font-semibold">
+                  {totalBuyer(it.price) + delivFor(it)[deliveryI].price} DH
+                </p>
+                <p className="text-base font-extrabold text-orange-600">
+                  {totalBuyer(it.price) + delivFor(it)[deliveryI].price - 20} DH
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs font-bold text-stone-500 mt-4 mb-2">{t("pay_method")}</p>
+            <div className="space-y-2">
+              {[
+                { ic: CreditCard, l: t("pm_card"), off: false },
+                { ic: Wallet, l: t("pm_wallet"), off: totalBuyer(it.price) + delivFor(it)[deliveryI].price > 340 },
+              ].map((m, idx) => {
+                const MIcon = m.ic;
+                const active = payMethodI === idx;
+                return (
+                  <button key={idx} disabled={m.off} onClick={() => setPayMethodI(idx)}
+                    className={`w-full flex items-center gap-3 p-3 rounded-2xl border transition-colors ${
+                      m.off ? "bg-stone-50 border-stone-100 opacity-50"
+                        : active ? "bg-indigo-50 border-indigo-300" : "bg-white border-stone-200"}`}>
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${active && !m.off ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-500"}`}>
+                      <MIcon size={16} />
+                    </div>
+                    <p className={`flex-1 text-left text-xs font-extrabold ${active && !m.off ? "text-indigo-800" : "text-stone-700"}`}>{m.l}</p>
+                    {m.off && <span className="text-[9px] font-extrabold text-rose-500">{t("insufficient")}</span>}
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-3 bg-emerald-50 border border-emerald-100 rounded-2xl p-3.5">
+              <p className="text-[11px] text-emerald-800 font-bold leading-relaxed">🛡️ {t("paid_sub")}</p>
+            </div>
+
+            <p className="text-[10px] font-extrabold text-stone-400 mt-3">{t("no_card")}</p>
+            <div className="mt-1.5 space-y-1.5">
+              <button onClick={() => setPayOpen(true)}
+                className="w-full text-left bg-stone-50 rounded-xl px-3.5 py-2.5 text-[11px] font-bold text-stone-700 active:bg-stone-100">
+                🏪 {t("opt_cash")}
+              </button>
+              <button onClick={() => showToast(t("khel_toast"))}
+                className="w-full text-left bg-stone-50 rounded-xl px-3.5 py-2.5 text-[11px] font-bold text-stone-700 active:bg-stone-100">
+                🔗 {t("opt_khel")}
+              </button>
+            </div>
+
+            <button onClick={() => { setCheckoutOpen(false); setItem(null); showToast(t("t_paid")); }}
+              className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-4 active:scale-95 transition-transform">
+              {t("confirm_order")}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  /* bali Pay — recharge en espèces au point relais (cash-in) */
+  const paySheet = () => (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setPayOpen(false)}>
+      <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-2">
+            <Wallet size={18} className="text-indigo-600" /> {t("pay_title")}
+          </p>
+          <button onClick={() => setPayOpen(false)}><X size={20} className="text-stone-400" /></button>
+        </div>
+        <div className="flex flex-col items-center mt-4">
+          <div className="p-3 rounded-2xl border-2 border-stone-100">
+            <QRCodeSVG seed={"PAY-ABDL-" + qrSeed} size={140} />
+          </div>
+          <p className="text-[11px] text-stone-500 font-semibold text-center mt-3 leading-relaxed">{t("cashin_txt")}</p>
+          <div className="w-full mt-3 bg-stone-50 rounded-2xl p-3 flex items-center gap-3">
+            <Store size={16} className="text-indigo-600 shrink-0" />
+            <p className="text-[11px] font-extrabold text-stone-700">{ORDER.point.name} · {ORDER.point.dist} · {ORDER.point.hours}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  /* Garanties bali — la réponse à la faille n°1 de l'industrie : le support */
+  const trustSheet = () => (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setTrustOpen(false)}>
+      <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app max-h-[85vh] overflow-y-auto" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-2">
+            <ShieldCheck size={18} className="text-emerald-600" /> {t("trust_title")}
+          </p>
+          <button onClick={() => setTrustOpen(false)}><X size={20} className="text-stone-400" /></button>
+        </div>
+
+        {/* Agent humain en ligne */}
+        <div className="mt-4 bg-emerald-50 border border-emerald-200 rounded-2xl p-4">
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <div className="w-11 h-11 rounded-full bg-emerald-600 flex items-center justify-center text-white font-extrabold">A</div>
+              <span className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-extrabold text-stone-900">{t("trust_agent")}</p>
+              <p className="text-[10px] text-emerald-700 font-bold">{t("trust_help_sub")}</p>
+            </div>
+          </div>
+          <button onClick={() => showToast(t("trust_toast"))}
+            className="w-full mt-3 bg-emerald-600 text-white text-xs font-extrabold py-3 rounded-xl flex items-center justify-center gap-2">
+            <MessageCircle size={14} /> {t("trust_whatsapp")}
+          </button>
+        </div>
+
+        {/* Les 5 garanties */}
+        <div className="mt-4 space-y-2.5 pb-2">
+          {["g1", "g2", "g3", "g4", "g5"].map((k, i) => (
+            <div key={k} className="flex items-start gap-3">
+              <div className="w-6 h-6 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center text-[11px] font-extrabold shrink-0 mt-0.5">{i + 1}</div>
+              <p className="text-xs text-stone-700 font-semibold leading-relaxed">{t(k)}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const langSheet = () => (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setLangOpen(false)}>
+      <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-2">
+            <Globe size={18} className="text-indigo-600" /> {t("choose_lang")}
+          </p>
+          <button onClick={() => setLangOpen(false)}><X size={20} className="text-stone-400" /></button>
+        </div>
+        <div className="mt-4 space-y-1">
+          {LANGS.map((l) => (
+            <button key={l.id}
+              onClick={() => { setLang(l.id); setLangOpen(false); showToast(l.flag + " " + l.name); }}
+              className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-colors ${
+                lang === l.id ? "bg-indigo-50" : "active:bg-stone-50"}`}>
+              <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-lg font-extrabold text-indigo-700">
+                {l.flag}
+              </div>
+              <div className="flex-1 text-left" dir={l.dir}>
+                <p className={`text-sm font-extrabold ${lang === l.id ? "text-indigo-700" : "text-stone-900"}`}>{l.name}</p>
+              </div>
+              {l.beta && (
+                <span className="text-[9px] font-extrabold bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full uppercase">{t("beta")}</span>
+              )}
+              {lang === l.id && <Check size={18} className="text-indigo-600" />}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  /* ---------------------------------------------------------------- */
+  /* PAGE VENDEUR PUBLIQUE                                             */
+  /* ---------------------------------------------------------------- */
+
+  const sellerScreen = (name) => {
+    const sItems = ITEMS.filter((i) => i.seller.name === name);
+    const s = sItems[0].seller;
+    const disc = sItems.some((i) => i.discreet);
+    const shown = disc ? "S." : name;
+    return (
+      <div className="fixed inset-0 z-30 flex justify-center bg-black/40" dir={cur.dir}>
+        <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-10">
+          <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setSellerView(null)}>
+              <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+            </button>
+            <p className="text-sm font-extrabold text-stone-900">{shown}</p>
+          </div>
+
+          <div className="px-5 pt-5">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-display font-extrabold text-white">
+                {shown[0]}
+              </div>
+              <div className="flex-1">
+                <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-1.5 flex-wrap">
+                  {shown}
+                  {disc ? (
+                    <span className="text-[9px] font-extrabold bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Lock size={9} /> {t("discreet_badge")}
+                    </span>
+                  ) : (
+                    <BadgeCheck size={17} className="text-indigo-600" />
+                  )}
+                </p>
+                <p className="text-xs text-stone-500 font-semibold flex items-center gap-1 mt-0.5">
+                  <Star size={12} className="text-amber-500 fill-amber-500" /> {s.rating} · {s.sales} {t("sales_w")} · {t("member")}
+                </p>
+              </div>
+            </div>
+
+            <button onClick={() => showToast(tf("t_followed", { n: shown }))}
+              className="w-full mt-4 bg-indigo-600 text-white text-sm font-extrabold py-3 rounded-2xl active:scale-95 transition-transform">
+              + {t("follow")}
+            </button>
+
+            <p className="text-sm font-extrabold text-stone-900 mt-6 mb-3">
+              {sItems.length} {t("items_w")}
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {sItems.map((it) => itemCard(it))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* NOTIFICATIONS                                                     */
+  /* ---------------------------------------------------------------- */
+
+  const notifSheet = () => (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setNotifOpen(false)}>
+      <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app max-h-[80vh] overflow-y-auto" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center justify-between">
+          <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-2">
+            <Bell size={18} className="text-indigo-600" /> {t("notifs_title")}
+          </p>
+          <button onClick={() => setNotifOpen(false)}><X size={20} className="text-stone-400" /></button>
+        </div>
+        <div className="mt-4 space-y-2 pb-2">
+          {["n1", "n2", "n3", "n4"].map((k, i) => (
+            <button key={k}
+              onClick={() => {
+                setNotifOpen(false);
+                if (k === "n1") { setTab("msg"); setActiveThread("t1"); }
+                if (k === "n2") setOrderOpen(true);
+                if (k === "n3") openItem(ITEMS[2]);
+              }}
+              className={`w-full p-3.5 rounded-2xl text-left ${i < 2 ? "bg-indigo-50" : "bg-stone-50"}`}>
+              <p className="text-xs font-semibold text-stone-800 leading-relaxed">{t(k)}</p>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  /* ---------------------------------------------------------------- */
+  /* ONBOARDING — langue · promesse · téléphone · code SMS             */
+  /* ---------------------------------------------------------------- */
+
+  const onboardingScreen = () => (
+    <div className="min-h-screen bg-stone-200 flex justify-center font-app">
+      <FontStyles />
+      <div className="w-full max-w-md min-h-screen relative shadow-2xl bg-indigo-600 text-white overflow-hidden flex flex-col" dir={cur.dir}>
+        <Star8 size={220} className="absolute -right-16 -top-16 text-indigo-500 opacity-40" />
+        <Star8 size={120} className="absolute -left-10 bottom-32 text-indigo-500 opacity-30" />
+
+        {obStep > 0 && (
+          <button onClick={() => setObStep(5)}
+            className="absolute top-5 right-5 z-10 text-indigo-100 text-xs font-extrabold bg-indigo-700/60 px-3 py-1.5 rounded-full">
+            {t("ob_skip")}
+          </button>
+        )}
+
+        <div className="flex-1 flex flex-col justify-center px-7 relative">
+          {obStep === 0 && (
+            <>
+              <div className="flex items-center gap-2.5">
+                <Star8 size={30} className="text-amber-400" />
+                <span className="font-display font-extrabold text-4xl">bali</span>
+              </div>
+              <p className="mt-6 text-sm font-bold text-indigo-100">Choisis ta langue · اختار اللغة ديالك</p>
+              <div className="mt-4 grid grid-cols-2 gap-2.5">
+                {LANGS.map((l) => (
+                  <button key={l.id} onClick={() => { setLang(l.id); setObStep(1); }}
+                    className="bg-white/10 border border-white/20 rounded-2xl p-3.5 text-left active:scale-95 transition-transform">
+                    <span className="text-xl">{l.flag}</span>
+                    <p className="text-sm font-extrabold mt-1" dir={l.dir}>{l.name}</p>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {obStep === 1 && (
+            <>
+              <Star8 size={34} className="text-amber-400" />
+              <p className="font-display font-extrabold text-3xl mt-4 leading-tight">{t("ob_title2")}</p>
+              <div className="mt-7 space-y-4">
+                {[["💸", t("ob_v1")], ["🏪", t("ob_v2")], ["🛡️", t("ob_v3")]].map(([e, txt]) => (
+                  <div key={txt} className="flex items-start gap-3">
+                    <span className="text-2xl">{e}</span>
+                    <p className="text-sm font-bold text-indigo-50 leading-relaxed">{txt}</p>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => setObStep(2)}
+                className="w-full mt-9 bg-white text-indigo-700 font-extrabold py-4 rounded-2xl active:scale-95 transition-transform">
+                {t("ob_continue")}
+              </button>
+            </>
+          )}
+
+          {obStep === 2 && (
+            <>
+              <p className="font-display font-extrabold text-2xl">{t("ob_phone")}</p>
+              <div className="mt-5 flex items-center bg-white rounded-2xl px-4 text-stone-900">
+                <span className="text-sm font-extrabold text-stone-500 shrink-0">🇲🇦 +212</span>
+                <input value={obPhone}
+                  onChange={(e) => setObPhone(e.target.value.replace(/[^0-9]/g, "").slice(0, 9))}
+                  inputMode="numeric" placeholder="6 12 34 56 78"
+                  className="flex-1 py-4 px-3 text-base font-extrabold outline-none bg-transparent" />
+              </div>
+              <button disabled={obPhone.length < 9} onClick={() => setObStep(3)}
+                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obPhone.length >= 9 ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
+                {t("ob_send")}
+              </button>
+            </>
+          )}
+
+          {obStep === 3 && (
+            <>
+              <p className="font-display font-extrabold text-2xl">{t("ob_code")}</p>
+              <p className="text-xs text-indigo-200 font-bold mt-1">🇲🇦 +212 {obPhone}</p>
+              <input value={obCode}
+                onChange={(e) => setObCode(e.target.value.replace(/[^0-9]/g, "").slice(0, 4))}
+                inputMode="numeric" placeholder="••••"
+                className="w-full mt-5 bg-white rounded-2xl py-4 text-center text-3xl font-extrabold tracking-[0.5em] outline-none text-stone-900" />
+              <p className="text-[11px] text-indigo-200 font-semibold mt-2">{t("ob_hint")}</p>
+              <button disabled={obCode.length < 4}
+                onClick={() => setObStep(4)}
+                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obCode.length >= 4 ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
+                {t("ob_continue")}
+              </button>
+            </>
+          )}
+
+          {obStep === 4 && (
+            <>
+              <p className="text-6xl">🎁</p>
+              <p className="font-display font-extrabold text-3xl mt-4 leading-tight">{t("gift_title")}</p>
+              <p className="text-sm font-bold text-indigo-100 mt-3 leading-relaxed">{t("gift_text")}</p>
+              <div className="mt-5 border-2 border-dashed border-amber-400 bg-white/10 rounded-2xl py-4 text-center">
+                <p className="font-display font-extrabold text-2xl tracking-widest text-amber-400">MARHBA20</p>
+              </div>
+              <button onClick={() => { setObStep(5); showToast(t("gift_applied")); }}
+                className="w-full mt-6 bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl active:scale-95 transition-transform">
+                {t("gift_claim")}
+              </button>
+            </>
+          )}
+        </div>
+
+        <div className="pb-8 flex justify-center gap-1.5 relative">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <div key={i} className={`h-1.5 rounded-full transition-all ${obStep === i ? "w-6 bg-amber-400" : "w-1.5 bg-white/30"}`} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  /* ---------------------------------------------------------------- */
+  /* DEVENIR POINT BALI — inscription hanoutier en 3 étapes            */
+  /* ---------------------------------------------------------------- */
+
+  const partnerOnboarding = () => (
+    <div className="fixed inset-0 z-40 flex justify-center bg-stone-900">
+      <div className="w-full max-w-md min-h-screen relative flex flex-col text-white font-app overflow-y-auto">
+        <Star8 size={180} className="absolute -right-12 -top-12 text-stone-800" />
+
+        <div className="px-6 pt-6 flex items-center justify-between relative">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-amber-400 flex items-center justify-center">
+              <Store size={16} className="text-stone-900" />
+            </div>
+            <p className="font-display font-extrabold">bali <span className="text-amber-400">Partenaire</span></p>
+          </div>
+          <button onClick={() => setPObStep(-1)}
+            className="text-stone-400 text-xs font-extrabold bg-stone-800 px-3 py-1.5 rounded-full">Fermer</button>
+        </div>
+
+        <div className="flex-1 flex flex-col justify-center px-6 relative py-6">
+          {pObStep === 0 && (
+            <>
+              <p className="font-display font-extrabold text-2xl">Ton hanout 🏪</p>
+              <p className="text-xs text-stone-400 font-semibold mt-1">3 infos, 2 minutes. Validation sous 24 h.</p>
+              <input value={pObName} onChange={(e) => setPObName(e.target.value)}
+                placeholder="Nom du magasin — ex : Hanout Al Baraka"
+                className="w-full mt-5 bg-stone-800 border border-stone-700 rounded-2xl px-4 py-3.5 text-sm font-bold outline-none focus:border-amber-400 text-white placeholder-stone-500" />
+              <div className="grid grid-cols-2 gap-2.5 mt-3">
+                {["Photo de la devanture", "Photo de ta CIN"].map((l, i) => (
+                  <button key={l} onClick={() => setPObPhotos(pObPhotos.map((v, j) => (j === i ? !v : v)))}
+                    className={`aspect-video rounded-2xl border-2 border-dashed flex flex-col items-center justify-center gap-1.5 p-2 ${pObPhotos[i] ? "border-emerald-400 bg-emerald-400/10" : "border-stone-700 bg-stone-800"}`}>
+                    {pObPhotos[i] ? <CheckCircle2 size={20} className="text-emerald-400" /> : <Camera size={20} className="text-stone-500" />}
+                    <span className={`text-[10px] font-extrabold text-center leading-tight ${pObPhotos[i] ? "text-emerald-300" : "text-stone-400"}`}>
+                      {l}{pObPhotos[i] ? " ✓" : ""}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <button disabled={!pObName || !pObPhotos.every(Boolean)} onClick={() => setPObStep(1)}
+                className={`w-full mt-5 font-extrabold py-4 rounded-2xl transition-colors ${pObName && pObPhotos.every(Boolean) ? "bg-amber-400 text-stone-900" : "bg-stone-800 text-stone-600"}`}>
+                Continuer
+              </button>
+            </>
+          )}
+
+          {pObStep === 1 && (
+            <>
+              <p className="font-display font-extrabold text-2xl">L'adresse du magasin 📍</p>
+              <p className="text-xs text-stone-400 font-semibold mt-1">Les scans ne seront valides qu'à cette adresse — c'est ta protection.</p>
+              <div className="mt-5 h-40 rounded-3xl bg-gradient-to-br from-stone-800 to-stone-700 relative overflow-hidden flex items-center justify-center border border-stone-700">
+                <span className="absolute w-16 h-16 rounded-full border-2 border-amber-400/40 animate-ping" />
+                <MapPin size={34} className="text-amber-400 relative" />
+              </div>
+              <div className="mt-3 bg-stone-800 rounded-2xl px-4 py-3.5 text-sm font-bold text-white border border-stone-700">
+                12 rue Ibn Sina, Maârif — Casablanca
+              </div>
+              <button onClick={() => setPObStep(2)}
+                className="w-full mt-4 bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl">C'est ici ✓</button>
+            </>
+          )}
+
+          {pObStep === 2 && (
+            <>
+              <p className="font-display font-extrabold text-2xl">Tes versements 💰</p>
+              <p className="text-xs text-stone-400 font-semibold mt-1">4 DH par colis · versé chaque lundi · tu ne touches jamais d'espèces.</p>
+              <input value={pObRib} onChange={(e) => setPObRib(e.target.value.replace(/[^0-9]/g, "").slice(0, 24))}
+                inputMode="numeric" placeholder="RIB (24 chiffres)"
+                className="w-full mt-5 bg-stone-800 border border-stone-700 rounded-2xl px-4 py-3.5 text-sm font-bold outline-none focus:border-amber-400 text-white placeholder-stone-500" />
+              <p className="text-[11px] text-stone-500 font-semibold mt-2">Pas de compte bancaire ? Laisse vide — tu seras payé en espèces chez Wafacash.</p>
+              <button onClick={() => setPObStep(3)}
+                className="w-full mt-5 bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl">Envoyer mon dossier</button>
+            </>
+          )}
+
+          {pObStep === 3 && (
+            <>
+              <CheckCircle2 size={60} className="text-emerald-400" />
+              <p className="font-display font-extrabold text-2xl mt-4">Dossier envoyé ✅</p>
+              <p className="text-xs text-stone-400 font-semibold mt-2 leading-relaxed">
+                Validation sous 24 h, réponse par WhatsApp — puis 15 minutes de formation sur place et ton point est ouvert.
+              </p>
+              <div className="mt-5 bg-stone-800 rounded-2xl p-4 space-y-1.5 border border-stone-700">
+                <p className="text-[11px] font-bold"><span className="text-stone-500">Magasin : </span>{pObName || "—"}</p>
+                <p className="text-[11px] font-bold"><span className="text-stone-500">Adresse : </span>12 rue Ibn Sina, Maârif</p>
+                <p className="text-[11px] font-bold"><span className="text-stone-500">Versement : </span>{pObRib.length === 24 ? "RIB •••" + pObRib.slice(-4) : "Espèces · Wafacash"}</p>
+              </div>
+              <button onClick={() => { setPObStep(-1); setAppMode("partner"); setPScreen("dash"); setPTab("colis"); }}
+                className="w-full mt-5 bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl">
+                Voir le tableau de bord (démo) →
+              </button>
+            </>
+          )}
+        </div>
+
+        <div className="pb-7 flex justify-center gap-1.5 relative">
+          {[0, 1, 2, 3].map((i) => (
+            <div key={i} className={`h-1.5 rounded-full transition-all ${pObStep === i ? "w-6 bg-amber-400" : "w-1.5 bg-stone-700"}`} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  /* ---------------------------------------------------------------- */
+  /* DÉPÔT DU COLIS — côté vendeur                                     */
+  /* ---------------------------------------------------------------- */
+
+  const depositScreen = () => {
+    const steps = [
+      { k: "tl_sold", d: "auj. · 10:12", done: true },
+      { k: "tl_dropped", d: saleDropped ? "auj. · 16:05" : "—", done: saleDropped },
+      { k: "tl_transit", d: "—", done: false },
+      { k: "tl_picked", d: "—", done: false },
+      { k: "tl_paid2", d: "—", done: false },
+    ];
+    return (
+      <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+        <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-8">
+          <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setSaleOpen(false)}>
+              <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+            </button>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-extrabold text-stone-900">{t("deposit_title")}</p>
+              <p className="text-[10px] text-stone-400 font-bold truncate">{SALE.code} · {SALE.item.emoji} {SALE.item.title} · {SALE.buyer}</p>
+            </div>
+            <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full shrink-0 ${saleDropped ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
+              {saleDropped ? t("dep_status_ok") : t("dep_status_todo")}
+            </span>
+          </div>
+
+          <div className="px-5 pt-4 space-y-3">
+            {/* QR de dépôt */}
+            <div className="bg-white rounded-3xl p-5 shadow-sm flex flex-col items-center">
+              {saleDropped ? (
+                <div className="py-5 flex flex-col items-center text-center">
+                  <CheckCircle2 size={62} className="text-emerald-500" />
+                  <p className="text-sm font-extrabold text-stone-900 mt-3">{tf("dep_done_note", { n: SALE.buyer })}</p>
+                </div>
+              ) : (
+                <>
+                  <div className="p-3 rounded-2xl border-2 border-stone-100 bg-white">
+                    <QRCodeSVG seed={"DEP-" + SALE.code} size={168} />
+                  </div>
+                  <p className="text-[10px] text-stone-400 font-bold mt-3 text-center">{t("dep_show")}</p>
+                </>
+              )}
+            </div>
+
+            {/* Ce que tu vas recevoir */}
+            <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-4">
+              <p className="text-xs font-extrabold text-emerald-800 flex items-center gap-1.5">
+                <Banknote size={14} /> {t("you_receive")} {SALE.item.price} DH
+              </p>
+              <p className="text-[10px] text-emerald-700 font-semibold mt-1">{t("after_insp")}</p>
+            </div>
+
+            {/* Ton point de dépôt */}
+            <div className="bg-white rounded-3xl p-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-indigo-50 flex items-center justify-center shrink-0">
+                  <Store size={20} className="text-indigo-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-extrabold text-stone-900">{ORDER.point.name}</p>
+                  <p className="text-[11px] text-stone-500 font-semibold">{ORDER.point.addr}</p>
+                  <p className="text-[10px] text-stone-400 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-3">
+                <button onClick={() => showToast("Ouverture de l'itinéraire 🗺️ (démo)")}
+                  className="flex-1 bg-indigo-600 text-white text-xs font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5">
+                  <Navigation size={13} /> {t("route")}
+                </button>
+                <button onClick={() => showToast("Appel du point relais 📞 (démo)")}
+                  className="flex-1 bg-stone-100 text-stone-700 text-xs font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5">
+                  <Phone size={13} /> {t("call_w")}
+                </button>
+              </div>
+            </div>
+
+            {/* Les 3 gestes avant de déposer */}
+            <div className="bg-white rounded-3xl p-4 shadow-sm space-y-2.5">
+              {[t("dep_tip1"), t("dep_tip2"), tf("dep_tip3", { c: SALE.code })].map((tip, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-indigo-50 text-indigo-700 flex items-center justify-center text-[11px] font-extrabold shrink-0">{i + 1}</div>
+                  <p className="text-xs text-stone-700 font-semibold leading-relaxed">{tip}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Suivi */}
+            <div className="bg-white rounded-3xl p-5 shadow-sm">
+              {steps.map((st, i) => (
+                <div key={st.k} className="flex gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${st.done ? "bg-emerald-500" : "bg-stone-200"}`}>
+                      {st.done ? <Check size={12} className="text-white" /> : <div className="w-1.5 h-1.5 bg-stone-400 rounded-full" />}
+                    </div>
+                    {i < steps.length - 1 && (
+                      <div className={`w-0.5 flex-1 my-0.5 ${steps[i + 1].done ? "bg-emerald-400" : "bg-stone-200"}`} style={{ minHeight: 16 }} />
+                    )}
+                  </div>
+                  <div className="pb-3">
+                    <p className={`text-xs font-extrabold ${st.done ? "text-stone-900" : "text-stone-400"}`}>{t(st.k)}</p>
+                    <p className="text-[10px] text-stone-400 font-semibold">{st.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {!saleDropped && (
+              <p className="text-[10px] text-amber-700 font-bold text-center">{tf("dep_before", { d: SALE.deadline })}</p>
+            )}
+
+            {!saleDropped && (
+              <button onClick={() => { setSaleDropped(true); showToast(tf("dep_done_note", { n: SALE.buyer })); }}
+                className="w-full border-2 border-dashed border-stone-300 text-stone-600 text-xs font-extrabold py-3.5 rounded-2xl">
+                {t("dep_btn")}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* TICKET DE RETRAIT — côté acheteur                                 */
+  /* ---------------------------------------------------------------- */
+
+  const ticketScreen = () => {
+    const delivered = orderStatus !== "ready";
+    const steps = [
+      { k: "tl_ordered", d: "mar. 30 juin · 14:02", done: true },
+      { k: "tl_dropped", d: "mer. 1 juil. · 10:15", done: true },
+      { k: "tl_transit", d: "jeu. 2 juil. · 18:40", done: true },
+      { k: "tl_arrived", d: "auj. · 09:12", done: true },
+      { k: "tl_picked", d: delivered ? "auj. · 14:36" : "—", done: delivered },
+    ];
+    return (
+      <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+        <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-8">
+          <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setOrderOpen(false)}>
+              <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+            </button>
+            <div className="flex-1">
+              <p className="text-sm font-extrabold text-stone-900">{t("ticket_title")}</p>
+              <p className="text-[10px] text-stone-400 font-bold">{ORDER.code} · {ORDER.item.emoji} {ORDER.item.title}</p>
+            </div>
+            <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full ${delivered ? "bg-emerald-100 text-emerald-700" : "bg-indigo-100 text-indigo-700"}`}>
+              {delivered ? t("tl_picked") : t("tl_arrived")}
+            </span>
+          </div>
+
+          <div className="px-5 pt-4 space-y-3">
+            {/* QR dynamique / statut retiré */}
+            <div className="bg-white rounded-3xl p-5 shadow-sm flex flex-col items-center">
+              {delivered ? (
+                <div className="py-5 flex flex-col items-center">
+                  <CheckCircle2 size={62} className="text-emerald-500" />
+                  <p className="text-sm font-extrabold text-stone-900 mt-3">{t("tl_picked")} ✅ · 14:36</p>
+                </div>
+              ) : (
+                <>
+                  <div className="p-3 rounded-2xl border-2 border-stone-100 bg-white">
+                    <QRCodeSVG seed={ORDER.code + "-" + qrSeed} size={168} />
+                  </div>
+                  <div className="w-full mt-3">
+                    <div className="h-1 bg-stone-100 rounded-full overflow-hidden">
+                      <div className="h-full bg-indigo-500 rounded-full transition-all"
+                        style={{ width: `${(qrLeft / 60) * 100}%` }} />
+                    </div>
+                    <p className="text-[10px] text-stone-400 font-bold mt-2 flex items-center justify-center gap-1">
+                      <Timer size={11} /> {tf("qr_regen", { s: qrLeft })} · {t("single_use")}
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Code PIN — 2e facteur */}
+            {!delivered && (
+              <div className="bg-white rounded-3xl p-5 shadow-sm">
+                <p className="text-[10px] font-extrabold text-stone-500">CODE PIN</p>
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex gap-2">
+                    {(pinShown ? ORDER.pin.split("") : ["•", "•", "•", "•"]).map((d, i) => (
+                      <div key={i} className="w-11 h-12 rounded-xl bg-stone-100 flex items-center justify-center text-xl font-extrabold text-stone-900">{d}</div>
+                    ))}
+                  </div>
+                  <button onClick={() => setPinShown(!pinShown)} className="text-xs font-extrabold text-indigo-600">
+                    {pinShown ? t("hide_pin") : t("show_pin")}
+                  </button>
+                </div>
+                <p className="text-[10px] text-stone-400 font-semibold mt-3 flex items-start gap-1.5">
+                  <Lock size={11} className="mt-0.5 shrink-0" /> {t("pin_warn")}
+                </p>
+              </div>
+            )}
+
+            {/* Commande prépayée — séquestre bali */}
+            {!delivered && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-4">
+                <p className="text-xs font-extrabold text-emerald-800 flex items-center gap-1.5">
+                  <ShieldCheck size={14} /> {t("paid_t")} ✅ · {ORDER.total} DH
+                </p>
+                <p className="text-[10px] text-emerald-700 font-semibold mt-1">
+                  {ORDER.item.price} DH + {ORDER.fee} DH ({t("protection")}) + {ORDER.delivery} DH (Point bali)
+                </p>
+                <p className="text-[10px] text-emerald-800 font-bold mt-2">{t("paid_sub")}</p>
+              </div>
+            )}
+
+            {/* Point relais */}
+            <div className="bg-white rounded-3xl p-4 shadow-sm">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-indigo-50 flex items-center justify-center">
+                  <Store size={20} className="text-indigo-600" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-extrabold text-stone-900">{ORDER.point.name}</p>
+                  <p className="text-[11px] text-stone-500 font-semibold">{ORDER.point.addr}</p>
+                  <p className="text-[10px] text-stone-400 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
+                </div>
+              </div>
+              <div className="flex gap-2 mt-3">
+                <button onClick={() => showToast("Ouverture de l'itinéraire 🗺️ (démo)")}
+                  className="flex-1 bg-indigo-600 text-white text-xs font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5">
+                  <Navigation size={13} /> {t("route")}
+                </button>
+                <button onClick={() => showToast("Appel du point relais 📞 (démo)")}
+                  className="flex-1 bg-stone-100 text-stone-700 text-xs font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5">
+                  <Phone size={13} /> {t("call_w")}
+                </button>
+              </div>
+            </div>
+
+            {/* Timeline */}
+            <div className="bg-white rounded-3xl p-5 shadow-sm">
+              {steps.map((st, i) => (
+                <div key={st.k} className="flex gap-3">
+                  <div className="flex flex-col items-center">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${st.done ? "bg-emerald-500" : "bg-stone-200"}`}>
+                      {st.done ? <Check size={12} className="text-white" /> : <div className="w-1.5 h-1.5 bg-stone-400 rounded-full" />}
+                    </div>
+                    {i < steps.length - 1 && (
+                      <div className={`w-0.5 flex-1 my-0.5 ${steps[i + 1].done ? "bg-emerald-400" : "bg-stone-200"}`} style={{ minHeight: 16 }} />
+                    )}
+                  </div>
+                  <div className="pb-3">
+                    <p className={`text-xs font-extrabold ${st.done ? "text-stone-900" : "text-stone-400"}`}>{t(st.k)}</p>
+                    <p className="text-[10px] text-stone-400 font-semibold">{st.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Inspection au retrait — le paiement n'est libéré qu'après */}
+            {orderStatus === "delivered" && (
+              <div className="bg-white rounded-3xl p-5 shadow-sm">
+                <p className="text-sm font-extrabold text-stone-900">{t("inspect_title")} 🔍</p>
+                <p className="text-[10px] text-stone-400 font-semibold mt-1">{t("inspect_hint")}</p>
+                <div className="mt-3 space-y-2">
+                  {["insp_1", "insp_2", "insp_3"].map((k, i) => (
+                    <button key={k} onClick={() => setInspChecks(inspChecks.map((v, j) => (j === i ? !v : v)))}
+                      className={`w-full flex items-center gap-3 p-3 rounded-2xl border text-left ${inspChecks[i] ? "bg-emerald-50 border-emerald-300" : "bg-stone-50 border-stone-200"}`}>
+                      <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 ${inspChecks[i] ? "bg-emerald-500" : "bg-white border border-stone-300"}`}>
+                        {inspChecks[i] && <Check size={14} className="text-white" />}
+                      </div>
+                      <span className="text-xs font-extrabold text-stone-800">{t(k)}</span>
+                    </button>
+                  ))}
+                </div>
+                <p className="text-sm font-extrabold text-stone-900 mt-4">{t("confirm_q")}</p>
+                <div className="flex gap-2 mt-2">
+                  <button disabled={!inspChecks.every(Boolean)}
+                    onClick={() => { setOrderStatus("confirmed"); showToast(t("funds_ok")); }}
+                    className={`flex-1 text-xs font-extrabold py-3 rounded-2xl ${inspChecks.every(Boolean) ? "bg-emerald-600 text-white" : "bg-stone-100 text-stone-400"}`}>{t("confirm_ok")}</button>
+                  <button onClick={() => { setOrderStatus("disputed"); showToast(t("funds_frozen")); }}
+                    className="flex-1 bg-stone-100 text-stone-700 text-xs font-extrabold py-3 rounded-2xl">{t("confirm_ko")}</button>
+                </div>
+              </div>
+            )}
+            {orderStatus === "confirmed" && (
+              <div className="bg-emerald-50 border border-emerald-200 rounded-3xl p-4 text-xs font-extrabold text-emerald-800">{t("funds_ok")}</div>
+            )}
+            {orderStatus === "disputed" && (
+              <div className="bg-amber-50 border border-amber-200 rounded-3xl p-4 text-xs font-extrabold text-amber-800">{t("funds_frozen")}</div>
+            )}
+
+            {!delivered && (
+              <p className="text-[10px] text-amber-700 font-bold text-center">{tf("pickup_by", { d: ORDER.deadline })}</p>
+            )}
+            <p className="text-[10px] text-stone-400 font-semibold text-center flex items-center justify-center gap-1.5">
+              <ShieldCheck size={12} className="text-emerald-600" /> {t("secu_line")}
+            </p>
+
+            <button onClick={() => setTrustOpen(true)}
+              className="w-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold py-3.5 rounded-2xl flex items-center justify-center gap-2">
+              <MessageCircle size={14} /> {t("trust_title")}
+            </button>
+
+            {!delivered && (
+              <button onClick={() => { setOrderOpen(false); setAppMode("partner"); setPScreen("dash"); }}
+                className="w-full border-2 border-dashed border-stone-300 text-stone-600 text-xs font-extrabold py-3.5 rounded-2xl flex items-center justify-center gap-2">
+                <Store size={14} /> {t("try_partner")}
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* BALI PARTENAIRE — l'app du hanoutier                              */
+  /* ---------------------------------------------------------------- */
+
+  const partnerApp = () => {
+    const delivered = orderStatus !== "ready";
+    const gains = 12 + (delivered ? 4 : 0) + (depositDone ? 2 : 0);
+    const week = 72 + gains;
+    return (
+      <div className="min-h-screen bg-stone-300 flex justify-center font-app">
+        <FontStyles />
+        <div className="w-full max-w-md bg-stone-100 min-h-screen relative shadow-2xl pb-8">
+          {/* En-tête hanout */}
+          <div className="bg-stone-900 text-white px-5 pt-5 pb-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-amber-400 flex items-center justify-center">
+                  <Store size={18} className="text-stone-900" />
+                </div>
+                <div>
+                  <p className="font-display font-extrabold text-base leading-none">bali <span className="text-amber-400">Partenaire</span></p>
+                  <p className="text-[10px] text-stone-400 font-bold mt-1">{ORDER.point.name} · {ORDER.point.owner}</p>
+                </div>
+              </div>
+              <button onClick={() => setAppMode("client")}
+                className="flex items-center gap-1 bg-stone-800 text-stone-200 text-[10px] font-extrabold px-3 py-2 rounded-full">
+                <ArrowLeft size={12} /> Client
+              </button>
+            </div>
+            <div className="flex gap-2 mt-3">
+              <span className="text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full">● Ouvert · 7h–23h</span>
+              <button onClick={() => { setPScreen("dash"); setPTab("gains"); }}
+                className="text-[10px] font-extrabold bg-amber-400/20 text-amber-300 px-2.5 py-1 rounded-full">Niveau Argent · colis ≤ 2 000 DH</button>
+            </div>
+          </div>
+
+          {/* TABLEAU DE BORD */}
+          {pScreen === "dash" && (
+            <div className="px-5 pt-4 space-y-3">
+              {/* Onglets */}
+              <div className="flex gap-2">
+                {[["colis", "📦 Colis"], ["gains", "💰 Gains & niveau"]].map(([id, l]) => (
+                  <button key={id} onClick={() => setPTab(id)}
+                    className={`flex-1 py-2.5 rounded-2xl text-xs font-extrabold transition-colors ${pTab === id ? "bg-stone-900 text-white" : "bg-white text-stone-500 shadow-sm"}`}>
+                    {l}
+                  </button>
+                ))}
+              </div>
+
+              {pTab === "colis" && (
+                <>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[[delivered ? "2" : "3", "À remettre"], ["2", "Arrivages"], [gains + " DH", "Gains du jour"]].map(([n, l]) => (
+                      <div key={l} className="bg-white rounded-2xl p-3 text-center shadow-sm">
+                        <p className="text-base font-extrabold text-stone-900">{n}</p>
+                        <p className="text-[9px] font-bold text-stone-400 mt-0.5">{l}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button onClick={() => setPScreen("scan")}
+                    className="w-full bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                    <QrCode size={18} /> Scanner un QR (client ou vendeur)
+                  </button>
+
+                  {/* Capacité — pause sans appeler le support */}
+                  <button onClick={() => setAcceptOn(!acceptOn)}
+                    className="w-full bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${acceptOn ? "bg-emerald-50" : "bg-stone-100"}`}>
+                      <Package size={17} className={acceptOn ? "text-emerald-600" : "text-stone-400"} />
+                    </div>
+                    <div className="flex-1 text-left">
+                      <p className="text-sm font-extrabold text-stone-900">Accepter de nouveaux colis</p>
+                      <p className="text-[11px] text-stone-500 font-semibold">
+                        {acceptOn ? "Actif · Emplacements 5/20" : "En pause — les nouveaux colis vont au point voisin"}
+                      </p>
+                    </div>
+                    <div className={`w-11 h-6 rounded-full p-0.5 transition-colors ${acceptOn ? "bg-emerald-500" : "bg-stone-200"}`}>
+                      <div className={`w-5 h-5 bg-white rounded-full shadow transition-transform ${acceptOn ? "translate-x-5" : ""}`} />
+                    </div>
+                  </button>
+
+                  <p className="text-[10px] font-extrabold text-stone-500 pt-1">COLIS DU JOUR</p>
+
+                  {/* Colis 1 — le retrait de la démo */}
+                  <button onClick={() => setPParcel({ emoji: "👟", code: ORDER.code, title: ORDER.item.title, who: "Abdel B.", slot: ORDER.point.slot, status: delivered ? "Remis ✅ 14:36" : "À retirer", note: delivered ? "Chaîne complète : Vendeur → Hanout → Acheteur. Rien à faire." : "Déjà payé en ligne. Vérifie le QR + PIN, laisse le client inspecter, puis remets. Rien à encaisser." })}
+                    className="w-full text-left bg-white rounded-2xl p-3.5 shadow-sm flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-stone-100 flex items-center justify-center text-xl">👟</div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-extrabold text-stone-900">{ORDER.code}</p>
+                      <p className="text-[10px] text-stone-500 font-semibold truncate">{ORDER.item.title} · Abdel B. · Empl. {ORDER.point.slot}</p>
+                    </div>
+                    {delivered ? (
+                      <span className="text-[10px] font-extrabold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full">Remis ✅ 14:36</span>
+                    ) : (
+                      <span className="text-[10px] font-extrabold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full">Retrait · Payé ✅</span>
+                    )}
+                  </button>
+
+                  {/* Colis 2 — prépayé */}
+                  <button onClick={() => setPParcel({ emoji: "👜", code: "BAL-3D8M1", title: "Sac Zara", who: "Kenza M.", slot: "A1", status: "Prépayé ✅", note: "Déjà payé en ligne : vérifie le QR + le PIN, puis remets directement. Aucun paiement à attendre." })}
+                    className="w-full text-left bg-white rounded-2xl p-3.5 shadow-sm flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-stone-100 flex items-center justify-center text-xl">👜</div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-extrabold text-stone-900">BAL-3D8M1</p>
+                      <p className="text-[10px] text-stone-500 font-semibold truncate">Sac Zara · Kenza M. · Empl. A1</p>
+                    </div>
+                    <span className="text-[10px] font-extrabold bg-indigo-100 text-indigo-700 px-2.5 py-1 rounded-full">Retrait · Prépayé</span>
+                  </button>
+
+                  {/* Colis 3 — dépôt vendeur */}
+                  <div className="bg-white rounded-2xl p-3.5 shadow-sm flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-stone-100 flex items-center justify-center text-xl">📦</div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-extrabold text-stone-900">BAL-9K2P4</p>
+                      <p className="text-[10px] text-stone-500 font-semibold truncate">Dépôt vendeur · Yassine_Casa</p>
+                    </div>
+                    {depositDone ? (
+                      <span className="text-[10px] font-extrabold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full">En stock · B3 ✅</span>
+                    ) : (
+                      <button onClick={() => { setDepoChecks([false, false, false]); setDepositOpen(true); }}
+                        className="text-[10px] font-extrabold bg-stone-900 text-white px-3 py-2 rounded-full">Recevoir</button>
+                    )}
+                  </div>
+
+                  {/* Colis dormant — alerte retour J+7 */}
+                  <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 flex items-center gap-3">
+                    <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-xl">⌚</div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-extrabold text-stone-900">BAL-5T7Q2 · J+5</p>
+                      <p className="text-[10px] text-amber-700 font-bold truncate">Non retiré — retour au vendeur dans 2 jours</p>
+                    </div>
+                    <button onClick={() => showToast("Rappel envoyé à l'acheteur 📲 (démo)")}
+                      className="text-[10px] font-extrabold bg-stone-900 text-white px-3 py-2 rounded-full shrink-0">Relancer</button>
+                  </div>
+
+                  {/* SOS — un humain, comme côté client */}
+                  <button onClick={() => showToast("WhatsApp bali Partenaire ouvert 📲 (démo)")}
+                    className="w-full bg-white rounded-2xl p-3.5 shadow-sm flex items-center gap-3">
+                    <span className="text-lg">🆘</span>
+                    <p className="flex-1 text-left text-xs font-extrabold text-stone-900">Un problème ? WhatsApp bali <span className="text-stone-400">· réponse en moins de 2 h</span></p>
+                  </button>
+                </>
+              )}
+
+              {pTab === "gains" && (
+                <>
+                  {/* Gains — zéro espèces à gérer */}
+                  <div className="bg-stone-900 rounded-3xl p-5 text-white relative overflow-hidden">
+                    <Star8 size={70} className="absolute -right-3 -bottom-4 text-stone-800" />
+                    <p className="text-[10px] font-extrabold text-stone-400 flex items-center gap-1.5 relative">
+                      <Wallet size={13} className="text-amber-400" /> GAINS BALI · CETTE SEMAINE
+                    </p>
+                    <p className="font-display font-extrabold text-3xl mt-1 text-amber-400 relative">{week} DH</p>
+                    <div className="h-1.5 bg-stone-700 rounded-full mt-3 overflow-hidden relative">
+                      <div className="h-full bg-amber-400 rounded-full transition-all" style={{ width: `${Math.min(100, (week / 150) * 100)}%` }} />
+                    </div>
+                    <p className="text-[10px] text-stone-400 font-bold mt-2 relative">Objectif semaine : {week} / 150 DH · 0 espèces à gérer — versement chaque lundi</p>
+                  </div>
+
+                  {/* Niveau — motivation */}
+                  <div className="bg-white rounded-3xl p-5 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-extrabold text-stone-900">Niveau Argent 🥈 → Or 🥇</p>
+                      <span className="text-[10px] font-extrabold text-stone-400">38 / 50 remises</span>
+                    </div>
+                    <div className="h-1.5 bg-stone-100 rounded-full mt-3 overflow-hidden">
+                      <div className="h-full bg-amber-400 rounded-full" style={{ width: "76%" }} />
+                    </div>
+                    <p className="text-[10px] text-stone-500 font-semibold mt-2 leading-relaxed">
+                      Niveau Or : 5 DH/colis (au lieu de 4), colis jusqu'à 5 000 DH, badge Or visible sur la carte bali — plus de clients choisissent ton point.
+                    </p>
+                  </div>
+
+                  {/* Note des clients au retrait — contrôle qualité du réseau */}
+                  <div className="bg-white rounded-3xl p-4 shadow-sm flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-50 flex items-center justify-center">
+                      <Star size={22} className="text-amber-500 fill-amber-500" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-extrabold text-stone-900">4,9 · note des clients au retrait</p>
+                      <p className="text-[11px] text-stone-500 font-semibold">« Rapide et souriant, mieux que la poste ! » — Kenza M.</p>
+                    </div>
+                  </div>
+
+                  {/* Versements — transparence totale */}
+                  <div className="bg-white rounded-3xl p-4 shadow-sm">
+                    <p className="text-xs font-extrabold text-stone-900">Versements</p>
+                    <div className="mt-2.5 space-y-2">
+                      <div className="flex justify-between text-[11px] font-extrabold text-indigo-700">
+                        <span>Lundi 6 juil. · à venir</span><span>{week} DH</span>
+                      </div>
+                      <div className="flex justify-between text-[11px] font-semibold text-stone-500">
+                        <span>Lundi 29 juin · RIB •••4521 ✅</span><span>131 DH</span>
+                      </div>
+                      <div className="flex justify-between text-[11px] font-semibold text-stone-500">
+                        <span>Lundi 22 juin · RIB •••4521 ✅</span><span>96 DH</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Parrainage hanout → le réseau se recrute lui-même */}
+                  <button onClick={() => showToast("Lien de parrainage copié — +50 DH par hanout activé 📲")}
+                    className="w-full rounded-3xl p-4 bg-gradient-to-r from-amber-400 to-orange-400 text-stone-900 text-left relative overflow-hidden active:scale-95 transition-transform">
+                    <Star8 size={56} className="absolute -right-2 -top-2 text-white opacity-20" />
+                    <p className="text-sm font-extrabold relative">Parraine un hanout voisin → +50 DH 🤝</p>
+                    <p className="text-[11px] font-bold text-stone-800/70 mt-1 relative">Versés dès son 10ᵉ colis remis. Partage ton lien WhatsApp.</p>
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+
+          {/* SCAN */}
+          {pScreen === "scan" && (
+            <div className="px-5 pt-6 flex flex-col items-center">
+              <div className="relative w-64 h-64 bg-stone-900 rounded-3xl overflow-hidden flex items-center justify-center">
+                <div className="absolute inset-6 border-2 border-amber-400/50 rounded-2xl" />
+                <div className="scanline absolute left-8 right-8 h-0.5 bg-amber-400 rounded-full" />
+                <QrCode size={60} className="text-stone-700" />
+              </div>
+              <p className="text-[10px] text-stone-500 font-bold mt-3 flex items-center gap-1 text-center">
+                <MapPin size={11} className="shrink-0" /> Scan valide uniquement à l'adresse du magasin (géolocalisé)
+              </p>
+              <button onClick={() => {
+                if (orderStatus === "ready") { setPinInput(""); setPinTries(0); setPScreen("verify"); }
+                else showToast("Aucun retrait en attente (démo)");
+              }}
+                className="w-full bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl mt-5 active:scale-95 transition-transform">
+                📷 Simuler le scan du QR client
+              </button>
+              <button onClick={() => setPScreen("dash")} className="text-xs font-extrabold text-stone-500 mt-3">← Retour</button>
+            </div>
+          )}
+
+          {/* VÉRIFICATION PIN */}
+          {pScreen === "verify" && (
+            <div className="px-5 pt-4 space-y-3">
+              <div className="bg-white rounded-3xl p-4 shadow-sm flex items-center gap-3">
+                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${ORDER.item.grad} flex items-center justify-center text-2xl`}>{ORDER.item.emoji}</div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-extrabold text-stone-900">{ORDER.code}</p>
+                  <p className="text-[11px] text-stone-500 font-semibold truncate">{ORDER.item.title} · Acheteur : Abdel B.</p>
+                </div>
+                <span className="text-[10px] font-extrabold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full shrink-0">Payé · {ORDER.total} DH</span>
+              </div>
+
+              <div className="bg-white rounded-3xl p-5 shadow-sm">
+                <p className="text-sm font-extrabold text-stone-900">Demande le code PIN au client 🔐</p>
+                <p className="text-[10px] text-emerald-700 font-bold mt-1">Commande prépayée — rien à encaisser</p>
+                <input value={pinInput}
+                  onChange={(e) => setPinInput(e.target.value.replace(/[^0-9]/g, "").slice(0, 4))}
+                  inputMode="numeric" placeholder="••••"
+                  className="w-full mt-3 bg-stone-100 rounded-2xl py-4 text-center text-2xl font-extrabold tracking-[0.5em] outline-none focus:ring-2 focus:ring-amber-400" />
+                {pinTries > 0 && (
+                  <p className="text-[11px] font-bold text-rose-600 mt-2 flex items-center gap-1">
+                    <AlertTriangle size={12} /> Code incorrect — {3 - pinTries} essai{3 - pinTries > 1 ? "s" : ""} restant{3 - pinTries > 1 ? "s" : ""}
+                  </p>
+                )}
+                <button onClick={() => {
+                  if (pinInput === ORDER.pin) { setPScreen("collect"); }
+                  else {
+                    const n = pinTries + 1;
+                    setPinTries(n);
+                    setPinInput("");
+                    if (n >= 3) setPScreen("locked");
+                  }
+                }} disabled={pinInput.length < 4}
+                  className={`w-full mt-3 font-extrabold py-4 rounded-2xl transition-colors ${pinInput.length === 4 ? "bg-stone-900 text-white" : "bg-stone-200 text-stone-400"}`}>
+                  Vérifier le PIN
+                </button>
+                <p className="text-[10px] text-stone-400 font-semibold mt-3">Démo : le PIN se trouve sur le ticket du client 😉</p>
+              </div>
+              <button onClick={() => setPScreen("dash")} className="w-full text-xs font-extrabold text-stone-500">← Annuler</button>
+            </div>
+          )}
+
+          {/* BLOQUÉ — 3 PIN incorrects */}
+          {pScreen === "locked" && (
+            <div className="px-5 pt-10 flex flex-col items-center text-center">
+              <div className="w-20 h-20 rounded-3xl bg-rose-100 flex items-center justify-center">
+                <Lock size={36} className="text-rose-600" />
+              </div>
+              <p className="font-display font-bold text-lg text-stone-900 mt-4">Retrait bloqué 15 min</p>
+              <p className="text-xs text-stone-500 font-semibold mt-2 leading-relaxed max-w-xs">
+                3 codes PIN incorrects. L'acheteur a été alerté par notification et SMS. Le QR a été révoqué et régénéré automatiquement.
+              </p>
+              <button onClick={() => { setPinTries(0); setPinInput(""); setPScreen("dash"); }}
+                className="mt-5 bg-stone-900 text-white text-xs font-extrabold px-5 py-3 rounded-full">Réinitialiser (démo)</button>
+            </div>
+          )}
+
+          {/* REMISE — commande prépayée, séquestre bali */}
+          {pScreen === "collect" && (
+            <div className="px-5 pt-4 space-y-3">
+              <div className="bg-white rounded-3xl p-5 shadow-sm text-center">
+                <p className="text-[10px] font-extrabold text-emerald-600">PIN VÉRIFIÉ ✅ — COMMANDE DÉJÀ PAYÉE EN LIGNE</p>
+                <p className="font-display font-extrabold text-4xl text-stone-900 mt-2">{ORDER.total} DH</p>
+                <p className="text-[11px] text-stone-500 font-semibold mt-1">
+                  Sécurisés chez bali · versés au vendeur après l'inspection de l'acheteur
+                </p>
+              </div>
+
+              <div className="bg-emerald-50 border border-emerald-300 rounded-2xl p-4 flex items-center gap-3">
+                <CheckCircle2 size={22} className="text-emerald-600 shrink-0" />
+                <p className="text-xs font-extrabold text-emerald-800">Rien à encaisser — laisse l'acheteur inspecter le colis devant toi, puis remets-le.</p>
+              </div>
+
+              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 text-[11px] font-bold text-amber-800 flex items-start gap-2">
+                <AlertTriangle size={14} className="mt-0.5 shrink-0" />
+                C'est l'acheteur qui confirme dans SON app après inspection — c'est ça qui déclenche le paiement du vendeur. Toi, tu ne touches jamais d'argent.
+              </div>
+
+              <button onClick={() => { setOrderStatus("delivered"); setPScreen("done"); }}
+                className="w-full bg-emerald-600 text-white font-extrabold py-4 rounded-2xl active:scale-95 transition-transform">
+                📦 Remettre le colis
+              </button>
+              <button onClick={() => setPScreen("dash")} className="w-full text-xs font-extrabold text-stone-500">← Annuler</button>
+            </div>
+          )}
+
+          {/* REMISE CONFIRMÉE — chaîne de responsabilité */}
+          {pScreen === "done" && (
+            <div className="px-5 pt-8 flex flex-col items-center">
+              <CheckCircle2 size={62} className="text-emerald-500" />
+              <p className="font-display font-bold text-xl text-stone-900 mt-3">Colis remis ✅</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">+4 DH ajoutés à tes gains du jour 💰</p>
+              <div className="w-full bg-white rounded-3xl p-4 shadow-sm mt-5">
+                <p className="text-[10px] font-extrabold text-stone-500 mb-3">CHAÎNE DE RESPONSABILITÉ · {ORDER.code}</p>
+                {[
+                  ["Vendeur — dépôt", "mer. 1 juil. · 10:15"],
+                  ["Hanout Al Amal — garde", "auj. · 09:12"],
+                  ["Acheteur — remise", "auj. · 14:36"],
+                ].map(([l, d], i) => (
+                  <div key={l} className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <div className="w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center shrink-0">
+                        <Check size={12} className="text-white" />
+                      </div>
+                      {i < 2 && <div className="w-0.5 flex-1 my-0.5 bg-emerald-400" style={{ minHeight: 14 }} />}
+                    </div>
+                    <div className="pb-2.5">
+                      <p className="text-xs font-extrabold text-stone-900">{l}</p>
+                      <p className="text-[10px] text-stone-400 font-semibold">{d}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => setPScreen("dash")}
+                className="w-full bg-stone-900 text-white font-extrabold py-4 rounded-2xl mt-4">Retour au tableau de bord</button>
+            </div>
+          )}
+
+          {/* Fiche colis */}
+          {pParcel && (
+            <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setPParcel(null)}>
+              <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-xl bg-stone-100 flex items-center justify-center text-2xl">{pParcel.emoji}</div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-display font-bold text-base text-stone-900">{pParcel.code}</p>
+                    <p className="text-[11px] text-stone-500 font-semibold truncate">{pParcel.title} · {pParcel.who}</p>
+                  </div>
+                  <button onClick={() => setPParcel(null)}><X size={20} className="text-stone-400" /></button>
+                </div>
+                <div className="mt-4 grid grid-cols-2 gap-2">
+                  <div className="bg-stone-50 rounded-2xl p-3">
+                    <p className="text-[9px] font-extrabold text-stone-400">EMPLACEMENT</p>
+                    <p className="text-sm font-extrabold text-stone-900 mt-0.5">{pParcel.slot}</p>
+                  </div>
+                  <div className="bg-stone-50 rounded-2xl p-3">
+                    <p className="text-[9px] font-extrabold text-stone-400">STATUT</p>
+                    <p className="text-sm font-extrabold text-stone-900 mt-0.5">{pParcel.status}</p>
+                  </div>
+                </div>
+                <div className="mt-3 bg-indigo-50 rounded-2xl p-3.5">
+                  <p className="text-[11px] text-indigo-800 font-bold leading-relaxed">{pParcel.note}</p>
+                </div>
+                <button onClick={() => setPParcel(null)}
+                  className="w-full mt-4 bg-stone-900 text-white font-extrabold py-3.5 rounded-2xl">Compris ✓</button>
+              </div>
+            </div>
+          )}
+
+          {/* Réception d'un dépôt vendeur */}
+          {depositOpen && (
+            <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setDepositOpen(false)}>
+              <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" onClick={(e) => e.stopPropagation()}>
+                <p className="font-display font-bold text-base text-stone-900">Réception dépôt vendeur · BAL-9K2P4</p>
+                <p className="text-[11px] text-stone-500 font-semibold mt-1">Vérifie avant d'accepter la garde — tu deviens responsable du colis.</p>
+                <div className="mt-4 space-y-2">
+                  {["Colis scellé et intact", "Étiquette bali lisible (code + destinataire)", "Photo du colis prise 📷"].map((c, i) => (
+                    <button key={c} onClick={() => setDepoChecks(depoChecks.map((v, j) => (j === i ? !v : v)))}
+                      className={`w-full flex items-center gap-3 p-3.5 rounded-2xl border text-left ${depoChecks[i] ? "bg-emerald-50 border-emerald-300" : "bg-stone-50 border-stone-200"}`}>
+                      <div className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 ${depoChecks[i] ? "bg-emerald-500" : "bg-white border border-stone-300"}`}>
+                        {depoChecks[i] && <Check size={14} className="text-white" />}
+                      </div>
+                      <span className="text-xs font-extrabold text-stone-800">{c}</span>
+                    </button>
+                  ))}
+                </div>
+                <button disabled={!depoChecks.every(Boolean)}
+                  onClick={() => { setDepositDone(true); setDepositOpen(false); showToast("Garde transférée : Vendeur → Hanout ✅ Emplacement B3"); }}
+                  className={`w-full mt-4 font-extrabold py-4 rounded-2xl ${depoChecks.every(Boolean) ? "bg-stone-900 text-white" : "bg-stone-200 text-stone-400"}`}>
+                  Accepter la garde (Vendeur → Hanout)
+                </button>
+              </div>
+            </div>
+          )}
+
+          {toast && (
+            <div className="fixed top-5 inset-x-0 flex justify-center z-50 px-5">
+              <div className="bg-stone-900 text-white text-xs font-bold px-5 py-3 rounded-full shadow-lg max-w-md">{toast}</div>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  /* ---------------------------------------------------------------- */
+  /* Rendu principal                                                   */
+  /* ---------------------------------------------------------------- */
+
+  const TABS = [
+    { id: "home", icon: Home, key: "nav_home" },
+    { id: "search", icon: Search, key: "nav_explore" },
+    { id: "sell", icon: Plus, key: "nav_sell" },
+    { id: "msg", icon: MessageCircle, key: "nav_msg" },
+    { id: "profile", icon: User, key: "nav_profile" },
+  ];
+
+  if (obStep < 5) return onboardingScreen();
+
+  if (appMode === "partner") return partnerApp();
+
+  return (
+    <div className="min-h-screen bg-stone-200 flex justify-center font-app">
+      <FontStyles />
+      <div className="w-full max-w-md bg-stone-50 min-h-screen relative shadow-2xl" dir={cur.dir}>
+        {tab === "home" && homeScreen()}
+        {tab === "search" && searchScreen()}
+        {tab === "sell" && sellScreen()}
+        {tab === "msg" && messagesScreen()}
+        {tab === "profile" && profileScreen()}
+
+        <div className="fixed bottom-0 inset-x-0 flex justify-center z-30">
+          <div className="w-full max-w-md bg-white border-t border-stone-100 px-2 pt-2 pb-4 flex justify-around" dir={cur.dir}>
+            {TABS.map((tb) => {
+              const Icon = tb.icon;
+              const active = tab === tb.id;
+              const isSell = tb.id === "sell";
+              return (
+                <button key={tb.id} onClick={() => { setTab(tb.id); setActiveThread(null); }}
+                  className="flex flex-col items-center gap-0.5 px-2">
+                  <div className={isSell ? "bg-indigo-600 text-white rounded-2xl px-4 py-2 -mt-4 shadow-lg" :
+                    active ? "text-indigo-600" : "text-stone-400"}>
+                    <Icon size={isSell ? 20 : 21} strokeWidth={active || isSell ? 2.5 : 2} />
+                  </div>
+                  <span className={`text-[10px] font-bold ${active ? "text-indigo-600" : "text-stone-400"}`}>{t(tb.key)}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {toast && (
+          <div className="fixed top-5 inset-x-0 flex justify-center z-50 px-5">
+            <div className="bg-stone-900 text-white text-xs font-bold px-5 py-3 rounded-full shadow-lg max-w-md">
+              {toast}
+            </div>
+          </div>
+        )}
+
+        {sellerView && sellerScreen(sellerView)}
+        {item && itemDetail(item)}
+        {orderOpen && ticketScreen()}
+        {saleOpen && depositScreen()}
+        {payOpen && paySheet()}
+        {trustOpen && trustSheet()}
+        {pObStep >= 0 && partnerOnboarding()}
+        {notifOpen && notifSheet()}
+        {langOpen && langSheet()}
+      </div>
+    </div>
+  );
+}
