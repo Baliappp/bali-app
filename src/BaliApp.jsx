@@ -1260,8 +1260,13 @@ export default function BaliApp() {
     }
     setPublishing(true);
     try {
-      const { data: sess } = await supabase.auth.getSession();
-      const uid = sess.session && sess.session.user ? sess.session.user.id : null;
+      const { data: userData } = await supabase.auth.getUser();
+      const uid = userData && userData.user ? userData.user.id : null;
+      if (!uid) {
+        showToast("⚠️ Reconnecte-toi pour publier (session expirée)");
+        setPublishing(false);
+        return;
+      }
 
       /* 1. Envoyer la photo dans le casier Storage */
       let photoPublicUrl = null;
