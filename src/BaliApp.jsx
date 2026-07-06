@@ -117,6 +117,11 @@ const T = {
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
     msgs_none: "Aucune conversation — fais une offre sur un article !", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
     real_order_title: "Commande confirmée 🎉", real_pin_note: "Ton code retrait — note-le bien, il ne sera plus affiché en clair.",
+    filters_title: "Filtres", filter_cat: "Catégorie", filter_brand: "Marque", filter_size: "Taille",
+    filter_cond: "État", filter_price: "Prix (DH)", filter_sort: "Trier par",
+    sort_recent: "Plus récent", sort_price_asc: "Prix croissant", sort_price_desc: "Prix décroissant", sort_popular: "Plus populaire",
+    filter_reset: "Réinitialiser", filter_apply: "Voir les résultats ({n})",
+    price_min_ph: "Min", price_max_ph: "Max",
     real_order_ok: "J'ai noté mon code ✓", my_orders: "Mes commandes", no_orders: "Aucune commande pour le moment",
     order_pin_hidden: "Code masqué pour ta sécurité",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
@@ -267,6 +272,11 @@ const T = {
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
     msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
     real_order_title: "تأكدات الطلبية 🎉", real_pin_note: "الكود ديالك ديال التسلم — كتبو مزيان، ما غاديش يبان مرة أخرى.",
+    filters_title: "الفلاتر", filter_cat: "الصنف", filter_brand: "الماركة", filter_size: "المقاس",
+    filter_cond: "الحالة", filter_price: "الثمن (درهم)", filter_sort: "رتب حسب",
+    sort_recent: "الجداد", sort_price_asc: "الثمن : من قل لكبر", sort_price_desc: "الثمن : من كبر لقل", sort_popular: "الأكثر طلب",
+    filter_reset: "صيفط", filter_apply: "شوف النتائج ({n})",
+    price_min_ph: "أدنى", price_max_ph: "أقصى",
     real_order_ok: "كتبتو ✓", my_orders: "الطلبيات ديالي", no_orders: "ما كاين حتى طلبية",
     order_pin_hidden: "الكود مخبي للأمان ديالك",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
@@ -417,6 +427,11 @@ const T = {
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
     msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
     real_order_title: "تأكيد الطلب 🎉", real_pin_note: "رمز الاستلام الخاص بك — احفظه جيداً، لن يظهر مرة أخرى بوضوح.",
+    filters_title: "الفلاتر", filter_cat: "الفئة", filter_brand: "الماركة", filter_size: "المقاس",
+    filter_cond: "الحالة", filter_price: "السعر (درهم)", filter_sort: "الترتيب حسب",
+    sort_recent: "الأحدث", sort_price_asc: "السعر تصاعدياً", sort_price_desc: "السعر تنازلياً", sort_popular: "الأكثر رواجاً",
+    filter_reset: "إعادة تعيين", filter_apply: "عرض النتائج ({n})",
+    price_min_ph: "الأدنى", price_max_ph: "الأقصى",
     real_order_ok: "حفظته ✓", my_orders: "طلباتي", no_orders: "لا يوجد طلبات بعد",
     order_pin_hidden: "الرمز مخفي لأمانك",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
@@ -574,6 +589,11 @@ const T = {
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
     msgs_none: "No conversations yet — make an offer on an item!", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
     real_order_title: "Order confirmed 🎉", real_pin_note: "Your pickup code — write it down, it won't be shown again in plain text.",
+    filters_title: "Filters", filter_cat: "Category", filter_brand: "Brand", filter_size: "Size",
+    filter_cond: "Condition", filter_price: "Price (DH)", filter_sort: "Sort by",
+    sort_recent: "Most recent", sort_price_asc: "Price: low to high", sort_price_desc: "Price: high to low", sort_popular: "Most popular",
+    filter_reset: "Reset", filter_apply: "See results ({n})",
+    price_min_ph: "Min", price_max_ph: "Max",
     real_order_ok: "I've noted it ✓", my_orders: "My orders", no_orders: "No orders yet",
     order_pin_hidden: "Code hidden for your security",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
@@ -724,6 +744,11 @@ const T = {
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
     msgs_none: "Sin conversaciones — ¡haz una oferta!", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
     real_order_title: "Pedido confirmado 🎉", real_pin_note: "Tu código de recogida — anótalo, no volverá a mostrarse en texto claro.",
+    filters_title: "Filtros", filter_cat: "Categoría", filter_brand: "Marca", filter_size: "Talla",
+    filter_cond: "Estado", filter_price: "Precio (DH)", filter_sort: "Ordenar por",
+    sort_recent: "Más reciente", sort_price_asc: "Precio: menor a mayor", sort_price_desc: "Precio: mayor a menor", sort_popular: "Más popular",
+    filter_reset: "Restablecer", filter_apply: "Ver resultados ({n})",
+    price_min_ph: "Mín", price_max_ph: "Máx",
     real_order_ok: "Lo he anotado ✓", my_orders: "Mis pedidos", no_orders: "Aún no hay pedidos",
     order_pin_hidden: "Código oculto por tu seguridad",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
@@ -961,7 +986,14 @@ export default function BaliApp() {
   const [tab, setTab] = useState("home");
   const [item, setItem] = useState(null);
   const [filter, setFilter] = useState("all");
-  const [liked, setLiked] = useState({});
+  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [fCats, setFCats] = useState([]);
+  const [fBrands, setFBrands] = useState([]);
+  const [fSizes, setFSizes] = useState([]);
+  const [fConds, setFConds] = useState([]);
+  const [fPriceMin, setFPriceMin] = useState("");
+  const [fPriceMax, setFPriceMax] = useState("");
+  const [fSort, setFSort] = useState("recent");
   const [offerOpen, setOfferOpen] = useState(false);
   const [offerValue, setOfferValue] = useState("");
   const [toast, setToast] = useState(null);
@@ -1225,7 +1257,7 @@ export default function BaliApp() {
         seller: { name: names[r.seller_id] || "Membre bali", rating: 5.0, sales: 0, verified: true },
         id: "db_" + r.id, title: r.title, brand: r.brand || "", size: r.size || "—",
         cond: r.condition, price: r.price_dh, oldPrice: r.old_price_dh || null,
-        cat: ["femmes", "hommes", "enfants", "tech", "maison", "trad"].indexOf(r.category),
+        cat: r.category,
         emoji: emojis[r.category] || "🛍️", grad: grads[i % grads.length],
         photo: (r.photos && r.photos[0]) || null, city: r.city || "Casablanca",
         likes: r.likes || 0, video: r.video_packing || false, real: true, seller_id: r.seller_id,
@@ -1531,7 +1563,32 @@ export default function BaliApp() {
   };
 
   const allItems = [...dbItems, ...ITEMS];
-  const filteredItems = filter === "all" ? allItems : allItems.filter((i) => i.cat === filter);
+
+  /* Options dynamiques construites à partir des articles réellement en ligne */
+  const brandOptions = [...new Set(allItems.map((i) => i.brand).filter((b) => b && b !== "—"))].sort();
+  const sizeOptions = [...new Set(allItems.map((i) => i.size).filter((s) => s && s !== "—"))].sort();
+  const activeFilterCount = fCats.length + fBrands.length + fSizes.length + fConds.length + (fPriceMin ? 1 : 0) + (fPriceMax ? 1 : 0);
+
+  const toggleIn = (arr, setArr, val) => setArr(arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val]);
+  const resetFilters = () => { setFCats([]); setFBrands([]); setFSizes([]); setFConds([]); setFPriceMin(""); setFPriceMax(""); setFSort("recent"); };
+
+  /* Filtre + tri partagés entre l'accueil et la recherche (logique Vinted) */
+  const applyFilters = (list) => {
+    let out = list;
+    if (fCats.length) out = out.filter((i) => fCats.includes(i.cat));
+    if (fBrands.length) out = out.filter((i) => fBrands.includes(i.brand));
+    if (fSizes.length) out = out.filter((i) => fSizes.includes(i.size));
+    if (fConds.length) out = out.filter((i) => fConds.includes(i.cond));
+    if (fPriceMin) out = out.filter((i) => i.price >= parseInt(fPriceMin, 10));
+    if (fPriceMax) out = out.filter((i) => i.price <= parseInt(fPriceMax, 10));
+    const sorted = [...out];
+    if (fSort === "price_asc") sorted.sort((a, b) => a.price - b.price);
+    else if (fSort === "price_desc") sorted.sort((a, b) => b.price - a.price);
+    else if (fSort === "popular") sorted.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+    return sorted;
+  };
+
+  const filteredItems = applyFilters(fCats.length ? allItems : (filter === "all" ? allItems : allItems.filter((i) => i.cat === filter)));
   const thread = threads.find((th) => th.id === activeThread);
 
   /* ---------------------------------------------------------------- */
@@ -1620,8 +1677,11 @@ export default function BaliApp() {
           <Search size={17} className="text-stone-400" />
           <span className="text-sm text-stone-400">{t("search_ph")}</span>
         </button>
-        <button className="bg-white rounded-2xl px-3 shadow-sm">
+        <button onClick={() => setFiltersOpen(true)} className="relative bg-white rounded-2xl px-3 shadow-sm">
           <SlidersHorizontal size={17} className="text-stone-600" />
+          {activeFilterCount > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[9px] font-extrabold flex items-center justify-center">{activeFilterCount}</span>
+          )}
         </button>
       </div>
 
@@ -1708,18 +1768,26 @@ export default function BaliApp() {
   const searchScreen = () => {
     const q = query.trim().toLowerCase();
     const results = q
-      ? ITEMS.filter((i) => (i.title + " " + i.brand + " " + i.city + " " + i.cat).toLowerCase().includes(q))
+      ? applyFilters(allItems.filter((i) => (i.title + " " + i.brand + " " + i.city + " " + i.cat).toLowerCase().includes(q)))
       : [];
     return (
       <div className="pb-28 px-5 pt-5">
         <p className="font-display font-bold text-xl text-stone-900">{t("explore")}</p>
-        <div className="flex items-center gap-2 bg-white rounded-2xl px-4 shadow-sm mt-4 focus-within:ring-2 focus-within:ring-indigo-400">
-          <Search size={17} className="text-stone-400 shrink-0" />
-          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search_on")}
-            className="flex-1 py-3 text-sm font-medium outline-none bg-transparent" />
-          {query && (
-            <button onClick={() => setQuery("")}><X size={16} className="text-stone-400" /></button>
-          )}
+        <div className="flex items-center gap-2 mt-4">
+          <div className="flex-1 flex items-center gap-2 bg-white rounded-2xl px-4 shadow-sm focus-within:ring-2 focus-within:ring-indigo-400">
+            <Search size={17} className="text-stone-400 shrink-0" />
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search_on")}
+              className="flex-1 py-3 text-sm font-medium outline-none bg-transparent" />
+            {query && (
+              <button onClick={() => setQuery("")}><X size={16} className="text-stone-400" /></button>
+            )}
+          </div>
+          <button onClick={() => setFiltersOpen(true)} className="relative bg-white rounded-2xl px-3.5 py-3 shadow-sm shrink-0">
+            <SlidersHorizontal size={17} className="text-stone-600" />
+            {activeFilterCount > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[9px] font-extrabold flex items-center justify-center">{activeFilterCount}</span>
+            )}
+          </button>
         </div>
 
         {q ? (
@@ -3784,6 +3852,112 @@ export default function BaliApp() {
         {saleOpen && depositScreen()}
         {payOpen && paySheet()}
         {trustOpen && trustSheet()}
+
+        {/* Panneau de filtres — logique Vinted */}
+        {filtersOpen && (
+          <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setFiltersOpen(false)}>
+            <div className="w-full max-w-md bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto font-app" onClick={(e) => e.stopPropagation()} dir={cur.dir}>
+              <div className="px-6 pt-5 pb-3 flex items-center justify-between sticky top-0 bg-white z-10 border-b border-stone-100">
+                <p className="font-display font-bold text-lg text-stone-900">{t("filters_title")}</p>
+                <button onClick={() => setFiltersOpen(false)}><X size={20} className="text-stone-400" /></button>
+              </div>
+
+              <div className="px-6 py-4 space-y-5">
+                {/* Catégorie */}
+                <div>
+                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_cat")}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {CATEGORIES.map((c) => (
+                      <button key={c.id} onClick={() => toggleIn(fCats, setFCats, c.id)}
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold ${fCats.includes(c.id) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
+                        <span>{c.emoji}</span> {t("cat_" + c.id)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Prix */}
+                <div>
+                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_price")}</p>
+                  <div className="flex items-center gap-2">
+                    <input value={fPriceMin} onChange={(e) => setFPriceMin(e.target.value.replace(/[^0-9]/g, ""))}
+                      inputMode="numeric" placeholder={t("price_min_ph")}
+                      className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2.5 text-sm font-bold outline-none focus:border-indigo-400" />
+                    <span className="text-stone-400 font-bold">—</span>
+                    <input value={fPriceMax} onChange={(e) => setFPriceMax(e.target.value.replace(/[^0-9]/g, ""))}
+                      inputMode="numeric" placeholder={t("price_max_ph")}
+                      className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2.5 text-sm font-bold outline-none focus:border-indigo-400" />
+                  </div>
+                </div>
+
+                {/* État */}
+                <div>
+                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_cond")}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {t("conds").map((c, i) => (
+                      <button key={i} onClick={() => toggleIn(fConds, setFConds, i)}
+                        className={`px-3 py-2 rounded-full text-xs font-bold ${fConds.includes(i) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
+                        {c}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Taille */}
+                {sizeOptions.length > 0 && (
+                  <div>
+                    <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_size")}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {sizeOptions.map((s) => (
+                        <button key={s} onClick={() => toggleIn(fSizes, setFSizes, s)}
+                          className={`px-3.5 py-2 rounded-full text-xs font-bold ${fSizes.includes(s) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Marque */}
+                {brandOptions.length > 0 && (
+                  <div>
+                    <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_brand")}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {brandOptions.map((b) => (
+                        <button key={b} onClick={() => toggleIn(fBrands, setFBrands, b)}
+                          className={`px-3.5 py-2 rounded-full text-xs font-bold ${fBrands.includes(b) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
+                          {b}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Tri */}
+                <div>
+                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_sort")}</p>
+                  <div className="space-y-1.5">
+                    {[["recent", t("sort_recent")], ["price_asc", t("sort_price_asc")], ["price_desc", t("sort_price_desc")], ["popular", t("sort_popular")]].map(([id, label]) => (
+                      <button key={id} onClick={() => setFSort(id)}
+                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold ${fSort === id ? "bg-indigo-50 text-indigo-700 border border-indigo-200" : "bg-stone-50 text-stone-600"}`}>
+                        {label}
+                        {fSort === id && <Check size={16} />}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-6 py-4 border-t border-stone-100 sticky bottom-0 bg-white flex gap-3">
+                <button onClick={resetFilters} className="text-xs font-extrabold text-stone-500 px-2">{t("filter_reset")}</button>
+                <button onClick={() => setFiltersOpen(false)}
+                  className="flex-1 bg-indigo-600 text-white font-extrabold py-3.5 rounded-2xl active:scale-95 transition-transform">
+                  {tf("filter_apply", { n: applyFilters(allItems).length })}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Ticket affiché juste après la création — PIN en clair, une seule fois */}
         {newOrderTicket && (
