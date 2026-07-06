@@ -1194,7 +1194,8 @@ function BaliAppScreen() {
   const [publishing, setPublishing] = useState(false);
 
   /* Point relais — deux faces du système */
-  const [appMode, setAppMode] = useState("client"); // client | partner
+  const isPartnerUrl = typeof window !== "undefined" && (window.location.search.includes("partenaire") || window.location.search.includes("partner"));
+  const [appMode, setAppMode] = useState(isPartnerUrl ? "partner" : "client"); // client | partner
   const [orderOpen, setOrderOpen] = useState(false);
   const [orderStatus, setOrderStatus] = useState("ready"); // ready | delivered | confirmed | disputed
   const [pinShown, setPinShown] = useState(false);
@@ -1538,6 +1539,7 @@ function BaliAppScreen() {
     });
     loadItems();
     loadProfile();
+    if (isPartnerUrl) loadPartnerOrders();
   }, []);
 
   /* Rafraîchir les conversations à l'ouverture de l'onglet Messages */
@@ -3857,10 +3859,12 @@ function BaliAppScreen() {
                   <p className="text-[10px] text-stone-400 font-bold mt-1">{ORDER.point.name} · {ORDER.point.owner}</p>
                 </div>
               </div>
-              <button onClick={() => setAppMode("client")}
-                className="flex items-center gap-1 bg-stone-800 text-stone-200 text-[10px] font-extrabold px-3 py-2 rounded-full">
-                <ArrowLeft size={12} /> Client
-              </button>
+              {!isPartnerUrl && (
+                <button onClick={() => setAppMode("client")}
+                  className="flex items-center gap-1 bg-stone-800 text-stone-200 text-[10px] font-extrabold px-3 py-2 rounded-full">
+                  <ArrowLeft size={12} /> Client
+                </button>
+              )}
             </div>
             <div className="flex gap-2 mt-3">
               <span className="text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 px-2.5 py-1 rounded-full">● Ouvert · 7h–23h</span>
