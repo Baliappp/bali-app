@@ -2725,8 +2725,8 @@ function BaliAppScreen() {
         </div>
       </button>
 
-      {/* Devenir point bali — la porte d'entrée du réseau */}
-      <button onClick={() => { setPObStep(0); setPObName(""); setPObPhotos([false, false]); setPObRib(""); }}
+      {/* Devenir point bali — redirige vers l'app Partenaire dédiée */}
+      <a href="?partenaire"
         className="w-full mt-3 bg-stone-900 rounded-2xl p-4 flex items-center gap-3 relative overflow-hidden">
         <Star8 size={46} className="absolute -right-1 -top-2 text-stone-800" />
         <div className="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center relative shrink-0">
@@ -2736,7 +2736,7 @@ function BaliAppScreen() {
           <p className="text-sm font-extrabold text-white">{t("become_point")}</p>
           <p className="text-[11px] text-stone-400 font-semibold">{t("become_sub")}</p>
         </div>
-      </button>
+      </a>
 
       <div className="mt-4 bg-indigo-600 rounded-3xl p-5 text-white relative overflow-hidden">
         <Star8 size={70} className="absolute -right-3 -bottom-4 text-indigo-500 opacity-50" />
@@ -4336,7 +4336,7 @@ function BaliAppScreen() {
 
   if (obStep < 6) return onboardingScreen();
 
-  if (appMode === "partner") return partnerApp();
+  if (isPartnerUrl) return partnerApp();
 
   return (
     <div className="min-h-screen bg-stone-200 flex justify-center font-app">
