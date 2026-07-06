@@ -114,7 +114,7 @@ const T = {
     member: "Membre depuis 2026", wallet: "PORTEFEUILLE BALI", transfer: "Virer vers ma banque",
     dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
-    language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta",
+    language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
     t_accepted: "Offre acceptée — safi, c'est vendu ! 🎉", t_published: "Sahiti ! « {t} » est en ligne 🎉",
     t_order: "Commande simulée — paiement à la livraison ✅", t_need: "Ajoute un titre et un prix 🙂",
@@ -260,7 +260,7 @@ const T = {
     member: "عضو من 2026", wallet: "البزطام ديال BALI", transfer: "حوّل للبانكة",
     dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
-    language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا",
+    language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
     t_accepted: "تقبل العرض — صافي، تباعت! 🎉", t_published: "صحيتي! « {t} » ولات أونلاين 🎉",
     t_order: "كوموند تجريبية — الخلاص عند التسليم ✅", t_need: "زيد العنوان والثمن 🙂",
@@ -406,7 +406,7 @@ const T = {
     member: "عضو منذ 2026", wallet: "محفظة BALI", transfer: "تحويل إلى حسابي البنكي",
     dressing: "خزانتي", sell_new: "بيع منتج جديد",
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
-    language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي",
+    language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
     t_accepted: "تم قبول العرض — مبروك، تم البيع! 🎉", t_published: "« {t} » أصبح متاحا الآن 🎉",
     t_order: "طلب تجريبي — الدفع عند الاستلام ✅", t_need: "أضف عنوانا وسعرا 🙂",
@@ -559,7 +559,7 @@ const T = {
     member: "Member since 2026", wallet: "BALI WALLET", transfer: "Transfer to my bank",
     dressing: "My closet", sell_new: "Sell a new item",
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
-    language: "Language", choose_lang: "Choose your language", beta: "beta",
+    language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
     t_accepted: "Offer accepted — sold! 🎉", t_published: "\u201C{t}\u201D is now live 🎉",
     t_order: "Order simulated — cash on delivery ✅", t_need: "Add a title and a price 🙂",
@@ -705,7 +705,7 @@ const T = {
     member: "Miembro desde 2026", wallet: "CARTERA BALI", transfer: "Transferir a mi banco",
     dressing: "Mi armario", sell_new: "Vender otro artículo",
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
-    language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta",
+    language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
     t_accepted: "Oferta aceptada — ¡vendido! 🎉", t_published: "«{t}» ya está en línea 🎉",
     t_order: "Pedido simulado — pago contra entrega ✅", t_need: "Añade un título y un precio 🙂",
@@ -1002,7 +1002,16 @@ export default function BaliApp() {
   const [notifRead, setNotifRead] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [payMethodI, setPayMethodI] = useState(0);
-  const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 terminé
+  const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 cadeau · 5 synopsis · 6 app
+  const [authChecked, setAuthChecked] = useState(false);
+
+  /* Au démarrage : si une session existe déjà, on entre directement dans l'app */
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) setObStep(6);
+      setAuthChecked(true);
+    });
+  }, []);
   const [obPhone, setObPhone] = useState("");
   const [obCountryI, setObCountryI] = useState(0);
   const [obCountryOpen, setObCountryOpen] = useState(false);
@@ -1836,6 +1845,11 @@ export default function BaliApp() {
       <button onClick={() => setTab("sell")}
         className="w-full mt-4 border-2 border-dashed border-indigo-300 text-indigo-600 font-bold text-sm py-4 rounded-2xl flex items-center justify-center gap-2">
         <Plus size={16} /> {t("sell_new")}
+      </button>
+
+      <button onClick={async () => { await supabase.auth.signOut(); showToast(t("logout_done")); setObStep(0); setTab("home"); }}
+        className="w-full mt-4 text-stone-400 font-bold text-xs py-3">
+        {t("logout")}
       </button>
     </div>
   );
@@ -3307,6 +3321,16 @@ export default function BaliApp() {
     { id: "msg", icon: MessageCircle, key: "nav_msg" },
     { id: "profile", icon: User, key: "nav_profile" },
   ];
+
+  if (!authChecked) return (
+    <div className="min-h-screen bg-indigo-600 flex items-center justify-center font-app">
+      <FontStyles />
+      <div className="flex flex-col items-center gap-3">
+        <Star8 size={40} className="text-amber-400 animate-pulse" />
+        <span className="font-display font-extrabold text-3xl text-white">bali</span>
+      </div>
+    </div>
+  );
 
   if (obStep < 6) return onboardingScreen();
 
