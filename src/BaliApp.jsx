@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { supabase } from "./supabase.js";
 import {
   Home, Search, Plus, MessageCircle, User, Heart, ChevronLeft, ShieldCheck,
   Truck, Star, MapPin, Camera, BadgeCheck, Send, Bell, SlidersHorizontal,
@@ -897,6 +898,12 @@ const SALE = {
 };
 
 export default function BaliApp() {
+  useEffect(() => {
+    supabase.from("promo_codes").select("code").limit(1)
+      .then(({ error }) => {
+        console.log(error ? "❌ Supabase: " + error.message : "✅ Supabase connecté !");
+      });
+  }, []);
   const [lang, setLang] = useState("fr");
   const [langOpen, setLangOpen] = useState(false);
   const [tab, setTab] = useState("home");
