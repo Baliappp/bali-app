@@ -115,6 +115,7 @@ const T = {
     dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
+    msgs_none: "Aucune conversation — fais une offre sur un article !", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
     t_accepted: "Offre acceptée — safi, c'est vendu ! 🎉", t_published: "Sahiti ! « {t} » est en ligne 🎉",
     t_order: "Commande simulée — paiement à la livraison ✅", t_need: "Ajoute un titre et un prix 🙂",
@@ -261,6 +262,7 @@ const T = {
     dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
+    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
     t_accepted: "تقبل العرض — صافي، تباعت! 🎉", t_published: "صحيتي! « {t} » ولات أونلاين 🎉",
     t_order: "كوموند تجريبية — الخلاص عند التسليم ✅", t_need: "زيد العنوان والثمن 🙂",
@@ -407,6 +409,7 @@ const T = {
     dressing: "خزانتي", sell_new: "بيع منتج جديد",
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
+    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
     t_accepted: "تم قبول العرض — مبروك، تم البيع! 🎉", t_published: "« {t} » أصبح متاحا الآن 🎉",
     t_order: "طلب تجريبي — الدفع عند الاستلام ✅", t_need: "أضف عنوانا وسعرا 🙂",
@@ -560,6 +563,7 @@ const T = {
     dressing: "My closet", sell_new: "Sell a new item",
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
+    msgs_none: "No conversations yet — make an offer on an item!", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
     t_accepted: "Offer accepted — sold! 🎉", t_published: "\u201C{t}\u201D is now live 🎉",
     t_order: "Order simulated — cash on delivery ✅", t_need: "Add a title and a price 🙂",
@@ -706,6 +710,7 @@ const T = {
     dressing: "Mi armario", sell_new: "Vender otro artículo",
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
+    msgs_none: "Sin conversaciones — ¡haz una oferta!", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
     t_accepted: "Oferta aceptada — ¡vendido! 🎉", t_published: "«{t}» ya está en línea 🎉",
     t_order: "Pedido simulado — pago contra entrega ✅", t_need: "Añade un título y un precio 🙂",
@@ -1020,6 +1025,86 @@ export default function BaliApp() {
     if (data) setMyProfile(data);
   };
 
+  /* ---- MESSAGERIE RÉELLE ---- */
+  const [dbThreads, setDbThreads] = useState([]);
+  const [dbThread, setDbThread] = useState(null);
+  const [dbMsgs, setDbMsgs] = useState([]);
+  const [msgInput, setMsgInput] = useState("");
+
+  const loadThreads = async () => {
+    const { data: u } = await supabase.auth.getUser();
+    const uid = u && u.user ? u.user.id : null;
+    if (!uid) { setDbThreads([]); return; }
+    const { data: ths } = await supabase.from("threads").select("*")
+      .or("buyer_id.eq." + uid + ",seller_id.eq." + uid)
+      .order("created_at", { ascending: false });
+    if (!ths || ths.length === 0) { setDbThreads([]); return; }
+    const itemIds = [...new Set(ths.map((t) => t.item_id))];
+    const otherIds = [...new Set(ths.map((t) => (t.buyer_id === uid ? t.seller_id : t.buyer_id)))];
+    const { data: its } = await supabase.from("items").select("id, title, photos").in("id", itemIds);
+    const { data: profs } = await supabase.from("profiles").select("id, display_name").in("id", otherIds);
+    setDbThreads(ths.map((th) => {
+      const it = (its || []).find((x) => x.id === th.item_id);
+      const other = (profs || []).find((p) => p.id === (th.buyer_id === uid ? th.seller_id : th.buyer_id));
+      return {
+        ...th, mine: uid,
+        itemTitle: it ? it.title : "Article",
+        photo: it && it.photos && it.photos[0] ? it.photos[0] : null,
+        otherName: other && other.display_name ? other.display_name : "Membre bali",
+      };
+    }));
+  };
+
+  const loadMsgs = async (threadId) => {
+    const { data } = await supabase.from("messages").select("*")
+      .eq("thread_id", threadId).order("created_at", { ascending: true });
+    setDbMsgs(data || []);
+  };
+
+  const openDbThread = (th) => { setDbThread(th); setActiveThread(null); setDbMsgs([]); loadMsgs(th.id); };
+
+  const sendDbMsg = async () => {
+    if (!msgInput.trim() || !dbThread || !myProfile) return;
+    const body = msgInput.trim();
+    setMsgInput("");
+    const { error } = await supabase.from("messages").insert({ thread_id: dbThread.id, sender_id: myProfile.id, body });
+    if (error) showToast("⚠️ " + error.message);
+    else loadMsgs(dbThread.id);
+  };
+
+  const startRealThread = async (it, offerAmount) => {
+    if (!myProfile) { showToast("⚠️ Connecte-toi d'abord"); return; }
+    if (it.seller_id === myProfile.id) { showToast(t("own_item")); return; }
+    const itemId = String(it.id).replace("db_", "");
+    let th = null;
+    const { data: found } = await supabase.from("threads").select("*")
+      .eq("item_id", itemId).eq("buyer_id", myProfile.id).maybeSingle();
+    if (found) th = found;
+    else {
+      const { data: created, error } = await supabase.from("threads")
+        .insert({ item_id: itemId, buyer_id: myProfile.id, seller_id: it.seller_id })
+        .select().single();
+      if (error) { showToast("⚠️ " + error.message); return; }
+      th = created;
+    }
+    const msg = offerAmount
+      ? { thread_id: th.id, sender_id: myProfile.id, offer_amount_dh: offerAmount, offer_status: "sent" }
+      : { thread_id: th.id, sender_id: myProfile.id, body: t("wach") };
+    const { error: mErr } = await supabase.from("messages").insert(msg);
+    if (mErr) { showToast("⚠️ " + mErr.message); return; }
+    setOfferOpen(false); setOfferValue(""); setItem(null); setTab("msg");
+    openDbThread({ ...th, mine: myProfile.id, itemTitle: it.title, photo: it.photo || null, otherName: it.seller && it.seller.name ? it.seller.name : "Vendeur" });
+    loadThreads();
+    showToast(offerAmount ? tf("t_offer_sent", { x: offerAmount }) : tf("t_msg_sent", { n: it.seller.name }));
+  };
+
+  const deleteItem = async (it) => {
+    const raw = String(it.id).replace("db_", "");
+    const { error } = await supabase.from("items").update({ status: "removed" }).eq("id", raw);
+    if (error) showToast("⚠️ " + error.message);
+    else { showToast(t("deleted_ok")); setItem(null); loadItems(); }
+  };
+
   /* Enregistrer le nom */
   const saveName = async () => {
     const { data: userData } = await supabase.auth.getUser();
@@ -1044,9 +1129,17 @@ export default function BaliApp() {
       .order("created_at", { ascending: false })
       .limit(50);
     if (!error && data) {
+      /* Récupérer les noms des vendeurs (évite le crash sur la fiche article) */
+      const sellerIds = [...new Set(data.map((r) => r.seller_id).filter(Boolean))];
+      const names = {};
+      if (sellerIds.length > 0) {
+        const { data: profs } = await supabase.from("profiles").select("id, display_name").in("id", sellerIds);
+        (profs || []).forEach((p) => { names[p.id] = p.display_name; });
+      }
       const grads = ["from-orange-100 to-rose-200", "from-sky-100 to-indigo-200", "from-lime-100 to-green-200", "from-violet-100 to-purple-200", "from-amber-100 to-yellow-200"];
       const emojis = { femmes: "👗", hommes: "👕", enfants: "🧸", tech: "📱", maison: "🏠", trad: "👘" };
       setDbItems(data.map((r, i) => ({
+        seller: { name: names[r.seller_id] || "Membre bali", rating: 5.0, sales: 0, verified: true },
         id: "db_" + r.id, title: r.title, brand: r.brand || "", size: r.size || "—",
         cond: r.condition, price: r.price_dh, oldPrice: r.old_price_dh || null,
         cat: ["femmes", "hommes", "enfants", "tech", "maison", "trad"].indexOf(r.category),
@@ -1066,6 +1159,18 @@ export default function BaliApp() {
     loadItems();
     loadProfile();
   }, []);
+
+  /* Rafraîchir les conversations à l'ouverture de l'onglet Messages */
+  useEffect(() => {
+    if (tab === "msg" && obStep >= 6) loadThreads();
+  }, [tab, obStep]);
+
+  /* Rafraîchir le chat ouvert toutes les 5 s (quasi temps réel) */
+  useEffect(() => {
+    if (!dbThread) return;
+    const iv = setInterval(() => loadMsgs(dbThread.id), 5000);
+    return () => clearInterval(iv);
+  }, [dbThread]);
   const [obPhone, setObPhone] = useState("");
   const [obCountryI, setObCountryI] = useState(0);
   const [obCountryOpen, setObCountryOpen] = useState(false);
@@ -1091,6 +1196,8 @@ export default function BaliApp() {
     const { error } = await supabase.auth.verifyOtp({ phone: fullPhone, token: obCode, type: "sms" });
     setObLoading(false);
     if (error) { setObError(error.message); return; }
+    loadProfile();
+    loadThreads();
     setObStep(4);
   };
   const [obCode, setObCode] = useState("");
@@ -1244,6 +1351,7 @@ export default function BaliApp() {
   };
 
   const sendQuickMsg = (it) => {
+    if (it.real) { startRealThread(it, null); return; }
     const th = {
       id: "t" + Date.now(), name: it.seller.name, itemTitle: it.title, emoji: it.emoji,
       messages: [{ from: "me", text: t("wach") }],
@@ -1258,6 +1366,7 @@ export default function BaliApp() {
   const sendOffer = (it) => {
     const amount = parseInt(offerValue, 10);
     if (!amount || amount <= 0) return;
+    if (it.real) { startRealThread(it, amount); return; }
     const th = {
       id: "t" + Date.now(), name: it.seller.name, itemTitle: it.title, emoji: it.emoji,
       messages: [{ from: "me", type: "offer", amount, status: "sent" }],
@@ -1787,6 +1896,50 @@ export default function BaliApp() {
   );
 
   const messagesScreen = () => {
+    /* Chat RÉEL ouvert */
+    if (dbThread) {
+      return (
+        <div className="pb-28 flex flex-col min-h-full">
+          <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setDbThread(null)}>
+              <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+            </button>
+            <div className="w-9 h-9 rounded-full bg-indigo-100 flex items-center justify-center text-sm font-extrabold text-indigo-600 overflow-hidden shrink-0">
+              {dbThread.photo ? <img src={dbThread.photo} alt="" className="w-full h-full object-cover" /> : (dbThread.otherName || "?")[0]}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-extrabold text-stone-900">{dbThread.otherName}</p>
+              <p className="text-[10px] text-stone-400 font-semibold truncate">{dbThread.itemTitle}</p>
+            </div>
+          </div>
+          <div className="flex-1 px-5 pt-4 space-y-3">
+            {dbMsgs.map((m) =>
+              m.offer_amount_dh ? (
+                <div key={m.id} className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+                  m.sender_id === dbThread.mine ? "ml-auto bg-indigo-600 text-white" : "bg-white shadow-sm text-stone-800"}`}>
+                  <p className="text-[10px] font-bold opacity-70">💰</p>
+                  <p className="font-display font-extrabold text-xl">{m.offer_amount_dh} DH</p>
+                </div>
+              ) : (
+                <div key={m.id} className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-sm font-medium ${
+                  m.sender_id === dbThread.mine ? "ml-auto bg-indigo-600 text-white" : "bg-white shadow-sm text-stone-800"}`}>
+                  {m.body}
+                </div>
+              )
+            )}
+          </div>
+          <div className="px-5 mt-4 flex gap-2">
+            <input value={msgInput} onChange={(e) => setMsgInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") sendDbMsg(); }}
+              placeholder={t("write_msg")}
+              className="flex-1 bg-white rounded-2xl px-4 py-3 text-sm font-medium shadow-sm outline-none" />
+            <button onClick={sendDbMsg} className="bg-indigo-600 rounded-2xl px-4 text-white active:scale-95 transition-transform">
+              <Send size={17} className={cur.dir === "rtl" ? "rotate-180" : ""} />
+            </button>
+          </div>
+        </div>
+      );
+    }
     if (thread) {
       return (
         <div className="pb-28 flex flex-col min-h-full">
@@ -1821,6 +1974,21 @@ export default function BaliApp() {
       <div className="pb-28 px-5 pt-5">
         <p className="font-display font-bold text-xl text-stone-900">{t("messages")}</p>
         <div className="mt-4 space-y-2">
+          {dbThreads.map((th) => (
+            <button key={th.id} onClick={() => openDbThread(th)}
+              className="w-full bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm text-left active:scale-95 transition-transform">
+              <div className="w-11 h-11 rounded-full bg-indigo-100 flex items-center justify-center text-base font-extrabold text-indigo-600 overflow-hidden shrink-0">
+                {th.photo ? <img src={th.photo} alt="" className="w-full h-full object-cover" /> : (th.otherName || "?")[0]}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-extrabold text-stone-900">{th.otherName}</p>
+                <p className="text-xs text-stone-500 truncate">{th.itemTitle}</p>
+              </div>
+            </button>
+          ))}
+          {dbThreads.length === 0 && (
+            <p className="text-[11px] text-stone-400 font-semibold text-center py-2">{t("msgs_none")}</p>
+          )}
           {threads.map((th) => (
             <button key={th.id} onClick={() => setActiveThread(th.id)}
               className="w-full bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm text-left active:scale-95 transition-transform">
@@ -1828,7 +1996,10 @@ export default function BaliApp() {
                 {th.name[0]}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-extrabold text-stone-900">{th.name}</p>
+                <p className="text-sm font-extrabold text-stone-900 flex items-center gap-1.5">
+                  {th.name}
+                  <span className="text-[9px] font-bold bg-stone-100 text-stone-400 px-1.5 py-0.5 rounded-full">{t("beta")}</span>
+                </p>
                 <p className="text-xs text-stone-500 truncate">
                   {th.messages[th.messages.length - 1].type === "offer"
                     ? "💰 " + th.messages[th.messages.length - 1].amount + " DH"
@@ -1969,7 +2140,7 @@ export default function BaliApp() {
         <Plus size={16} /> {t("sell_new")}
       </button>
 
-      <button onClick={async () => { await supabase.auth.signOut(); showToast(t("logout_done")); setObStep(0); setTab("home"); }}
+      <button onClick={async () => { await supabase.auth.signOut(); setMyProfile(null); setDbThreads([]); setDbThread(null); showToast(t("logout_done")); setObStep(0); setTab("home"); }}
         className="w-full mt-4 text-stone-400 font-bold text-xs py-3">
         {t("logout")}
       </button>
@@ -1984,8 +2155,12 @@ export default function BaliApp() {
   const itemDetail = (it) => (
     <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
       <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app">
-        <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center`}>
-          <span className="text-9xl">{it.emoji}</span>
+        <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
+          {it.photo ? (
+            <img src={it.photo} alt={it.title} className="w-full h-full object-cover" />
+          ) : (
+            <span className="text-9xl">{it.emoji}</span>
+          )}
           <button onClick={() => setItem(null)} className="absolute top-4 left-4 bg-white/90 p-2 rounded-full shadow">
             <ChevronLeft size={20} className={`text-stone-800 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
           </button>
@@ -2113,16 +2288,26 @@ export default function BaliApp() {
         </div>
 
         <div className="fixed bottom-0 inset-x-0 flex justify-center">
-          <div className="w-full max-w-md bg-white border-t border-stone-100 p-4 flex gap-3">
-            <button onClick={() => { setOfferValue(String(Math.round(it.price * 0.9))); setOfferOpen(true); }}
-              className="flex-1 border-2 border-indigo-600 text-indigo-600 font-extrabold text-sm py-3.5 rounded-2xl">
-              {t("make_offer")}
-            </button>
-            <button onClick={() => { setPayMethodI(0); setCheckoutOpen(true); }}
-              className="flex-1 bg-indigo-600 text-white font-extrabold text-sm py-3.5 rounded-2xl">
-              {t("buy")} · {totalBuyer(it.price) + delivFor(it)[deliveryI].price} DH
-            </button>
-          </div>
+          {myProfile && it.real && it.seller_id === myProfile.id ? (
+            <div className="w-full max-w-md bg-white border-t border-stone-100 p-4">
+              <p className="text-center text-[11px] font-extrabold text-stone-500 mb-2">✋ {t("own_item")}</p>
+              <button onClick={() => deleteItem(it)}
+                className="w-full border-2 border-rose-300 text-rose-600 font-extrabold text-sm py-3.5 rounded-2xl">
+                {t("delete_item")}
+              </button>
+            </div>
+          ) : (
+            <div className="w-full max-w-md bg-white border-t border-stone-100 p-4 flex gap-3">
+              <button onClick={() => { setOfferValue(String(Math.round(it.price * 0.9))); setOfferOpen(true); }}
+                className="flex-1 border-2 border-indigo-600 text-indigo-600 font-extrabold text-sm py-3.5 rounded-2xl">
+                {t("make_offer")}
+              </button>
+              <button onClick={() => { setPayMethodI(0); setCheckoutOpen(true); }}
+                className="flex-1 bg-indigo-600 text-white font-extrabold text-sm py-3.5 rounded-2xl">
+                {t("buy")} · {totalBuyer(it.price) + delivFor(it)[deliveryI].price} DH
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
