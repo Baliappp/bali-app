@@ -115,13 +115,13 @@ const T = {
     dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
-    msgs_none: "Aucune conversation — fais une offre sur un article !", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
+    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
     real_order_title: "Commande confirmée 🎉", real_pin_note: "Ton code retrait — note-le bien, il ne sera plus affiché en clair.",
     filters_title: "Filtres", filter_cat: "Catégorie", filter_brand: "Marque", filter_size: "Taille",
     filter_cond: "État", filter_price: "Prix (DH)", filter_sort: "Trier par",
     sort_recent: "Plus récent", sort_price_asc: "Prix croissant", sort_price_desc: "Prix décroissant", sort_popular: "Plus populaire",
-    filter_reset: "Réinitialiser", filter_apply: "Voir les résultats ({n})",
-    price_min_ph: "Min", price_max_ph: "Max",
+    filter_reset: "Réinitialiser", filter_apply: "Voir les {n} articles",
+    price_min_ph: "Min", price_max_ph: "Max", sum_all: "Tous", chip_sort: "Trier",
     real_order_ok: "J'ai noté mon code ✓", my_orders: "Mes commandes", no_orders: "Aucune commande pour le moment",
     order_pin_hidden: "Code masqué pour ta sécurité",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
@@ -270,13 +270,13 @@ const T = {
     dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
-    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
+    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
     real_order_title: "تأكدات الطلبية 🎉", real_pin_note: "الكود ديالك ديال التسلم — كتبو مزيان، ما غاديش يبان مرة أخرى.",
     filters_title: "الفلاتر", filter_cat: "الصنف", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "الثمن (درهم)", filter_sort: "رتب حسب",
     sort_recent: "الجداد", sort_price_asc: "الثمن : من قل لكبر", sort_price_desc: "الثمن : من كبر لقل", sort_popular: "الأكثر طلب",
-    filter_reset: "صيفط", filter_apply: "شوف النتائج ({n})",
-    price_min_ph: "أدنى", price_max_ph: "أقصى",
+    filter_reset: "صيفط", filter_apply: "شوف {n} ديال السلع",
+    price_min_ph: "أدنى", price_max_ph: "أقصى", sum_all: "الكل", chip_sort: "رتب",
     real_order_ok: "كتبتو ✓", my_orders: "الطلبيات ديالي", no_orders: "ما كاين حتى طلبية",
     order_pin_hidden: "الكود مخبي للأمان ديالك",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
@@ -425,13 +425,13 @@ const T = {
     dressing: "خزانتي", sell_new: "بيع منتج جديد",
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
-    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
+    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
     real_order_title: "تأكيد الطلب 🎉", real_pin_note: "رمز الاستلام الخاص بك — احفظه جيداً، لن يظهر مرة أخرى بوضوح.",
     filters_title: "الفلاتر", filter_cat: "الفئة", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "السعر (درهم)", filter_sort: "الترتيب حسب",
     sort_recent: "الأحدث", sort_price_asc: "السعر تصاعدياً", sort_price_desc: "السعر تنازلياً", sort_popular: "الأكثر رواجاً",
-    filter_reset: "إعادة تعيين", filter_apply: "عرض النتائج ({n})",
-    price_min_ph: "الأدنى", price_max_ph: "الأقصى",
+    filter_reset: "إعادة تعيين", filter_apply: "عرض {n} منتجات",
+    price_min_ph: "الأدنى", price_max_ph: "الأقصى", sum_all: "الكل", chip_sort: "ترتيب",
     real_order_ok: "حفظته ✓", my_orders: "طلباتي", no_orders: "لا يوجد طلبات بعد",
     order_pin_hidden: "الرمز مخفي لأمانك",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
@@ -587,13 +587,13 @@ const T = {
     dressing: "My closet", sell_new: "Sell a new item",
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
-    msgs_none: "No conversations yet — make an offer on an item!", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
+    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
     real_order_title: "Order confirmed 🎉", real_pin_note: "Your pickup code — write it down, it won't be shown again in plain text.",
     filters_title: "Filters", filter_cat: "Category", filter_brand: "Brand", filter_size: "Size",
     filter_cond: "Condition", filter_price: "Price (DH)", filter_sort: "Sort by",
     sort_recent: "Most recent", sort_price_asc: "Price: low to high", sort_price_desc: "Price: high to low", sort_popular: "Most popular",
-    filter_reset: "Reset", filter_apply: "See results ({n})",
-    price_min_ph: "Min", price_max_ph: "Max",
+    filter_reset: "Reset", filter_apply: "See {n} items",
+    price_min_ph: "Min", price_max_ph: "Max", sum_all: "All", chip_sort: "Sort",
     real_order_ok: "I've noted it ✓", my_orders: "My orders", no_orders: "No orders yet",
     order_pin_hidden: "Code hidden for your security",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
@@ -742,13 +742,13 @@ const T = {
     dressing: "Mi armario", sell_new: "Vender otro artículo",
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
-    msgs_none: "Sin conversaciones — ¡haz una oferta!", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
+    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
     real_order_title: "Pedido confirmado 🎉", real_pin_note: "Tu código de recogida — anótalo, no volverá a mostrarse en texto claro.",
     filters_title: "Filtros", filter_cat: "Categoría", filter_brand: "Marca", filter_size: "Talla",
     filter_cond: "Estado", filter_price: "Precio (DH)", filter_sort: "Ordenar por",
     sort_recent: "Más reciente", sort_price_asc: "Precio: menor a mayor", sort_price_desc: "Precio: mayor a menor", sort_popular: "Más popular",
-    filter_reset: "Restablecer", filter_apply: "Ver resultados ({n})",
-    price_min_ph: "Mín", price_max_ph: "Máx",
+    filter_reset: "Restablecer", filter_apply: "Ver {n} artículos",
+    price_min_ph: "Mín", price_max_ph: "Máx", sum_all: "Todos", chip_sort: "Ordenar",
     real_order_ok: "Lo he anotado ✓", my_orders: "Mis pedidos", no_orders: "Aún no hay pedidos",
     order_pin_hidden: "Código oculto por tu seguridad",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
@@ -887,6 +887,66 @@ const CATEGORIES = [
   { id: "sport", emoji: "⚽", grad: "from-lime-100 to-green-200" },
 ];
 
+/* Catalogue à 3 niveaux — architecture Vinted, adaptée au Maroc */
+const CATALOG = [
+  { id: "femmes", emoji: "👗", fams: [
+    { icon: "👚", label: "Vêtements", subs: ["Robes", "Caftans et takchitas", "Hauts et t-shirts", "Pantalons et leggings", "Jeans", "Jupes", "Manteaux et vestes", "Pulls et sweats", "Lingerie et pyjamas", "Maillots de bain", "Autres"] },
+    { icon: "👠", label: "Chaussures", subs: ["Sneakers", "Talons", "Sandales", "Bottes", "Babouches", "Autres"] },
+    { icon: "👜", label: "Sacs", subs: ["Sacs à main", "Sacs à dos", "Pochettes", "Autres"] },
+    { icon: "💍", label: "Accessoires", subs: ["Bijoux", "Montres", "Foulards et châles", "Ceintures", "Lunettes", "Autres"] },
+    { icon: "💄", label: "Beauté", subs: ["Parfums", "Soins", "Maquillage", "Autres"] },
+  ]},
+  { id: "hommes", emoji: "🧥", fams: [
+    { icon: "👕", label: "Vêtements", subs: ["T-shirts et polos", "Chemises", "Pantalons", "Jeans", "Vestes et manteaux", "Pulls et sweats", "Djellabas et gandouras", "Survêtements", "Autres"] },
+    { icon: "👟", label: "Chaussures", subs: ["Sneakers", "Chaussures de ville", "Sandales", "Babouches", "Autres"] },
+    { icon: "⌚", label: "Accessoires", subs: ["Montres", "Ceintures", "Casquettes", "Sacs", "Lunettes", "Autres"] },
+    { icon: "🧴", label: "Soins", subs: ["Parfums", "Rasage et barbe", "Autres"] },
+  ]},
+  { id: "enfants", emoji: "🧸", fams: [
+    { icon: "👧", label: "Vêtements filles", subs: ["Robes", "Hauts", "Pantalons", "Chaussures", "Autres"] },
+    { icon: "👦", label: "Vêtements garçons", subs: ["Hauts", "Pantalons", "Chaussures", "Autres"] },
+    { icon: "🧩", label: "Jeux et jouets", subs: ["Jouets d'éveil", "Jeux de construction", "Poupées et figurines", "Autres"] },
+    { icon: "🍼", label: "Puériculture", subs: ["Poussettes", "Sièges auto", "Bain et change", "Allaitement et repas", "Autres"] },
+    { icon: "🛏️", label: "Chambre et déco", subs: ["Meubles", "Linge de lit", "Autres"] },
+  ]},
+  { id: "maison", emoji: "🛋️", fams: [
+    { icon: "🧶", label: "Textiles et tapis", subs: ["Tapis berbères", "Tapis", "Linge de maison", "Coussins", "Rideaux", "Autres"] },
+    { icon: "🍽️", label: "Cuisine et table", subs: ["Tajines et couscoussiers", "Théières et plateaux", "Vaisselle", "Petit électroménager", "Autres"] },
+    { icon: "🖼️", label: "Décoration", subs: ["Miroirs", "Luminaires", "Objets déco", "Autres"] },
+    { icon: "🪑", label: "Meubles", subs: ["Salons marocains", "Tables", "Rangements", "Autres"] },
+  ]},
+  { id: "tech", emoji: "📱", fams: [
+    { icon: "📱", label: "Téléphones", subs: ["iPhone", "Samsung", "Xiaomi", "Autres marques", "Accessoires et coques"] },
+    { icon: "💻", label: "Ordinateurs et tablettes", subs: ["Ordinateurs portables", "Tablettes", "Accessoires", "Autres"] },
+    { icon: "🎧", label: "Audio", subs: ["Casques et écouteurs", "Enceintes", "Autres"] },
+    { icon: "🎮", label: "Consoles et jeux vidéo", subs: ["Consoles", "Jeux", "Manettes", "Autres"] },
+    { icon: "📷", label: "TV et photo", subs: ["Téléviseurs", "Appareils photo", "Autres"] },
+  ]},
+  { id: "trad", emoji: "🪡", fams: [
+    { icon: "👘", label: "Caftans et takchitas", subs: ["Caftans", "Takchitas", "Tenues de fête", "Autres"] },
+    { icon: "🥻", label: "Djellabas et gandouras", subs: ["Djellabas femme", "Djellabas homme", "Gandouras", "Autres"] },
+    { icon: "🥿", label: "Babouches", subs: ["Babouches femme", "Babouches homme", "Autres"] },
+    { icon: "🏺", label: "Artisanat et déco", subs: ["Poterie et zellige", "Cuivre et laiton", "Vannerie", "Autres"] },
+    { icon: "📿", label: "Bijoux traditionnels", subs: ["Bijoux berbères", "Bijoux en argent", "Autres"] },
+  ]},
+  { id: "livres", emoji: "📚", fams: [
+    { icon: "📖", label: "Livres", subs: ["Romans", "Islam et spiritualité", "Développement personnel", "Autres"] },
+    { icon: "🎓", label: "Manuels scolaires", subs: ["Primaire", "Collège et lycée", "Supérieur", "Autres"] },
+    { icon: "💿", label: "Musique et vidéo", subs: ["CD et vinyles", "DVD", "Autres"] },
+  ]},
+  { id: "loisirs", emoji: "🎲", fams: [
+    { icon: "🃏", label: "Jeux de société", subs: ["Jeux de plateau", "Cartes", "Puzzles", "Autres"] },
+    { icon: "🎸", label: "Instruments de musique", subs: ["Guitares", "Percussions", "Autres"] },
+    { icon: "🪙", label: "Collections", subs: ["Pièces et billets", "Timbres", "Autres"] },
+  ]},
+  { id: "sport", emoji: "⚽", fams: [
+    { icon: "👟", label: "Chaussures de sport", subs: ["Running", "Football", "Autres"] },
+    { icon: "🎽", label: "Vêtements de sport", subs: ["Maillots", "Survêtements", "Autres"] },
+    { icon: "🏋️", label: "Fitness et musculation", subs: ["Haltères et poids", "Tapis et accessoires", "Autres"] },
+    { icon: "🚴", label: "Vélos et glisse", subs: ["Vélos", "Trottinettes", "Autres"] },
+  ]},
+];
+
 const ITEMS = [
   {
     id: 1, title: "Air Force 1 blanches", brand: "Nike", size: "42", cond: 2, video: true, oldPrice: 550,
@@ -942,7 +1002,6 @@ const ITEMS = [
 const fee = (p) => Math.round(p * 0.08) + 10;
 const totalBuyer = (p) => p + fee(p);
 
-const FILTER_IDS = ["all", "sneakers", "tech", "femmes", "hommes", "trad"];
 
 /* Routage intelligent : hanout si proche, Poste/transporteur si loin */
 const USER_CITY = "Casablanca";
@@ -1013,7 +1072,6 @@ function BaliAppScreen() {
   const [langOpen, setLangOpen] = useState(false);
   const [tab, setTab] = useState("home");
   const [item, setItem] = useState(null);
-  const [filter, setFilter] = useState("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [fCats, setFCats] = useState([]);
   const [fBrands, setFBrands] = useState([]);
@@ -1022,7 +1080,12 @@ function BaliAppScreen() {
   const [fPriceMin, setFPriceMin] = useState("");
   const [fPriceMax, setFPriceMax] = useState("");
   const [fSort, setFSort] = useState("recent");
+  const [filterView, setFilterView] = useState("hub");
   const [liked, setLiked] = useState({});
+  const openFilter = (v) => { setFilterView(v); setFiltersOpen(true); };
+  const [browseUniv, setBrowseUniv] = useState(null);
+  const [browseFam, setBrowseFam] = useState(null);
+  const [browseSub, setBrowseSub] = useState(null);
   const [offerOpen, setOfferOpen] = useState(false);
   const [offerValue, setOfferValue] = useState("");
   const [toast, setToast] = useState(null);
@@ -1598,13 +1661,16 @@ function BaliAppScreen() {
   const sizeOptions = [...new Set(allItems.map((i) => i.size).filter((s) => s && s !== "—"))].sort();
   const activeFilterCount = fCats.length + fBrands.length + fSizes.length + fConds.length + (fPriceMin ? 1 : 0) + (fPriceMax ? 1 : 0);
 
+  /* Un article correspond-il à un univers du catalogue ? */
+  const matchUniv = (it, id) => it.cat === id || ((id === "femmes" || id === "hommes") && it.cat === "sneakers");
+
   const toggleIn = (arr, setArr, val) => setArr(arr.includes(val) ? arr.filter((x) => x !== val) : [...arr, val]);
   const resetFilters = () => { setFCats([]); setFBrands([]); setFSizes([]); setFConds([]); setFPriceMin(""); setFPriceMax(""); setFSort("recent"); };
 
   /* Filtre + tri partagés entre l'accueil et la recherche (logique Vinted) */
   const applyFilters = (list) => {
     let out = list;
-    if (fCats.length) out = out.filter((i) => fCats.includes(i.cat));
+    if (fCats.length) out = out.filter((i) => fCats.some((id) => matchUniv(i, id)));
     if (fBrands.length) out = out.filter((i) => fBrands.includes(i.brand));
     if (fSizes.length) out = out.filter((i) => fSizes.includes(i.size));
     if (fConds.length) out = out.filter((i) => fConds.includes(i.cond));
@@ -1617,7 +1683,39 @@ function BaliAppScreen() {
     return sorted;
   };
 
-  const filteredItems = applyFilters(fCats.length ? allItems : (filter === "all" ? allItems : allItems.filter((i) => i.cat === filter)));
+  const filteredItems = applyFilters(allItems);
+
+  /* Libellés et résumés du hub de filtres */
+  const SORTS = [["recent", t("sort_recent")], ["price_asc", t("sort_price_asc")], ["price_desc", t("sort_price_desc")], ["popular", t("sort_popular")]];
+  const sortSummary = (SORTS.find((s) => s[0] === fSort) || SORTS[0])[1];
+  const catSummary = fCats.length ? fCats.map((id) => t("cat_" + id)).join(", ") : t("sum_all");
+  const condSummary = fConds.length ? fConds.map((i) => t("conds")[i]).join(", ") : t("sum_all");
+  const sizeSummary = fSizes.length ? fSizes.join(", ") : t("sum_all");
+  const brandSummary = fBrands.length ? fBrands.join(", ") : t("sum_all");
+  const priceSummary = fPriceMin && fPriceMax ? fPriceMin + "–" + fPriceMax + " DH" : fPriceMin ? "≥ " + fPriceMin + " DH" : fPriceMax ? "≤ " + fPriceMax + " DH" : t("sum_all");
+
+  /* Rangée de puces façon Vinted — chaque puce ouvre directement sa facette */
+  const filterChips = () => (
+    <div className="flex gap-2 px-5 mt-4 overflow-x-auto no-scrollbar">
+      <button onClick={() => openFilter("hub")}
+        className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap ${activeFilterCount > 0 ? "bg-stone-900 text-white" : "bg-white text-stone-700 shadow-sm"}`}>
+        <SlidersHorizontal size={13} /> {t("filters_title")}{activeFilterCount > 0 ? " · " + activeFilterCount : ""}
+      </button>
+      {[
+        ["sort", t("chip_sort"), fSort !== "recent", 0],
+        ["cat", t("filter_cat"), fCats.length > 0, fCats.length],
+        ["price", t("filter_price"), !!(fPriceMin || fPriceMax), 0],
+        ["cond", t("filter_cond"), fConds.length > 0, fConds.length],
+        ["size", t("filter_size"), fSizes.length > 0, fSizes.length],
+        ["brand", t("filter_brand"), fBrands.length > 0, fBrands.length],
+      ].map(([v, label, active, count]) => (
+        <button key={v} onClick={() => openFilter(v)}
+          className={`px-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap ${active ? "bg-stone-900 text-white" : "bg-white text-stone-700 shadow-sm"}`}>
+          {label}{count > 1 ? " · " + count : ""} ▾
+        </button>
+      ))}
+    </div>
+  );
   const thread = threads.find((th) => th.id === activeThread);
 
   /* ---------------------------------------------------------------- */
@@ -1706,7 +1804,7 @@ function BaliAppScreen() {
           <Search size={17} className="text-stone-400" />
           <span className="text-sm text-stone-400">{t("search_ph")}</span>
         </button>
-        <button onClick={() => setFiltersOpen(true)} className="relative bg-white rounded-2xl px-3 shadow-sm">
+        <button onClick={() => openFilter("hub")} className="relative bg-white rounded-2xl px-3 shadow-sm">
           <SlidersHorizontal size={17} className="text-stone-600" />
           {activeFilterCount > 0 && (
             <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[9px] font-extrabold flex items-center justify-center">{activeFilterCount}</span>
@@ -1777,15 +1875,7 @@ function BaliAppScreen() {
         </div>
       </div>
 
-      <div className="flex gap-2 px-5 mt-5 overflow-x-auto no-scrollbar">
-        {FILTER_IDS.map((f) => (
-          <button key={f} onClick={() => setFilter(f)}
-            className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-colors ${
-              filter === f ? "bg-stone-900 text-white" : "bg-white text-stone-600 shadow-sm"}`}>
-            {t("f_" + f)}
-          </button>
-        ))}
-      </div>
+      {filterChips()}
 
       <p className="px-5 mt-5 mb-3 text-sm font-extrabold text-stone-900">{t("selection")}</p>
       <div className="px-5 grid grid-cols-2 gap-3">
@@ -1799,59 +1889,150 @@ function BaliAppScreen() {
     const results = q
       ? applyFilters(allItems.filter((i) => (i.title + " " + i.brand + " " + i.city + " " + i.cat).toLowerCase().includes(q)))
       : [];
-    return (
-      <div className="pb-28 px-5 pt-5">
-        <p className="font-display font-bold text-xl text-stone-900">{t("explore")}</p>
-        <div className="flex items-center gap-2 mt-4">
-          <div className="flex-1 flex items-center gap-2 bg-white rounded-2xl px-4 shadow-sm focus-within:ring-2 focus-within:ring-indigo-400">
-            <Search size={17} className="text-stone-400 shrink-0" />
-            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search_on")}
-              className="flex-1 py-3 text-sm font-medium outline-none bg-transparent" />
-            {query && (
-              <button onClick={() => setQuery("")}><X size={16} className="text-stone-400" /></button>
+    const kwOf = (label) => {
+      const w = label.toLowerCase().split(" ")[0];
+      return w.endsWith("s") ? w.slice(0, -1) : w;
+    };
+    const univItems = browseUniv ? applyFilters(allItems.filter((i) => matchUniv(i, browseUniv.id))) : [];
+    const browseResults = browseSub && browseSub !== "__all__"
+      ? univItems.filter((i) => (i.title + " " + i.brand).toLowerCase().includes(kwOf(browseSub)))
+      : univItems;
+
+    const backChevron = <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />;
+    const rowChevron = <ChevronLeft size={16} className={`text-stone-300 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />;
+
+    /* ---- Niveau 4 : RÉSULTATS d'une catégorie ---- */
+    if (browseUniv && browseSub !== null) {
+      const title = browseSub !== "__all__" ? browseSub : (browseFam ? browseFam.label : t("cat_" + browseUniv.id));
+      const crumb = t("cat_" + browseUniv.id) + (browseFam ? " · " + browseFam.label : "");
+      return (
+        <div className="pb-28">
+          <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setBrowseSub(null) || (!browseFam || !browseFam.subs ? (setBrowseFam(null), 0) : 0)}>{backChevron}</button>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-extrabold text-stone-900 truncate">{title}</p>
+              {browseSub !== "__all__" && <p className="text-[10px] text-stone-400 font-semibold truncate">{crumb}</p>}
+            </div>
+            <button onClick={() => openFilter("hub")} className="relative">
+              <SlidersHorizontal size={19} className="text-stone-700" />
+              {activeFilterCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[9px] font-extrabold flex items-center justify-center">{activeFilterCount}</span>
+              )}
+            </button>
+          </div>
+          <div className="-mt-1">{filterChips()}</div>
+          <div className="px-5 mt-4">
+            {browseResults.length > 0 ? (
+              <div className="grid grid-cols-2 gap-3">{browseResults.map((it) => itemCard(it))}</div>
+            ) : (
+              <div className="mt-14 text-center">
+                <p className="text-4xl">🛍️</p>
+                <p className="text-sm font-extrabold text-stone-900 mt-3">{t("empty_cat")}</p>
+                <button onClick={() => setTab("sell")}
+                  className="mt-4 bg-indigo-600 text-white text-xs font-extrabold px-5 py-3 rounded-2xl active:scale-95 transition-transform">
+                  {t("empty_cat_cta")} →
+                </button>
+              </div>
             )}
           </div>
-          <button onClick={() => setFiltersOpen(true)} className="relative bg-white rounded-2xl px-3.5 py-3 shadow-sm shrink-0">
-            <SlidersHorizontal size={17} className="text-stone-600" />
-            {activeFilterCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-indigo-600 text-white text-[9px] font-extrabold flex items-center justify-center">{activeFilterCount}</span>
-            )}
-          </button>
+        </div>
+      );
+    }
+
+    /* ---- Niveau 3 : sous-catégories d'une famille ---- */
+    if (browseUniv && browseFam) {
+      return (
+        <div className="pb-28 px-5">
+          <div className="-mx-5 px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setBrowseFam(null)}>{backChevron}</button>
+            <p className="flex-1 text-sm font-extrabold text-stone-900 truncate">{browseFam.label}</p>
+          </div>
+          <div className="mt-4 space-y-2">
+            <button onClick={() => setBrowseSub("__all__")}
+              className="w-full bg-white rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm active:scale-[0.98] transition-transform">
+              <span className="text-xl w-8 text-center">{browseFam.icon}</span>
+              <span className="flex-1 text-left text-sm font-extrabold text-stone-900" dir={cur.dir}>{t("voir_tout")}</span>
+              {rowChevron}
+            </button>
+            {browseFam.subs.map((s) => (
+              <button key={s} onClick={() => setBrowseSub(s)}
+                className="w-full bg-white rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm active:scale-[0.98] transition-transform">
+                <span className="flex-1 text-left text-sm font-bold text-stone-700 ps-11" dir={cur.dir}>{s}</span>
+                {rowChevron}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    /* ---- Niveau 2 : familles d'un univers ---- */
+    if (browseUniv) {
+      return (
+        <div className="pb-28 px-5">
+          <div className="-mx-5 px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+            <button onClick={() => setBrowseUniv(null)}>{backChevron}</button>
+            <p className="flex-1 text-sm font-extrabold text-stone-900">{t("cat_" + browseUniv.id)}</p>
+          </div>
+          <div className="mt-4 space-y-2">
+            <button onClick={() => { setBrowseFam(null); setBrowseSub("__all__"); }}
+              className="w-full bg-white rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm active:scale-[0.98] transition-transform">
+              <span className="text-xl w-8 text-center">{browseUniv.emoji}</span>
+              <span className="flex-1 text-left text-sm font-extrabold text-stone-900" dir={cur.dir}>{t("voir_tout")}</span>
+              {rowChevron}
+            </button>
+            {browseUniv.fams.map((f) => (
+              <button key={f.label} onClick={() => setBrowseFam(f)}
+                className="w-full bg-white rounded-2xl px-4 py-3.5 flex items-center gap-3 shadow-sm active:scale-[0.98] transition-transform">
+                <span className="text-xl w-8 text-center">{f.icon}</span>
+                <span className="flex-1 text-left text-sm font-bold text-stone-800" dir={cur.dir}>{f.label}</span>
+                {rowChevron}
+              </button>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    /* ---- Niveau 1 : PARCOURIR (barre + grille d'univers, calqué Vinted mobile) ---- */
+    return (
+      <div className="pb-28 px-5 pt-5">
+        <p className="font-display font-bold text-xl text-stone-900">{t("parcourir")}</p>
+        <div className="flex items-center gap-2 bg-white rounded-2xl px-4 shadow-sm mt-4 focus-within:ring-2 focus-within:ring-indigo-400">
+          <Search size={17} className="text-stone-400 shrink-0" />
+          <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t("search_on")}
+            className="flex-1 py-3 text-sm font-medium outline-none bg-transparent" />
+          {query && (
+            <button onClick={() => setQuery("")}><X size={16} className="text-stone-400" /></button>
+          )}
         </div>
 
         {q ? (
-          results.length > 0 ? (
-            <>
-              <p className="text-xs font-bold text-stone-500 mt-5 mb-3">{tf("results_w", { n: results.length })}</p>
-              <div className="grid grid-cols-2 gap-3">{results.map((it) => itemCard(it))}</div>
-            </>
-          ) : (
-            <div className="mt-12 text-center">
-              <p className="text-4xl">🔍</p>
-              <p className="text-sm font-extrabold text-stone-900 mt-3">{tf("no_results", { q: query })}</p>
-              <p className="text-xs text-stone-500 font-semibold mt-1">{t("try_else")}</p>
-            </div>
-          )
-        ) : (
           <>
-            <p className="text-xs font-bold text-stone-500 mt-5 mb-2">{t("trends")}</p>
-            <div className="flex flex-wrap gap-2">
-              {["caftan", "iPhone", "Air Force", "PS5", "djellaba", "montre"].map((tr) => (
-                <button key={tr} onClick={() => setQuery(tr)}
-                  className="bg-white px-3 py-1.5 rounded-full text-xs font-semibold text-indigo-600 shadow-sm active:scale-95 transition-transform">{tr}</button>
-              ))}
-            </div>
-            <p className="text-xs font-bold text-stone-500 mt-6 mb-3">{t("categories")}</p>
-            <div className="grid grid-cols-2 gap-3">
-              {CATEGORIES.map((c) => (
-                <button key={c.id} onClick={() => { setFilter(FILTER_IDS.includes(c.id) ? c.id : "all"); setTab("home"); }}
-                  className={`rounded-2xl p-4 bg-gradient-to-br ${c.grad} flex items-center gap-3 active:scale-95 transition-transform`}>
-                  <span className="text-3xl">{c.emoji}</span>
-                  <span className="text-sm font-bold text-stone-800">{t("cat_" + c.id)}</span>
-                </button>
-              ))}
-            </div>
+            <div className="-mx-5">{filterChips()}</div>
+            {results.length > 0 ? (
+              <>
+                <p className="text-xs font-bold text-stone-500 mt-4 mb-3">{tf("results_w", { n: results.length })}</p>
+                <div className="grid grid-cols-2 gap-3">{results.map((it) => itemCard(it))}</div>
+              </>
+            ) : (
+              <div className="mt-12 text-center">
+                <p className="text-4xl">🔍</p>
+                <p className="text-sm font-extrabold text-stone-900 mt-3">{tf("no_results", { q: query })}</p>
+                <p className="text-xs text-stone-500 font-semibold mt-1">{t("try_else")}</p>
+              </div>
+            )}
           </>
+        ) : (
+          <div className="grid grid-cols-2 gap-3 mt-5">
+            {CATALOG.map((u) => (
+              <button key={u.id} onClick={() => { setBrowseUniv(u); setBrowseFam(null); setBrowseSub(null); }}
+                className="relative bg-white rounded-2xl p-4 h-28 text-left shadow-sm active:scale-[0.97] transition-transform overflow-hidden">
+                <p className="text-[15px] font-bold text-stone-900 leading-tight pe-6" dir={cur.dir}>{t("cat_" + u.id)}</p>
+                <span className="absolute bottom-2 end-3 text-4xl">{u.emoji}</span>
+              </button>
+            ))}
+          </div>
         )}
       </div>
     );
@@ -3882,111 +4063,144 @@ function BaliAppScreen() {
         {payOpen && paySheet()}
         {trustOpen && trustSheet()}
 
-        {/* Panneau de filtres — logique Vinted */}
-        {filtersOpen && (
-          <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setFiltersOpen(false)}>
-            <div className="w-full max-w-md bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto font-app" onClick={(e) => e.stopPropagation()} dir={cur.dir}>
-              <div className="px-6 pt-5 pb-3 flex items-center justify-between sticky top-0 bg-white z-10 border-b border-stone-100">
-                <p className="font-display font-bold text-lg text-stone-900">{t("filters_title")}</p>
-                <button onClick={() => setFiltersOpen(false)}><X size={20} className="text-stone-400" /></button>
-              </div>
+        {/* Filtres — hub façon Vinted : un écran principal, chaque ligne ouvre sa facette */}
+        {filtersOpen && (() => {
+          const nRes = applyFilters(allItems).length;
+          const sortLabels = { recent: t("sort_recent"), price_asc: t("sort_price_asc"), price_desc: t("sort_price_desc"), popular: t("sort_popular") };
+          const checkbox = (sel) => (
+            <span className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 ${sel ? "bg-indigo-600 border-indigo-600" : "border-stone-300"}`}>
+              {sel && <Check size={13} className="text-white" />}
+            </span>
+          );
+          const facetRow = (view, label, value) => (
+            <button key={view} onClick={() => setFilterView(view)}
+              className="w-full flex items-center justify-between py-4 border-b border-stone-100">
+              <span className="text-sm font-extrabold text-stone-900">{label}</span>
+              <span className="flex items-center gap-2">
+                <span className="text-xs font-bold text-stone-400 max-w-[150px] truncate">{value}</span>
+                <ChevronLeft size={15} className={`text-stone-300 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+              </span>
+            </button>
+          );
+          const titles = { sort: t("filter_sort"), cat: t("filter_cat"), price: t("filter_price"), cond: t("filter_cond"), size: t("filter_size"), brand: t("filter_brand") };
+          return (
+            <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setFiltersOpen(false)}>
+              <div className="w-full max-w-md bg-white rounded-t-3xl max-h-[85vh] flex flex-col font-app" onClick={(e) => e.stopPropagation()} dir={cur.dir}>
 
-              <div className="px-6 py-4 space-y-5">
-                {/* Catégorie */}
-                <div>
-                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_cat")}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {CATEGORIES.map((c) => (
-                      <button key={c.id} onClick={() => toggleIn(fCats, setFCats, c.id)}
-                        className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-bold ${fCats.includes(c.id) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
-                        <span>{c.emoji}</span> {t("cat_" + c.id)}
-                      </button>
-                    ))}
-                  </div>
+                {/* En-tête */}
+                <div className="px-6 pt-5 pb-3 flex items-center gap-3 border-b border-stone-100">
+                  {filterView !== "hub" ? (
+                    <button onClick={() => setFilterView("hub")}>
+                      <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+                    </button>
+                  ) : null}
+                  <p className="flex-1 font-display font-bold text-lg text-stone-900">
+                    {filterView === "hub" ? t("filters_title") : titles[filterView]}
+                  </p>
+                  <button onClick={() => setFiltersOpen(false)}><X size={20} className="text-stone-400" /></button>
                 </div>
 
-                {/* Prix */}
-                <div>
-                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_price")}</p>
-                  <div className="flex items-center gap-2">
-                    <input value={fPriceMin} onChange={(e) => setFPriceMin(e.target.value.replace(/[^0-9]/g, ""))}
-                      inputMode="numeric" placeholder={t("price_min_ph")}
-                      className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2.5 text-sm font-bold outline-none focus:border-indigo-400" />
-                    <span className="text-stone-400 font-bold">—</span>
-                    <input value={fPriceMax} onChange={(e) => setFPriceMax(e.target.value.replace(/[^0-9]/g, ""))}
-                      inputMode="numeric" placeholder={t("price_max_ph")}
-                      className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2.5 text-sm font-bold outline-none focus:border-indigo-400" />
-                  </div>
-                </div>
+                {/* Corps */}
+                <div className="flex-1 overflow-y-auto px-6">
+                  {filterView === "hub" && (
+                    <div>
+                      {facetRow("sort", t("filter_sort"), sortLabels[fSort])}
+                      {facetRow("cat", t("filter_cat"), fCats.length ? fCats.map((id) => t("cat_" + id)).slice(0, 2).join(", ") + (fCats.length > 2 ? " +" + (fCats.length - 2) : "") : "—")}
+                      {facetRow("price", t("filter_price"), fPriceMin || fPriceMax ? (fPriceMin || "0") + " – " + (fPriceMax || "∞") + " DH" : "—")}
+                      {facetRow("cond", t("filter_cond"), fConds.length ? fConds.length + " ✓" : "—")}
+                      {facetRow("size", t("filter_size"), fSizes.length ? fSizes.length + " ✓" : "—")}
+                      {facetRow("brand", t("filter_brand"), fBrands.length ? fBrands.length + " ✓" : "—")}
+                    </div>
+                  )}
 
-                {/* État */}
-                <div>
-                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_cond")}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {t("conds").map((c, i) => (
-                      <button key={i} onClick={() => toggleIn(fConds, setFConds, i)}
-                        className={`px-3 py-2 rounded-full text-xs font-bold ${fConds.includes(i) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
-                        {c}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                  {filterView === "sort" && (
+                    <div className="py-3">
+                      {Object.entries(sortLabels).map(([id, label]) => (
+                        <button key={id} onClick={() => { setFSort(id); setFilterView("hub"); }}
+                          className="w-full flex items-center justify-between py-3.5 border-b border-stone-100">
+                          <span className={`text-sm ${fSort === id ? "font-extrabold text-indigo-700" : "font-bold text-stone-700"}`}>{label}</span>
+                          {fSort === id && <Check size={17} className="text-indigo-600" />}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
-                {/* Taille */}
-                {sizeOptions.length > 0 && (
-                  <div>
-                    <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_size")}</p>
-                    <div className="flex flex-wrap gap-2">
+                  {filterView === "cat" && (
+                    <div className="py-3">
+                      {CATALOG.map((u) => (
+                        <button key={u.id} onClick={() => toggleIn(fCats, setFCats, u.id)}
+                          className="w-full flex items-center gap-3 py-3.5 border-b border-stone-100">
+                          <span className="text-xl w-8 text-center">{u.emoji}</span>
+                          <span className="flex-1 text-left text-sm font-bold text-stone-800" dir={cur.dir}>{t("cat_" + u.id)}</span>
+                          {checkbox(fCats.includes(u.id))}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {filterView === "price" && (
+                    <div className="py-5 flex items-center gap-3">
+                      <input value={fPriceMin} onChange={(e) => setFPriceMin(e.target.value.replace(/[^0-9]/g, ""))}
+                        inputMode="numeric" placeholder={t("price_min_ph")}
+                        className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-400" />
+                      <span className="text-stone-400 font-bold">—</span>
+                      <input value={fPriceMax} onChange={(e) => setFPriceMax(e.target.value.replace(/[^0-9]/g, ""))}
+                        inputMode="numeric" placeholder={t("price_max_ph")}
+                        className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-400" />
+                      <span className="text-xs font-extrabold text-stone-500">DH</span>
+                    </div>
+                  )}
+
+                  {filterView === "cond" && (
+                    <div className="py-3">
+                      {t("conds").map((c, i) => (
+                        <button key={i} onClick={() => toggleIn(fConds, setFConds, i)}
+                          className="w-full flex items-center justify-between py-3.5 border-b border-stone-100">
+                          <span className="text-sm font-bold text-stone-800">{c}</span>
+                          {checkbox(fConds.includes(i))}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {filterView === "size" && (
+                    <div className="py-5 flex flex-wrap gap-2">
+                      {sizeOptions.length === 0 && <p className="text-xs text-stone-400 font-semibold">—</p>}
                       {sizeOptions.map((s) => (
                         <button key={s} onClick={() => toggleIn(fSizes, setFSizes, s)}
-                          className={`px-3.5 py-2 rounded-full text-xs font-bold ${fSizes.includes(s) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
+                          className={`px-4 py-2.5 rounded-xl text-xs font-extrabold border-2 ${fSizes.includes(s) ? "bg-indigo-600 border-indigo-600 text-white" : "border-stone-200 text-stone-600"}`}>
                           {s}
                         </button>
                       ))}
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {/* Marque */}
-                {brandOptions.length > 0 && (
-                  <div>
-                    <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_brand")}</p>
-                    <div className="flex flex-wrap gap-2">
+                  {filterView === "brand" && (
+                    <div className="py-3">
+                      {brandOptions.length === 0 && <p className="text-xs text-stone-400 font-semibold py-3">—</p>}
                       {brandOptions.map((b) => (
                         <button key={b} onClick={() => toggleIn(fBrands, setFBrands, b)}
-                          className={`px-3.5 py-2 rounded-full text-xs font-bold ${fBrands.includes(b) ? "bg-indigo-600 text-white" : "bg-stone-100 text-stone-600"}`}>
-                          {b}
+                          className="w-full flex items-center justify-between py-3.5 border-b border-stone-100">
+                          <span className="text-sm font-bold text-stone-800">{b}</span>
+                          {checkbox(fBrands.includes(b))}
                         </button>
                       ))}
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
 
-                {/* Tri */}
-                <div>
-                  <p className="text-xs font-extrabold text-stone-900 mb-2">{t("filter_sort")}</p>
-                  <div className="space-y-1.5">
-                    {[["recent", t("sort_recent")], ["price_asc", t("sort_price_asc")], ["price_desc", t("sort_price_desc")], ["popular", t("sort_popular")]].map(([id, label]) => (
-                      <button key={id} onClick={() => setFSort(id)}
-                        className={`w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold ${fSort === id ? "bg-indigo-50 text-indigo-700 border border-indigo-200" : "bg-stone-50 text-stone-600"}`}>
-                        {label}
-                        {fSort === id && <Check size={16} />}
-                      </button>
-                    ))}
-                  </div>
+                {/* Pied fixe */}
+                <div className="px-6 py-4 border-t border-stone-100 bg-white flex items-center gap-3">
+                  <button onClick={resetFilters} className="text-xs font-extrabold text-stone-500 px-2">{t("filter_reset")}</button>
+                  <button onClick={() => { setFilterView("hub"); setFiltersOpen(false); }}
+                    className="flex-1 bg-indigo-600 text-white font-extrabold py-3.5 rounded-2xl active:scale-95 transition-transform">
+                    {tf("filter_apply", { n: nRes })}
+                  </button>
                 </div>
               </div>
-
-              <div className="px-6 py-4 border-t border-stone-100 sticky bottom-0 bg-white flex gap-3">
-                <button onClick={resetFilters} className="text-xs font-extrabold text-stone-500 px-2">{t("filter_reset")}</button>
-                <button onClick={() => setFiltersOpen(false)}
-                  className="flex-1 bg-indigo-600 text-white font-extrabold py-3.5 rounded-2xl active:scale-95 transition-transform">
-                  {tf("filter_apply", { n: applyFilters(allItems).length })}
-                </button>
-              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Ticket affiché juste après la création — PIN en clair, une seule fois */}
         {newOrderTicket && (
