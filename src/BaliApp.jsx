@@ -123,6 +123,11 @@ const T = {
     filter_reset: "Réinitialiser", filter_apply: "Voir les {n} articles",
     price_min_ph: "Min", price_max_ph: "Max", sum_all: "Tous", chip_sort: "Trier",
     real_order_ok: "J'ai noté mon code ✓", my_orders: "Mes commandes", no_orders: "Aucune commande pour le moment",
+    tab_buys: "Mes achats", tab_sells: "Mes ventes", no_buys: "Aucun achat pour le moment", no_sells: "Aucune vente pour le moment",
+    role_buy: "Achat", role_sell: "Vente", other_buyer: "Acheteur", other_seller: "Vendeur",
+    st_paid: "Payée · à déposer", st_dropped: "Déposée au point bali", st_transit: "En chemin", st_ready: "À retirer", st_done: "Terminée", st_sold: "Vendu",
+    deposit_cta: "Déposer au point bali", deposit_done: "Colis déposé ✅ — l'acheteur est prévenu",
+    sale_new_banner: "🎉 Nouvelle vente ! Dépose le colis au point bali", to_deposit: "à déposer",
     order_pin_hidden: "Code masqué pour ta sécurité",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
     t_accepted: "Offre acceptée — safi, c'est vendu ! 🎉", t_published: "Sahiti ! « {t} » est en ligne 🎉",
@@ -278,6 +283,11 @@ const T = {
     filter_reset: "صيفط", filter_apply: "شوف {n} ديال السلع",
     price_min_ph: "أدنى", price_max_ph: "أقصى", sum_all: "الكل", chip_sort: "رتب",
     real_order_ok: "كتبتو ✓", my_orders: "الطلبيات ديالي", no_orders: "ما كاين حتى طلبية",
+    tab_buys: "مشترياتي", tab_sells: "مبيعاتي", no_buys: "ما كاين حتى شراء", no_sells: "ما كاين حتى بيعة",
+    role_buy: "شراء", role_sell: "بيعة", other_buyer: "الشاري", other_seller: "البائع",
+    st_paid: "تخلصات · خاصك تسيفط", st_dropped: "تسيفطات للنقطة", st_transit: "فالطريق", st_ready: "وجدة للتسلم", st_done: "سالات", st_sold: "تباعت",
+    deposit_cta: "سيفط الكولية للنقطة", deposit_done: "الكولية تسيفطات ✅ — الشاري تنبه",
+    sale_new_banner: "🎉 بيعة جديدة! سيفط الكولية للنقطة", to_deposit: "خاصها تسيفط",
     order_pin_hidden: "الكود مخبي للأمان ديالك",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
     t_accepted: "تقبل العرض — صافي، تباعت! 🎉", t_published: "صحيتي! « {t} » ولات أونلاين 🎉",
@@ -433,6 +443,11 @@ const T = {
     filter_reset: "إعادة تعيين", filter_apply: "عرض {n} منتجات",
     price_min_ph: "الأدنى", price_max_ph: "الأقصى", sum_all: "الكل", chip_sort: "ترتيب",
     real_order_ok: "حفظته ✓", my_orders: "طلباتي", no_orders: "لا يوجد طلبات بعد",
+    tab_buys: "مشترياتي", tab_sells: "مبيعاتي", no_buys: "لا مشتريات بعد", no_sells: "لا مبيعات بعد",
+    role_buy: "شراء", role_sell: "بيع", other_buyer: "المشتري", other_seller: "البائع",
+    st_paid: "مدفوعة · للإيداع", st_dropped: "أُودعت في النقطة", st_transit: "في الطريق", st_ready: "جاهزة للاستلام", st_done: "منتهية", st_sold: "مُباع",
+    deposit_cta: "أودع الطرد في نقطة بالي", deposit_done: "تم إيداع الطرد ✅ — أُبلغ المشتري",
+    sale_new_banner: "🎉 عملية بيع جديدة! أودع الطرد في النقطة", to_deposit: "للإيداع",
     order_pin_hidden: "الرمز مخفي لأمانك",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
     t_accepted: "تم قبول العرض — مبروك، تم البيع! 🎉", t_published: "« {t} » أصبح متاحا الآن 🎉",
@@ -595,6 +610,11 @@ const T = {
     filter_reset: "Reset", filter_apply: "See {n} items",
     price_min_ph: "Min", price_max_ph: "Max", sum_all: "All", chip_sort: "Sort",
     real_order_ok: "I've noted it ✓", my_orders: "My orders", no_orders: "No orders yet",
+    tab_buys: "My purchases", tab_sells: "My sales", no_buys: "No purchases yet", no_sells: "No sales yet",
+    role_buy: "Purchase", role_sell: "Sale", other_buyer: "Buyer", other_seller: "Seller",
+    st_paid: "Paid · to drop off", st_dropped: "Dropped at bali point", st_transit: "In transit", st_ready: "Ready for pickup", st_done: "Completed", st_sold: "Sold",
+    deposit_cta: "Drop off at bali point", deposit_done: "Parcel dropped ✅ — buyer notified",
+    sale_new_banner: "🎉 New sale! Drop the parcel at the bali point", to_deposit: "to drop off",
     order_pin_hidden: "Code hidden for your security",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
     t_accepted: "Offer accepted — sold! 🎉", t_published: "\u201C{t}\u201D is now live 🎉",
@@ -750,6 +770,11 @@ const T = {
     filter_reset: "Restablecer", filter_apply: "Ver {n} artículos",
     price_min_ph: "Mín", price_max_ph: "Máx", sum_all: "Todos", chip_sort: "Ordenar",
     real_order_ok: "Lo he anotado ✓", my_orders: "Mis pedidos", no_orders: "Aún no hay pedidos",
+    tab_buys: "Mis compras", tab_sells: "Mis ventas", no_buys: "Sin compras aún", no_sells: "Sin ventas aún",
+    role_buy: "Compra", role_sell: "Venta", other_buyer: "Comprador", other_seller: "Vendedor",
+    st_paid: "Pagada · por depositar", st_dropped: "Depositada en punto bali", st_transit: "En camino", st_ready: "Lista para recoger", st_done: "Completada", st_sold: "Vendido",
+    deposit_cta: "Depositar en punto bali", deposit_done: "Paquete depositado ✅ — comprador avisado",
+    sale_new_banner: "🎉 ¡Nueva venta! Deposita el paquete en el punto bali", to_deposit: "por depositar",
     order_pin_hidden: "Código oculto por tu seguridad",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
     t_accepted: "Oferta aceptada — ¡vendido! 🎉", t_published: "«{t}» ya está en línea 🎉",
@@ -1269,6 +1294,7 @@ function BaliAppScreen() {
   const [myOrders, setMyOrders] = useState([]);
   const [newOrderTicket, setNewOrderTicket] = useState(null); // affiché une seule fois (PIN en clair)
   const [ordersOpen, setOrdersOpen] = useState(false);
+  const [ordersTab, setOrdersTab] = useState("buys");
   const [creatingOrder, setCreatingOrder] = useState(false);
 
   /* Hash simple et sûr, natif au navigateur — aucune dépendance à ajouter */
@@ -1330,7 +1356,30 @@ function BaliAppScreen() {
     const { data } = await supabase.from("orders").select("*, items(title)")
       .or("buyer_id.eq." + myProfile.id + ",seller_id.eq." + myProfile.id)
       .order("created_at", { ascending: false });
-    setMyOrders(data || []);
+    if (!data) { setMyOrders([]); return; }
+    /* Récupérer les noms de l'autre partie */
+    const otherIds = [...new Set(data.map((o) => (o.buyer_id === myProfile.id ? o.seller_id : o.buyer_id)).filter(Boolean))];
+    const names = {};
+    if (otherIds.length) {
+      const { data: profs } = await supabase.from("profiles").select("id, display_name").in("id", otherIds);
+      (profs || []).forEach((p) => { names[p.id] = p.display_name; });
+    }
+    setMyOrders(data.map((o) => {
+      const iSell = o.seller_id === myProfile.id;
+      const otherId = iSell ? o.buyer_id : o.seller_id;
+      return { ...o, iSell, otherName: names[otherId] || "Membre bali" };
+    }));
+  };
+
+  /* Le vendeur dépose le colis au point bali → événement custody réel */
+  const depositParcel = async (o) => {
+    const { error } = await supabase.from("orders").update({ status: "dropped" }).eq("id", o.id);
+    if (error) { showToast("⚠️ " + error.message); return; }
+    await supabase.from("custody_events").insert({
+      order_id: o.id, from_party: "seller", to_party: "hanout_pickup", note: "Colis déposé par le vendeur au point bali",
+    });
+    showToast(t("deposit_done"));
+    loadMyOrders();
   };
 
   /* Enregistrer le nom */
@@ -4339,38 +4388,85 @@ function BaliAppScreen() {
           </div>
         )}
 
-        {/* Liste des vraies commandes */}
-        {ordersOpen && (
-          <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
-            <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-8">
-              <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
-                <button onClick={() => setOrdersOpen(false)}>
-                  <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
-                </button>
-                <p className="text-sm font-extrabold text-stone-900">{t("my_orders")}</p>
-              </div>
-              <div className="px-5 pt-4 space-y-2.5">
-                {myOrders.length === 0 && (
-                  <p className="text-xs text-stone-400 font-semibold text-center py-6">{t("no_orders")}</p>
-                )}
-                {myOrders.map((o) => (
-                  <div key={o.id} className="bg-white rounded-2xl p-4 shadow-sm">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs font-extrabold text-stone-900">{o.code}</p>
-                      <span className="text-[10px] font-extrabold bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">{o.status}</span>
-                    </div>
-                    <p className="text-[11px] text-stone-500 font-semibold mt-1">
-                      {o.items && o.items.title ? o.items.title : "Article"} · {o.total_dh} DH
-                    </p>
-                    <p className="text-[10px] text-stone-400 font-bold mt-1.5 flex items-center gap-1">
-                      <Lock size={10} /> {t("order_pin_hidden")}
-                    </p>
+        {/* Liste des vraies commandes — achats et ventes */}
+        {ordersOpen && (() => {
+          const buys = myOrders.filter((o) => !o.iSell);
+          const sells = myOrders.filter((o) => o.iSell);
+          const list = ordersTab === "buys" ? buys : sells;
+          const statusLabel = (o) => {
+            const m = { paid: "st_paid", dropped: "st_dropped", in_transit: "st_transit", ready: "st_ready", completed: "st_done" };
+            return t(m[o.status] || "st_sold");
+          };
+          const statusColor = (o) =>
+            o.status === "paid" ? "bg-amber-50 text-amber-700"
+            : o.status === "completed" ? "bg-emerald-50 text-emerald-700"
+            : "bg-indigo-50 text-indigo-700";
+          return (
+            <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+              <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-8">
+                <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+                  <button onClick={() => setOrdersOpen(false)}>
+                    <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+                  </button>
+                  <p className="text-sm font-extrabold text-stone-900">{t("my_orders")}</p>
+                </div>
+
+                {/* Onglets Achats / Ventes */}
+                <div className="px-5 pt-4">
+                  <div className="flex bg-stone-100 rounded-2xl p-1">
+                    {[["buys", t("tab_buys"), buys.length], ["sells", t("tab_sells"), sells.length]].map(([id, label, count]) => (
+                      <button key={id} onClick={() => setOrdersTab(id)}
+                        className={`flex-1 py-2.5 rounded-xl text-xs font-extrabold transition-colors ${ordersTab === id ? "bg-white text-stone-900 shadow-sm" : "text-stone-400"}`}>
+                        {label}{count > 0 ? " · " + count : ""}
+                      </button>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                {/* Bandeau : nouvelle vente à déposer */}
+                {ordersTab === "sells" && sells.some((o) => o.status === "paid") && (
+                  <div className="mx-5 mt-3 bg-amber-100 border border-amber-200 rounded-2xl px-4 py-3">
+                    <p className="text-xs font-extrabold text-amber-800">{t("sale_new_banner")}</p>
+                  </div>
+                )}
+
+                <div className="px-5 pt-4 space-y-2.5">
+                  {list.length === 0 && (
+                    <p className="text-xs text-stone-400 font-semibold text-center py-6">{ordersTab === "buys" ? t("no_buys") : t("no_sells")}</p>
+                  )}
+                  {list.map((o) => (
+                    <div key={o.id} className="bg-white rounded-2xl p-4 shadow-sm">
+                      <div className="flex items-center justify-between">
+                        <p className="text-xs font-extrabold text-stone-900">{o.code}</p>
+                        <span className={`text-[10px] font-extrabold px-2 py-1 rounded-full ${statusColor(o)}`}>{statusLabel(o)}</span>
+                      </div>
+                      <p className="text-[11px] text-stone-500 font-semibold mt-1">
+                        {o.items && o.items.title ? o.items.title : "Article"} · {o.total_dh} DH
+                      </p>
+                      <p className="text-[10px] text-stone-400 font-semibold mt-0.5">
+                        {o.iSell ? t("other_buyer") : t("other_seller")} : {o.otherName}
+                      </p>
+
+                      {/* Action vendeur : déposer le colis */}
+                      {o.iSell && o.status === "paid" ? (
+                        <button onClick={() => depositParcel(o)}
+                          className="w-full mt-3 bg-indigo-600 text-white text-xs font-extrabold py-3 rounded-xl active:scale-95 transition-transform">
+                          📦 {t("deposit_cta")}
+                        </button>
+                      ) : (
+                        !o.iSell && (
+                          <p className="text-[10px] text-stone-400 font-bold mt-1.5 flex items-center gap-1">
+                            <Lock size={10} /> {t("order_pin_hidden")}
+                          </p>
+                        )
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
         {nameOpen && (
           <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setNameOpen(false)}>
             <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" onClick={(e) => e.stopPropagation()} dir={cur.dir}>
