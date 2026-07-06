@@ -116,6 +116,9 @@ const T = {
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
     msgs_none: "Aucune conversation — fais une offre sur un article !", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
+    real_order_title: "Commande confirmée 🎉", real_pin_note: "Ton code retrait — note-le bien, il ne sera plus affiché en clair.",
+    real_order_ok: "J'ai noté mon code ✓", my_orders: "Mes commandes", no_orders: "Aucune commande pour le moment",
+    order_pin_hidden: "Code masqué pour ta sécurité",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
     t_accepted: "Offre acceptée — safi, c'est vendu ! 🎉", t_published: "Sahiti ! « {t} » est en ligne 🎉",
     t_order: "Commande simulée — paiement à la livraison ✅", t_need: "Ajoute un titre et un prix 🙂",
@@ -263,6 +266,9 @@ const T = {
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
     msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
+    real_order_title: "تأكدات الطلبية 🎉", real_pin_note: "الكود ديالك ديال التسلم — كتبو مزيان، ما غاديش يبان مرة أخرى.",
+    real_order_ok: "كتبتو ✓", my_orders: "الطلبيات ديالي", no_orders: "ما كاين حتى طلبية",
+    order_pin_hidden: "الكود مخبي للأمان ديالك",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
     t_accepted: "تقبل العرض — صافي، تباعت! 🎉", t_published: "صحيتي! « {t} » ولات أونلاين 🎉",
     t_order: "كوموند تجريبية — الخلاص عند التسليم ✅", t_need: "زيد العنوان والثمن 🙂",
@@ -410,6 +416,9 @@ const T = {
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
     msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
+    real_order_title: "تأكيد الطلب 🎉", real_pin_note: "رمز الاستلام الخاص بك — احفظه جيداً، لن يظهر مرة أخرى بوضوح.",
+    real_order_ok: "حفظته ✓", my_orders: "طلباتي", no_orders: "لا يوجد طلبات بعد",
+    order_pin_hidden: "الرمز مخفي لأمانك",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
     t_accepted: "تم قبول العرض — مبروك، تم البيع! 🎉", t_published: "« {t} » أصبح متاحا الآن 🎉",
     t_order: "طلب تجريبي — الدفع عند الاستلام ✅", t_need: "أضف عنوانا وسعرا 🙂",
@@ -564,6 +573,9 @@ const T = {
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
     msgs_none: "No conversations yet — make an offer on an item!", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
+    real_order_title: "Order confirmed 🎉", real_pin_note: "Your pickup code — write it down, it won't be shown again in plain text.",
+    real_order_ok: "I've noted it ✓", my_orders: "My orders", no_orders: "No orders yet",
+    order_pin_hidden: "Code hidden for your security",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
     t_accepted: "Offer accepted — sold! 🎉", t_published: "\u201C{t}\u201D is now live 🎉",
     t_order: "Order simulated — cash on delivery ✅", t_need: "Add a title and a price 🙂",
@@ -711,6 +723,9 @@ const T = {
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
     msgs_none: "Sin conversaciones — ¡haz una oferta!", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
+    real_order_title: "Pedido confirmado 🎉", real_pin_note: "Tu código de recogida — anótalo, no volverá a mostrarse en texto claro.",
+    real_order_ok: "Lo he anotado ✓", my_orders: "Mis pedidos", no_orders: "Aún no hay pedidos",
+    order_pin_hidden: "Código oculto por tu seguridad",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
     t_accepted: "Oferta aceptada — ¡vendido! 🎉", t_published: "«{t}» ya está en línea 🎉",
     t_order: "Pedido simulado — pago contra entrega ✅", t_need: "Añade un título y un precio 🙂",
@@ -1105,6 +1120,74 @@ export default function BaliApp() {
     else { showToast(t("deleted_ok")); setItem(null); loadItems(); }
   };
 
+  /* ---- COMMANDES RÉELLES ---- */
+  const [myOrders, setMyOrders] = useState([]);
+  const [newOrderTicket, setNewOrderTicket] = useState(null); // affiché une seule fois (PIN en clair)
+  const [ordersOpen, setOrdersOpen] = useState(false);
+  const [creatingOrder, setCreatingOrder] = useState(false);
+
+  /* Hash simple et sûr, natif au navigateur — aucune dépendance à ajouter */
+  const sha256 = async (text) => {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+  };
+
+  const genCode = () => "BAL-" + Math.random().toString(36).slice(2, 7).toUpperCase();
+  const genPin = () => String(Math.floor(1000 + Math.random() * 9000));
+
+  const createRealOrder = async (it) => {
+    if (!myProfile) { showToast("⚠️ Connecte-toi d'abord"); return; }
+    if (it.seller_id === myProfile.id) { showToast(t("own_item")); return; }
+    setCreatingOrder(true);
+    try {
+      const isLocal = it.city === USER_CITY;
+      const dTypes = isLocal ? ["point_local", "express_local", "express_local"] : ["amana_point", "amana_home", "express_far"];
+      const delivery_type = dTypes[deliveryI] || dTypes[0];
+      const price = it.price;
+      const protection = fee(price);
+      const delivery = delivFor(it)[deliveryI].price;
+      const total = totalBuyer(price) + delivery;
+      const pin = genPin();
+      const pin_hash = await sha256(pin);
+      const code = genCode();
+      const itemId = String(it.id).replace("db_", "");
+
+      const { data: order, error } = await supabase.from("orders").insert({
+        code, item_id: itemId, buyer_id: myProfile.id, seller_id: it.seller_id,
+        price_dh: price, protection_fee_dh: protection, delivery_fee_dh: delivery,
+        discount_dh: 0, total_dh: total, delivery_type,
+        payment_method: payMethodI === 0 ? "card" : "wallet",
+        payment_status: "paid", escrow_status: "held",
+        pin_hash, qr_token: crypto.randomUUID(),
+        status: "paid",
+        dropoff_deadline: new Date(Date.now() + 3 * 86400000).toISOString(),
+        pickup_deadline: new Date(Date.now() + 10 * 86400000).toISOString(),
+      }).select().single();
+      if (error) throw error;
+
+      await supabase.from("items").update({ status: "sold" }).eq("id", itemId);
+      await supabase.from("custody_events").insert({
+        order_id: order.id, from_party: "bali", to_party: "seller", note: "Commande créée, en attente de dépôt vendeur",
+      });
+
+      setNewOrderTicket({ ...order, itemTitle: it.title, itemEmoji: it.emoji, pinPlain: pin });
+      setCheckoutOpen(false); setItem(null);
+      loadItems(); loadMyOrders();
+    } catch (e) {
+      showToast("⚠️ " + (e.message || "Erreur de commande"));
+    } finally {
+      setCreatingOrder(false);
+    }
+  };
+
+  const loadMyOrders = async () => {
+    if (!myProfile) return;
+    const { data } = await supabase.from("orders").select("*, items(title)")
+      .or("buyer_id.eq." + myProfile.id + ",seller_id.eq." + myProfile.id)
+      .order("created_at", { ascending: false });
+    setMyOrders(data || []);
+  };
+
   /* Enregistrer le nom */
   const saveName = async () => {
     const { data: userData } = await supabase.auth.getUser();
@@ -1153,7 +1236,7 @@ export default function BaliApp() {
   /* Au démarrage : si une session existe déjà, on entre directement dans l'app */
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) setObStep(6);
+      if (data.session) { setObStep(6); setTimeout(loadMyOrders, 500); }
       setAuthChecked(true);
     });
     loadItems();
@@ -1198,6 +1281,7 @@ export default function BaliApp() {
     if (error) { setObError(error.message); return; }
     loadProfile();
     loadThreads();
+    setTimeout(loadMyOrders, 300);
     setObStep(4);
   };
   const [obCode, setObCode] = useState("");
@@ -2055,6 +2139,17 @@ export default function BaliApp() {
         ))}
       </div>
 
+      {/* Mes commandes réelles */}
+      <button onClick={() => { setOrdersOpen(true); loadMyOrders(); }}
+        className="w-full mt-4 bg-white rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+        <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center">
+          <Package size={18} className="text-indigo-600" />
+        </div>
+        <p className="flex-1 text-left text-sm font-extrabold text-stone-900">{t("my_orders")}</p>
+        <span className="text-xs font-bold text-stone-400">{myOrders.length}</span>
+        <ChevronLeft size={16} className={`text-stone-400 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+      </button>
+
       {/* Vente en cours — dépôt du colis */}
       <button onClick={() => setSaleOpen(true)}
         className="w-full mt-4 bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3 text-left active:scale-95 transition-transform">
@@ -2413,9 +2508,10 @@ export default function BaliApp() {
               </button>
             </div>
 
-            <button onClick={() => { setCheckoutOpen(false); setItem(null); showToast(t("t_paid")); }}
-              className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-4 active:scale-95 transition-transform">
-              {t("confirm_order")}
+            <button onClick={() => { if (it.real) createRealOrder(it); else { setCheckoutOpen(false); setItem(null); showToast(t("t_paid")); } }}
+              disabled={creatingOrder}
+              className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-4 active:scale-95 transition-transform disabled:opacity-60">
+              {creatingOrder ? "Confirmation en cours…" : t("confirm_order")}
             </button>
           </div>
         </div>
@@ -3688,6 +3784,59 @@ export default function BaliApp() {
         {saleOpen && depositScreen()}
         {payOpen && paySheet()}
         {trustOpen && trustSheet()}
+
+        {/* Ticket affiché juste après la création — PIN en clair, une seule fois */}
+        {newOrderTicket && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-5" dir={cur.dir}>
+            <div className="w-full max-w-sm bg-white rounded-3xl p-6 font-app text-center">
+              <CheckCircle2 size={48} className="text-emerald-500 mx-auto" />
+              <p className="font-display font-bold text-xl text-stone-900 mt-3">{t("real_order_title")}</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">{newOrderTicket.code} · {newOrderTicket.itemEmoji} {newOrderTicket.itemTitle}</p>
+              <div className="mt-4 bg-indigo-50 border-2 border-dashed border-indigo-300 rounded-2xl py-4">
+                <p className="text-[10px] font-extrabold text-indigo-500">{t("real_pin_note")}</p>
+                <p className="font-display font-extrabold text-4xl tracking-[0.3em] text-indigo-700 mt-2">{newOrderTicket.pinPlain}</p>
+              </div>
+              <p className="text-sm font-extrabold text-stone-900 mt-4">{newOrderTicket.total_dh} DH</p>
+              <button onClick={() => { setNewOrderTicket(null); setOrdersOpen(true); }}
+                className="w-full mt-5 bg-indigo-600 text-white font-extrabold py-3.5 rounded-2xl active:scale-95 transition-transform">
+                {t("real_order_ok")}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Liste des vraies commandes */}
+        {ordersOpen && (
+          <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+            <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-8">
+              <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
+                <button onClick={() => setOrdersOpen(false)}>
+                  <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+                </button>
+                <p className="text-sm font-extrabold text-stone-900">{t("my_orders")}</p>
+              </div>
+              <div className="px-5 pt-4 space-y-2.5">
+                {myOrders.length === 0 && (
+                  <p className="text-xs text-stone-400 font-semibold text-center py-6">{t("no_orders")}</p>
+                )}
+                {myOrders.map((o) => (
+                  <div key={o.id} className="bg-white rounded-2xl p-4 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-extrabold text-stone-900">{o.code}</p>
+                      <span className="text-[10px] font-extrabold bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">{o.status}</span>
+                    </div>
+                    <p className="text-[11px] text-stone-500 font-semibold mt-1">
+                      {o.items && o.items.title ? o.items.title : "Article"} · {o.total_dh} DH
+                    </p>
+                    <p className="text-[10px] text-stone-400 font-bold mt-1.5 flex items-center gap-1">
+                      <Lock size={10} /> {t("order_pin_hidden")}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
         {nameOpen && (
           <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setNameOpen(false)}>
             <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" onClick={(e) => e.stopPropagation()} dir={cur.dir}>
