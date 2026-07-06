@@ -115,7 +115,7 @@ const T = {
     dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
-    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", badge_inspect: "Inspection au point bali avant de payer le vendeur", g_mode: "Mode & vêtements", g_chauss: "Chaussures", g_beaute: "Beauté & parfums", g_tech: "High-tech", g_enfants: "Enfants & jouets", g_maison: "Maison", g_sport: "Sport", g_loisirs: "Loisirs", g_autres: "Autres marques", g_lettres: "Tailles vêtements", g_tailles_num: "Tailles pantalons", g_pointures: "Pointures", g_ages: "Âges enfants", brand_search: "Rechercher une marque", badge_refund: "Remboursé à 100% si non conforme", ai_flow: "📸 Photo → ✍️ Titre rédigé → 💰 Prix estimé", fiab_note: "Calculé sur tes retraits validés au point bali", r_item: "Article", r_deliv: "Livraison", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
+    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", wallet_soon: "🔜 Virement bancaire — arrive avec le paiement réel", link_copied: "🔗 Lien copié !", nf_sale: "💰 Nouvelle vente ! Dépose « {t} » au point bali", nf_pickup: "📦 « {t} » — colis en chemin vers ton point bali", nf_msg: "💬 Conversation avec {n}", my_favs: "Mes favoris", badge_inspect: "Inspection au point bali avant de payer le vendeur", g_mode: "Mode & vêtements", g_chauss: "Chaussures", g_beaute: "Beauté & parfums", g_tech: "High-tech", g_enfants: "Enfants & jouets", g_maison: "Maison", g_sport: "Sport", g_loisirs: "Loisirs", g_autres: "Autres marques", g_lettres: "Tailles vêtements", g_tailles_num: "Tailles pantalons", g_pointures: "Pointures", g_ages: "Âges enfants", brand_search: "Rechercher une marque", badge_refund: "Remboursé à 100% si non conforme", ai_flow: "📸 Photo → ✍️ Titre rédigé → 💰 Prix estimé", fiab_note: "Calculé sur tes retraits validés au point bali", r_item: "Article", r_deliv: "Livraison", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
     real_order_title: "Commande confirmée 🎉", real_pin_note: "Ton code retrait — note-le bien, il ne sera plus affiché en clair.",
     filters_title: "Filtres", filter_cat: "Catégorie", filter_brand: "Marque", filter_size: "Taille",
     filter_cond: "État", filter_price: "Prix (DH)", filter_sort: "Trier par",
@@ -281,7 +281,7 @@ const T = {
     dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
-    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", badge_inspect: "عاين السلعة فالحانوت قبل ما يتخلص البائع", g_mode: "الموضة والحوايج", g_chauss: "السبابط", g_beaute: "الجمال والعطور", g_tech: "التكنولوجيا", g_enfants: "الأطفال والألعاب", g_maison: "الدار", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "قياسات الحوايج", g_tailles_num: "قياسات السراويل", g_pointures: "البوانتير", g_ages: "أعمار الأطفال", brand_search: "قلب على ماركة", badge_refund: "كترجع ليك الفلوس 100% إلا ما كانتش مطابقة", ai_flow: "📸 تصويرة → ✍️ عنوان مكتوب → 💰 ثمن مقترح", fiab_note: "محسوب على التسليمات اللي داز مزيان فالحانوت", r_item: "السلعة", r_deliv: "التوصيل", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
+    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", wallet_soon: "🔜 التحويل البنكي — جاي مع الخلاص الحقيقي", link_copied: "🔗 تنسخ الرابط!", nf_sale: "💰 بيعة جديدة! سيفط « {t} » للنقطة", nf_pickup: "📦 « {t} » — الكولية فالطريق للنقطة ديالك", nf_msg: "💬 محادثة مع {n}", my_favs: "المفضلات ديالي", badge_inspect: "عاين السلعة فالحانوت قبل ما يتخلص البائع", g_mode: "الموضة والحوايج", g_chauss: "السبابط", g_beaute: "الجمال والعطور", g_tech: "التكنولوجيا", g_enfants: "الأطفال والألعاب", g_maison: "الدار", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "قياسات الحوايج", g_tailles_num: "قياسات السراويل", g_pointures: "البوانتير", g_ages: "أعمار الأطفال", brand_search: "قلب على ماركة", badge_refund: "كترجع ليك الفلوس 100% إلا ما كانتش مطابقة", ai_flow: "📸 تصويرة → ✍️ عنوان مكتوب → 💰 ثمن مقترح", fiab_note: "محسوب على التسليمات اللي داز مزيان فالحانوت", r_item: "السلعة", r_deliv: "التوصيل", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
     real_order_title: "تأكدات الطلبية 🎉", real_pin_note: "الكود ديالك ديال التسلم — كتبو مزيان، ما غاديش يبان مرة أخرى.",
     filters_title: "الفلاتر", filter_cat: "الصنف", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "الثمن (درهم)", filter_sort: "رتب حسب",
@@ -447,7 +447,7 @@ const T = {
     dressing: "خزانتي", sell_new: "بيع منتج جديد",
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
-    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", badge_inspect: "افحص المنتج في المحل قبل دفع المال للبائع", g_mode: "الموضة والملابس", g_chauss: "الأحذية", g_beaute: "الجمال والعطور", g_tech: "التقنية", g_enfants: "الأطفال والألعاب", g_maison: "المنزل", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "مقاسات الملابس", g_tailles_num: "مقاسات السراويل", g_pointures: "مقاسات الأحذية", g_ages: "أعمار الأطفال", brand_search: "ابحث عن ماركة", badge_refund: "استرداد 100% إذا لم يكن مطابقاً", ai_flow: "📸 صورة → ✍️ عنوان مكتوب → 💰 سعر مقترح", fiab_note: "يُحسب على عمليات الاستلام الناجحة", r_item: "المنتج", r_deliv: "التوصيل", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
+    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", wallet_soon: "🔜 التحويل البنكي — قادم مع الدفع الحقيقي", link_copied: "🔗 تم نسخ الرابط!", nf_sale: "💰 عملية بيع! أودع « {t} » في النقطة", nf_pickup: "📦 « {t} » — الطرد في الطريق إلى نقطتك", nf_msg: "💬 محادثة مع {n}", my_favs: "مفضلاتي", badge_inspect: "افحص المنتج في المحل قبل دفع المال للبائع", g_mode: "الموضة والملابس", g_chauss: "الأحذية", g_beaute: "الجمال والعطور", g_tech: "التقنية", g_enfants: "الأطفال والألعاب", g_maison: "المنزل", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "مقاسات الملابس", g_tailles_num: "مقاسات السراويل", g_pointures: "مقاسات الأحذية", g_ages: "أعمار الأطفال", brand_search: "ابحث عن ماركة", badge_refund: "استرداد 100% إذا لم يكن مطابقاً", ai_flow: "📸 صورة → ✍️ عنوان مكتوب → 💰 سعر مقترح", fiab_note: "يُحسب على عمليات الاستلام الناجحة", r_item: "المنتج", r_deliv: "التوصيل", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
     real_order_title: "تأكيد الطلب 🎉", real_pin_note: "رمز الاستلام الخاص بك — احفظه جيداً، لن يظهر مرة أخرى بوضوح.",
     filters_title: "الفلاتر", filter_cat: "الفئة", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "السعر (درهم)", filter_sort: "الترتيب حسب",
@@ -620,7 +620,7 @@ const T = {
     dressing: "My closet", sell_new: "Sell a new item",
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
-    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", badge_inspect: "Inspect at the bali point before the seller is paid", g_mode: "Fashion & clothing", g_chauss: "Shoes", g_beaute: "Beauty & fragrance", g_tech: "Tech", g_enfants: "Kids & toys", g_maison: "Home", g_sport: "Sport", g_loisirs: "Hobbies", g_autres: "Other brands", g_lettres: "Clothing sizes", g_tailles_num: "Trouser sizes", g_pointures: "Shoe sizes", g_ages: "Kids ages", brand_search: "Search a brand", badge_refund: "100% refund if not as described", ai_flow: "📸 Photo → ✍️ Title written → 💰 Price estimated", fiab_note: "Based on your validated pickups", r_item: "Item", r_deliv: "Delivery", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
+    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", wallet_soon: "🔜 Bank transfer — coming with real payments", link_copied: "🔗 Link copied!", nf_sale: "💰 New sale! Drop « {t} » at the bali point", nf_pickup: "📦 « {t} » — parcel on its way to your bali point", nf_msg: "💬 Chat with {n}", my_favs: "My favorites", badge_inspect: "Inspect at the bali point before the seller is paid", g_mode: "Fashion & clothing", g_chauss: "Shoes", g_beaute: "Beauty & fragrance", g_tech: "Tech", g_enfants: "Kids & toys", g_maison: "Home", g_sport: "Sport", g_loisirs: "Hobbies", g_autres: "Other brands", g_lettres: "Clothing sizes", g_tailles_num: "Trouser sizes", g_pointures: "Shoe sizes", g_ages: "Kids ages", brand_search: "Search a brand", badge_refund: "100% refund if not as described", ai_flow: "📸 Photo → ✍️ Title written → 💰 Price estimated", fiab_note: "Based on your validated pickups", r_item: "Item", r_deliv: "Delivery", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
     real_order_title: "Order confirmed 🎉", real_pin_note: "Your pickup code — write it down, it won't be shown again in plain text.",
     filters_title: "Filters", filter_cat: "Category", filter_brand: "Brand", filter_size: "Size",
     filter_cond: "Condition", filter_price: "Price (DH)", filter_sort: "Sort by",
@@ -786,7 +786,7 @@ const T = {
     dressing: "Mi armario", sell_new: "Vender otro artículo",
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
-    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", badge_inspect: "Inspecciona en el punto bali antes de pagar al vendedor", g_mode: "Moda y ropa", g_chauss: "Zapatos", g_beaute: "Belleza y perfumes", g_tech: "Tecnología", g_enfants: "Niños y juguetes", g_maison: "Hogar", g_sport: "Deporte", g_loisirs: "Ocio", g_autres: "Otras marcas", g_lettres: "Tallas ropa", g_tailles_num: "Tallas pantalón", g_pointures: "Tallas calzado", g_ages: "Edades niños", brand_search: "Buscar una marca", badge_refund: "Reembolso 100% si no es conforme", ai_flow: "📸 Foto → ✍️ Título redactado → 💰 Precio estimado", fiab_note: "Basado en tus recogidas validadas", r_item: "Artículo", r_deliv: "Envío", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
+    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", wallet_soon: "🔜 Transferencia bancaria — llega con el pago real", link_copied: "🔗 ¡Enlace copiado!", nf_sale: "💰 ¡Nueva venta! Deposita « {t} » en el punto bali", nf_pickup: "📦 « {t} » — paquete en camino a tu punto", nf_msg: "💬 Chat con {n}", my_favs: "Mis favoritos", badge_inspect: "Inspecciona en el punto bali antes de pagar al vendedor", g_mode: "Moda y ropa", g_chauss: "Zapatos", g_beaute: "Belleza y perfumes", g_tech: "Tecnología", g_enfants: "Niños y juguetes", g_maison: "Hogar", g_sport: "Deporte", g_loisirs: "Ocio", g_autres: "Otras marcas", g_lettres: "Tallas ropa", g_tailles_num: "Tallas pantalón", g_pointures: "Tallas calzado", g_ages: "Edades niños", brand_search: "Buscar una marca", badge_refund: "Reembolso 100% si no es conforme", ai_flow: "📸 Foto → ✍️ Título redactado → 💰 Precio estimado", fiab_note: "Basado en tus recogidas validadas", r_item: "Artículo", r_deliv: "Envío", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
     real_order_title: "Pedido confirmado 🎉", real_pin_note: "Tu código de recogida — anótalo, no volverá a mostrarse en texto claro.",
     filters_title: "Filtros", filter_cat: "Categoría", filter_brand: "Marca", filter_size: "Talla",
     filter_cond: "Estado", filter_price: "Precio (DH)", filter_sort: "Ordenar por",
@@ -1739,6 +1739,23 @@ function BaliAppScreen() {
     showToast(t("ai_done"));
   };
 
+  const [demoMsg, setDemoMsg] = useState("");
+  const sendDemoMsg = () => {
+    if (!demoMsg.trim() || !thread) return;
+    const body = demoMsg.trim();
+    setDemoMsg("");
+    setThreads((prev) => prev.map((th) => th.id === thread
+      ? { ...th, msgs: [...th.msgs, { from: "me", text: body }] } : th));
+  };
+  const counterOffer = (tId, i) => {
+    setThreads((prev) => prev.map((th) => {
+      if (th.id !== tId) return th;
+      const base = th.msgs[i] && th.msgs[i].amount ? th.msgs[i].amount : 100;
+      return { ...th, msgs: [...th.msgs, { from: "me", type: "offer", amount: Math.round(base * 1.1) }] };
+    }));
+    showToast(tf("t_offer_sent", { x: "" }).replace("  ", " "));
+  };
+
   const toggleLike = (id, e) => {
     e.stopPropagation();
     setLiked((l) => ({ ...l, [id]: !l[id] }));
@@ -2055,6 +2072,9 @@ function BaliAppScreen() {
             <span className="text-xs font-extrabold text-stone-700 uppercase">{lang === "zgh" ? "ⵣ" : lang === "dar" ? "دا" : lang}</span>
           </button>
           <button onClick={() => { setNotifOpen(true); setNotifRead(true); }} className="relative p-2 bg-white rounded-full shadow-sm">
+            {realNotifs().length > 0 && !notifOpen && (
+              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-rose-500 text-white text-[8px] font-extrabold flex items-center justify-center">{realNotifs().length}</span>
+            )}
             <Bell size={18} className="text-stone-700" />
             {!notifRead && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full" />}
           </button>
@@ -2514,7 +2534,7 @@ function BaliAppScreen() {
         <div className="flex gap-2 mt-3">
           <button onClick={() => acceptOffer(tId, i)}
             className="flex-1 bg-emerald-600 text-white text-xs font-bold py-2 rounded-xl">{t("accept")}</button>
-          <button className="flex-1 bg-stone-100 text-stone-700 text-xs font-bold py-2 rounded-xl">{t("counter")}</button>
+          <button onClick={() => counterOffer(tId, i)} className="flex-1 bg-stone-100 text-stone-700 text-xs font-bold py-2 rounded-xl">{t("counter")}</button>
         </div>
       ) : (
         <p className="text-[10px] mt-1.5 text-indigo-200 font-semibold">{t("waiting")}</p>
@@ -2591,8 +2611,11 @@ function BaliAppScreen() {
             )}
           </div>
           <div className="px-5 mt-4 flex gap-2">
-            <div className="flex-1 bg-white rounded-2xl px-4 py-3 text-sm text-stone-400 shadow-sm">{t("write_msg")}</div>
-            <button className="bg-indigo-600 rounded-2xl px-4 text-white"><Send size={17} className={cur.dir === "rtl" ? "rotate-180" : ""} /></button>
+            <input value={demoMsg} onChange={(e) => setDemoMsg(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") sendDemoMsg(); }}
+              placeholder={t("write_msg")}
+              className="flex-1 bg-white rounded-2xl px-4 py-3 text-sm font-medium shadow-sm outline-none" />
+            <button onClick={sendDemoMsg} className="bg-indigo-600 rounded-2xl px-4 text-white active:scale-95 transition-transform"><Send size={17} className={cur.dir === "rtl" ? "rotate-180" : ""} /></button>
           </div>
         </div>
       );
@@ -2674,7 +2697,7 @@ function BaliAppScreen() {
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-5">
-        {[[String(myItems.length), t("s_sales")], ["0", t("s_followers")], ["0", t("s_favs")]].map(([n, l]) => (
+        {[[String(myItems.length), t("s_sales")], ["0", t("s_followers")], [String(Object.values(liked).filter(Boolean).length), t("s_favs")]].map(([n, l]) => (
           <div key={l} className="bg-white rounded-2xl p-3 text-center shadow-sm">
             <p className="text-lg font-extrabold text-stone-900">{n}</p>
             <p className="text-[10px] font-bold text-stone-400">{l}</p>
@@ -2762,7 +2785,7 @@ function BaliAppScreen() {
         <div className="flex gap-2 mt-3 relative">
           <button onClick={() => setPayOpen(true)}
             className="bg-amber-400 text-stone-900 text-xs font-extrabold px-4 py-2 rounded-full">{t("recharge")}</button>
-          <button className="bg-white text-indigo-700 text-xs font-extrabold px-4 py-2 rounded-full">{t("transfer")}</button>
+          <button onClick={() => showToast(t("wallet_soon"))} className="bg-white text-indigo-700 text-xs font-extrabold px-4 py-2 rounded-full">{t("transfer")}</button>
         </div>
       </div>
 
@@ -2791,6 +2814,15 @@ function BaliAppScreen() {
         <Plus size={16} /> {t("sell_new")}
       </button>
 
+      {allItems.filter((x) => liked[x.id]).length > 0 && (
+        <>
+          <p className="text-sm font-extrabold text-stone-900 mt-6 mb-3">❤️ {t("my_favs")}</p>
+          <div className="grid grid-cols-2 gap-3">
+            {allItems.filter((x) => liked[x.id]).map((x) => itemCard(x))}
+          </div>
+        </>
+      )}
+
       <button onClick={async () => { await supabase.auth.signOut(); setMyProfile(null); setDbThreads([]); setDbThread(null); showToast(t("logout_done")); setObStep(0); setTab("home"); }}
         className="w-full mt-4 text-stone-400 font-bold text-xs py-3">
         {t("logout")}
@@ -2814,6 +2846,10 @@ function BaliAppScreen() {
           )}
           <button onClick={() => setItem(null)} className="absolute top-4 left-4 bg-white/90 p-2 rounded-full shadow">
             <ChevronLeft size={20} className={`text-stone-800 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+          </button>
+          <button onClick={() => { try { navigator.clipboard.writeText(window.location.origin + "?article=" + String(it.id).replace("db_", "")); } catch (e) {} showToast(t("link_copied")); }}
+            className="absolute top-16 right-4 bg-white/90 p-2 rounded-full shadow">
+            <Send size={17} className="text-stone-600" />
           </button>
           <button onClick={(e) => toggleLike(it.id, e)} className="absolute top-4 right-4 bg-white/90 p-2 rounded-full shadow">
             <Heart size={20} className={liked[it.id] ? "text-rose-500 fill-rose-500" : "text-stone-600"} />
@@ -3237,6 +3273,22 @@ function BaliAppScreen() {
   /* NOTIFICATIONS                                                     */
   /* ---------------------------------------------------------------- */
 
+  /* Notifications RÉELLES : générées à partir des vraies données */
+  const realNotifs = () => {
+    const out = [];
+    myOrders.forEach((o) => {
+      const title = o.items && o.items.title ? o.items.title : "Article";
+      if (o.iSell && o.status === "paid")
+        out.push({ emoji: "💰", bg: "bg-emerald-50", text: tf("nf_sale", { t: title }), go: () => { setOrdersTab("sells"); setOrdersOpen(true); } });
+      if (!o.iSell && (o.status === "dropped" || o.status === "in_transit" || o.status === "ready"))
+        out.push({ emoji: "📦", bg: "bg-amber-50", text: tf("nf_pickup", { t: title }), go: () => { setOrdersTab("buys"); setOrdersOpen(true); } });
+    });
+    dbThreads.slice(0, 2).forEach((th) => {
+      out.push({ emoji: "💬", bg: "bg-indigo-50", text: tf("nf_msg", { n: th.otherName }), go: () => { setTab("msg"); openDbThread(th); } });
+    });
+    return out.slice(0, 6);
+  };
+
   const notifSheet = () => (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setNotifOpen(false)}>
       <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app max-h-[80vh] overflow-y-auto" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
@@ -3247,6 +3299,16 @@ function BaliAppScreen() {
           <button onClick={() => setNotifOpen(false)}><X size={20} className="text-stone-400" /></button>
         </div>
         <div className="mt-4 space-y-2 pb-2">
+          {/* Vraies notifications */}
+          {realNotifs().map((nf, i) => (
+            <button key={"r" + i} onClick={() => { setNotifOpen(false); nf.go(); }}
+              className={`w-full p-3.5 rounded-2xl text-left flex items-center gap-3 ${nf.bg}`}>
+              <span className="text-xl shrink-0">{nf.emoji}</span>
+              <p className="text-xs font-bold text-stone-800 leading-relaxed flex-1">{nf.text}</p>
+              <ChevronLeft size={14} className={`text-stone-400 shrink-0 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+            </button>
+          ))}
+          {realNotifs().length === 0 && null}
           {["n1", "n2", "n3", "n4"].map((k, i) => (
             <button key={k}
               onClick={() => {
@@ -3255,8 +3317,8 @@ function BaliAppScreen() {
                 if (k === "n2") setOrderOpen(true);
                 if (k === "n3") openItem(ITEMS[2]);
               }}
-              className={`w-full p-3.5 rounded-2xl text-left ${i < 2 ? "bg-indigo-50" : "bg-stone-50"}`}>
-              <p className="text-xs font-semibold text-stone-800 leading-relaxed">{t(k)}</p>
+              className="w-full p-3.5 rounded-2xl text-left bg-stone-50">
+              <p className="text-xs font-semibold text-stone-500 leading-relaxed">{t(k)} <span className="text-[9px] font-bold bg-stone-200 text-stone-400 px-1.5 py-0.5 rounded-full ms-1">{t("beta")}</span></p>
             </button>
           ))}
         </div>
