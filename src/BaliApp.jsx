@@ -988,6 +988,30 @@ export default function BaliApp() {
   const [obPhone, setObPhone] = useState("");
   const [obCountryI, setObCountryI] = useState(0);
   const [obCountryOpen, setObCountryOpen] = useState(false);
+  const [obLoading, setObLoading] = useState(false);
+  const [obError, setObError] = useState("");
+
+  /* Envoi du vrai SMS via Supabase + Twilio */
+  const sendSms = async () => {
+    setObError("");
+    setObLoading(true);
+    const fullPhone = COUNTRIES[obCountryI].code + obPhone;
+    const { error } = await supabase.auth.signInWithOtp({ phone: fullPhone });
+    setObLoading(false);
+    if (error) { setObError(error.message); return; }
+    setObStep(3);
+  };
+
+  /* Vérification du code reçu par SMS */
+  const verifySms = async () => {
+    setObError("");
+    setObLoading(true);
+    const fullPhone = COUNTRIES[obCountryI].code + obPhone;
+    const { error } = await supabase.auth.verifyOtp({ phone: fullPhone, token: obCode, type: "sms" });
+    setObLoading(false);
+    if (error) { setObError(error.message); return; }
+    setObStep(4);
+  };
   const [obCode, setObCode] = useState("");
   const [dealLeft, setDealLeft] = useState(16331); // compte à rebours deals du jour
   const [saleOpen, setSaleOpen] = useState(false);
@@ -2332,10 +2356,11 @@ export default function BaliApp() {
                 </div>
               )}
 
-              <button disabled={obPhone.length < COUNTRIES[obCountryI].len} onClick={() => setObStep(3)}
-                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obPhone.length >= COUNTRIES[obCountryI].len ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
-                {t("ob_send")}
+              <button disabled={obPhone.length < COUNTRIES[obCountryI].len || obLoading} onClick={sendSms}
+                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obPhone.length >= COUNTRIES[obCountryI].len && !obLoading ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
+                {obLoading ? "Envoi en cours…" : t("ob_send")}
               </button>
+              {obError && <p className="text-[11px] text-amber-300 font-bold mt-2">⚠️ {obError}</p>}
             </>
           )}
 
@@ -2344,14 +2369,17 @@ export default function BaliApp() {
               <p className="font-display font-extrabold text-2xl">{t("ob_code")}</p>
               <p className="text-xs text-indigo-200 font-bold mt-1">{COUNTRIES[obCountryI].flag} {COUNTRIES[obCountryI].code} {obPhone}</p>
               <input value={obCode}
-                onChange={(e) => setObCode(e.target.value.replace(/[^0-9]/g, "").slice(0, 4))}
-                inputMode="numeric" placeholder="••••"
-                className="w-full mt-5 bg-white rounded-2xl py-4 text-center text-3xl font-extrabold tracking-[0.5em] outline-none text-stone-900" />
-              <p className="text-[11px] text-indigo-200 font-semibold mt-2">{t("ob_hint")}</p>
-              <button disabled={obCode.length < 4}
-                onClick={() => setObStep(4)}
-                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obCode.length >= 4 ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
-                {t("ob_continue")}
+                onChange={(e) => setObCode(e.target.value.replace(/[^0-9]/g, "").slice(0, 6))}
+                inputMode="numeric" placeholder="••••••"
+                className="w-full mt-5 bg-white rounded-2xl py-4 text-center text-3xl font-extrabold tracking-[0.4em] outline-none text-stone-900" />
+              <button disabled={obCode.length < 6 || obLoading}
+                onClick={verifySms}
+                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obCode.length >= 6 && !obLoading ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
+                {obLoading ? "Vérification…" : t("ob_continue")}
+              </button>
+              {obError && <p className="text-[11px] text-amber-300 font-bold mt-2">⚠️ {obError}</p>}
+              <button onClick={sendSms} className="w-full mt-2 text-[11px] text-indigo-200 font-bold underline">
+                Renvoyer le code
               </button>
             </>
           )}
