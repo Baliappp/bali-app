@@ -65,6 +65,19 @@ const QRCodeSVG = ({ seed, size = 172 }) => {
 /* LANGUES                                                             */
 /* ------------------------------------------------------------------ */
 
+const COUNTRIES = [
+  { flag: "🇲🇦", code: "+212", name: "Maroc", len: 9, ph: "6 12 34 56 78" },
+  { flag: "🇫🇷", code: "+33", name: "France", len: 9, ph: "6 12 34 56 78" },
+  { flag: "🇪🇸", code: "+34", name: "Espagne", len: 9, ph: "612 34 56 78" },
+  { flag: "🇧🇪", code: "+32", name: "Belgique", len: 9, ph: "470 12 34 56" },
+  { flag: "🇮🇹", code: "+39", name: "Italie", len: 10, ph: "312 345 6789" },
+  { flag: "🇳🇱", code: "+31", name: "Pays-Bas", len: 9, ph: "6 12345678" },
+  { flag: "🇩🇪", code: "+49", name: "Allemagne", len: 11, ph: "1512 3456789" },
+  { flag: "🇬🇧", code: "+44", name: "Royaume-Uni", len: 10, ph: "7400 123456" },
+  { flag: "🇺🇸", code: "+1", name: "USA / Canada", len: 10, ph: "555 123 4567" },
+  { flag: "🇦🇪", code: "+971", name: "Émirats", len: 9, ph: "50 123 4567" },
+];
+
 const LANGS = [
   { id: "fr", name: "Français", flag: "🇫🇷", dir: "ltr" },
   { id: "dar", name: "الدارجة المغربية", flag: "🇲🇦", dir: "rtl" },
@@ -973,6 +986,8 @@ export default function BaliApp() {
   const [payMethodI, setPayMethodI] = useState(0);
   const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 terminé
   const [obPhone, setObPhone] = useState("");
+  const [obCountryI, setObCountryI] = useState(0);
+  const [obCountryOpen, setObCountryOpen] = useState(false);
   const [obCode, setObCode] = useState("");
   const [dealLeft, setDealLeft] = useState(16331); // compte à rebours deals du jour
   const [saleOpen, setSaleOpen] = useState(false);
@@ -2291,15 +2306,34 @@ export default function BaliApp() {
           {obStep === 2 && (
             <>
               <p className="font-display font-extrabold text-2xl">{t("ob_phone")}</p>
-              <div className="mt-5 flex items-center bg-white rounded-2xl px-4 text-stone-900">
-                <span className="text-sm font-extrabold text-stone-500 shrink-0">🇲🇦 +212</span>
+              <div className="mt-5 flex items-center bg-white rounded-2xl px-2 text-stone-900">
+                <button onClick={() => setObCountryOpen(!obCountryOpen)}
+                  className="flex items-center gap-1 px-2 py-4 shrink-0 font-extrabold text-sm">
+                  <span className="text-lg">{COUNTRIES[obCountryI].flag}</span>
+                  <span className="text-stone-500">{COUNTRIES[obCountryI].code}</span>
+                  <span className="text-stone-400 text-xs">▾</span>
+                </button>
                 <input value={obPhone}
-                  onChange={(e) => setObPhone(e.target.value.replace(/[^0-9]/g, "").slice(0, 9))}
-                  inputMode="numeric" placeholder="6 12 34 56 78"
-                  className="flex-1 py-4 px-3 text-base font-extrabold outline-none bg-transparent" />
+                  onChange={(e) => setObPhone(e.target.value.replace(/[^0-9]/g, "").slice(0, COUNTRIES[obCountryI].len))}
+                  inputMode="numeric" placeholder={COUNTRIES[obCountryI].ph}
+                  className="flex-1 py-4 px-2 text-base font-extrabold outline-none bg-transparent min-w-0" />
               </div>
-              <button disabled={obPhone.length < 9} onClick={() => setObStep(3)}
-                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obPhone.length >= 9 ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
+
+              {obCountryOpen && (
+                <div className="mt-2 bg-white rounded-2xl p-1 text-stone-900 max-h-56 overflow-y-auto">
+                  {COUNTRIES.map((c, i) => (
+                    <button key={c.code} onClick={() => { setObCountryI(i); setObPhone(""); setObCountryOpen(false); }}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left ${obCountryI === i ? "bg-indigo-50" : ""}`}>
+                      <span className="text-lg">{c.flag}</span>
+                      <span className="flex-1 text-sm font-bold">{c.name}</span>
+                      <span className="text-xs font-extrabold text-stone-400">{c.code}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              <button disabled={obPhone.length < COUNTRIES[obCountryI].len} onClick={() => setObStep(3)}
+                className={`w-full mt-4 font-extrabold py-4 rounded-2xl transition-colors ${obPhone.length >= COUNTRIES[obCountryI].len ? "bg-white text-indigo-700" : "bg-white/20 text-indigo-200"}`}>
                 {t("ob_send")}
               </button>
             </>
@@ -2308,7 +2342,7 @@ export default function BaliApp() {
           {obStep === 3 && (
             <>
               <p className="font-display font-extrabold text-2xl">{t("ob_code")}</p>
-              <p className="text-xs text-indigo-200 font-bold mt-1">🇲🇦 +212 {obPhone}</p>
+              <p className="text-xs text-indigo-200 font-bold mt-1">{COUNTRIES[obCountryI].flag} {COUNTRIES[obCountryI].code} {obPhone}</p>
               <input value={obCode}
                 onChange={(e) => setObCode(e.target.value.replace(/[^0-9]/g, "").slice(0, 4))}
                 inputMode="numeric" placeholder="••••"
