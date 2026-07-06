@@ -980,7 +980,35 @@ const SALE = {
   deadline: "jeu. 9 juil.",
 };
 
-export default function BaliApp() {
+/* ------------------------------------------------------------------ */
+/* FILET DE SÉCURITÉ — si un composant plante, on affiche un écran      */
+/* clair au lieu de laisser toute l'app blanche et inaccessible.        */
+/* ------------------------------------------------------------------ */
+class ErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  componentDidCatch(error, info) { console.error("bali crash:", error, info); }
+  render() {
+    if (this.state.error) {
+      return (
+        <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f4", padding: 24, fontFamily: "sans-serif" }}>
+          <div style={{ maxWidth: 380, textAlign: "center" }}>
+            <p style={{ fontSize: 40 }}>😕</p>
+            <p style={{ fontWeight: 800, fontSize: 18, color: "#1c1917", marginTop: 8 }}>Oups, un problème est survenu</p>
+            <p style={{ fontSize: 12, color: "#78716c", marginTop: 8, wordBreak: "break-word" }}>{String(this.state.error && this.state.error.message)}</p>
+            <button onClick={() => window.location.reload()}
+              style={{ marginTop: 16, background: "#4F46E5", color: "#fff", fontWeight: 800, padding: "12px 24px", borderRadius: 16, border: "none" }}>
+              Recharger l'app
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+function BaliAppScreen() {
   const [lang, setLang] = useState("fr");
   const [langOpen, setLangOpen] = useState(false);
   const [tab, setTab] = useState("home");
@@ -4031,5 +4059,13 @@ export default function BaliApp() {
         {langOpen && langSheet()}
       </div>
     </div>
+  );
+}
+
+export default function BaliApp() {
+  return (
+    <ErrorBoundary>
+      <BaliAppScreen />
+    </ErrorBoundary>
   );
 }
