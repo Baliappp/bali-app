@@ -1007,6 +1007,33 @@ export default function BaliApp() {
   const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 cadeau · 5 synopsis · 6 app
   const [authChecked, setAuthChecked] = useState(false);
   const [dbItems, setDbItems] = useState([]);
+  const [myProfile, setMyProfile] = useState(null);
+  const [nameOpen, setNameOpen] = useState(false);
+  const [nameInput, setNameInput] = useState("");
+
+  /* Charger le profil de l'utilisateur connecté */
+  const loadProfile = async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData && userData.user ? userData.user.id : null;
+    if (!uid) { setMyProfile(null); return; }
+    const { data } = await supabase.from("profiles").select("*").eq("id", uid).single();
+    if (data) setMyProfile(data);
+  };
+
+  /* Enregistrer le nom */
+  const saveName = async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    const uid = userData && userData.user ? userData.user.id : null;
+    if (!uid || !nameInput.trim()) return;
+    const { error } = await supabase.from("profiles").update({ display_name: nameInput.trim() }).eq("id", uid);
+    if (!error) {
+      setNameOpen(false);
+      loadProfile();
+      showToast("Nom enregistré ✅");
+    } else {
+      showToast("⚠️ " + error.message);
+    }
+  };
 
   /* Charger les vraies annonces depuis la base */
   const loadItems = async () => {
@@ -1025,7 +1052,7 @@ export default function BaliApp() {
         cat: ["femmes", "hommes", "enfants", "tech", "maison", "trad"].indexOf(r.category),
         emoji: emojis[r.category] || "🛍️", grad: grads[i % grads.length],
         photo: (r.photos && r.photos[0]) || null, city: r.city || "Casablanca",
-        likes: r.likes || 0, video: r.video_packing || false, real: true,
+        likes: r.likes || 0, video: r.video_packing || false, real: true, seller_id: r.seller_id,
       })));
     }
   };
@@ -1037,6 +1064,7 @@ export default function BaliApp() {
       setAuthChecked(true);
     });
     loadItems();
+    loadProfile();
   }, []);
   const [obPhone, setObPhone] = useState("");
   const [obCountryI, setObCountryI] = useState(0);
@@ -1815,22 +1843,40 @@ export default function BaliApp() {
     );
   };
 
-  const profileScreen = () => (
+  const pname_initial = (name) => (name && name.trim() ? name.trim()[0].toUpperCase() : "?");
+
+  const profileScreen = () => {
+    const pname = myProfile && myProfile.display_name ? myProfile.display_name : "";
+    const myItems = dbItems.filter((it) => myProfile && it.real && it.seller_id === myProfile.id);
+    return (
     <div className="pb-28 px-5 pt-5">
       <div className="flex items-center gap-4">
-        <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-display font-extrabold text-white">A</div>
-        <div>
-          <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-1.5">
-            Abdel <BadgeCheck size={17} className="text-indigo-600" />
-          </p>
+        <div className="w-16 h-16 rounded-full bg-indigo-600 flex items-center justify-center text-2xl font-display font-extrabold text-white">
+          {pname_initial(pname)}
+        </div>
+        <div className="flex-1">
+          {pname ? (
+            <p className="font-display font-bold text-lg text-stone-900 flex items-center gap-1.5">
+              {pname} <BadgeCheck size={17} className="text-indigo-600" />
+            </p>
+          ) : (
+            <button onClick={() => { setNameInput(""); setNameOpen(true); }}
+              className="font-display font-bold text-base text-indigo-600 flex items-center gap-1.5">
+              ✏️ Ajoute ton nom
+            </button>
+          )}
           <p className="text-xs text-stone-500 font-semibold flex items-center gap-1 mt-0.5">
-            <Star size={12} className="text-amber-500 fill-amber-500" /> 4,9 · 12 {t("sales_w")} · {t("member")}
+            <Star size={12} className="text-amber-500 fill-amber-500" /> {t("member")}
           </p>
+          {pname && (
+            <button onClick={() => { setNameInput(pname); setNameOpen(true); }}
+              className="text-[10px] text-indigo-500 font-bold mt-0.5">Modifier</button>
+          )}
         </div>
       </div>
 
       <div className="grid grid-cols-3 gap-2 mt-5">
-        {[["12", t("s_sales")], ["48", t("s_followers")], ["23", t("s_favs")]].map(([n, l]) => (
+        {[[String(myItems.length), t("s_sales")], ["0", t("s_followers")], ["0", t("s_favs")]].map(([n, l]) => (
           <div key={l} className="bg-white rounded-2xl p-3 text-center shadow-sm">
             <p className="text-lg font-extrabold text-stone-900">{n}</p>
             <p className="text-[10px] font-bold text-stone-400">{l}</p>
@@ -1911,9 +1957,13 @@ export default function BaliApp() {
       </button>
 
       <p className="text-sm font-extrabold text-stone-900 mt-6 mb-3">{t("dressing")}</p>
-      <div className="grid grid-cols-2 gap-3">
-        {ITEMS.slice(0, 2).map((it) => itemCard(it))}
-      </div>
+      {myItems.length > 0 ? (
+        <div className="grid grid-cols-2 gap-3">
+          {myItems.map((it) => itemCard(it))}
+        </div>
+      ) : (
+        <p className="text-xs text-stone-400 font-semibold text-center py-4">Tu n'as pas encore d'annonce. Publie ton premier article !</p>
+      )}
       <button onClick={() => setTab("sell")}
         className="w-full mt-4 border-2 border-dashed border-indigo-300 text-indigo-600 font-bold text-sm py-4 rounded-2xl flex items-center justify-center gap-2">
         <Plus size={16} /> {t("sell_new")}
@@ -1924,7 +1974,8 @@ export default function BaliApp() {
         {t("logout")}
       </button>
     </div>
-  );
+    );
+  };
 
   /* ---------------------------------------------------------------- */
   /* Fiche article + feuilles                                          */
@@ -3452,6 +3503,21 @@ export default function BaliApp() {
         {saleOpen && depositScreen()}
         {payOpen && paySheet()}
         {trustOpen && trustSheet()}
+        {nameOpen && (
+          <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setNameOpen(false)}>
+            <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" onClick={(e) => e.stopPropagation()} dir={cur.dir}>
+              <p className="font-display font-bold text-lg text-stone-900">Comment veux-tu apparaître ?</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">C'est le nom que verront les acheteurs et vendeurs.</p>
+              <input value={nameInput} onChange={(e) => setNameInput(e.target.value.slice(0, 30))}
+                placeholder="Ex : Yassine, Kenza, Sneakers Casa…"
+                className="w-full mt-4 bg-stone-50 border border-stone-200 rounded-2xl px-4 py-3.5 text-sm font-bold outline-none focus:border-indigo-400" />
+              <button onClick={saveName} disabled={!nameInput.trim()}
+                className="w-full mt-4 bg-indigo-600 text-white font-extrabold py-3.5 rounded-2xl disabled:opacity-50">
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        )}
         {pObStep >= 0 && partnerOnboarding()}
         {notifOpen && notifSheet()}
         {langOpen && langSheet()}
