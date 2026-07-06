@@ -127,6 +127,11 @@ const T = {
     role_buy: "Achat", role_sell: "Vente", other_buyer: "Acheteur", other_seller: "Vendeur",
     st_paid: "Payée · à déposer", st_dropped: "Déposée au point bali", st_transit: "En chemin", st_ready: "À retirer", st_done: "Terminée", st_sold: "Vendu",
     deposit_cta: "Déposer au point bali", deposit_done: "Colis déposé ✅ — l'acheteur est prévenu",
+    hverif_title: "Remettre un colis", hverif_sub: "Saisis le code commande + le code PIN du client",
+    hverif_code: "Code commande (BAL-...)", hverif_pin: "Code PIN du client (4 chiffres)",
+    hverif_btn: "Vérifier et remettre", hverif_ok: "✅ Code correct — colis remis au client !",
+    hverif_bad: "❌ Code PIN incorrect — ne remets pas le colis", hverif_notfound: "Commande introuvable ou déjà remise",
+    hverif_wrongstatus: "Ce colis n'est pas encore prêt à être remis",
     sale_new_banner: "🎉 Nouvelle vente ! Dépose le colis au point bali", to_deposit: "à déposer",
     order_pin_hidden: "Code masqué pour ta sécurité",
     t_msg_sent: "Message envoyé à {n}", t_offer_sent: "Sahiti ! Offre de {x} DH envoyée ✅",
@@ -287,6 +292,11 @@ const T = {
     role_buy: "شراء", role_sell: "بيعة", other_buyer: "الشاري", other_seller: "البائع",
     st_paid: "تخلصات · خاصك تسيفط", st_dropped: "تسيفطات للنقطة", st_transit: "فالطريق", st_ready: "وجدة للتسلم", st_done: "سالات", st_sold: "تباعت",
     deposit_cta: "سيفط الكولية للنقطة", deposit_done: "الكولية تسيفطات ✅ — الشاري تنبه",
+    hverif_title: "سلّم كولية", hverif_sub: "دخل كود الطلبية + كود PIN ديال الكليان",
+    hverif_code: "كود الطلبية (BAL-...)", hverif_pin: "كود PIN ديال الكليان (4 أرقام)",
+    hverif_btn: "تحقق وسلّم", hverif_ok: "✅ الكود صحيح — الكولية تسلّمات للكليان!",
+    hverif_bad: "❌ كود PIN غالط — ما تسلّمش الكولية", hverif_notfound: "الطلبية ما لقيناهاش ولا تسلّمات",
+    hverif_wrongstatus: "هاد الكولية مازال ماشي وجدة للتسليم",
     sale_new_banner: "🎉 بيعة جديدة! سيفط الكولية للنقطة", to_deposit: "خاصها تسيفط",
     order_pin_hidden: "الكود مخبي للأمان ديالك",
     t_msg_sent: "تصيفط الميساج ل {n}", t_offer_sent: "صحيتي! تصيفط العرض ديال {x} درهم ✅",
@@ -447,6 +457,11 @@ const T = {
     role_buy: "شراء", role_sell: "بيع", other_buyer: "المشتري", other_seller: "البائع",
     st_paid: "مدفوعة · للإيداع", st_dropped: "أُودعت في النقطة", st_transit: "في الطريق", st_ready: "جاهزة للاستلام", st_done: "منتهية", st_sold: "مُباع",
     deposit_cta: "أودع الطرد في نقطة بالي", deposit_done: "تم إيداع الطرد ✅ — أُبلغ المشتري",
+    hverif_title: "تسليم طرد", hverif_sub: "أدخل رمز الطلب + رمز PIN الخاص بالعميل",
+    hverif_code: "رمز الطلب (BAL-...)", hverif_pin: "رمز PIN للعميل (4 أرقام)",
+    hverif_btn: "تحقق وسلّم", hverif_ok: "✅ الرمز صحيح — تم تسليم الطرد!",
+    hverif_bad: "❌ رمز PIN خاطئ — لا تسلّم الطرد", hverif_notfound: "الطلب غير موجود أو سُلّم مسبقاً",
+    hverif_wrongstatus: "هذا الطرد ليس جاهزاً للتسليم بعد",
     sale_new_banner: "🎉 عملية بيع جديدة! أودع الطرد في النقطة", to_deposit: "للإيداع",
     order_pin_hidden: "الرمز مخفي لأمانك",
     t_msg_sent: "تم إرسال الرسالة إلى {n}", t_offer_sent: "تم إرسال عرض {x} درهم ✅",
@@ -614,6 +629,11 @@ const T = {
     role_buy: "Purchase", role_sell: "Sale", other_buyer: "Buyer", other_seller: "Seller",
     st_paid: "Paid · to drop off", st_dropped: "Dropped at bali point", st_transit: "In transit", st_ready: "Ready for pickup", st_done: "Completed", st_sold: "Sold",
     deposit_cta: "Drop off at bali point", deposit_done: "Parcel dropped ✅ — buyer notified",
+    hverif_title: "Hand over a parcel", hverif_sub: "Enter the order code + the customer's PIN",
+    hverif_code: "Order code (BAL-...)", hverif_pin: "Customer PIN (4 digits)",
+    hverif_btn: "Verify and hand over", hverif_ok: "✅ Correct code — parcel handed to the customer!",
+    hverif_bad: "❌ Wrong PIN — do not hand over the parcel", hverif_notfound: "Order not found or already handed over",
+    hverif_wrongstatus: "This parcel is not ready to be handed over yet",
     sale_new_banner: "🎉 New sale! Drop the parcel at the bali point", to_deposit: "to drop off",
     order_pin_hidden: "Code hidden for your security",
     t_msg_sent: "Message sent to {n}", t_offer_sent: "Offer of {x} DH sent ✅",
@@ -774,6 +794,11 @@ const T = {
     role_buy: "Compra", role_sell: "Venta", other_buyer: "Comprador", other_seller: "Vendedor",
     st_paid: "Pagada · por depositar", st_dropped: "Depositada en punto bali", st_transit: "En camino", st_ready: "Lista para recoger", st_done: "Completada", st_sold: "Vendido",
     deposit_cta: "Depositar en punto bali", deposit_done: "Paquete depositado ✅ — comprador avisado",
+    hverif_title: "Entregar un paquete", hverif_sub: "Introduce el código de pedido + el PIN del cliente",
+    hverif_code: "Código de pedido (BAL-...)", hverif_pin: "PIN del cliente (4 dígitos)",
+    hverif_btn: "Verificar y entregar", hverif_ok: "✅ Código correcto — ¡paquete entregado al cliente!",
+    hverif_bad: "❌ PIN incorrecto — no entregues el paquete", hverif_notfound: "Pedido no encontrado o ya entregado",
+    hverif_wrongstatus: "Este paquete aún no está listo para entregar",
     sale_new_banner: "🎉 ¡Nueva venta! Deposita el paquete en el punto bali", to_deposit: "por depositar",
     order_pin_hidden: "Código oculto por tu seguridad",
     t_msg_sent: "Mensaje enviado a {n}", t_offer_sent: "¡Oferta de {x} DH enviada ✅!",
@@ -1176,6 +1201,37 @@ function BaliAppScreen() {
   const [pTab, setPTab] = useState("colis");
   const [acceptOn, setAcceptOn] = useState(true);
   const [pParcel, setPParcel] = useState(null);
+  const [hvCode, setHvCode] = useState("");
+  const [hvPin, setHvPin] = useState("");
+  const [hvMsg, setHvMsg] = useState(null); // { ok, text }
+  const [hvLoading, setHvLoading] = useState(false);
+
+  /* Le hanoutier vérifie le PIN et remet le colis (cœur de sécurité A4.3) */
+  const verifyAndHandover = async () => {
+    setHvMsg(null);
+    if (!hvCode.trim() || hvPin.length !== 4) return;
+    setHvLoading(true);
+    try {
+      const { data: order } = await supabase.from("orders").select("*")
+        .eq("code", hvCode.trim().toUpperCase()).maybeSingle();
+      if (!order) { setHvMsg({ ok: false, text: t("hverif_notfound") }); setHvLoading(false); return; }
+      if (order.status === "completed") { setHvMsg({ ok: false, text: t("hverif_notfound") }); setHvLoading(false); return; }
+      /* Comparer le PIN saisi au hash stocké — le PIN n'est jamais en clair dans la base */
+      const pinHash = await sha256(hvPin);
+      if (pinHash !== order.pin_hash) { setHvMsg({ ok: false, text: t("hverif_bad") }); setHvLoading(false); return; }
+      /* Code correct → remise + fermeture de la chaîne de responsabilité */
+      await supabase.from("orders").update({ status: "completed", escrow_status: "released" }).eq("id", order.id);
+      await supabase.from("custody_events").insert({
+        order_id: order.id, from_party: "hanout_pickup", to_party: "buyer", note: "PIN vérifié — colis remis à l'acheteur, séquestre libéré",
+      });
+      setHvMsg({ ok: true, text: t("hverif_ok") });
+      setHvCode(""); setHvPin("");
+    } catch (e) {
+      setHvMsg({ ok: false, text: "⚠️ " + (e.message || "Erreur") });
+    } finally {
+      setHvLoading(false);
+    }
+  };
   const [pObStep, setPObStep] = useState(-1); // -1 fermé · 0 hanout · 1 adresse · 2 versements · 3 envoyé
   const [pObName, setPObName] = useState("");
   const [pObPhotos, setPObPhotos] = useState([false, false]);
@@ -3782,6 +3838,27 @@ function BaliAppScreen() {
                     className="w-full bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl flex items-center justify-center gap-2 active:scale-95 transition-transform">
                     <QrCode size={18} /> Scanner un QR (client ou vendeur)
                   </button>
+
+                  {/* Vérificateur RÉEL — remettre un colis contre code + PIN */}
+                  <div className="bg-white rounded-2xl p-4 shadow-sm border-2 border-indigo-100">
+                    <p className="text-sm font-extrabold text-stone-900">🔐 {t("hverif_title")}</p>
+                    <p className="text-[11px] text-stone-500 font-semibold mt-0.5">{t("hverif_sub")}</p>
+                    <input value={hvCode} onChange={(e) => { setHvCode(e.target.value.toUpperCase()); setHvMsg(null); }}
+                      placeholder={t("hverif_code")}
+                      className="w-full mt-3 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2.5 text-sm font-extrabold outline-none focus:border-indigo-400" />
+                    <input value={hvPin} onChange={(e) => { setHvPin(e.target.value.replace(/[^0-9]/g, "").slice(0, 4)); setHvMsg(null); }}
+                      inputMode="numeric" placeholder={t("hverif_pin")}
+                      className="w-full mt-2 bg-stone-50 border border-stone-200 rounded-xl px-3 py-2.5 text-lg font-extrabold tracking-[0.3em] text-center outline-none focus:border-indigo-400" />
+                    <button onClick={verifyAndHandover} disabled={!hvCode.trim() || hvPin.length !== 4 || hvLoading}
+                      className="w-full mt-3 bg-indigo-600 text-white text-sm font-extrabold py-3 rounded-xl active:scale-95 transition-transform disabled:opacity-50">
+                      {hvLoading ? "…" : t("hverif_btn")}
+                    </button>
+                    {hvMsg && (
+                      <p className={`text-xs font-extrabold mt-2.5 text-center ${hvMsg.ok ? "text-emerald-600" : "text-rose-600"}`}>
+                        {hvMsg.text}
+                      </p>
+                    )}
+                  </div>
 
                   {/* Capacité — pause sans appeler le support */}
                   <button onClick={() => setAcceptOn(!acceptOn)}
