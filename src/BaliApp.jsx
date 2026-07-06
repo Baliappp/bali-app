@@ -1022,6 +1022,7 @@ function BaliAppScreen() {
   const [fPriceMin, setFPriceMin] = useState("");
   const [fPriceMax, setFPriceMax] = useState("");
   const [fSort, setFSort] = useState("recent");
+  const [liked, setLiked] = useState({});
   const [offerOpen, setOfferOpen] = useState(false);
   const [offerValue, setOfferValue] = useState("");
   const [toast, setToast] = useState(null);
