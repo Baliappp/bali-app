@@ -115,7 +115,7 @@ const T = {
     dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
-    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
+    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", badge_inspect: "Inspection au point bali avant de payer le vendeur", g_mode: "Mode & vêtements", g_chauss: "Chaussures", g_beaute: "Beauté & parfums", g_tech: "High-tech", g_enfants: "Enfants & jouets", g_maison: "Maison", g_sport: "Sport", g_loisirs: "Loisirs", g_autres: "Autres marques", g_lettres: "Tailles vêtements", g_tailles_num: "Tailles pantalons", g_pointures: "Pointures", g_ages: "Âges enfants", brand_search: "Rechercher une marque", badge_refund: "Remboursé à 100% si non conforme", ai_flow: "📸 Photo → ✍️ Titre rédigé → 💰 Prix estimé", fiab_note: "Calculé sur tes retraits validés au point bali", r_item: "Article", r_deliv: "Livraison", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
     real_order_title: "Commande confirmée 🎉", real_pin_note: "Ton code retrait — note-le bien, il ne sera plus affiché en clair.",
     filters_title: "Filtres", filter_cat: "Catégorie", filter_brand: "Marque", filter_size: "Taille",
     filter_cond: "État", filter_price: "Prix (DH)", filter_sort: "Trier par",
@@ -270,7 +270,7 @@ const T = {
     dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
-    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
+    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", badge_inspect: "عاين السلعة فالحانوت قبل ما يتخلص البائع", g_mode: "الموضة والحوايج", g_chauss: "السبابط", g_beaute: "الجمال والعطور", g_tech: "التكنولوجيا", g_enfants: "الأطفال والألعاب", g_maison: "الدار", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "قياسات الحوايج", g_tailles_num: "قياسات السراويل", g_pointures: "البوانتير", g_ages: "أعمار الأطفال", brand_search: "قلب على ماركة", badge_refund: "كترجع ليك الفلوس 100% إلا ما كانتش مطابقة", ai_flow: "📸 تصويرة → ✍️ عنوان مكتوب → 💰 ثمن مقترح", fiab_note: "محسوب على التسليمات اللي داز مزيان فالحانوت", r_item: "السلعة", r_deliv: "التوصيل", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
     real_order_title: "تأكدات الطلبية 🎉", real_pin_note: "الكود ديالك ديال التسلم — كتبو مزيان، ما غاديش يبان مرة أخرى.",
     filters_title: "الفلاتر", filter_cat: "الصنف", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "الثمن (درهم)", filter_sort: "رتب حسب",
@@ -425,7 +425,7 @@ const T = {
     dressing: "خزانتي", sell_new: "بيع منتج جديد",
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
-    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
+    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", badge_inspect: "افحص المنتج في المحل قبل دفع المال للبائع", g_mode: "الموضة والملابس", g_chauss: "الأحذية", g_beaute: "الجمال والعطور", g_tech: "التقنية", g_enfants: "الأطفال والألعاب", g_maison: "المنزل", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "مقاسات الملابس", g_tailles_num: "مقاسات السراويل", g_pointures: "مقاسات الأحذية", g_ages: "أعمار الأطفال", brand_search: "ابحث عن ماركة", badge_refund: "استرداد 100% إذا لم يكن مطابقاً", ai_flow: "📸 صورة → ✍️ عنوان مكتوب → 💰 سعر مقترح", fiab_note: "يُحسب على عمليات الاستلام الناجحة", r_item: "المنتج", r_deliv: "التوصيل", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
     real_order_title: "تأكيد الطلب 🎉", real_pin_note: "رمز الاستلام الخاص بك — احفظه جيداً، لن يظهر مرة أخرى بوضوح.",
     filters_title: "الفلاتر", filter_cat: "الفئة", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "السعر (درهم)", filter_sort: "الترتيب حسب",
@@ -587,7 +587,7 @@ const T = {
     dressing: "My closet", sell_new: "Sell a new item",
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
-    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
+    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", badge_inspect: "Inspect at the bali point before the seller is paid", g_mode: "Fashion & clothing", g_chauss: "Shoes", g_beaute: "Beauty & fragrance", g_tech: "Tech", g_enfants: "Kids & toys", g_maison: "Home", g_sport: "Sport", g_loisirs: "Hobbies", g_autres: "Other brands", g_lettres: "Clothing sizes", g_tailles_num: "Trouser sizes", g_pointures: "Shoe sizes", g_ages: "Kids ages", brand_search: "Search a brand", badge_refund: "100% refund if not as described", ai_flow: "📸 Photo → ✍️ Title written → 💰 Price estimated", fiab_note: "Based on your validated pickups", r_item: "Item", r_deliv: "Delivery", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
     real_order_title: "Order confirmed 🎉", real_pin_note: "Your pickup code — write it down, it won't be shown again in plain text.",
     filters_title: "Filters", filter_cat: "Category", filter_brand: "Brand", filter_size: "Size",
     filter_cond: "Condition", filter_price: "Price (DH)", filter_sort: "Sort by",
@@ -742,7 +742,7 @@ const T = {
     dressing: "Mi armario", sell_new: "Vender otro artículo",
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
-    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
+    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", badge_inspect: "Inspecciona en el punto bali antes de pagar al vendedor", g_mode: "Moda y ropa", g_chauss: "Zapatos", g_beaute: "Belleza y perfumes", g_tech: "Tecnología", g_enfants: "Niños y juguetes", g_maison: "Hogar", g_sport: "Deporte", g_loisirs: "Ocio", g_autres: "Otras marcas", g_lettres: "Tallas ropa", g_tailles_num: "Tallas pantalón", g_pointures: "Tallas calzado", g_ages: "Edades niños", brand_search: "Buscar una marca", badge_refund: "Reembolso 100% si no es conforme", ai_flow: "📸 Foto → ✍️ Título redactado → 💰 Precio estimado", fiab_note: "Basado en tus recogidas validadas", r_item: "Artículo", r_deliv: "Envío", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
     real_order_title: "Pedido confirmado 🎉", real_pin_note: "Tu código de recogida — anótalo, no volverá a mostrarse en texto claro.",
     filters_title: "Filtros", filter_cat: "Categoría", filter_brand: "Marca", filter_size: "Talla",
     filter_cond: "Estado", filter_price: "Precio (DH)", filter_sort: "Ordenar por",
@@ -947,6 +947,26 @@ const CATALOG = [
   ]},
 ];
 
+/* Référentiel de marques par domaine — jamais mélangées */
+const BRANDS_REF = {
+  mode: ["Nike", "Adidas", "Zara", "H&M", "Puma", "Lacoste", "Levi's", "Mango", "Bershka", "Pull & Bear", "Shein", "Uniqlo", "Under Armour", "Tommy Hilfiger", "Ralph Lauren", "Louis Vuitton", "Gucci", "Dior", "Prada", "Balenciaga"],
+  chaussures: ["Nike", "Adidas", "Jordan", "New Balance", "Puma", "Converse", "Vans", "Reebok", "Asics", "Timberland", "Dr. Martens", "Clarks"],
+  beaute: ["Dior", "Chanel", "Yves Saint Laurent", "Guerlain", "Lancôme", "Giorgio Armani", "Versace", "Hugo Boss", "Paco Rabanne", "Jean Paul Gaultier", "Carolina Herrera", "Nivea", "L'Oréal", "Maybelline", "MAC"],
+  tech: ["Apple", "Samsung", "Xiaomi", "Huawei", "Oppo", "Realme", "Infinix", "Tecno", "Sony", "PlayStation", "Xbox", "Nintendo", "HP", "Dell", "Lenovo", "Asus", "JBL", "Canon", "LG"],
+  enfants: ["Lego", "Playmobil", "Fisher-Price", "Chicco", "Barbie", "Hot Wheels", "Zara Kids", "H&M Kids", "Okaïdi", "Petit Bateau"],
+  maison: ["Tefal", "Moulinex", "Philips", "Bosch", "SEB", "Kenwood", "Krups", "Ikea", "LG", "Samsung"],
+  sport: ["Nike", "Adidas", "Decathlon", "Puma", "Under Armour", "Kipsta", "Domyos", "Kalenji", "Reebok", "Asics"],
+  loisirs: ["Yamaha", "Fender", "Casio", "Ravensburger", "Asmodee"],
+};
+
+/* Référentiel de tailles par type d'article */
+const SIZES_REF = {
+  lettres: ["XS", "S", "M", "L", "XL", "XXL", "Taille unique"],
+  pantalons: ["34", "36", "38", "40", "42", "44", "46", "48"],
+  chaussures: ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46"],
+  enfants: ["3 mois", "6 mois", "12 mois", "18 mois", "2 ans", "4 ans", "6 ans", "8 ans", "10 ans", "12 ans", "14 ans"],
+};
+
 const ITEMS = [
   {
     id: 1, title: "Air Force 1 blanches", brand: "Nike", size: "42", cond: 2, video: true, oldPrice: 550,
@@ -1081,6 +1101,7 @@ function BaliAppScreen() {
   const [fPriceMax, setFPriceMax] = useState("");
   const [fSort, setFSort] = useState("recent");
   const [filterView, setFilterView] = useState("hub");
+  const [bSearch, setBSearch] = useState("");
   const [liked, setLiked] = useState({});
   const openFilter = (v) => { setFilterView(v); setFiltersOpen(true); };
   const [browseUniv, setBrowseUniv] = useState(null);
@@ -1685,6 +1706,74 @@ function BaliAppScreen() {
 
   const filteredItems = applyFilters(allItems);
 
+  /* ---- FILTRES INTELLIGENTS : le contexte décide de ce qu'on montre ---- */
+  const filterCtx = () => {
+    if (tab === "search" && browseUniv && browseSub !== null) {
+      return { univs: [browseUniv.id], fam: browseFam ? browseFam.label : "", sub: browseSub !== "__all__" ? browseSub : "" };
+    }
+    if (fCats.length) return { univs: fCats, fam: "", sub: "" };
+    return { univs: [], fam: "", sub: "" };
+  };
+
+  /* Marques proposées, groupées par domaine, selon le contexte */
+  const brandGroups = () => {
+    const ctx = filterCtx();
+    const txt = (ctx.fam + " " + ctx.sub).toLowerCase();
+    const u = ctx.univs;
+    const groups = [];
+    const add = (label, arr) => { if (arr && arr.length) groups.push([label, arr]); };
+    const isShoe = /chaussure|sneaker|babouche|talon|sandale|botte|running|football/.test(txt);
+    const isBeauty = /beaut|parfum|soin|maquillage|rasage/.test(txt);
+    if (isBeauty) add(t("g_beaute"), BRANDS_REF.beaute);
+    else if (isShoe) add(t("g_chauss"), BRANDS_REF.chaussures);
+    else if (u.length === 0) {
+      add(t("g_mode"), BRANDS_REF.mode);
+      add(t("g_chauss"), BRANDS_REF.chaussures.filter((b) => BRANDS_REF.mode.indexOf(b) === -1));
+      add(t("g_beaute"), BRANDS_REF.beaute);
+      add(t("g_tech"), BRANDS_REF.tech);
+      add(t("g_enfants"), BRANDS_REF.enfants);
+      add(t("g_maison"), BRANDS_REF.maison);
+    } else {
+      if (u.includes("femmes") || u.includes("hommes") || u.includes("trad")) {
+        add(t("g_mode"), BRANDS_REF.mode);
+        add(t("g_chauss"), BRANDS_REF.chaussures.filter((b) => BRANDS_REF.mode.indexOf(b) === -1));
+        add(t("g_beaute"), BRANDS_REF.beaute);
+      }
+      if (u.includes("sport")) add(t("g_sport"), BRANDS_REF.sport);
+      if (u.includes("tech")) add(t("g_tech"), BRANDS_REF.tech);
+      if (u.includes("enfants")) add(t("g_enfants"), BRANDS_REF.enfants);
+      if (u.includes("maison")) add(t("g_maison"), BRANDS_REF.maison);
+      if (u.includes("loisirs")) add(t("g_loisirs"), BRANDS_REF.loisirs);
+    }
+    const ctxItems = allItems.filter((i) => u.length === 0 || u.some((id) => matchUniv(i, id)));
+    const known = {};
+    groups.forEach((g) => g[1].forEach((b) => { known[b] = 1; }));
+    const dyn = [...new Set(ctxItems.map((i) => i.brand).filter((b) => b && b !== "—" && !known[b]))].sort();
+    add(t("g_autres"), dyn);
+    return groups;
+  };
+
+  /* Tailles proposées : uniquement quand ça a du sens, du bon type */
+  const sizeGroups = () => {
+    const ctx = filterCtx();
+    const txt = (ctx.fam + " " + ctx.sub).toLowerCase();
+    const u = ctx.univs;
+    const noSizeUniv = ["tech", "maison", "livres", "loisirs"];
+    if (u.length > 0 && u.every((id) => noSizeUniv.indexOf(id) !== -1)) return [];
+    if (/parfum|beaut|soin|maquillage|téléphone|ordinateur|console|audio|photo|tv|tablette|livre|manuel|musique|instrument|collection|jeux de société|puzzle|tajine|théière|vaisselle|meuble|déco|miroir|luminaire|tapis|textile|coussin|rideau|poussette|siège|bain|jouets|construction|poupée/.test(txt)) return [];
+    if (/chaussure|sneaker|babouche|talon|sandale|botte|running|football/.test(txt)) return [[t("g_pointures"), SIZES_REF.chaussures]];
+    if (/pantalon|jean|jupe|short|survêtement|legging/.test(txt)) return [[t("g_tailles_num"), SIZES_REF.pantalons]];
+    if (u.length === 1 && u[0] === "enfants") return [[t("g_ages"), SIZES_REF.enfants]];
+    if (txt && !/voir|vêtement|caftan|djellaba|gandoura|robe|haut|chemise|pull|manteau|veste|lingerie|maillot|t-shirt|polo|sweat|tenue/.test(txt)) return [];
+    const gs = [[t("g_lettres"), SIZES_REF.lettres]];
+    if (!txt) {
+      gs.push([t("g_tailles_num"), SIZES_REF.pantalons]);
+      gs.push([t("g_pointures"), SIZES_REF.chaussures]);
+      if (u.length === 0 || u.includes("enfants")) gs.push([t("g_ages"), SIZES_REF.enfants]);
+    }
+    return gs;
+  };
+
   /* Libellés et résumés du hub de filtres */
   const SORTS = [["recent", t("sort_recent")], ["price_asc", t("sort_price_asc")], ["price_desc", t("sort_price_desc")], ["popular", t("sort_popular")]];
   const sortSummary = (SORTS.find((s) => s[0] === fSort) || SORTS[0])[1];
@@ -1706,8 +1795,8 @@ function BaliAppScreen() {
         ["cat", t("filter_cat"), fCats.length > 0, fCats.length],
         ["price", t("filter_price"), !!(fPriceMin || fPriceMax), 0],
         ["cond", t("filter_cond"), fConds.length > 0, fConds.length],
-        ["size", t("filter_size"), fSizes.length > 0, fSizes.length],
-        ["brand", t("filter_brand"), fBrands.length > 0, fBrands.length],
+        ...(sizeGroups().length > 0 ? [["size", t("filter_size"), fSizes.length > 0, fSizes.length]] : []),
+        ...(brandGroups().length > 0 ? [["brand", t("filter_brand"), fBrands.length > 0, fBrands.length]] : []),
       ].map(([v, label, active, count]) => (
         <button key={v} onClick={() => openFilter(v)}
           className={`px-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap ${active ? "bg-stone-900 text-white" : "bg-white text-stone-700 shadow-sm"}`}>
@@ -1729,6 +1818,9 @@ function BaliAppScreen() {
           <img src={it.photo} alt={it.title} className="w-full h-full object-cover" />
         ) : (
           <span className="text-6xl">{it.emoji}</span>
+        )}
+        {!it.real && (
+          <span className="absolute top-2 start-2 bg-white/85 text-stone-500 text-[9px] font-extrabold px-2 py-0.5 rounded-full">{t("beta")}</span>
         )}
         {it.video && (
           <span className="absolute bottom-2 left-2 bg-stone-900/80 text-white rounded-full p-1.5">
@@ -2062,6 +2154,8 @@ function BaliAppScreen() {
               <Sparkles size={17} /> {t("ai_cta1")}
             </p>
             <p className="text-[11px] text-indigo-200 mt-1 font-semibold leading-relaxed">{t("ai_cta2")}</p>
+            <p className="mt-2 inline-flex items-center bg-white/15 border border-white/20 text-[11px] font-bold px-3 py-1.5 rounded-full">{t("ai_flow")}</p>
+            <br />
             <label className="mt-3 inline-flex items-center gap-2 bg-white text-indigo-700 text-xs font-extrabold px-4 py-2.5 rounded-full cursor-pointer active:scale-95 transition-transform">
               <Camera size={14} /> {t("ai_btn")}
               <input type="file" accept="image/*" className="hidden"
@@ -2449,6 +2543,7 @@ function BaliAppScreen() {
         <div className="flex-1">
           <p className="text-sm font-extrabold text-stone-900">{t("b_score")} · <span className="text-emerald-600">98%</span></p>
           <p className="text-[11px] text-stone-500 font-semibold">{t("b_refus")} ✅ — {t("b_trust")}</p>
+          <p className="text-[10px] text-stone-400 font-semibold mt-0.5">ⓘ {t("fiab_note")}</p>
         </div>
       </div>
 
@@ -2559,14 +2654,14 @@ function BaliAppScreen() {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-3">
-            <span className="text-[11px] text-rose-600 font-bold w-full">👀 {tf("viewers_line", { n: (it.likes % 4) + 2 })}</span>
-            {it.likes > 30 && (
-              <span className="flex items-center gap-1 bg-rose-50 text-rose-600 text-[11px] font-bold px-3 py-1.5 rounded-full">
-                🔥 {t("hot_badge")}
-              </span>
-            )}
             <span className="flex items-center gap-1 bg-indigo-50 text-indigo-700 text-[11px] font-bold px-3 py-1.5 rounded-full">
               <ShieldCheck size={12} /> {t("protection")}
+            </span>
+            <span className="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold px-3 py-1.5 rounded-full">
+              🏪 {t("badge_inspect")}
+            </span>
+            <span className="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold px-3 py-1.5 rounded-full">
+              ↩️ {t("badge_refund")}
             </span>
             {it.video && (
               <span className="flex items-center gap-1 bg-stone-900 text-white text-[11px] font-bold px-3 py-1.5 rounded-full">
@@ -2732,9 +2827,11 @@ function BaliAppScreen() {
               <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${it.grad} flex items-center justify-center text-2xl`}>{it.emoji}</div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-extrabold text-stone-900 truncate">{it.title}</p>
-                <p className="text-[10px] text-stone-500 font-semibold">
-                  {it.price} + {fee(it.price)} ({t("protection")}) + {delivFor(it)[deliveryI].price} DH
-                </p>
+                <div className="text-[10px] text-stone-500 font-semibold space-y-0.5 mt-0.5">
+                  <p className="flex justify-between gap-3"><span>{t("r_item")}</span><span className="font-bold text-stone-700">{it.price} DH</span></p>
+                  <p className="flex justify-between gap-3"><span>🛡️ {t("protection")}</span><span className="font-bold text-stone-700">{fee(it.price)} DH</span></p>
+                  <p className="flex justify-between gap-3"><span>🏪 {t("r_deliv")}</span><span className="font-bold text-stone-700">{delivFor(it)[deliveryI].price} DH</span></p>
+                </div>
                 <p className="text-[10px] text-rose-600 font-extrabold mt-0.5">🎁 MARHBA20 · −20 DH</p>
               </div>
               <div className="text-right shrink-0">
@@ -4108,8 +4205,8 @@ function BaliAppScreen() {
                       {facetRow("cat", t("filter_cat"), fCats.length ? fCats.map((id) => t("cat_" + id)).slice(0, 2).join(", ") + (fCats.length > 2 ? " +" + (fCats.length - 2) : "") : "—")}
                       {facetRow("price", t("filter_price"), fPriceMin || fPriceMax ? (fPriceMin || "0") + " – " + (fPriceMax || "∞") + " DH" : "—")}
                       {facetRow("cond", t("filter_cond"), fConds.length ? fConds.length + " ✓" : "—")}
-                      {facetRow("size", t("filter_size"), fSizes.length ? fSizes.length + " ✓" : "—")}
-                      {facetRow("brand", t("filter_brand"), fBrands.length ? fBrands.length + " ✓" : "—")}
+                      {sizeGroups().length > 0 && facetRow("size", t("filter_size"), fSizes.length ? fSizes.length + " ✓" : "—")}
+                      {brandGroups().length > 0 && facetRow("brand", t("filter_brand"), fBrands.length ? fBrands.length + " ✓" : "—")}
                     </div>
                   )}
 
@@ -4164,27 +4261,47 @@ function BaliAppScreen() {
                   )}
 
                   {filterView === "size" && (
-                    <div className="py-5 flex flex-wrap gap-2">
-                      {sizeOptions.length === 0 && <p className="text-xs text-stone-400 font-semibold">—</p>}
-                      {sizeOptions.map((s) => (
-                        <button key={s} onClick={() => toggleIn(fSizes, setFSizes, s)}
-                          className={`px-4 py-2.5 rounded-xl text-xs font-extrabold border-2 ${fSizes.includes(s) ? "bg-indigo-600 border-indigo-600 text-white" : "border-stone-200 text-stone-600"}`}>
-                          {s}
-                        </button>
+                    <div className="py-4">
+                      {sizeGroups().map(([label, arr]) => (
+                        <div key={label} className="mb-5">
+                          <p className="text-[10px] font-extrabold text-stone-400 uppercase tracking-wide mb-2">{label}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {arr.map((s) => (
+                              <button key={label + s} onClick={() => toggleIn(fSizes, setFSizes, s)}
+                                className={`px-4 py-2.5 rounded-xl text-xs font-extrabold border-2 ${fSizes.includes(s) ? "bg-indigo-600 border-indigo-600 text-white" : "border-stone-200 text-stone-600"}`}>
+                                {s}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
                       ))}
                     </div>
                   )}
 
                   {filterView === "brand" && (
                     <div className="py-3">
-                      {brandOptions.length === 0 && <p className="text-xs text-stone-400 font-semibold py-3">—</p>}
-                      {brandOptions.map((b) => (
-                        <button key={b} onClick={() => toggleIn(fBrands, setFBrands, b)}
-                          className="w-full flex items-center justify-between py-3.5 border-b border-stone-100">
-                          <span className="text-sm font-bold text-stone-800">{b}</span>
-                          {checkbox(fBrands.includes(b))}
-                        </button>
-                      ))}
+                      <div className="flex items-center gap-2 bg-stone-50 border border-stone-200 rounded-xl px-3 mb-1">
+                        <Search size={14} className="text-stone-400 shrink-0" />
+                        <input value={bSearch} onChange={(e) => setBSearch(e.target.value)} placeholder={t("brand_search")}
+                          className="flex-1 py-2.5 text-sm font-bold outline-none bg-transparent" />
+                        {bSearch && <button onClick={() => setBSearch("")}><X size={14} className="text-stone-400" /></button>}
+                      </div>
+                      {brandGroups().map(([label, arr]) => {
+                        const list = arr.filter((b) => b.toLowerCase().includes(bSearch.toLowerCase()));
+                        if (list.length === 0) return null;
+                        return (
+                          <div key={label}>
+                            <p className="text-[10px] font-extrabold text-stone-400 uppercase tracking-wide mt-4 mb-1">{label}</p>
+                            {list.map((b) => (
+                              <button key={label + b} onClick={() => toggleIn(fBrands, setFBrands, b)}
+                                className="w-full flex items-center justify-between py-3 border-b border-stone-100">
+                                <span className="text-sm font-bold text-stone-800">{b}</span>
+                                {checkbox(fBrands.includes(b))}
+                              </button>
+                            ))}
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
