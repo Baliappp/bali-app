@@ -198,6 +198,11 @@ const T = {
     seller_guar: "Si l'acheteur ne vient pas retirer : retour gratuit + indemnité prélevée sur son acompte. Tu ne perds jamais un dirham.",
     t_reserved: "Réservation confirmée ✅ Le vendeur peut expédier 📦",
     gift_title: "Cadeau de bienvenue", gift_claim: "J'en profite 🎉",
+    synopsis_title: "Comment ça marche",
+    syn_buy: "🛒 Pour acheter", syn_sell: "💰 Pour vendre",
+    syn_b1: "Trouve un article et paie en sécurité", syn_b2: "Récupère-le au hanout de ton quartier", syn_b3: "Inspecte-le : payé au vendeur que si tout est bon",
+    syn_s1: "Photographie ton article, l'IA écrit l'annonce", syn_s2: "Vendu ? Dépose le colis au hanout", syn_s3: "Reçois ton argent, 0% commission",
+    syn_start: "C'est parti ! 🎉",
     gift_text: "−20 DH sur ta première commande, appliqués automatiquement au paiement.",
     gift_applied: "Code MARHBA20 activé — −20 DH sur ta 1ère commande ✅",
     deals_title: "⚡ Deals du jour", ends_in: "Se termine dans {t}",
@@ -339,6 +344,11 @@ const T = {
     seller_guar: "إلا ما جاش الشاري ياخد السلعة: الرجوع فابور + تعويض من التسبيق ديالو. عمرك ما كتخسر درهم.",
     t_reserved: "تأكد الحجز ✅ البائع يقدر يصيفط 📦",
     gift_title: "هدية الترحيب", gift_claim: "نستافد 🎉",
+    synopsis_title: "كيفاش خدامة",
+    syn_buy: "🛒 باش تشري", syn_sell: "💰 باش تبيع",
+    syn_b1: "لقا السلعة وخلص بأمان", syn_b2: "خودها من حانوت الحي ديالك", syn_b3: "عاينها: البائع كيتخلص غير إلا كلشي مزيان",
+    syn_s1: "صوّر السلعة، الـ IA كيكتب الإعلان", syn_s2: "تباعت؟ حط الكولية ف الحانوت", syn_s3: "خود فلوسك، 0% كوميسيون",
+    syn_start: "يالله نبداو! 🎉",
     gift_text: "−20 درهم على أول طلبية ديالك، كيتحسبو أوتوماتيكيا فاش كتخلص.",
     gift_applied: "تفعّل الكود MARHBA20 — ناقص 20 درهم على أول طلبية ✅",
     deals_title: "⚡ ديلات اليوم", ends_in: "كيسالي ف {t}",
@@ -480,6 +490,11 @@ const T = {
     seller_guar: "إذا لم يأتِ المشتري للاستلام: إرجاع مجاني + تعويض من عربونه. لن تخسر درهماً أبداً.",
     t_reserved: "تأكد الحجز ✅ يمكن للبائع الشحن 📦",
     gift_title: "هدية الترحيب", gift_claim: "أستفيد 🎉",
+    synopsis_title: "كيف يعمل",
+    syn_buy: "🛒 للشراء", syn_sell: "💰 للبيع",
+    syn_b1: "اعثر على منتج وادفع بأمان", syn_b2: "استلمه من محل حيّك", syn_b3: "افحصه: لا يُدفع للبائع إلا إذا كان كل شيء جيداً",
+    syn_s1: "صوّر منتجك، الذكاء الاصطناعي يكتب الإعلان", syn_s2: "بيع؟ أودع الطرد في المحل", syn_s3: "استلم مالك، 0% عمولة",
+    syn_start: "لنبدأ! 🎉",
     gift_text: "خصم 20 درهماً على طلبك الأول، يُطبَّق تلقائياً عند الدفع.",
     gift_applied: "تم تفعيل رمز MARHBA20 — خصم 20 درهماً على طلبك الأول ✅",
     deals_title: "⚡ عروض اليوم", ends_in: "ينتهي خلال {t}",
@@ -628,6 +643,11 @@ const T = {
     seller_guar: "If the buyer never picks up: free return + compensation from their deposit. You never lose a dirham.",
     t_reserved: "Reservation confirmed ✅ The seller can ship 📦",
     gift_title: "Welcome gift", gift_claim: "Claim it 🎉",
+    synopsis_title: "How it works",
+    syn_buy: "🛒 To buy", syn_sell: "💰 To sell",
+    syn_b1: "Find an item and pay securely", syn_b2: "Pick it up at your local hanout", syn_b3: "Inspect it: seller paid only if all is good",
+    syn_s1: "Photograph your item, AI writes the listing", syn_s2: "Sold? Drop the parcel at the hanout", syn_s3: "Get your money, 0% commission",
+    syn_start: "Let's go! 🎉",
     gift_text: "−20 DH off your first order, applied automatically at checkout.",
     gift_applied: "Code MARHBA20 activated — 20 DH off your first order ✅",
     deals_title: "⚡ Today's deals", ends_in: "Ends in {t}",
@@ -769,6 +789,11 @@ const T = {
     seller_guar: "Si el comprador no recoge: devolución gratis + compensación de su depósito. Nunca pierdes un dírham.",
     t_reserved: "Reserva confirmada ✅ El vendedor puede enviar 📦",
     gift_title: "Regalo de bienvenida", gift_claim: "Lo aprovecho 🎉",
+    synopsis_title: "Cómo funciona",
+    syn_buy: "🛒 Para comprar", syn_sell: "💰 Para vender",
+    syn_b1: "Encuentra un artículo y paga seguro", syn_b2: "Recógelo en el hanout de tu barrio", syn_b3: "Inspecciónalo: se paga al vendedor solo si todo está bien",
+    syn_s1: "Fotografía tu artículo, la IA redacta el anuncio", syn_s2: "¿Vendido? Deja el paquete en el hanout", syn_s3: "Recibe tu dinero, 0% comisión",
+    syn_start: "¡Vamos! 🎉",
     gift_text: "−20 DH en tu primer pedido, aplicados automáticamente al pagar.",
     gift_applied: "Código MARHBA20 activado — 20 DH menos en tu primer pedido ✅",
     deals_title: "⚡ Ofertas del día", ends_in: "Termina en {t}",
@@ -911,13 +936,6 @@ const SALE = {
 };
 
 export default function BaliApp() {
-  const [dbTest, setDbTest] = useState("… test de la base de données en cours");
-  useEffect(() => {
-    supabase.from("promo_codes").select("code").limit(1)
-      .then(({ error }) => {
-        setDbTest(error ? "❌ Erreur : " + error.message : "✅ Base de données connectée !");
-      });
-  }, []);
   const [lang, setLang] = useState("fr");
   const [langOpen, setLangOpen] = useState(false);
   const [tab, setTab] = useState("home");
@@ -2282,7 +2300,7 @@ export default function BaliApp() {
         <Star8 size={120} className="absolute -left-10 bottom-32 text-indigo-500 opacity-30" />
 
         {obStep > 0 && (
-          <button onClick={() => setObStep(5)}
+          <button onClick={() => setObStep(6)}
             className="absolute top-5 right-5 z-10 text-indigo-100 text-xs font-extrabold bg-indigo-700/60 px-3 py-1.5 rounded-full">
             {t("ob_skip")}
           </button>
@@ -2398,10 +2416,42 @@ export default function BaliApp() {
               </button>
             </>
           )}
+
+          {obStep === 5 && (
+            <>
+              <p className="font-display font-extrabold text-2xl">{t("synopsis_title")}</p>
+              <div className="mt-5 bg-white/10 border border-white/20 rounded-2xl p-4">
+                <p className="text-sm font-extrabold text-amber-300">{t("syn_buy")}</p>
+                <div className="mt-2 space-y-1.5">
+                  {["syn_b1", "syn_b2", "syn_b3"].map((k, i) => (
+                    <div key={k} className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-amber-400 text-stone-900 flex items-center justify-center text-[11px] font-extrabold shrink-0 mt-0.5">{i + 1}</span>
+                      <p className="text-[13px] font-semibold text-indigo-50 leading-snug">{t(k)}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-3 bg-white/10 border border-white/20 rounded-2xl p-4">
+                <p className="text-sm font-extrabold text-amber-300">{t("syn_sell")}</p>
+                <div className="mt-2 space-y-1.5">
+                  {["syn_s1", "syn_s2", "syn_s3"].map((k, i) => (
+                    <div key={k} className="flex items-start gap-2.5">
+                      <span className="w-5 h-5 rounded-full bg-amber-400 text-stone-900 flex items-center justify-center text-[11px] font-extrabold shrink-0 mt-0.5">{i + 1}</span>
+                      <p className="text-[13px] font-semibold text-indigo-50 leading-snug">{t(k)}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <button onClick={() => setObStep(6)}
+                className="w-full mt-5 bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl active:scale-95 transition-transform">
+                {t("syn_start")}
+              </button>
+            </>
+          )}
         </div>
 
         <div className="pb-8 flex justify-center gap-1.5 relative">
-          {[0, 1, 2, 3, 4].map((i) => (
+          {[0, 1, 2, 3, 4, 5].map((i) => (
             <div key={i} className={`h-1.5 rounded-full transition-all ${obStep === i ? "w-6 bg-amber-400" : "w-1.5 bg-white/30"}`} />
           ))}
         </div>
@@ -3258,13 +3308,12 @@ export default function BaliApp() {
     { id: "profile", icon: User, key: "nav_profile" },
   ];
 
-  if (obStep < 5) return onboardingScreen();
+  if (obStep < 6) return onboardingScreen();
 
   if (appMode === "partner") return partnerApp();
 
   return (
     <div className="min-h-screen bg-stone-200 flex justify-center font-app">
-      <div style={{position:"fixed",top:0,left:0,right:0,zIndex:99999,background:"#111827",color:"#fff",fontSize:13,fontWeight:700,padding:"8px",textAlign:"center"}}>{dbTest}</div>
       <FontStyles />
       <div className="w-full max-w-md bg-stone-50 min-h-screen relative shadow-2xl" dir={cur.dir}>
         {tab === "home" && homeScreen()}
