@@ -122,7 +122,8 @@ const T = {
     sort_recent: "Plus récent", sort_price_asc: "Prix croissant", sort_price_desc: "Prix décroissant", sort_popular: "Plus populaire",
     filter_reset: "Réinitialiser", filter_apply: "Voir les {n} articles",
     price_min_ph: "Min", price_max_ph: "Max", sum_all: "Tous", chip_sort: "Trier",
-    real_order_ok: "J'ai noté mon code ✓", my_orders: "Mes commandes", no_orders: "Aucune commande pour le moment",
+    real_order_ok: "J'ai noté mon code ✓", my_orders: "Mes commandes", no_orders: "Aucune commande pour le moment", admin_panel: "Admin bali", adm_stats: "Chiffres", adm_mod: "Modération",
+    adm_users: "Membres", adm_items: "Annonces", adm_active: "Actives", adm_orders: "Commandes", adm_gmv: "Volume total", adm_rev: "Revenu protection", adm_held: "Sous séquestre", adm_done: "Terminées", adm_remove: "Retirer", adm_recent_orders: "Dernières commandes",
     tab_buys: "Mes achats", tab_sells: "Mes ventes", no_buys: "Aucun achat pour le moment", no_sells: "Aucune vente pour le moment",
     role_buy: "Achat", role_sell: "Vente", other_buyer: "Acheteur", other_seller: "Vendeur",
     st_paid: "Payée · à déposer", st_dropped: "Déposée au point bali", st_transit: "En chemin", st_ready: "À retirer", st_done: "Terminée", st_sold: "Vendu",
@@ -287,7 +288,8 @@ const T = {
     sort_recent: "الجداد", sort_price_asc: "الثمن : من قل لكبر", sort_price_desc: "الثمن : من كبر لقل", sort_popular: "الأكثر طلب",
     filter_reset: "صيفط", filter_apply: "شوف {n} ديال السلع",
     price_min_ph: "أدنى", price_max_ph: "أقصى", sum_all: "الكل", chip_sort: "رتب",
-    real_order_ok: "كتبتو ✓", my_orders: "الطلبيات ديالي", no_orders: "ما كاين حتى طلبية",
+    real_order_ok: "كتبتو ✓", my_orders: "الطلبيات ديالي", no_orders: "ما كاين حتى طلبية", admin_panel: "أدمين بالي", adm_stats: "الأرقام", adm_mod: "المراقبة",
+    adm_users: "الأعضاء", adm_items: "الإعلانات", adm_active: "نشيطة", adm_orders: "الطلبيات", adm_gmv: "المجموع", adm_rev: "مدخول الحماية", adm_held: "محجوز", adm_done: "سالات", adm_remove: "حيد", adm_recent_orders: "آخر الطلبيات",
     tab_buys: "مشترياتي", tab_sells: "مبيعاتي", no_buys: "ما كاين حتى شراء", no_sells: "ما كاين حتى بيعة",
     role_buy: "شراء", role_sell: "بيعة", other_buyer: "الشاري", other_seller: "البائع",
     st_paid: "تخلصات · خاصك تسيفط", st_dropped: "تسيفطات للنقطة", st_transit: "فالطريق", st_ready: "وجدة للتسلم", st_done: "سالات", st_sold: "تباعت",
@@ -452,7 +454,8 @@ const T = {
     sort_recent: "الأحدث", sort_price_asc: "السعر تصاعدياً", sort_price_desc: "السعر تنازلياً", sort_popular: "الأكثر رواجاً",
     filter_reset: "إعادة تعيين", filter_apply: "عرض {n} منتجات",
     price_min_ph: "الأدنى", price_max_ph: "الأقصى", sum_all: "الكل", chip_sort: "ترتيب",
-    real_order_ok: "حفظته ✓", my_orders: "طلباتي", no_orders: "لا يوجد طلبات بعد",
+    real_order_ok: "حفظته ✓", my_orders: "طلباتي", no_orders: "لا يوجد طلبات بعد", admin_panel: "إدارة بالي", adm_stats: "الأرقام", adm_mod: "الإشراف",
+    adm_users: "الأعضاء", adm_items: "الإعلانات", adm_active: "نشطة", adm_orders: "الطلبات", adm_gmv: "الحجم الإجمالي", adm_rev: "دخل الحماية", adm_held: "في الضمان", adm_done: "منتهية", adm_remove: "إزالة", adm_recent_orders: "أحدث الطلبات",
     tab_buys: "مشترياتي", tab_sells: "مبيعاتي", no_buys: "لا مشتريات بعد", no_sells: "لا مبيعات بعد",
     role_buy: "شراء", role_sell: "بيع", other_buyer: "المشتري", other_seller: "البائع",
     st_paid: "مدفوعة · للإيداع", st_dropped: "أُودعت في النقطة", st_transit: "في الطريق", st_ready: "جاهزة للاستلام", st_done: "منتهية", st_sold: "مُباع",
@@ -624,7 +627,8 @@ const T = {
     sort_recent: "Most recent", sort_price_asc: "Price: low to high", sort_price_desc: "Price: high to low", sort_popular: "Most popular",
     filter_reset: "Reset", filter_apply: "See {n} items",
     price_min_ph: "Min", price_max_ph: "Max", sum_all: "All", chip_sort: "Sort",
-    real_order_ok: "I've noted it ✓", my_orders: "My orders", no_orders: "No orders yet",
+    real_order_ok: "I've noted it ✓", my_orders: "My orders", no_orders: "No orders yet", admin_panel: "bali Admin", adm_stats: "Metrics", adm_mod: "Moderation",
+    adm_users: "Members", adm_items: "Listings", adm_active: "Active", adm_orders: "Orders", adm_gmv: "Total volume", adm_rev: "Protection revenue", adm_held: "In escrow", adm_done: "Completed", adm_remove: "Remove", adm_recent_orders: "Recent orders",
     tab_buys: "My purchases", tab_sells: "My sales", no_buys: "No purchases yet", no_sells: "No sales yet",
     role_buy: "Purchase", role_sell: "Sale", other_buyer: "Buyer", other_seller: "Seller",
     st_paid: "Paid · to drop off", st_dropped: "Dropped at bali point", st_transit: "In transit", st_ready: "Ready for pickup", st_done: "Completed", st_sold: "Sold",
@@ -789,7 +793,8 @@ const T = {
     sort_recent: "Más reciente", sort_price_asc: "Precio: menor a mayor", sort_price_desc: "Precio: mayor a menor", sort_popular: "Más popular",
     filter_reset: "Restablecer", filter_apply: "Ver {n} artículos",
     price_min_ph: "Mín", price_max_ph: "Máx", sum_all: "Todos", chip_sort: "Ordenar",
-    real_order_ok: "Lo he anotado ✓", my_orders: "Mis pedidos", no_orders: "Aún no hay pedidos",
+    real_order_ok: "Lo he anotado ✓", my_orders: "Mis pedidos", no_orders: "Aún no hay pedidos", admin_panel: "Admin bali", adm_stats: "Cifras", adm_mod: "Moderación",
+    adm_users: "Miembros", adm_items: "Anuncios", adm_active: "Activos", adm_orders: "Pedidos", adm_gmv: "Volumen total", adm_rev: "Ingreso protección", adm_held: "En depósito", adm_done: "Completados", adm_remove: "Quitar", adm_recent_orders: "Pedidos recientes",
     tab_buys: "Mis compras", tab_sells: "Mis ventas", no_buys: "Sin compras aún", no_sells: "Sin ventas aún",
     role_buy: "Compra", role_sell: "Venta", other_buyer: "Comprador", other_seller: "Vendedor",
     st_paid: "Pagada · por depositar", st_dropped: "Depositada en punto bali", st_transit: "En camino", st_ready: "Lista para recoger", st_done: "Completada", st_sold: "Vendido",
@@ -1351,6 +1356,36 @@ function BaliAppScreen() {
   const [newOrderTicket, setNewOrderTicket] = useState(null); // affiché une seule fois (PIN en clair)
   const [ordersOpen, setOrdersOpen] = useState(false);
   const [ordersTab, setOrdersTab] = useState("buys");
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [adminTab, setAdminTab] = useState("stats");
+  const [adminStats, setAdminStats] = useState(null);
+  const [adminItems, setAdminItems] = useState([]);
+  const [adminOrders, setAdminOrders] = useState([]);
+
+  const loadAdmin = async () => {
+    /* Chiffres clés */
+    const [{ count: nUsers }, { count: nItems }, { count: nActive }, ords, itemsList] = await Promise.all([
+      supabase.from("profiles").select("*", { count: "exact", head: true }),
+      supabase.from("items").select("*", { count: "exact", head: true }),
+      supabase.from("items").select("*", { count: "exact", head: true }).eq("status", "active"),
+      supabase.from("orders").select("total_dh, protection_fee_dh, status, escrow_status, code, created_at, items(title)").order("created_at", { ascending: false }),
+      supabase.from("items").select("id, title, price_dh, status, category, photos, created_at").order("created_at", { ascending: false }).limit(100),
+    ]);
+    const orders = ords.data || [];
+    const gmv = orders.reduce((s, o) => s + (o.total_dh || 0), 0);
+    const revenue = orders.reduce((s, o) => s + (o.protection_fee_dh || 0), 0);
+    const held = orders.filter((o) => o.escrow_status === "held").reduce((s, o) => s + (o.total_dh || 0), 0);
+    const completed = orders.filter((o) => o.status === "completed").length;
+    setAdminStats({ nUsers: nUsers || 0, nItems: nItems || 0, nActive: nActive || 0, nOrders: orders.length, gmv, revenue, held, completed });
+    setAdminOrders(orders);
+    setAdminItems(itemsList.data || []);
+  };
+
+  const adminRemoveItem = async (id) => {
+    const { error } = await supabase.from("items").update({ status: "removed" }).eq("id", id);
+    if (error) showToast("⚠️ " + error.message);
+    else { showToast("Annonce retirée ✅"); loadAdmin(); loadItems(); }
+  };
   const [creatingOrder, setCreatingOrder] = useState(false);
 
   /* Hash simple et sûr, natif au navigateur — aucune dépendance à ajouter */
@@ -2615,6 +2650,18 @@ function BaliAppScreen() {
           </div>
         ))}
       </div>
+
+      {/* Accès admin — réservé au fondateur */}
+      {myProfile && myProfile.is_admin && (
+        <button onClick={() => { setAdminOpen(true); loadAdmin(); }}
+          className="w-full mt-4 bg-stone-900 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+          <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
+            <ShieldCheck size={18} className="text-amber-400" />
+          </div>
+          <p className="flex-1 text-left text-sm font-extrabold text-white">{t("admin_panel")}</p>
+          <ChevronLeft size={16} className={`text-white/40 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+        </button>
+      )}
 
       {/* Mes commandes réelles */}
       <button onClick={() => { setOrdersOpen(true); loadMyOrders(); }}
@@ -4465,7 +4512,108 @@ function BaliAppScreen() {
           </div>
         )}
 
-        {/* Liste des vraies commandes — achats et ventes */}
+        {/* PANNEAU ADMIN — dashboard + modération (fondateur seulement) */}
+        {adminOpen && (
+          <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+            <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-8">
+              <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-stone-900 sticky top-0 z-10">
+                <button onClick={() => setAdminOpen(false)}>
+                  <ChevronLeft size={22} className={`text-white ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
+                </button>
+                <ShieldCheck size={18} className="text-amber-400" />
+                <p className="text-sm font-extrabold text-white">{t("admin_panel")}</p>
+              </div>
+
+              {/* Onglets */}
+              <div className="px-5 pt-4">
+                <div className="flex bg-stone-200 rounded-2xl p-1">
+                  {[["stats", t("adm_stats")], ["mod", t("adm_mod")]].map(([id, label]) => (
+                    <button key={id} onClick={() => setAdminTab(id)}
+                      className={`flex-1 py-2.5 rounded-xl text-xs font-extrabold transition-colors ${adminTab === id ? "bg-white text-stone-900 shadow-sm" : "text-stone-500"}`}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {!adminStats && <p className="text-center text-xs text-stone-400 font-semibold py-10">…</p>}
+
+              {/* CHIFFRES */}
+              {adminTab === "stats" && adminStats && (
+                <div className="px-5 pt-4">
+                  <div className="grid grid-cols-2 gap-2.5">
+                    {[
+                      [t("adm_users"), adminStats.nUsers, "👥"],
+                      [t("adm_items"), adminStats.nItems, "🏷️"],
+                      [t("adm_active"), adminStats.nActive, "✅"],
+                      [t("adm_orders"), adminStats.nOrders, "📦"],
+                    ].map(([l, v, e]) => (
+                      <div key={l} className="bg-white rounded-2xl p-4 shadow-sm">
+                        <p className="text-2xl">{e}</p>
+                        <p className="text-2xl font-extrabold text-stone-900 mt-1">{v}</p>
+                        <p className="text-[10px] font-bold text-stone-400">{l}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-2.5 space-y-2.5">
+                    {[
+                      [t("adm_gmv"), adminStats.gmv + " DH", "text-stone-900"],
+                      [t("adm_rev"), adminStats.revenue + " DH", "text-emerald-600"],
+                      [t("adm_held"), adminStats.held + " DH", "text-amber-600"],
+                      [t("adm_done"), adminStats.completed, "text-indigo-600"],
+                    ].map(([l, v, c]) => (
+                      <div key={l} className="bg-white rounded-2xl px-4 py-3 shadow-sm flex items-center justify-between">
+                        <p className="text-xs font-bold text-stone-500">{l}</p>
+                        <p className={`text-sm font-extrabold ${c}`}>{v}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="text-[10px] font-extrabold text-stone-400 uppercase mt-5 mb-2">{t("adm_recent_orders")}</p>
+                  <div className="space-y-2">
+                    {adminOrders.slice(0, 8).map((o, i) => (
+                      <div key={i} className="bg-white rounded-xl px-3.5 py-2.5 shadow-sm flex items-center justify-between">
+                        <div className="min-w-0">
+                          <p className="text-[11px] font-extrabold text-stone-900">{o.code}</p>
+                          <p className="text-[10px] text-stone-400 font-semibold truncate">{o.items && o.items.title ? o.items.title : "—"}</p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <p className="text-[11px] font-extrabold text-stone-900">{o.total_dh} DH</p>
+                          <p className="text-[9px] text-stone-400 font-bold">{o.status}</p>
+                        </div>
+                      </div>
+                    ))}
+                    {adminOrders.length === 0 && <p className="text-[11px] text-stone-400 font-semibold text-center py-3">—</p>}
+                  </div>
+                </div>
+              )}
+
+              {/* MODÉRATION */}
+              {adminTab === "mod" && (
+                <div className="px-5 pt-4 space-y-2">
+                  {adminItems.map((it) => (
+                    <div key={it.id} className="bg-white rounded-2xl p-3 shadow-sm flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-xl bg-stone-100 flex items-center justify-center overflow-hidden shrink-0">
+                        {it.photos && it.photos[0] ? <img src={it.photos[0]} alt="" className="w-full h-full object-cover" /> : <span className="text-lg">🏷️</span>}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-extrabold text-stone-900 truncate">{it.title}</p>
+                        <p className="text-[10px] text-stone-400 font-semibold">{it.price_dh} DH · {it.category} · <span className={it.status === "active" ? "text-emerald-500" : "text-stone-400"}>{it.status}</span></p>
+                      </div>
+                      {it.status === "active" && (
+                        <button onClick={() => adminRemoveItem(it.id)}
+                          className="text-[10px] font-extrabold text-rose-600 border border-rose-200 px-2.5 py-1.5 rounded-lg shrink-0">
+                          {t("adm_remove")}
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  {adminItems.length === 0 && <p className="text-[11px] text-stone-400 font-semibold text-center py-6">—</p>}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
         {ordersOpen && (() => {
           const buys = myOrders.filter((o) => !o.iSell);
           const sells = myOrders.filter((o) => o.iSell);
