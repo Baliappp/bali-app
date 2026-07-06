@@ -970,6 +970,8 @@ export default function BaliApp() {
   const [aiState, setAiState] = useState("idle"); // idle | loading | done | error | invalid
   const [aiResult, setAiResult] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
+  const [photoFile, setPhotoFile] = useState(null);
+  const [publishing, setPublishing] = useState(false);
 
   /* Point relais — deux faces du système */
   const [appMode, setAppMode] = useState("client"); // client | partner
@@ -1004,6 +1006,29 @@ export default function BaliApp() {
   const [payMethodI, setPayMethodI] = useState(0);
   const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 cadeau · 5 synopsis · 6 app
   const [authChecked, setAuthChecked] = useState(false);
+  const [dbItems, setDbItems] = useState([]);
+
+  /* Charger les vraies annonces depuis la base */
+  const loadItems = async () => {
+    const { data, error } = await supabase
+      .from("items")
+      .select("*")
+      .eq("status", "active")
+      .order("created_at", { ascending: false })
+      .limit(50);
+    if (!error && data) {
+      const grads = ["from-orange-100 to-rose-200", "from-sky-100 to-indigo-200", "from-lime-100 to-green-200", "from-violet-100 to-purple-200", "from-amber-100 to-yellow-200"];
+      const emojis = { femmes: "👗", hommes: "👕", enfants: "🧸", tech: "📱", maison: "🏠", trad: "👘" };
+      setDbItems(data.map((r, i) => ({
+        id: "db_" + r.id, title: r.title, brand: r.brand || "", size: r.size || "—",
+        cond: r.condition, price: r.price_dh, oldPrice: r.old_price_dh || null,
+        cat: ["femmes", "hommes", "enfants", "tech", "maison", "trad"].indexOf(r.category),
+        emoji: emojis[r.category] || "🛍️", grad: grads[i % grads.length],
+        photo: (r.photos && r.photos[0]) || null, city: r.city || "Casablanca",
+        likes: r.likes || 0, video: r.video_packing || false, real: true,
+      })));
+    }
+  };
 
   /* Au démarrage : si une session existe déjà, on entre directement dans l'app */
   useEffect(() => {
@@ -1011,6 +1036,7 @@ export default function BaliApp() {
       if (data.session) setObStep(6);
       setAuthChecked(true);
     });
+    loadItems();
   }, []);
   const [obPhone, setObPhone] = useState("");
   const [obCountryI, setObCountryI] = useState(0);
@@ -1152,6 +1178,7 @@ export default function BaliApp() {
 
   const analyzePhoto = async (file) => {
     if (!file) return;
+    setPhotoFile(file);
     setAiState("loading");
     setAiResult(null);
     if (photoUrl) URL.revokeObjectURL(photoUrl);
@@ -1226,23 +1253,59 @@ export default function BaliApp() {
     showToast(t("t_accepted"));
   };
 
-  const publish = () => {
+  const publish = async () => {
     if (!sellTitle || !sellPrice) {
       showToast(t("t_need"));
       return;
     }
-    showToast(tf("t_published", { t: sellTitle }));
-    setSellTitle("");
-    setSellDesc("");
-    setSellPrice("");
-    setSadaqaOn(false);
-    setAiState("idle");
-    setAiResult(null);
-    if (photoUrl) URL.revokeObjectURL(photoUrl);
-    setPhotoUrl(null);
+    setPublishing(true);
+    try {
+      const { data: sess } = await supabase.auth.getSession();
+      const uid = sess.session && sess.session.user ? sess.session.user.id : null;
+
+      /* 1. Envoyer la photo dans le casier Storage */
+      let photoPublicUrl = null;
+      if (photoFile) {
+        const ext = (photoFile.name.split(".").pop() || "jpg").toLowerCase();
+        const path = (uid || "anon") + "/" + Date.now() + "." + ext;
+        const { error: upErr } = await supabase.storage.from("items").upload(path, photoFile);
+        if (upErr) throw upErr;
+        const { data: pub } = supabase.storage.from("items").getPublicUrl(path);
+        photoPublicUrl = pub.publicUrl;
+      }
+
+      /* 2. Enregistrer l'annonce dans la base */
+      const CATS = ["femmes", "hommes", "enfants", "tech", "maison", "trad"];
+      const { error: insErr } = await supabase.from("items").insert({
+        seller_id: uid,
+        title: sellTitle,
+        description: sellDesc,
+        category: CATS[sellCatI] || "femmes",
+        condition: sellCondI,
+        price_dh: parseInt(sellPrice, 10),
+        photos: photoPublicUrl ? [photoPublicUrl] : [],
+        city: "Casablanca",
+        sadaqa: sadaqaOn,
+        status: "active",
+      });
+      if (insErr) throw insErr;
+
+      showToast(tf("t_published", { t: sellTitle }));
+      setSellTitle(""); setSellDesc(""); setSellPrice("");
+      setSadaqaOn(false); setAiState("idle"); setAiResult(null);
+      if (photoUrl) URL.revokeObjectURL(photoUrl);
+      setPhotoUrl(null); setPhotoFile(null);
+      loadItems();
+      setTab("home");
+    } catch (e) {
+      showToast("⚠️ " + (e.message || "Erreur de publication"));
+    } finally {
+      setPublishing(false);
+    }
   };
 
-  const filteredItems = filter === "all" ? ITEMS : ITEMS.filter((i) => i.cat === filter);
+  const allItems = [...dbItems, ...ITEMS];
+  const filteredItems = filter === "all" ? allItems : allItems.filter((i) => i.cat === filter);
   const thread = threads.find((th) => th.id === activeThread);
 
   /* ---------------------------------------------------------------- */
@@ -1251,8 +1314,12 @@ export default function BaliApp() {
 
   const itemCard = (it) => (
     <button key={it.id} onClick={() => openItem(it)} className="text-left bg-white rounded-2xl overflow-hidden shadow-sm active:scale-95 transition-transform">
-      <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center`}>
-        <span className="text-6xl">{it.emoji}</span>
+      <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
+        {it.photo ? (
+          <img src={it.photo} alt={it.title} className="w-full h-full object-cover" />
+        ) : (
+          <span className="text-6xl">{it.emoji}</span>
+        )}
         {it.video && (
           <span className="absolute bottom-2 left-2 bg-stone-900/80 text-white rounded-full p-1.5">
             <Video size={11} />
@@ -1657,9 +1724,9 @@ export default function BaliApp() {
           </div>
         </div>
 
-        <button onClick={publish}
-          className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-2 active:scale-95 transition-transform">
-          {t("publish")}
+        <button onClick={publish} disabled={publishing}
+          className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl mt-2 active:scale-95 transition-transform disabled:opacity-60">
+          {publishing ? "Publication en cours…" : t("publish")}
         </button>
       </div>
     </div>
