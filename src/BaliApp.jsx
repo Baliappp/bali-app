@@ -1270,6 +1270,15 @@ function BaliAppScreen() {
   const [payMethodI, setPayMethodI] = useState(0);
   const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 cadeau · 5 synopsis · 6 app
   const [authChecked, setAuthChecked] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
+
+  /* Identité fiable : mémoire d'abord (instantané), repli sur la session locale */
+  const getUid = async () => {
+    if (authUser && authUser.id) return authUser.id;
+    const { data } = await supabase.auth.getSession();
+    if (data.session && data.session.user) { setAuthUser(data.session.user); return data.session.user.id; }
+    return null;
+  };
   const [dbItems, setDbItems] = useState([]);
   const [myProfile, setMyProfile] = useState(null);
   const [nameOpen, setNameOpen] = useState(false);
@@ -1277,8 +1286,7 @@ function BaliAppScreen() {
 
   /* Charger le profil de l'utilisateur connecté */
   const loadProfile = async () => {
-    const { data: userData } = await supabase.auth.getUser();
-    const uid = userData && userData.user ? userData.user.id : null;
+    const uid = await getUid();
     if (!uid) { setMyProfile(null); return; }
     const { data } = await supabase.from("profiles").select("*").eq("id", uid).single();
     if (data) setMyProfile(data);
@@ -1291,8 +1299,7 @@ function BaliAppScreen() {
   const [msgInput, setMsgInput] = useState("");
 
   const loadThreads = async () => {
-    const { data: u } = await supabase.auth.getUser();
-    const uid = u && u.user ? u.user.id : null;
+    const uid = await getUid();
     if (!uid) { setDbThreads([]); return; }
     const { data: ths } = await supabase.from("threads").select("*")
       .or("buyer_id.eq." + uid + ",seller_id.eq." + uid)
@@ -1411,8 +1418,10 @@ function BaliAppScreen() {
   const genPin = () => String(Math.floor(1000 + Math.random() * 9000));
 
   const createRealOrder = async (it) => {
-    if (!myProfile) { showToast("⚠️ Connecte-toi d'abord"); return; }
-    if (it.seller_id === myProfile.id) { showToast(t("own_item")); return; }
+    const uid = await getUid();
+    if (!uid) { showToast("⚠️ Connecte-toi d'abord"); return; }
+    if (!myProfile) { await loadProfile(); }
+    if (it.seller_id === uid) { showToast(t("own_item")); return; }
     setCreatingOrder(true);
     try {
       const isLocal = it.city === USER_CITY;
@@ -1428,7 +1437,7 @@ function BaliAppScreen() {
       const itemId = String(it.id).replace("db_", "");
 
       const { data: order, error } = await supabase.from("orders").insert({
-        code, item_id: itemId, buyer_id: myProfile.id, seller_id: it.seller_id,
+        code, item_id: itemId, buyer_id: uid, seller_id: it.seller_id,
         price_dh: price, protection_fee_dh: protection, delivery_fee_dh: delivery,
         discount_dh: 0, total_dh: total, delivery_type,
         payment_method: payMethodI === 0 ? "card" : "wallet",
@@ -1488,8 +1497,7 @@ function BaliAppScreen() {
 
   /* Enregistrer le nom */
   const saveName = async () => {
-    const { data: userData } = await supabase.auth.getUser();
-    const uid = userData && userData.user ? userData.user.id : null;
+    const uid = await getUid();
     if (!uid || !nameInput.trim()) return;
     const { error } = await supabase.from("profiles").update({ display_name: nameInput.trim() }).eq("id", uid);
     if (!error) {
@@ -1534,12 +1542,22 @@ function BaliAppScreen() {
   /* Au démarrage : si une session existe déjà, on entre directement dans l'app */
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if (data.session) { setObStep(6); setTimeout(loadMyOrders, 500); }
+      if (data.session) {
+        setAuthUser(data.session.user);
+        setObStep(6);
+        setTimeout(loadMyOrders, 500);
+      }
       setAuthChecked(true);
+    });
+    /* Écoute continue : l'identité reste à jour sans réinterroger le serveur à chaque action */
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthUser(session ? session.user : null);
+      if (session) { loadProfile(); loadMyOrders(); }
     });
     loadItems();
     loadProfile();
     if (isPartnerUrl) loadPartnerOrders();
+    return () => { if (sub && sub.subscription) sub.subscription.unsubscribe(); };
   }, []);
 
   /* Rafraîchir les conversations à l'ouverture de l'onglet Messages */
@@ -1780,8 +1798,7 @@ function BaliAppScreen() {
     }
     setPublishing(true);
     try {
-      const { data: userData } = await supabase.auth.getUser();
-      const uid = userData && userData.user ? userData.user.id : null;
+      const uid = await getUid();
       if (!uid) {
         showToast("⚠️ Reconnecte-toi pour publier (session expirée)");
         setPublishing(false);
