@@ -898,10 +898,11 @@ const SALE = {
 };
 
 export default function BaliApp() {
+  const [dbTest, setDbTest] = useState("… test de la base de données en cours");
   useEffect(() => {
     supabase.from("promo_codes").select("code").limit(1)
       .then(({ error }) => {
-        console.log(error ? "❌ Supabase: " + error.message : "✅ Supabase connecté !");
+        setDbTest(error ? "❌ Erreur : " + error.message : "✅ Base de données connectée !");
       });
   }, []);
   const [lang, setLang] = useState("fr");
@@ -3201,6 +3202,7 @@ export default function BaliApp() {
 
   return (
     <div className="min-h-screen bg-stone-200 flex justify-center font-app">
+      <div style={{position:"fixed",top:0,left:0,right:0,zIndex:99999,background:"#111827",color:"#fff",fontSize:13,fontWeight:700,padding:"8px",textAlign:"center"}}>{dbTest}</div>
       <FontStyles />
       <div className="w-full max-w-md bg-stone-50 min-h-screen relative shadow-2xl" dir={cur.dir}>
         {tab === "home" && homeScreen()}
