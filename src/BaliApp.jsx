@@ -48,61 +48,75 @@ const FontStyles = () => (
     /* ===== Fond desktop chaleureux (grand écran uniquement) ===== */
     @media (min-width: 768px) {
       body, #root {
-        background:
-          radial-gradient(1200px 500px at 15% -5%, rgba(9,177,186,0.08), transparent 55%),
-          radial-gradient(1000px 500px at 100% 0%, rgba(9,177,186,0.06), transparent 50%),
-          linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%);
-        background-attachment: fixed;
+        background: #ffffff;
       }
     }
 
     /* =========================================================== */
-    /* REFONTE GRAPHIQUE — Identité turquoise #09B1BA + Inter       */
-    /* Remappe l'ancienne palette indigo vers le turquoise.        */
+    /* REFONTE GRAPHIQUE — Identité turquoise #17C1B5 + Inter       */
+    /* Style ultra minimaliste, lumineux, premium.                 */
     /* Aucune logique modifiée : uniquement l'apparence.           */
     /* =========================================================== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
     .font-app { font-family: 'Inter', 'Tajawal', 'Noto Sans Tifinagh', system-ui, sans-serif !important; }
-    .font-display { font-family: 'Inter', 'Tajawal', 'Noto Sans Tifinagh', system-ui, sans-serif !important; letter-spacing: -0.02em; }
+    .font-display { font-family: 'Inter', 'Tajawal', 'Noto Sans Tifinagh', system-ui, sans-serif !important; letter-spacing: -0.022em; }
 
     /* Fonds turquoise */
-    .bg-indigo-600 { background-color: #09B1BA !important; }
-    .bg-indigo-700 { background-color: #0898A1 !important; }
-    .bg-indigo-500 { background-color: #14C0C9 !important; }
-    .bg-indigo-100 { background-color: #CDEFF1 !important; }
-    .bg-indigo-50  { background-color: #EAF9FA !important; }
-    .hover\\:bg-indigo-700:hover { background-color: #0898A1 !important; }
-    .hover\\:bg-indigo-600:hover { background-color: #09B1BA !important; }
+    .bg-indigo-600 { background-color: #17C1B5 !important; }
+    .bg-indigo-700 { background-color: #10AA9F !important; }
+    .bg-indigo-500 { background-color: #2CCEC2 !important; }
+    .bg-indigo-100 { background-color: #D2F4F1 !important; }
+    .bg-indigo-50  { background-color: #EDFBF9 !important; }
+    .hover\\:bg-indigo-700:hover { background-color: #10AA9F !important; }
+    .hover\\:bg-indigo-600:hover { background-color: #17C1B5 !important; }
 
     /* Textes turquoise */
-    .text-indigo-600 { color: #09B1BA !important; }
-    .text-indigo-700 { color: #0898A1 !important; }
-    .text-indigo-500 { color: #14C0C9 !important; }
-    .text-indigo-200 { color: #9DE2E6 !important; }
-    .text-indigo-300 { color: #7ED8DD !important; }
-    .text-indigo-400 { color: #4ECDD4 !important; }
+    .text-indigo-600 { color: #17C1B5 !important; }
+    .text-indigo-700 { color: #10AA9F !important; }
+    .text-indigo-500 { color: #2CCEC2 !important; }
+    .text-indigo-200 { color: #A6E8E3 !important; }
+    .text-indigo-300 { color: #86DED7 !important; }
+    .text-indigo-400 { color: #57D2C9 !important; }
 
     /* Bordures & anneaux turquoise */
-    .border-indigo-600 { border-color: #09B1BA !important; }
-    .border-indigo-300 { border-color: #7ED8DD !important; }
-    .border-indigo-200 { border-color: #B7E9EC !important; }
-    .border-indigo-100 { border-color: #CDEFF1 !important; }
-    .border-indigo-50  { border-color: #EAF9FA !important; }
-    .ring-indigo-400 { --tw-ring-color: #4ECDD4 !important; }
-    .focus\\:border-indigo-400:focus { border-color: #09B1BA !important; }
-    .focus-within\\:ring-indigo-400:focus-within { --tw-ring-color: #4ECDD4 !important; }
+    .border-indigo-600 { border-color: #17C1B5 !important; }
+    .border-indigo-300 { border-color: #86DED7 !important; }
+    .border-indigo-200 { border-color: #BCECE8 !important; }
+    .border-indigo-100 { border-color: #D2F4F1 !important; }
+    .border-indigo-50  { border-color: #EDFBF9 !important; }
+    .ring-indigo-400 { --tw-ring-color: #57D2C9 !important; }
+    .focus\\:border-indigo-400:focus { border-color: #17C1B5 !important; }
+    .focus-within\\:ring-indigo-400:focus-within { --tw-ring-color: #57D2C9 !important; }
 
-    /* Boutons : élévation douce + transition premium (200-300ms) */
-    button { transition: transform .2s ease-out, background-color .2s ease-out, color .2s ease-out, box-shadow .25s ease-out, border-color .2s ease-out !important; }
-    .bg-indigo-600 { box-shadow: 0 4px 14px rgba(9,177,186,0.25); }
-    .bg-indigo-600:active { box-shadow: 0 2px 8px rgba(9,177,186,0.20); }
+    /* Bordures grises adoucies (#E8E8E8) */
+    .border-stone-100 { border-color: #EFEFEF !important; }
+    .border-stone-200 { border-color: #E8E8E8 !important; }
 
-    /* Cartes : ombre plus douce et premium */
-    .shadow-sm { box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03) !important; }
-    .shadow-lg { box-shadow: 0 10px 30px rgba(0,0,0,0.08) !important; }
+    /* Fond secondaire très clair (#F8F9FA) — plus lumineux */
+    .bg-stone-50 { background-color: #FFFFFF !important; }
+    .bg-stone-100 { background-color: #FAFBFC !important; }
+    .bg-stone-200 { background-color: #FFFFFF !important; }
 
-    /* Focus clavier au turquoise */
-    button:focus-visible, a:focus-visible { outline-color: #09B1BA !important; }
+    /* Boutons : grands, arrondis, effet flottant + transition 250ms */
+    button { transition: transform .25s cubic-bezier(0.4,0,0.2,1), background-color .25s ease, color .25s ease, box-shadow .25s ease, border-color .25s ease !important; }
+    .bg-indigo-600 { box-shadow: 0 6px 18px rgba(23,193,181,0.22); }
+    .bg-indigo-600:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(23,193,181,0.28); }
+    .bg-indigo-600:active { transform: translateY(0); box-shadow: 0 3px 10px rgba(23,193,181,0.18); }
+
+    /* Cartes : ombre ULTRA discrète + hover élégant */
+    .shadow-sm { box-shadow: 0 1px 2px rgba(0,0,0,0.03), 0 1px 3px rgba(0,0,0,0.02) !important; }
+    .shadow-lg { box-shadow: 0 12px 32px rgba(0,0,0,0.07) !important; }
+    .shadow-2xl { box-shadow: 0 20px 50px rgba(0,0,0,0.06) !important; }
+
+    /* Apparition progressive des cartes */
+    @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .grid > * { animation: cardIn .3s ease-out backwards; }
+
+    /* Header desktop : flou léger au défilement (effet premium) */
+    header.hidden.md\\:flex { backdrop-filter: saturate(1.1) blur(8px); background-color: rgba(255,255,255,0.85) !important; }
+
+    /* Focus clavier turquoise */
+    button:focus-visible, a:focus-visible { outline-color: #17C1B5 !important; }
   `}</style>
 );
 
@@ -2298,7 +2312,7 @@ function BaliAppScreen() {
     <div className="pb-28 md:pb-12">
       {/* HERO DESKTOP — bandeau d'accueil chaleureux (grand écran) */}
       <div className="hidden md:block px-6 pt-6">
-        <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(120deg, #0898A1 0%, #09B1BA 50%, #14C0C9 100%)" }}>
+        <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(120deg, #10AA9F 0%, #17C1B5 55%, #2CCEC2 100%)" }}>
           <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.4), transparent 40%)" }} />
           <div className="relative px-10 py-12 flex items-center justify-between gap-8">
             <div className="max-w-xl">
@@ -3759,7 +3773,7 @@ function BaliAppScreen() {
   /* ---------------------------------------------------------------- */
 
   const onboardingScreen = () => (
-    <div className="min-h-screen bg-stone-200 flex justify-center font-app">
+    <div className="min-h-screen bg-white flex justify-center font-app">
       <FontStyles />
       <div className="w-full max-w-md min-h-screen relative shadow-2xl bg-indigo-600 text-white overflow-hidden flex flex-col" dir={cur.dir}>
         <Star8 size={220} className="absolute -right-16 -top-16 text-indigo-500 opacity-40" />
@@ -4342,7 +4356,7 @@ function BaliAppScreen() {
     const gains = 12 + (delivered ? 4 : 0) + (depositDone ? 2 : 0);
     const week = 72 + gains;
     return (
-      <div className="min-h-screen bg-stone-300 flex justify-center font-app">
+      <div className="min-h-screen bg-white flex justify-center font-app">
         <FontStyles />
         <div className="w-full max-w-md bg-stone-100 min-h-screen relative shadow-2xl pb-8">
           {/* En-tête hanout */}
@@ -4878,7 +4892,7 @@ function BaliAppScreen() {
   if (isPartnerUrl) return partnerApp();
 
   return (
-    <div className="min-h-screen bg-stone-200 flex flex-col items-center font-app">
+    <div className="min-h-screen bg-white flex flex-col items-center font-app">
       <FontStyles />
 
       {/* HEADER DESKTOP — barre horizontale, visible uniquement sur grand écran */}
