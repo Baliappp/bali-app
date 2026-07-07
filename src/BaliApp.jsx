@@ -137,7 +137,7 @@ const T = {
     dressing: "Mon dressing", sell_new: "Vendre un nouvel article",
     s_sales: "Ventes", s_followers: "Abonnés", s_favs: "Favoris",
     language: "Langue", choose_lang: "Choisis ta langue", beta: "bêta", logout: "Se déconnecter", logout_done: "Déconnecté ✅",
-    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", wallet_soon: "🔜 Virement bancaire — arrive avec le paiement réel", link_copied: "🔗 Lien copié !", nf_sale: "💰 Nouvelle vente ! Dépose « {t} » au point bali", nf_pickup: "📦 « {t} » — colis en chemin vers ton point bali", nf_msg: "💬 Conversation avec {n}", my_favs: "Mes favoris", badge_inspect: "Inspection au point bali avant de payer le vendeur", g_mode: "Mode & vêtements", g_chauss: "Chaussures", g_beaute: "Beauté & parfums", g_tech: "High-tech", g_enfants: "Enfants & jouets", g_maison: "Maison", g_sport: "Sport", g_loisirs: "Loisirs", g_autres: "Autres marques", g_lettres: "Tailles vêtements", g_tailles_num: "Tailles pantalons", g_pointures: "Pointures", g_ages: "Âges enfants", brand_search: "Rechercher une marque", badge_refund: "Remboursé à 100% si non conforme", ai_flow: "📸 Photo → ✍️ Titre rédigé → 💰 Prix estimé", fiab_note: "Calculé sur tes retraits validés au point bali", r_item: "Article", r_deliv: "Livraison", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
+    msgs_none: "Aucune conversation — fais une offre sur un article !", parcourir: "Parcourir", wallet_soon: "🔜 Virement bancaire — arrive avec le paiement réel", link_copied: "🔗 Lien copié !", nf_sale: "💰 Nouvelle vente ! Dépose « {t} » au point bali", nf_pickup: "📦 « {t} » — colis en chemin vers ton point bali", nf_msg: "💬 Conversation avec {n}", my_favs: "Mes favoris", seller_empty: "Ce vendeur n'a plus d'article en ligne", remove_photo: "Supprimer la photo", cam_start: "Activer la caméra", cam_stop: "Arrêter", cam_hint: "Vise le QR code du client", cam_denied: "Autorisation caméra refusée", cam_error: "Impossible d'ouvrir la caméra", qr_detected: "✅ QR détecté !", back: "Retour", badge_inspect: "Inspection au point bali avant de payer le vendeur", g_mode: "Mode & vêtements", g_chauss: "Chaussures", g_beaute: "Beauté & parfums", g_tech: "High-tech", g_enfants: "Enfants & jouets", g_maison: "Maison", g_sport: "Sport", g_loisirs: "Loisirs", g_autres: "Autres marques", g_lettres: "Tailles vêtements", g_tailles_num: "Tailles pantalons", g_pointures: "Pointures", g_ages: "Âges enfants", brand_search: "Rechercher une marque", badge_refund: "Remboursé à 100% si non conforme", ai_flow: "📸 Photo → ✍️ Titre rédigé → 💰 Prix estimé", fiab_note: "Calculé sur tes retraits validés au point bali", r_item: "Article", r_deliv: "Livraison", voir_tout: "Voir tout", cat_livres: "Livres & médias", cat_loisirs: "Loisirs & collections", empty_cat: "Aucun article ici pour l'instant", empty_cat_cta: "Sois le premier à vendre ici", own_item: "C'est ton annonce", delete_item: "Supprimer l'annonce", deleted_ok: "Annonce supprimée ✅",
     real_order_title: "Commande confirmée 🎉", real_pin_note: "Ton code retrait — note-le bien, il ne sera plus affiché en clair.",
     filters_title: "Filtres", filter_cat: "Catégorie", filter_brand: "Marque", filter_size: "Taille",
     filter_cond: "État", filter_price: "Prix (DH)", filter_sort: "Trier par",
@@ -303,7 +303,7 @@ const T = {
     dressing: "الدريسينڭ ديالي", sell_new: "بيع حاجة جديدة",
     s_sales: "بيعات", s_followers: "متابعين", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "ختار اللغة ديالك", beta: "بيطا", logout: "خرج من الكونط", logout_done: "تخرجتي ✅",
-    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", wallet_soon: "🔜 التحويل البنكي — جاي مع الخلاص الحقيقي", link_copied: "🔗 تنسخ الرابط!", nf_sale: "💰 بيعة جديدة! سيفط « {t} » للنقطة", nf_pickup: "📦 « {t} » — الكولية فالطريق للنقطة ديالك", nf_msg: "💬 محادثة مع {n}", my_favs: "المفضلات ديالي", badge_inspect: "عاين السلعة فالحانوت قبل ما يتخلص البائع", g_mode: "الموضة والحوايج", g_chauss: "السبابط", g_beaute: "الجمال والعطور", g_tech: "التكنولوجيا", g_enfants: "الأطفال والألعاب", g_maison: "الدار", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "قياسات الحوايج", g_tailles_num: "قياسات السراويل", g_pointures: "البوانتير", g_ages: "أعمار الأطفال", brand_search: "قلب على ماركة", badge_refund: "كترجع ليك الفلوس 100% إلا ما كانتش مطابقة", ai_flow: "📸 تصويرة → ✍️ عنوان مكتوب → 💰 ثمن مقترح", fiab_note: "محسوب على التسليمات اللي داز مزيان فالحانوت", r_item: "السلعة", r_deliv: "التوصيل", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
+    msgs_none: "ما كاين حتى محادثة — دير عرض على شي سلعة!", parcourir: "تصفح", wallet_soon: "🔜 التحويل البنكي — جاي مع الخلاص الحقيقي", link_copied: "🔗 تنسخ الرابط!", nf_sale: "💰 بيعة جديدة! سيفط « {t} » للنقطة", nf_pickup: "📦 « {t} » — الكولية فالطريق للنقطة ديالك", nf_msg: "💬 محادثة مع {n}", my_favs: "المفضلات ديالي", seller_empty: "هاد البائع ما بقا عندو حتى سلعة", remove_photo: "حيد التصويرة", cam_start: "شعل الكاميرا", cam_stop: "وقف", cam_hint: "صوّب على الكود ديال الكليان", cam_denied: "ما سمحتيش للكاميرا", cam_error: "ما قدرناش نحلو الكاميرا", qr_detected: "✅ تلقا الكود!", back: "رجوع", badge_inspect: "عاين السلعة فالحانوت قبل ما يتخلص البائع", g_mode: "الموضة والحوايج", g_chauss: "السبابط", g_beaute: "الجمال والعطور", g_tech: "التكنولوجيا", g_enfants: "الأطفال والألعاب", g_maison: "الدار", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "قياسات الحوايج", g_tailles_num: "قياسات السراويل", g_pointures: "البوانتير", g_ages: "أعمار الأطفال", brand_search: "قلب على ماركة", badge_refund: "كترجع ليك الفلوس 100% إلا ما كانتش مطابقة", ai_flow: "📸 تصويرة → ✍️ عنوان مكتوب → 💰 ثمن مقترح", fiab_note: "محسوب على التسليمات اللي داز مزيان فالحانوت", r_item: "السلعة", r_deliv: "التوصيل", voir_tout: "شوف كلشي", cat_livres: "كتب وميديا", cat_loisirs: "هوايات ومجموعات", empty_cat: "ما كاين والو هنا دابا", empty_cat_cta: "كون الأول اللي يبيع هنا", own_item: "هادي الإعلان ديالك", delete_item: "حيد الإعلان", deleted_ok: "تحيد الإعلان ✅",
     real_order_title: "تأكدات الطلبية 🎉", real_pin_note: "الكود ديالك ديال التسلم — كتبو مزيان، ما غاديش يبان مرة أخرى.",
     filters_title: "الفلاتر", filter_cat: "الصنف", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "الثمن (درهم)", filter_sort: "رتب حسب",
@@ -469,7 +469,7 @@ const T = {
     dressing: "خزانتي", sell_new: "بيع منتج جديد",
     s_sales: "مبيعات", s_followers: "متابعون", s_favs: "مفضلات",
     language: "اللغة", choose_lang: "اختر لغتك", beta: "تجريبي", logout: "تسجيل الخروج", logout_done: "تم تسجيل الخروج ✅",
-    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", wallet_soon: "🔜 التحويل البنكي — قادم مع الدفع الحقيقي", link_copied: "🔗 تم نسخ الرابط!", nf_sale: "💰 عملية بيع! أودع « {t} » في النقطة", nf_pickup: "📦 « {t} » — الطرد في الطريق إلى نقطتك", nf_msg: "💬 محادثة مع {n}", my_favs: "مفضلاتي", badge_inspect: "افحص المنتج في المحل قبل دفع المال للبائع", g_mode: "الموضة والملابس", g_chauss: "الأحذية", g_beaute: "الجمال والعطور", g_tech: "التقنية", g_enfants: "الأطفال والألعاب", g_maison: "المنزل", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "مقاسات الملابس", g_tailles_num: "مقاسات السراويل", g_pointures: "مقاسات الأحذية", g_ages: "أعمار الأطفال", brand_search: "ابحث عن ماركة", badge_refund: "استرداد 100% إذا لم يكن مطابقاً", ai_flow: "📸 صورة → ✍️ عنوان مكتوب → 💰 سعر مقترح", fiab_note: "يُحسب على عمليات الاستلام الناجحة", r_item: "المنتج", r_deliv: "التوصيل", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
+    msgs_none: "لا محادثات بعد — قدّم عرضاً على منتج!", parcourir: "تصفّح", wallet_soon: "🔜 التحويل البنكي — قادم مع الدفع الحقيقي", link_copied: "🔗 تم نسخ الرابط!", nf_sale: "💰 عملية بيع! أودع « {t} » في النقطة", nf_pickup: "📦 « {t} » — الطرد في الطريق إلى نقطتك", nf_msg: "💬 محادثة مع {n}", my_favs: "مفضلاتي", seller_empty: "لا توجد منتجات لهذا البائع", remove_photo: "حذف الصورة", cam_start: "تشغيل الكاميرا", cam_stop: "إيقاف", cam_hint: "وجّه نحو رمز العميل", cam_denied: "رُفض إذن الكاميرا", cam_error: "تعذّر فتح الكاميرا", qr_detected: "✅ تم اكتشاف الرمز!", back: "رجوع", badge_inspect: "افحص المنتج في المحل قبل دفع المال للبائع", g_mode: "الموضة والملابس", g_chauss: "الأحذية", g_beaute: "الجمال والعطور", g_tech: "التقنية", g_enfants: "الأطفال والألعاب", g_maison: "المنزل", g_sport: "الرياضة", g_loisirs: "الهوايات", g_autres: "ماركات أخرى", g_lettres: "مقاسات الملابس", g_tailles_num: "مقاسات السراويل", g_pointures: "مقاسات الأحذية", g_ages: "أعمار الأطفال", brand_search: "ابحث عن ماركة", badge_refund: "استرداد 100% إذا لم يكن مطابقاً", ai_flow: "📸 صورة → ✍️ عنوان مكتوب → 💰 سعر مقترح", fiab_note: "يُحسب على عمليات الاستلام الناجحة", r_item: "المنتج", r_deliv: "التوصيل", voir_tout: "عرض الكل", cat_livres: "كتب ووسائط", cat_loisirs: "هوايات ومقتنيات", empty_cat: "لا توجد منتجات هنا بعد", empty_cat_cta: "كن أول من يبيع هنا", own_item: "هذا إعلانك", delete_item: "حذف الإعلان", deleted_ok: "حُذف الإعلان ✅",
     real_order_title: "تأكيد الطلب 🎉", real_pin_note: "رمز الاستلام الخاص بك — احفظه جيداً، لن يظهر مرة أخرى بوضوح.",
     filters_title: "الفلاتر", filter_cat: "الفئة", filter_brand: "الماركة", filter_size: "المقاس",
     filter_cond: "الحالة", filter_price: "السعر (درهم)", filter_sort: "الترتيب حسب",
@@ -609,6 +609,8 @@ const T = {
     tl_sold: "بيع 🎉", tl_paid2: "تم تحويل المال",
   },
   zgh: {
+    b_refus: "ⵉⴳⵉ ⵏ ⵜⵓⴳⴳⴰ", b_score: "ⵜⴰⴼⵍⵙⵜ ⵏ ⵓⵎⵙⴰⵖ", b_trust: "ⴰⵎⵙⴰⵖ ⵢⵓⵎⵏ", r_item: "ⴰⴼⵕⴹⵉⵚ", r_deliv: "ⴰⵙⴰⵡⴰⴹ",
+    nav_msg: "ⵜⵉⴱⵔⴰⵜⵉⵏ", search_ph: "ⵇⴰⴼⵟⴰⵏ, iPhone, Air Force…", banner1: "ⵙⵎⵣ ⴰⴷⵍⴰⵙ ⵏⵏⴽ, ⵛⴰⵔ ⵜⴰⵎⵙⵙⴰⵔⵜ", banner2: "0% ⴽⵓⵎⵉⵙⵢⵓⵏ ⵉ ⵓⵎⵣⵣⵏⵣⴰ · ⴰⵙⴰⴳⵎ ⴳ ⵍⵃⴰⵏⵓⵜ", f_all: "ⴽⵓⵍⵛⵉ", f_sneakers: "ⵙⴱⴰⴱⴰⵟ", f_tech: "ⵜⵉⵇⵏⵉⵢⵜ", f_femmes: "ⵜⵉⵎⵖⴰⵔⵉⵏ", f_hommes: "ⵉⵔⴳⴰⵣⵏ", f_trad: "ⴰⵏⵚⵍⵉ", search_on: "ⴰⵔⵣⵣⵓ ⴳ bali…", trends: "ⵉⵎⵢⵢⴰⵔⵏ 🔥", cat_femmes: "ⵜⵉⵎⵖⴰⵔⵉⵏ", cat_hommes: "ⵉⵔⴳⴰⵣⵏ", cat_enfants: "ⵉⵎⵥⵥⵢⴰⵏⵏ", cat_sneakers: "ⵙⴱⴰⴱⴰⵟ", cat_tech: "ⵜⵉⵇⵏⵉⵢⵜ", cat_maison: "ⴰⵅⵅⴰⵎ", cat_trad: "ⴰⵏⵚⵍⵉ", cat_sport: "ⴰⴷⴷⴰⵍ", cat_livres: "ⵉⴷⵍⵉⵙⵏ", cat_loisirs: "ⴰⵏⴰⵔⵓⵣ", member: "ⴰⵎⴰⵙⵍⴰⴹ", sales_w: "ⵜⵉⵣⵣⵏⵣⵉⵏ", items_w: "ⵉⴼⵕⴹⵉⵚⵏ", follow: "ⴹⴼⵕ", make_offer: "ⴰⵣⵏ ⴰⵙⵓⵎⵔ", buyer_pays: "ⴰⵎⵙⴰⵖ ⵉⵜⵜⵅⵍⵍⴰⵚ", protection: "ⴰⵎⵣⵣⵓ", with_prot: "ⵙ ⵓⵎⵣⵣⵓ", prot_incl: "ⴰⵎⵣⵣⵓ ⵉⵍⵍⴰ", your_price: "ⴰⵜⵉⴳ ⵏⵏⴽ", offer_label: "ⴰⵙⵓⵎⵔ", negotiate: "ⵎⵙⴰⵡⴰⵍ", counter: "ⴰⵔⵔ ⴰⵙⵓⵎⵔ", waiting: "ⴰⵔ ⵜⵜⵔⴰⵊⵓ…", accepted: "ⵉⵜⵜⵡⴰⵇⴱⵍ", add_photo: "ⵔⵏⵓ ⵜⴰⵡⵍⴰⴼⵜ", remove_photo: "ⴽⴽⵙ ⵜⴰⵡⵍⴰⴼⵜ", title_ph: "ⴰⵣⵡⵍ ⵏ ⵓⴼⵕⴹⵉⵚ", desc_ph: "ⴰⴳⵍⴰⵎ…", sell_sub: "ⴰⵡⵉ ⵜⴰⵡⵍⴰⴼⵜ, ⵜⴰⵎⵢⴰⵡⴰⵙⵜ ⴰⴷ ⵜⴰⵔⵓ", ai_btn: "ⴰⵡⵉ ⵜⴰⵡⵍⴰⴼⵜ", ai_cta1: "ⵜⴰⵎⵢⴰⵡⴰⵙⵜ ⵜ ⵜⴰⵔⵓ ⵜⴰⵎⵍⵉⵍⵜ", ai_cta2: "ⵜⴰⵡⵍⴰⴼⵜ, ⴰⵣⵡⵍ, ⴰⵜⵉⴳ ⵙ ⵢⴰⵏ ⵓⵙⴽⴽⵉⵍ", ai_flow: "📸 ⵜⴰⵡⵍⴰⴼⵜ → ✍️ ⴰⵣⵡⵍ → 💰 ⴰⵜⵉⴳ", ai_loading: "ⴰⵔ ⵜⵜⵎⵏⴰⴷ ⵜⴰⵡⵍⴰⴼⵜ…", ai_sub_loading: "ⵛⵡⵢⵢⴰ…", ai_done: "ⵜⴼⵓⴽⴽⴰ ⵜⴰⵎⵢⴰⵡⴰⵙⵜ", ai_error: "ⵜⵍⵍⴰ ⵜⵣⴳⴰⵍⵜ, ⵄⴰⵡⴷ", ai_invalid: "ⵜⴰⵡⵍⴰⴼⵜ ⵓⵔ ⵜⵜⵡⴰⵙⵙⴰⵏ", ai_range: "ⴰⵜⵉⴳ ⵏ ⵜⵙⵓⵇⵜ", ai_sugg: "ⴰⵙⵓⵎⵔ ⵏ ⵜⵎⵢⴰⵡⴰⵙⵜ", publish: "ⵙⵙⵓⴼⵖ", cat_label: "ⵜⴰⴳⴳⴰⵢⵜ", cond_label: "ⴰⴷⴷⴰⴷ", delivery_label: "ⴰⵙⴰⵡⴰⴹ", scats: "ⵜⵉⴳⴳⴰⵢⵉⵏ", conds: ["ⴰⵎⴰⵢⵏⵓ ⵙ ⵜⴱⴰⵟⵟⵉⵜ", "ⵣⵓⵏ ⴷ ⴰⵎⴰⵢⵏⵓ", "ⴱⴰⵀⵔⴰ ⵉⵎⵎⵓ", "ⵉⵎⵎⵓ"], sadaqa: "ⵚⴰⴷⴰⵇⴰ", sadaqa_on: "ⵜⵜⵓⵙⵎⴰⵔ", sadaqa_sub: "ⵄⴹⵓ ⴰⵜⵉⴳ ⵉ ⵢⴰⵏ ⵓⵎⵙⴰⵖ", search_on2: "ⴰⵔⵣⵣⵓ", results_w: "{n} ⵏ ⵜⵢⴰⴼⵓⵜⵉⵏ", no_results: "ⵓⵔ ⵜⵍⵍⵉ ⵜⵢⴰⴼⵓⵜ ⵉ « {q} »", try_else: "ⵄⴰⵡⴷ ⵙ ⵢⴰⵏ ⵓⵔⵣⵣⵓ ⵢⴰⴹⵏ", chip_sort: "ⵙⵎⵣⵣⵉ", filters_title: "ⵉⵎⵣⵣⵉⵜⵏ", filter_cat: "ⵜⴰⴳⴳⴰⵢⵜ", filter_brand: "ⵜⴰⵎⴰⵜⴰⵔⵜ", filter_size: "ⵜⵉⴷⴷⵉ", filter_cond: "ⴰⴷⴷⴰⴷ", filter_price: "ⴰⵜⵉⴳ (DH)", filter_sort: "ⵙⵎⵣⵣⵉ ⵙ", sort_recent: "ⴰⵎⴰⵢⵏⵓ", sort_price_asc: "ⴰⵜⵉⴳ: ⵙ ⵓⴼⵍⵍⴰ", sort_price_desc: "ⴰⵜⵉⴳ: ⵙ ⵡⴰⴷⴷⴰⵢ", sort_popular: "ⴰⵎⵢⵢⴰⵔ", filter_reset: "ⵄⴰⵡⴷ", filter_apply: "ⵥⵕ {n} ⵏ ⵉⴼⵕⴹⵉⵚⵏ", price_min_ph: "ⴰⴷⴷⴰⵢ", price_max_ph: "ⴰⴼⵍⵍⴰ", brand_search: "ⴰⵔⵣⵣⵓ ⵅⴼ ⵜⵎⴰⵜⴰⵔⵜ", g_mode: "ⵍⵎⵓⴹⴰ", g_chauss: "ⵙⴱⴰⴱⴰⵟ", g_beaute: "ⵜⴰⵥⵓⵕⵉ", g_tech: "ⵜⵉⵇⵏⵉⵢⵜ", g_enfants: "ⵉⵎⵥⵥⵢⴰⵏⵏ", g_maison: "ⴰⵅⵅⴰⵎ", g_sport: "ⴰⴷⴷⴰⵍ", g_loisirs: "ⴰⵏⴰⵔⵓⵣ", g_autres: "ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵢⴰⴹⵏ", g_lettres: "ⵜⵉⴷⴷⵉ ⵏ ⵍⵃⵡⴰⵢⵊ", g_tailles_num: "ⵜⵉⴷⴷⵉ ⵏ ⵙⵔⴰⵡⵍ", g_pointures: "ⵜⵉⴷⴷⵉ ⵏ ⵙⴱⴰⴱⴰⵟ", g_ages: "ⵍⵄⵎⵔ ⵏ ⵉⵎⵥⵥⵢⴰⵏⵏ", parcourir: "ⴰⵔⵣⵣⵓ", voir_tout: "ⵥⵕ ⴽⵓⵍⵛⵉ", empty_cat: "ⵓⵔ ⵉⵍⵍⵉ ⴽⵔⴰ ⴷⴰ", empty_cat_cta: "ⵉⵍⵉ ⴰⵎⵣⵡⴰⵔⵓ ⵜⵣⵣⵏⵣⴷ ⴷⴰ", checkout_title: "ⴰⵅⵍⵍⴰⵚ", pay_title: "ⴰⵅⵍⵍⴰⵚ", pay_method: "ⴰⴱⵔⵉⴷ ⵏ ⵓⵅⵍⵍⴰⵚ", pm_card: "ⵜⴰⴽⴰⵕⴹⴰ", pm_wallet: "ⵜⴰⴱⵓⵔⵙⵜ bali", recharge: "ⵛⴰⵔ", transfer: "ⵙⵉⴼⴹ", wallet: "ⵜⴰⴱⵓⵔⵙⵜ", wallet_soon: "🔜 ⴰⵙⵉⴼⴹ ⴰⴱⴰⵏⴽⵉ — ⵢⵓⵛⴽⴰⴷ", confirm_order: "ⵙⵏⵜⵎ ⵜⴰⵟⵍⴰⴱⵜ", confirm_q: "ⵜⵔⵉⴷ ⴰⴷ ⵜⵙⵏⵜⵎⴷ?", confirm_ok: "ⵢⴰⵀ", confirm_ko: "ⵓⵀⵓ", reco: "ⵉⵜⵜⵡⴰⵙⵓⵎⵔ", no_card: "ⵓⵔ ⵜⵍⵍⵉ ⵜⴽⴰⵕⴹⴰ?", opt_cash: "ⵅⵍⵍⵚ ⵙ ⵜⴰⵏⴰⵇⵇⵉⴹⵜ", opt_khel: "ⴰⴷ ⵉⵅⵍⵍⵚ ⵢⴰⵏ ⵓⵎⴷⴷⴰⴽⴽⵍ (Khellesli)", cashin_txt: "ⵛⴰⵔ ⵙ ⵜⵏⴰⵇⵇⵉⴹⵜ", khel_toast: "ⵜⵜⵓⵏⵖⵍ ⵓⵥⴹⴰⵕ Khellesli", insufficient: "ⵜⴰⴱⵓⵔⵙⵜ ⵓⵔ ⵜⵛⵛⵓⵔ", paid_t: "ⵢⵜⵜⵡⴰⵅⵍⵍⵚ!", paid_sub: "ⴰⵅⵍⵍⴰⵚ ⵏⵏⴽ ⵉⵜⵜⵡⴰⵎⵣⵣⵓ", smart_route: "ⴰⵙⴰⵡⴰⴹ ⴰⵎⵓⵥⵓⵏ", reco2: "ⵉⵜⵜⵡⴰⵙⵓⵎⵔ", far_protect: "ⴰⴽⵓⵍⵉ ⵉⵜⵜⵡⴰⵎⵣⵣⵓ — ⵜⵜⵓⵔⴰⵔ 100%", route: "ⴰⴱⵔⵉⴷ", secu_line: "ⴰⵅⵍⵍⴰⵚ ⵉⵜⵜⵡⴰⵎⵣⵣⵓ ⴰⵔ ⴰⵙⴰⴳⵎ", order_ready: "ⵜⴰⵟⵍⴰⴱⵜ ⵜⵡⵊⴷ", order_confirm_prompt: "ⵙⵏⵜⵎ ⵜⴰⵟⵍⴰⴱⵜ", ticket_title: "ⴰⵜⵉⴽⵉ ⵏ ⵓⵙⴰⴳⵎ", view_ticket: "ⵥⵕ ⴰⵜⵉⴽⵉ", show_pin: "ⵥⵕ PIN", hide_pin: "ⴼⴼⵔ PIN", single_use: "ⴰⵙⵎⵔⵙ ⵢⴰⵏ ⵓⴱⵔⵉⴷ", pin_warn: "ⵀⴰⵜ PIN ⵏⵏⴽ, ⵓⵔ ⵜ ⵙⵎⵓⵏ", qr_regen: "ⵄⴰⵡⴷ QR", pickup_by: "ⴰⵙⴰⴳⵎ ⵇⴱⵍ", how_title: "ⵎⴰⵎⵏⴽ ⵜⵜⵡⴰⵅⴷⴰⵎ", banner_deals: "ⵉⵙⵎⵓⵜⵜⵏ ⵏ ⵡⴰⵙⵙ", deals_title: "ⵉⵙⵎⵓⵜⵜⵏ ⵏ ⵡⴰⵙⵙ", ends_in: "ⵉⴼⵓⴽⴽⴰ ⴳ", tl_picked: "ⵉⵜⵜⵡⴰⵙⵢ", tl_arrived: "ⵢⵓⵛⴽⴰⴷ", after_insp: "ⵢⵜⵜⵡⴰⵅⵍⵍⵚ ⵓⵎⵣⵣⵏⵣⴰ ⴰⵡⴰⵔ ⵓⵙⴽⴰⵏ", cote_line: "ⴰⵜⵉⴳ ⵏ ⵜⵙⵓⵇⵜ", seller_empty: "ⵓⵔ ⵉⵍⵍⵉ ⴽⵔⴰ ⵖⵓⵔ ⵓⵎⵣⵣⵏⵣⴰ", discreet: "ⴰⴷⴷⴰⴷ ⴰⵀⵔⵡⴰⵏ", discreet_badge: "ⴰⵀⵔⵡⴰⵏ", discreet_sub: "ⵉⵙⵎ ⵏⵏⴽ ⵉⵜⵜⵡⴰⴼⴼⵔ", become_point: "ⵉⵍⵉ ⴷ ⵜⴰⵏⵇⵇⵉⴹⵜ bali 🏪", become_sub: "ⵔⴱⵃ 4-5 DH ⵉ ⵓⴽⵓⵍⵉ · ⵓⵔ ⵜⵍⵍⵉ ⵜⵏⴰⵇⵇⵉⴹⵜ", trust_title: "ⵎⴰⵅ ⴰⴷ ⵜⴰⵎⵏⴷ bali", trust_help_sub: "ⵢⴰⵜ ⵜⵔⴰⴱⴱⵓⵜ ⵜⴰⵏⴰⴼⴳⴰⵏⵜ ⴰⴷ ⴽ ⵜⵔⴰⵔ", trust_agent: "ⴰⵙⴽⴰⵏ ⵇⴱⵍ ⵓⵅⵍⵍⴰⵚ", trust_whatsapp: "ⵜⴰⵡⵉⵙⵉ ⵙ WhatsApp", trust_toast: "bali ⴰⴷ ⴽ ⵉⵃⴹⵓ", seller_guar: "ⵜⵉⵎⵍⵍⴰ ⴷ ⵜⵡⵉⵙⵉ", seller_guar_t: "ⵜⵜⵓⵃⴹⵓⴷ", funds_frozen: "ⵉⴷⵔⵉⵎⵏ ⵜⵜⵓⵎⵣⵏ", funds_ok: "ⵉⴷⵔⵉⵎⵏ ⵜⵜⵓⵣⵏ ⵉ ⵓⵎⵣⵣⵏⵣⴰ", inspect_title: "ⵙⴽⵏ ⴰⵢⵏⵏⴰ ⵜⵙⵖⵉⴷ", inspect_hint: "ⵕⵥⵎ ⵜⵥⵕⴷ ⵇⴱⵍ ⴰⴷ ⵜⵇⴱⵍⴷ", check_title: "ⴰⵙⴽⴰⵏ ⴳ ⵜⵏⵇⵇⵉⴹⵜ bali", check_l1: "ⵙⴽⵏ ⴰⴼⵕⴹⵉⵚ ⵇⴱⵍ ⵓⵅⵍⵍⴰⵚ", check_l2: "ⴰⵎⵣⵣⵏⵣⴰ ⵉⵜⵜⵡⴰⵅⵍⵍⵚ ⵖⴰⵙ ⵎⴽ ⴽⵓⵍⵛⵉ ⵉⵎⵎⵓ", imei_label: "IMEI (ⵎⴽ ⵜⵔⵉⴷ)", imei_ph: "ⵙⴽⵛⵎ IMEI", cashin_txt2: "ⵛⴰⵔ ⵙ ⵜⵏⴰⵇⵇⵉⴹⵜ", gift_title: "ⵜⴰⵡⵙⵉⵜ ⵏ ⵓⵏⵙⵓⴼ", gift_text: "20 DH ⴰⴷⵔⴰⵔ ⴳ ⵜⵉⵔⵎⵜ ⵏⵏⴽ ⵜⴰⵎⵣⵡⴰⵔⵓⵜ", gift_claim: "ⴰⴷ ⵙⵜⵜⴼⴷⵖ 🎉", gift_applied: "ⵜⴰⵡⵙⵉⵜ ⵜⵜⵓⵙⵎⵔⵙ ✅", synopsis_title: "ⵎⴰⵎⵏⴽ ⵜⵜⵡⴰⵅⴷⴰⵎ", syn_buy: "🛒 ⴰⴷ ⵜⵙⵖⴷ", syn_sell: "💰 ⴰⴷ ⵜⵣⵣⵏⵣⴷ", syn_start: "ⵢⴰⵍⵍⴰⵀ! 🎉", s1: "ⴰⴼ ⴰⴼⵕⴹⵉⵚ", s2: "ⴰⵙⵢ ⵜ ⴳ ⵍⵃⴰⵏⵓⵜ", s3: "ⵙⴽⵏ ⵜ ⵜⵙⵏⵜⵎⴷ", ob_phone: "ⵓⵟⵟⵓⵏ ⵏ ⵜⵉⵍⵉⴼⵓⵏ?", ob_send: "ⴰⵡⵉ ⴽⵓⴷ SMS", ob_code: "ⵙⴽⵛⵎ ⴽⵓⴷ", ob_continue: "ⴽⵎⵎⵍ", ob_skip: "ⵣⴳⵍ", ob_title2: "ⵜⴰⴼⵍⵙⵜ ⴳ ⵜⵊⵉⴱⵜ ⵏⵏⴽ", ob_v1: "ⵙⵖ ⵜⵣⵣⵏⵣⴷ ⵙ ⵜⴼⵍⵙⵜ", ob_v2: "ⴰⵙⴰⴳⵎ ⴳ ⵍⵃⴰⵏⵓⵜ ⵏ ⵜⵎⵏⴰⴹⵜ", ob_v3: "ⴰⵅⵍⵍⴰⵚ ⵉⵜⵜⵡⴰⵎⵣⵣⵓ", notifs_title: "ⵉⵍⵖⴰⵏ", my_orders: "ⵜⵉⵟⵍⴰⴱⵉⵏ ⵏⵏⵓ", no_orders: "ⵓⵔ ⵜⵍⵍⵉ ⵜⵟⵍⴰⴱⵜ", tab_buys: "ⵜⵉⵙⵖⵉⵏ ⵏⵏⵓ", tab_sells: "ⵜⵉⵣⵣⵏⵣⵉⵏ ⵏⵏⵓ", no_buys: "ⵓⵔ ⵜⵍⵍⵉ ⵜⵙⵖⵉ", no_sells: "ⵓⵔ ⵜⵍⵍⵉ ⵜⵣⵣⵏⵣⵉ", role_buy: "ⵜⴰⵙⵖⵉ", role_sell: "ⵜⴰⵣⵣⵏⵣⵉ", other_buyer: "ⴰⵎⵙⴰⵖ", other_seller: "ⴰⵎⵣⵣⵏⵣⴰ", deposit_cta: "ⵙⵔⵙ ⴰⴽⵓⵍⵉ ⴳ bali", deposit_done: "ⴰⴽⵓⵍⵉ ⵉⵜⵜⵡⴰⵙⵔⵙ ✅", sale_new_banner: "🎉 ⵜⴰⵣⵣⵏⵣⵉ! ⵙⵔⵙ ⴰⴽⵓⵍⵉ ⴳ bali", to_deposit: "ⴰⴷ ⵜⵙⵔⵙⴷ", real_order_title: "ⵜⴰⵟⵍⴰⴱⵜ ⵜⵜⵓⵙⵏⵜⵎ 🎉", real_pin_note: "ⴽⵓⴷ ⵏ ⵓⵙⴰⴳⵎ — ⴰⵔⵓ ⵜ", real_order_ok: "ⵓⵔⵉⵖ ⵜ ✓", order_pin_hidden: "ⴽⵓⴷ ⵉⵜⵜⵡⴰⴼⴼⵔ", own_item: "ⴷ ⴰⴼⵕⴹⵉⵚ ⵏⵏⴽ", delete_item: "ⴽⴽⵙ ⴰⴼⵕⴹⵉⵚ", deleted_ok: "ⴰⴼⵕⴹⵉⵚ ⵉⵜⵜⵡⴰⴽⴽⵙ ✅", msgs_none: "ⵓⵔ ⵜⵍⵍⵉ ⵜⵎⵙⴰⵡⴰⵍⵜ — ⴰⵣⵏ ⴰⵙⵓⵎⵔ!", dressing: "ⴰⴷⵍⴰⵙ ⵏⵏⵓ", sell_new: "ⵣⵣⵏⵣ ⴰⴼⵕⴹⵉⵚ ⴰⵎⴰⵢⵏⵓ", logout: "ⴼⴼⵖ", logout_done: "ⵜⴼⴼⵖⴷ ✅", my_favs: "ⵉⵎⵓⵥⴰⵏ ⵏⵏⵓ", s_sales: "ⵜⵉⵣⵣⵏⵣⵉⵏ", s_followers: "ⵉⵎⴹⴼⴰⵕⵏ", s_favs: "ⵉⵎⵓⵥⴰⵏ", beta: "ⴱⵉⵟⴰ", admin_panel: "ⴰⴷⵎⵉⵏ bali", adm_stats: "ⵉⵎⴹⴰⵏⵏ", adm_mod: "ⴰⵙⵙⵖⴷ", adm_users: "ⵉⵎⵙⵙⵇⴷⴰⵛⵏ", adm_items: "ⵉⴼⵕⴹⵉⵚⵏ", adm_active: "ⵉⵎⵓⵔⴰⵔⵏ", adm_orders: "ⵜⵉⵟⵍⴰⴱⵉⵏ", adm_gmv: "ⴰⵎⴹⴰⵏ ⴰⵎⴰⵜⴰⵢ", adm_rev: "ⵜⴰⵏⴼⴰⵄⵜ", adm_held: "ⵉⵜⵜⵡⴰⵎⵣ", adm_done: "ⵉⴼⵓⴽⴽⴰⵏ", adm_remove: "ⴽⴽⵙ", adm_recent_orders: "ⵜⵉⵟⵍⴰⴱⵉⵏ ⵜⵉⵎⴳⴳⵓⵔⴰ", real_parcels: "ⵉⴽⵓⵍⵉⵏ ⵏ bali", p_to_receive: "ⴰⴷ ⵜⵔⵎⵙⴷ", p_to_handover: "ⴰⴷ ⵜⴼⴽⴷ ⵉ ⵓⵎⵙⴰⵖ", p_demo: "ⴷⵉⵎⵓ", p_none: "ⵓⵔ ⵉⵍⵍⵉ ⴽⵔⴰ ⵏ ⵓⴽⵓⵍⵉ", hverif_title: "ⴼⴽ ⴰⴽⵓⵍⵉ", hverif_sub: "ⵙⴽⵛⵎ ⴽⵓⴷ ⵏ ⵜⵟⵍⴰⴱⵜ + PIN", hverif_code: "ⴽⵓⴷ ⵏ ⵜⵟⵍⴰⴱⵜ (BAL-...)", hverif_pin: "PIN ⵏ ⵓⵎⵙⴰⵖ (4)", hverif_btn: "ⵙⵏⵜⵎ ⵜⴼⴽⴷ", hverif_ok: "✅ ⴽⵓⴷ ⵉⵎⵎⵓ — ⴰⴽⵓⵍⵉ ⵉⵜⵜⵡⴰⴼⴽⴰ!", hverif_bad: "❌ PIN ⵓⵔ ⵉⵎⵎⵓ — ⵓⵔ ⵜⴼⴽ ⴰⴽⵓⵍⵉ", hverif_notfound: "ⵜⴰⵟⵍⴰⴱⵜ ⵓⵔ ⵜⵜⵡⴰⴼ", hverif_wrongstatus: "ⴰⴽⵓⵍⵉ ⵓⵔ ⵢⵓⵊⵉⴷ", cam_start: "ⵙⵙⵔⵖ ⵜⴰⴽⴰⵎⵉⵔⴰ", cam_stop: "ⴱⴷⴷ", cam_hint: "ⵙⵡⵊⴷ QR ⵏ ⵓⵎⵙⴰⵖ", cam_denied: "ⵜⴰⴽⴰⵎⵉⵔⴰ ⵜⵜⵡⴰⴳⴷⵍ", cam_error: "ⵓⵔ ⵏⵥⴹⴰⵕ ⴰⴷ ⵏⵕⵥⵎ ⵜⴰⴽⴰⵎⵉⵔⴰ", qr_detected: "✅ QR ⵉⵜⵜⵡⴰⴼ!", back: "ⴰⵖⵓⵍ", write_msg: "ⴰⵔⵓ ⵜⴰⴱⵔⴰⵜ…", nf_sale: "💰 ⵜⴰⵣⵣⵏⵣⵉ! ⵙⵔⵙ « {t} » ⴳ bali", nf_pickup: "📦 « {t} » — ⴰⴽⵓⵍⵉ ⴳ ⵓⴱⵔⵉⴷ", nf_msg: "💬 ⵜⴰⵎⵙⴰⵡⴰⵍⵜ ⴰⴽⴷ {n}", link_copied: "🔗 ⵜⵜⵓⵏⵖⵍ ⵓⵥⴹⴰⵕ!", badge_inspect: "ⴰⵙⴽⴰⵏ ⴳ bali ⵇⴱⵍ ⵓⵅⵍⵍⴰⵚ", badge_refund: "ⵜⵜⵓⵔⴰⵔ 100% ⵎⴽ ⵓⵔ ⵉⵎⵎⵓ", fiab_note: "ⵉⵜⵜⵡⴰⵃⵙⴰⴱ ⵅⴼ ⵉⵙⴰⴳⵎⵏ", try_partner: "ⴰⵔⵣⵣⵓ ⵏ bali Partenaire", call_w: "ⵖⵕ", video_b: "ⵚⵓⵕ", listed: "ⵉⵜⵜⵡⴰⵙⵎⵔ", how_l: "ⵎⴰⵎⵏⴽ", sum_all: "ⴰⵎⴹⴰⵏ", you_receive: "ⴰⴷ ⵜⵔⵎⵙⴷ", dep_before: "ⵇⴱⵍ ⴰⴷ ⵜⵙⵔⵙⴷ", dep_btn: "ⵙⵔⵙ ⴰⴽⵓⵍⵉ", dep_show: "ⵙⴽⵏ ⴰⴷ ⴽⵓⴷ ⴳ ⵍⵃⴰⵏⵓⵜ", dep_status_ok: "ⵉⵜⵜⵡⴰⵙⵔⵙ", dep_status_todo: "ⴰⴷ ⵜⵙⵔⵙⴷ", dep_done_note: "ⴰⴽⵓⵍⵉ ⵉⵜⵜⵡⴰⵙⵔⵙ", dep_tip1: "ⵙⵡⵊⴷ ⴰⴼⵕⴹⵉⵚ", dep_tip2: "ⵔⵏⵓ ⴽⵓⴷ ⵏ ⵜⵟⵍⴰⴱⵜ", dep_tip3: "ⵚⵓⵕ ⴰⴽⵓⵍⵉ", deposit_title: "ⴰⵙⵔⵙ ⵏ ⵓⵎⵣⵣⵏⵣⴰ", sale_card_done: "ⵉⵜⵜⵡⴰⵣⵣⵏⵣ", sale_card_todo: "ⴰⴷ ⵜⵙⵔⵙⴷ", share_toast: "ⵜⵜⵓⵏⵖⵍ ⵓⵥⴹⴰⵕ", t_followed: "ⵜⴹⴼⵕⴷ {n}", t_paid: "ⵢⵜⵜⵡⴰⵅⵍⵍⵚ!", t_published: "« {t} » ⵉⵜⵜⵡⴰⵙⵎⵔ ✅", t_need: "ⵔⵏⵓ ⴰⵣⵡⵍ ⴷ ⵓⵜⵉⴳ", t_accepted: "ⴰⵙⵓⵎⵔ ⵉⵜⵜⵡⴰⵇⴱⵍ", t_offer_sent: "ⴰⵙⵓⵎⵔ {x} ⵢⵜⵜⵡⴰⵣⵏ", t_msg_sent: "ⵜⴰⴱⵔⴰⵜ ⵜⵜⵓⵣⵏ ⵉ {n}",
     nav_home: "ⴰⵎⵣⵡⴰⵔⵓ", nav_explore: "ⴰⵔⵣⵣⵓ", nav_sell: "ⵣⵣⵏⵣ", nav_msg: "ⵜⵉⴱⵔⴰⵜⵉⵏ", nav_profile: "ⴰⵎⵉⴹⴰⵏ",
     selection: "ⴰⵙⵜⴰⵢ ⵏ ⵡⴰⵙⵙ", explore: "ⴰⵔⵣⵣⵓ", categories: "ⵜⴰⴳⴳⴰⵢⵉⵏ",
     sell_title: "ⵣⵣⵏⵣ", price_label: "ⴰⵜⵉⴳ", publish: "ⵙⵙⵓⴼⵖ",
@@ -642,7 +644,7 @@ const T = {
     dressing: "My closet", sell_new: "Sell a new item",
     s_sales: "Sales", s_followers: "Followers", s_favs: "Favorites",
     language: "Language", choose_lang: "Choose your language", beta: "beta", logout: "Log out", logout_done: "Logged out ✅",
-    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", wallet_soon: "🔜 Bank transfer — coming with real payments", link_copied: "🔗 Link copied!", nf_sale: "💰 New sale! Drop « {t} » at the bali point", nf_pickup: "📦 « {t} » — parcel on its way to your bali point", nf_msg: "💬 Chat with {n}", my_favs: "My favorites", badge_inspect: "Inspect at the bali point before the seller is paid", g_mode: "Fashion & clothing", g_chauss: "Shoes", g_beaute: "Beauty & fragrance", g_tech: "Tech", g_enfants: "Kids & toys", g_maison: "Home", g_sport: "Sport", g_loisirs: "Hobbies", g_autres: "Other brands", g_lettres: "Clothing sizes", g_tailles_num: "Trouser sizes", g_pointures: "Shoe sizes", g_ages: "Kids ages", brand_search: "Search a brand", badge_refund: "100% refund if not as described", ai_flow: "📸 Photo → ✍️ Title written → 💰 Price estimated", fiab_note: "Based on your validated pickups", r_item: "Item", r_deliv: "Delivery", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
+    msgs_none: "No conversations yet — make an offer on an item!", parcourir: "Browse", wallet_soon: "🔜 Bank transfer — coming with real payments", link_copied: "🔗 Link copied!", nf_sale: "💰 New sale! Drop « {t} » at the bali point", nf_pickup: "📦 « {t} » — parcel on its way to your bali point", nf_msg: "💬 Chat with {n}", my_favs: "My favorites", seller_empty: "This seller has no items online", remove_photo: "Remove photo", cam_start: "Start camera", cam_stop: "Stop", cam_hint: "Point at the customer QR code", cam_denied: "Camera permission denied", cam_error: "Cannot open camera", qr_detected: "✅ QR detected!", back: "Back", badge_inspect: "Inspect at the bali point before the seller is paid", g_mode: "Fashion & clothing", g_chauss: "Shoes", g_beaute: "Beauty & fragrance", g_tech: "Tech", g_enfants: "Kids & toys", g_maison: "Home", g_sport: "Sport", g_loisirs: "Hobbies", g_autres: "Other brands", g_lettres: "Clothing sizes", g_tailles_num: "Trouser sizes", g_pointures: "Shoe sizes", g_ages: "Kids ages", brand_search: "Search a brand", badge_refund: "100% refund if not as described", ai_flow: "📸 Photo → ✍️ Title written → 💰 Price estimated", fiab_note: "Based on your validated pickups", r_item: "Item", r_deliv: "Delivery", voir_tout: "See all", cat_livres: "Books & media", cat_loisirs: "Hobbies & collectibles", empty_cat: "Nothing here yet", empty_cat_cta: "Be the first to sell here", own_item: "This is your listing", delete_item: "Delete listing", deleted_ok: "Listing deleted ✅",
     real_order_title: "Order confirmed 🎉", real_pin_note: "Your pickup code — write it down, it won't be shown again in plain text.",
     filters_title: "Filters", filter_cat: "Category", filter_brand: "Brand", filter_size: "Size",
     filter_cond: "Condition", filter_price: "Price (DH)", filter_sort: "Sort by",
@@ -782,6 +784,7 @@ const T = {
     tl_sold: "Sold 🎉", tl_paid2: "Money paid out",
   },
   es: {
+    after_insp: "Pagado al vendedor tras inspección", become_point: "Conviértete en punto bali 🏪", become_sub: "Gana 4-5 DH por paquete · sin efectivo", cashin_txt: "Recarga en efectivo con un agente", check_l1: "Verifica el artículo antes de pagar", check_l2: "El vendedor cobra solo si todo está bien", check_title: "Inspección en el punto bali", checkout_title: "Finalizar compra", confirm_order: "Confirmar el pedido", cote_line: "Precio de mercado estimado", deals_title: "Ofertas del día", dep_before: "Antes de depositar", dep_btn: "Depositar el paquete", dep_done_note: "Paquete depositado, comprador avisado", dep_show: "Muestra este código en el hanout", dep_status_ok: "Depositado", dep_status_todo: "Por depositar", dep_tip1: "Empaqueta bien el artículo", dep_tip2: "Añade el código de pedido", dep_tip3: "Filma el empaquetado", deposit_title: "Depósito del vendedor", discreet: "Modo discreto", discreet_badge: "Discreto", discreet_sub: "Tu nombre queda oculto", ends_in: "Termina en", far_protect: "Paquete asegurado — reembolso 100%", follow: "Seguir", funds_frozen: "Fondos retenidos en depósito", funds_ok: "Fondos liberados al vendedor", gift_applied: "Regalo aplicado ✅", gift_claim: "Aprovechar 🎉", gift_text: "20 DH de descuento en tu 1ª compra", gift_title: "Regalo de bienvenida", imei_label: "IMEI (opcional)", imei_ph: "Introduce el IMEI", inspect_hint: "Abre y revisa antes de aceptar", inspect_title: "Inspecciona tu compra", insufficient: "Saldo insuficiente", items_w: "artículos", khel_toast: "Enlace Khellesli copiado", no_card: "¿Sin tarjeta?", no_results: "Sin resultados para « {q} »", notifs_title: "Notificaciones", ob_code: "Introduce el código recibido", ob_continue: "Continuar", ob_phone: "¿Tu número de teléfono?", ob_send: "Recibir el código SMS", ob_skip: "Saltar", ob_title2: "La confianza en tu bolsillo", ob_v1: "Compra y vende con seguridad", ob_v2: "Recogida en el hanout del barrio", ob_v3: "Pago protegido hasta la entrega", opt_cash: "Pagar en efectivo", opt_khel: "Que pague un allegado (Khellesli)", paid_sub: "Tu pago está protegido", paid_t: "¡Pago realizado!", pay_method: "Método de pago", pay_title: "Pago", pm_card: "Tarjeta bancaria", pm_wallet: "Monedero bali", recharge: "Recargar", reco: "recomendado", results_w: "{n} resultados", s1: "Encuentra tu artículo", s2: "Recógelo en el hanout", s3: "Inspecciona y valida", sale_card_done: "Vendido", sale_card_todo: "Por depositar", seller_guar: "Garantías y ayuda humana", seller_guar_t: "Estás protegido", share_toast: "Enlace copiado", smart_route: "Entrega inteligente", syn_buy: "🛒 Para comprar", syn_sell: "💰 Para vender", syn_start: "¡Vamos! 🎉", synopsis_title: "Cómo funciona", t_followed: "Sigues a {n}", t_paid: "¡Pago realizado!", trust_agent: "Inspección antes de pagar", trust_help_sub: "Un equipo humano te responde", trust_title: "Por qué confiar en bali", trust_toast: "bali te protege", trust_whatsapp: "Ayuda por WhatsApp", try_else: "Prueba con otra búsqueda",
     nav_home: "Inicio", nav_explore: "Explorar", nav_sell: "Vender", nav_msg: "Mensajes", nav_profile: "Perfil",
     search_ph: "Caftán, iPhone, Air Force…", banner1: "Vacía tu armario, llena tu cartera",
     banner2: "0% comisión al vendedor · Recogida en el hanout del barrio 🇲🇦", selection: "Selección del día",
@@ -808,7 +811,7 @@ const T = {
     dressing: "Mi armario", sell_new: "Vender otro artículo",
     s_sales: "Ventas", s_followers: "Seguidores", s_favs: "Favoritos",
     language: "Idioma", choose_lang: "Elige tu idioma", beta: "beta", logout: "Cerrar sesión", logout_done: "Sesión cerrada ✅",
-    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", wallet_soon: "🔜 Transferencia bancaria — llega con el pago real", link_copied: "🔗 ¡Enlace copiado!", nf_sale: "💰 ¡Nueva venta! Deposita « {t} » en el punto bali", nf_pickup: "📦 « {t} » — paquete en camino a tu punto", nf_msg: "💬 Chat con {n}", my_favs: "Mis favoritos", badge_inspect: "Inspecciona en el punto bali antes de pagar al vendedor", g_mode: "Moda y ropa", g_chauss: "Zapatos", g_beaute: "Belleza y perfumes", g_tech: "Tecnología", g_enfants: "Niños y juguetes", g_maison: "Hogar", g_sport: "Deporte", g_loisirs: "Ocio", g_autres: "Otras marcas", g_lettres: "Tallas ropa", g_tailles_num: "Tallas pantalón", g_pointures: "Tallas calzado", g_ages: "Edades niños", brand_search: "Buscar una marca", badge_refund: "Reembolso 100% si no es conforme", ai_flow: "📸 Foto → ✍️ Título redactado → 💰 Precio estimado", fiab_note: "Basado en tus recogidas validadas", r_item: "Artículo", r_deliv: "Envío", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
+    msgs_none: "Sin conversaciones — ¡haz una oferta!", parcourir: "Explorar", wallet_soon: "🔜 Transferencia bancaria — llega con el pago real", link_copied: "🔗 ¡Enlace copiado!", nf_sale: "💰 ¡Nueva venta! Deposita « {t} » en el punto bali", nf_pickup: "📦 « {t} » — paquete en camino a tu punto", nf_msg: "💬 Chat con {n}", my_favs: "Mis favoritos", seller_empty: "Este vendedor no tiene artículos", remove_photo: "Quitar foto", cam_start: "Activar cámara", cam_stop: "Detener", cam_hint: "Apunta al QR del cliente", cam_denied: "Permiso de cámara denegado", cam_error: "No se puede abrir la cámara", qr_detected: "✅ ¡QR detectado!", back: "Atrás", badge_inspect: "Inspecciona en el punto bali antes de pagar al vendedor", g_mode: "Moda y ropa", g_chauss: "Zapatos", g_beaute: "Belleza y perfumes", g_tech: "Tecnología", g_enfants: "Niños y juguetes", g_maison: "Hogar", g_sport: "Deporte", g_loisirs: "Ocio", g_autres: "Otras marcas", g_lettres: "Tallas ropa", g_tailles_num: "Tallas pantalón", g_pointures: "Tallas calzado", g_ages: "Edades niños", brand_search: "Buscar una marca", badge_refund: "Reembolso 100% si no es conforme", ai_flow: "📸 Foto → ✍️ Título redactado → 💰 Precio estimado", fiab_note: "Basado en tus recogidas validadas", r_item: "Artículo", r_deliv: "Envío", voir_tout: "Ver todo", cat_livres: "Libros y media", cat_loisirs: "Ocio y colecciones", empty_cat: "Aún no hay artículos aquí", empty_cat_cta: "Sé el primero en vender aquí", own_item: "Es tu anuncio", delete_item: "Eliminar anuncio", deleted_ok: "Anuncio eliminado ✅",
     real_order_title: "Pedido confirmado 🎉", real_pin_note: "Tu código de recogida — anótalo, no volverá a mostrarse en texto claro.",
     filters_title: "Filtros", filter_cat: "Categoría", filter_brand: "Marca", filter_size: "Talla",
     filter_cond: "Estado", filter_price: "Precio (DH)", filter_sort: "Ordenar por",
@@ -1234,6 +1237,59 @@ function BaliAppScreen() {
   const [hvMsg, setHvMsg] = useState(null); // { ok, text }
   const [hvLoading, setHvLoading] = useState(false);
   const [pOrders, setPOrders] = useState([]);
+  const [camActive, setCamActive] = useState(false);
+  const [camError, setCamError] = useState("");
+  const videoRef = React.useRef(null);
+  const camStreamRef = React.useRef(null);
+
+  /* Démarrer la vraie caméra (demande l'autorisation native du navigateur) */
+  const startCamera = async () => {
+    setCamError("");
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "environment" }, audio: false,
+      });
+      camStreamRef.current = stream;
+      setCamActive(true);
+      /* le <video> est monté juste après via camActive → on attend le prochain tick */
+      setTimeout(() => {
+        if (videoRef.current) { videoRef.current.srcObject = stream; videoRef.current.play().catch(() => {}); }
+        detectLoop();
+      }, 100);
+    } catch (e) {
+      setCamError(e && e.name === "NotAllowedError" ? t("cam_denied") : t("cam_error"));
+    }
+  };
+
+  const stopCamera = () => {
+    if (camStreamRef.current) { camStreamRef.current.getTracks().forEach((tr) => tr.stop()); camStreamRef.current = null; }
+    setCamActive(false);
+  };
+
+  /* Détection automatique du QR si le navigateur la supporte (BarcodeDetector) */
+  const detectLoop = async () => {
+    if (!("BarcodeDetector" in window) || !videoRef.current) return;
+    try {
+      const detector = new window.BarcodeDetector({ formats: ["qr_code"] });
+      const tick = async () => {
+        if (!camStreamRef.current || !videoRef.current) return;
+        try {
+          const codes = await detector.detect(videoRef.current);
+          if (codes && codes.length > 0) {
+            const raw = codes[0].rawValue || "";
+            const code = raw.includes("BAL-") ? raw.slice(raw.indexOf("BAL-")).split(/\s/)[0] : raw;
+            setHvCode(code.toUpperCase());
+            stopCamera();
+            setPScreen("dash");
+            showToast(t("qr_detected"));
+            return;
+          }
+        } catch (e) { /* frame non lisible, on continue */ }
+        requestAnimationFrame(tick);
+      };
+      tick();
+    } catch (e) { /* BarcodeDetector indisponible → saisie manuelle */ }
+  };
 
   /* Charger les vrais colis qui transitent par le point bali */
   const loadPartnerOrders = async () => {
@@ -1733,6 +1789,14 @@ function BaliAppScreen() {
       },
     },
   ];
+
+  const clearPhoto = () => {
+    if (photoUrl) URL.revokeObjectURL(photoUrl);
+    setPhotoUrl(null);
+    setPhotoFile(null);
+    setAiState("idle");
+    setAiResult(null);
+  };
 
   const analyzePhoto = async (file) => {
     if (!file) return;
@@ -2406,18 +2470,22 @@ function BaliAppScreen() {
 
       {/* Photos */}
       <div className="grid grid-cols-4 gap-2 mt-4">
-        <label className="aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-indigo-50 flex flex-col items-center justify-center gap-1 cursor-pointer overflow-hidden">
-          {photoUrl ? (
-            <img src={photoUrl} alt="" className="w-full h-full object-cover" />
-          ) : (
-            <>
-              <Camera size={20} className="text-indigo-500" />
-              <span className="text-[10px] font-bold text-indigo-500">{t("add_photo")}</span>
-            </>
-          )}
-          <input type="file" accept="image/*" className="hidden"
-            onChange={(e) => analyzePhoto(e.target.files && e.target.files[0])} />
-        </label>
+        {photoUrl ? (
+          <div className="relative aspect-square rounded-2xl overflow-hidden">
+            <img src={photoUrl} alt={t("add_photo")} className="w-full h-full object-cover" />
+            <button onClick={clearPhoto} aria-label={t("remove_photo")}
+              className="absolute top-1 end-1 w-6 h-6 rounded-full bg-black/60 text-white flex items-center justify-center active:scale-90">
+              <X size={13} />
+            </button>
+          </div>
+        ) : (
+          <label className="aspect-square rounded-2xl border-2 border-dashed border-indigo-300 bg-indigo-50 flex flex-col items-center justify-center gap-1 cursor-pointer overflow-hidden">
+            <Camera size={20} className="text-indigo-500" />
+            <span className="text-[10px] font-bold text-indigo-500">{t("add_photo")}</span>
+            <input type="file" accept="image/*" className="hidden"
+              onChange={(e) => analyzePhoto(e.target.files && e.target.files[0])} />
+          </label>
+        )}
         {[1, 2, 3].map((i) => (
           <div key={i} className="aspect-square rounded-2xl bg-stone-200/60" />
         ))}
@@ -3238,15 +3306,16 @@ function BaliAppScreen() {
   /* ---------------------------------------------------------------- */
 
   const sellerScreen = (name) => {
-    const sItems = ITEMS.filter((i) => i.seller.name === name);
-    const s = sItems[0].seller;
+    /* Cherche dans TOUTES les annonces (vraies + démo) — plus de crash sur vendeur réel */
+    const sItems = allItems.filter((i) => i.seller && i.seller.name === name);
+    const s = sItems.length > 0 ? sItems[0].seller : { rating: 5.0, sales: 0 };
     const disc = sItems.some((i) => i.discreet);
     const shown = disc ? "S." : name;
     return (
       <div className="fixed inset-0 z-30 flex justify-center bg-black/40" dir={cur.dir}>
         <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-10">
           <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
-            <button onClick={() => setSellerView(null)}>
+            <button onClick={() => setSellerView(null)} aria-label="Retour">
               <ChevronLeft size={22} className={`text-stone-700 ${cur.dir === "rtl" ? "rotate-180" : ""}`} />
             </button>
             <p className="text-sm font-extrabold text-stone-900">{shown}</p>
@@ -3275,16 +3344,23 @@ function BaliAppScreen() {
             </div>
 
             <button onClick={() => showToast(tf("t_followed", { n: shown }))}
-              className="w-full mt-4 bg-indigo-600 text-white text-sm font-extrabold py-3 rounded-2xl active:scale-95 transition-transform">
+              className="w-full mt-4 bg-indigo-600 text-white text-sm font-extrabold py-3 rounded-2xl active:scale-95">
               + {t("follow")}
             </button>
 
             <p className="text-sm font-extrabold text-stone-900 mt-6 mb-3">
               {sItems.length} {t("items_w")}
             </p>
-            <div className="grid grid-cols-2 gap-3">
-              {sItems.map((it) => itemCard(it))}
-            </div>
+            {sItems.length > 0 ? (
+              <div className="grid grid-cols-2 gap-3">
+                {sItems.map((it) => itemCard(it))}
+              </div>
+            ) : (
+              <div className="text-center py-10">
+                <p className="text-4xl">🛍️</p>
+                <p className="text-sm font-extrabold text-stone-900 mt-3">{t("seller_empty")}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -4210,21 +4286,37 @@ function BaliAppScreen() {
           {pScreen === "scan" && (
             <div className="px-5 pt-6 flex flex-col items-center">
               <div className="relative w-64 h-64 bg-stone-900 rounded-3xl overflow-hidden flex items-center justify-center">
-                <div className="absolute inset-6 border-2 border-amber-400/50 rounded-2xl" />
-                <div className="scanline absolute left-8 right-8 h-0.5 bg-amber-400 rounded-full" />
-                <QrCode size={60} className="text-stone-700" />
+                {camActive ? (
+                  <>
+                    <video ref={videoRef} playsInline muted className="w-full h-full object-cover" />
+                    <div className="absolute inset-6 border-2 border-amber-400/70 rounded-2xl pointer-events-none" />
+                    <div className="scanline absolute left-8 right-8 h-0.5 bg-amber-400 rounded-full" />
+                  </>
+                ) : (
+                  <>
+                    <div className="absolute inset-6 border-2 border-amber-400/50 rounded-2xl" />
+                    <QrCode size={60} className="text-stone-700" />
+                  </>
+                )}
               </div>
-              <p className="text-[10px] text-stone-500 font-bold mt-3 flex items-center gap-1 text-center">
-                <MapPin size={11} className="shrink-0" /> Scan valide uniquement à l'adresse du magasin (géolocalisé)
-              </p>
-              <button onClick={() => {
-                if (orderStatus === "ready") { setPinInput(""); setPinTries(0); setPScreen("verify"); }
-                else showToast("Aucun retrait en attente (démo)");
-              }}
-                className="w-full bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl mt-5 active:scale-95 transition-transform">
-                📷 Simuler le scan du QR client
-              </button>
-              <button onClick={() => setPScreen("dash")} className="text-xs font-extrabold text-stone-500 mt-3">← Retour</button>
+
+              {camError && <p className="text-[11px] text-rose-500 font-bold mt-3 text-center">⚠️ {camError}</p>}
+
+              {!camActive ? (
+                <button onClick={startCamera}
+                  className="w-full bg-amber-400 text-stone-900 font-extrabold py-4 rounded-2xl mt-5 active:scale-95 flex items-center justify-center gap-2">
+                  <Camera size={18} /> {t("cam_start")}
+                </button>
+              ) : (
+                <>
+                  <p className="text-[11px] text-stone-500 font-bold mt-3 text-center">{t("cam_hint")}</p>
+                  <button onClick={stopCamera}
+                    className="w-full bg-stone-200 text-stone-700 font-extrabold py-3 rounded-2xl mt-3 active:scale-95">
+                    {t("cam_stop")}
+                  </button>
+                </>
+              )}
+              <button onClick={() => { stopCamera(); setPScreen("dash"); }} className="text-xs font-extrabold text-stone-500 mt-3">← {t("back")}</button>
             </div>
           )}
 
