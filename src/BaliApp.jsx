@@ -3441,10 +3441,24 @@ function BaliAppScreen() {
                   <p className="text-[11px] text-stone-500 font-semibold mt-0.5">{t("relay_dist")} : <span className="font-extrabold text-stone-900">{pt.dist}</span></p>
                 </div>
               </div>
-              <div className="mt-3 h-28 rounded-2xl bg-gradient-to-br from-indigo-50 to-stone-100 border border-stone-100 flex flex-col items-center justify-center gap-1">
-                <MapPin size={22} className="text-indigo-400" />
-                <p className="text-[10px] font-bold text-stone-400">{t("relay_map_soon")}</p>
-              </div>
+              {(() => {
+                const gkey = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_GOOGLE_MAPS_KEY) ? import.meta.env.VITE_GOOGLE_MAPS_KEY : "";
+                if (gkey && pt.lat) {
+                  const embed = "https://www.google.com/maps/embed/v1/place?key=" + gkey + "&q=" + pt.lat + "," + pt.lng + "&zoom=16";
+                  return (
+                    <div className="mt-3 rounded-2xl overflow-hidden border border-stone-100" style={{ height: "160px" }}>
+                      <iframe title="carte" width="100%" height="100%" style={{ border: 0 }} loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade" src={embed} />
+                    </div>
+                  );
+                }
+                return (
+                  <div className="mt-3 h-28 rounded-2xl bg-gradient-to-br from-indigo-50 to-stone-100 border border-stone-100 flex flex-col items-center justify-center gap-1">
+                    <MapPin size={22} className="text-indigo-400" />
+                    <p className="text-[10px] font-bold text-stone-400">{t("relay_map_soon")}</p>
+                  </div>
+                );
+              })()}
               <div className="grid grid-cols-2 gap-2 mt-3">
                 <button onClick={() => { try { window.open(mapsUrl, "_blank", "noopener,noreferrer"); } catch (e) { window.location.href = mapsUrl; } }}
                   className="bg-indigo-600 text-white text-xs font-extrabold py-3 rounded-xl flex items-center justify-center gap-1.5 active:scale-95">
