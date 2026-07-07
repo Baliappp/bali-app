@@ -5,7 +5,7 @@ import {
   Truck, Star, MapPin, Camera, BadgeCheck, Send, Bell, SlidersHorizontal,
   Wallet, X, Check, Banknote, Package, Globe, Sparkles, Loader2, Store, Zap,
   Video, HeartHandshake, QrCode, Phone, Navigation, Lock, AlertTriangle,
-  CheckCircle2, ArrowLeft, Timer, Share2, Smartphone, CreditCard
+  CheckCircle2, ArrowLeft, Timer, Share2, Smartphone, CreditCard, Clock
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
