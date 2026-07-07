@@ -3443,6 +3443,12 @@ function BaliAppScreen() {
               </div>
               {(() => {
                 const gkey = (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_GOOGLE_MAPS_KEY) ? import.meta.env.VITE_GOOGLE_MAPS_KEY : "";
+                /* DIAGNOSTIC TEMPORAIRE — à retirer une fois la carte OK */
+                const diag = (
+                  <p className="text-[9px] font-bold text-center mt-1" style={{ color: gkey ? "#059669" : "#e11d48" }}>
+                    {gkey ? "🔑 Clé détectée (" + gkey.slice(0, 6) + "…)" : "⚠️ Aucune clé VITE_GOOGLE_MAPS_KEY trouvée au build"}
+                  </p>
+                );
                 if (gkey && pt.lat) {
                   const embed = "https://www.google.com/maps/embed/v1/place?key=" + gkey + "&q=" + pt.lat + "," + pt.lng + "&zoom=16";
                   return (
@@ -3456,6 +3462,7 @@ function BaliAppScreen() {
                   <div className="mt-3 h-28 rounded-2xl bg-gradient-to-br from-indigo-50 to-stone-100 border border-stone-100 flex flex-col items-center justify-center gap-1">
                     <MapPin size={22} className="text-indigo-400" />
                     <p className="text-[10px] font-bold text-stone-400">{t("relay_map_soon")}</p>
+                    {diag}
                   </div>
                 );
               })()}
