@@ -2338,7 +2338,7 @@ function BaliAppScreen() {
       {filterChips()}
 
       <p className="px-5 mt-5 mb-3 text-sm font-extrabold text-stone-900">{t("selection")}</p>
-      <div className="px-5 grid grid-cols-2 gap-3">
+      <div className="px-5 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
         {filteredItems.map((it) => itemCard(it))}
       </div>
     </div>
@@ -2383,7 +2383,7 @@ function BaliAppScreen() {
           <div className="-mt-1">{filterChips()}</div>
           <div className="px-5 mt-4">
             {browseResults.length > 0 ? (
-              <div className="grid grid-cols-2 gap-3">{browseResults.map((it) => itemCard(it))}</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">{browseResults.map((it) => itemCard(it))}</div>
             ) : (
               <div className="mt-14 text-center">
                 <p className="text-4xl">🛍️</p>
@@ -2473,7 +2473,7 @@ function BaliAppScreen() {
             {results.length > 0 ? (
               <>
                 <p className="text-xs font-bold text-stone-500 mt-4 mb-3">{tf("results_w", { n: results.length })}</p>
-                <div className="grid grid-cols-2 gap-3">{results.map((it) => itemCard(it))}</div>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">{results.map((it) => itemCard(it))}</div>
               </>
             ) : (
               <div className="mt-12 text-center">
@@ -4786,16 +4786,46 @@ function BaliAppScreen() {
   if (isPartnerUrl) return partnerApp();
 
   return (
-    <div className="min-h-screen bg-stone-200 flex justify-center font-app">
+    <div className="min-h-screen bg-stone-200 flex flex-col items-center font-app">
       <FontStyles />
-      <div className="w-full max-w-md bg-stone-50 min-h-screen relative shadow-2xl" dir={cur.dir}>
+
+      {/* HEADER DESKTOP — barre horizontale, visible uniquement sur grand écran */}
+      <header className="hidden md:flex sticky top-0 z-40 w-full bg-white border-b border-stone-200 shadow-sm justify-center">
+        <div className="w-full max-w-6xl px-6 h-16 flex items-center gap-6" dir={cur.dir}>
+          <button onClick={() => { setTab("home"); setActiveThread(null); }} className="font-display font-extrabold text-2xl text-indigo-600 shrink-0">
+            بالي <span className="text-stone-900">bali</span>
+          </button>
+          <div className="flex-1 flex items-center gap-2 bg-stone-100 rounded-full px-4 max-w-xl">
+            <Search size={17} className="text-stone-400 shrink-0" />
+            <input value={query} onChange={(e) => { setQuery(e.target.value); setTab("search"); }}
+              placeholder={t("search_on")} className="flex-1 py-2.5 text-sm font-medium outline-none bg-transparent" />
+          </div>
+          <nav className="flex items-center gap-1 shrink-0">
+            {TABS.filter((tb) => tb.id !== "sell").map((tb) => {
+              const Icon = tb.icon; const active = tab === tb.id;
+              return (
+                <button key={tb.id} onClick={() => { setTab(tb.id); setActiveThread(null); }}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-bold transition-colors ${active ? "bg-indigo-50 text-indigo-600" : "text-stone-500 hover:bg-stone-100"}`}>
+                  <Icon size={18} strokeWidth={active ? 2.5 : 2} /> <span className="hidden lg:inline">{t(tb.key)}</span>
+                </button>
+              );
+            })}
+            <button onClick={() => setTab("sell")}
+              className="ms-2 bg-indigo-600 text-white text-sm font-extrabold px-5 py-2.5 rounded-full active:scale-95 hover:bg-indigo-700 transition-colors">
+              + {t("nav_sell")}
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <div className="w-full max-w-md md:max-w-6xl bg-stone-50 md:bg-transparent min-h-screen relative shadow-2xl md:shadow-none" dir={cur.dir}>
         {tab === "home" && homeScreen()}
         {tab === "search" && searchScreen()}
         {tab === "sell" && sellScreen()}
         {tab === "msg" && messagesScreen()}
         {tab === "profile" && profileScreen()}
 
-        <div className="fixed bottom-0 inset-x-0 flex justify-center z-30">
+        <div className="fixed bottom-0 inset-x-0 flex justify-center z-30 md:hidden">
           <div className="w-full max-w-md bg-white border-t border-stone-100 px-2 pt-2 pb-4 flex justify-around" dir={cur.dir}>
             {TABS.map((tb) => {
               const Icon = tb.icon;
