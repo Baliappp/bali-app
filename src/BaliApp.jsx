@@ -22,6 +22,28 @@ const FontStyles = () => (
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     @keyframes scanmove { 0% { top: 10%; } 50% { top: 86%; } 100% { top: 10%; } }
     .scanline { animation: scanmove 2.2s ease-in-out infinite; }
+
+    /* ===== Design System v1 — moteur global ===== */
+    * { -webkit-tap-highlight-color: transparent; }
+    body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+    /* Motion : transitions cohérentes partout, discrètes (150ms ease-out) */
+    button, a { transition: transform .15s ease-out, background-color .15s ease-out, color .15s ease-out, opacity .15s ease-out, border-color .15s ease-out; }
+
+    /* Accessibilité : focus clavier visible (WCAG) */
+    button:focus-visible, a:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; border-radius: 12px; }
+    input:focus-visible, textarea:focus-visible { outline: none; }
+
+    /* Feuilles du bas : glissement doux · voiles : fondu */
+    @keyframes baliUp { from { transform: translateY(24px); opacity: .6; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes baliFade { from { opacity: 0; } to { opacity: 1; } }
+    div[class*="rounded-t-3xl"] { animation: baliUp .22s ease-out; }
+    div[class*="fixed"][class*="bg-black/"] { animation: baliFade .18s ease-out; }
+
+    /* Respect des préférences de mouvement réduit (WCAG) */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
   `}</style>
 );
 
@@ -2194,7 +2216,7 @@ function BaliAppScreen() {
             <button onClick={() => setBrowseSub(null) || (!browseFam || !browseFam.subs ? (setBrowseFam(null), 0) : 0)}>{backChevron}</button>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-extrabold text-stone-900 truncate">{title}</p>
-              {browseSub !== "__all__" && <p className="text-[10px] text-stone-400 font-semibold truncate">{crumb}</p>}
+              {browseSub !== "__all__" && <p className="text-[10px] text-stone-500 font-semibold truncate">{crumb}</p>}
             </div>
             <button onClick={() => openFilter("hub")} className="relative">
               <SlidersHorizontal size={19} className="text-stone-700" />
@@ -2556,7 +2578,7 @@ function BaliAppScreen() {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-extrabold text-stone-900">{dbThread.otherName}</p>
-              <p className="text-[10px] text-stone-400 font-semibold truncate">{dbThread.itemTitle}</p>
+              <p className="text-[10px] text-stone-500 font-semibold truncate">{dbThread.itemTitle}</p>
             </div>
           </div>
           <div className="flex-1 px-5 pt-4 space-y-3">
@@ -2597,7 +2619,7 @@ function BaliAppScreen() {
             </div>
             <div>
               <p className="text-sm font-extrabold text-stone-900">{thread.name}</p>
-              <p className="text-[10px] text-stone-400 font-semibold">{thread.emoji} {thread.itemTitle}</p>
+              <p className="text-[10px] text-stone-500 font-semibold">{thread.emoji} {thread.itemTitle}</p>
             </div>
           </div>
           <div className="flex-1 px-5 pt-4 space-y-3">
@@ -2637,7 +2659,7 @@ function BaliAppScreen() {
             </button>
           ))}
           {dbThreads.length === 0 && (
-            <p className="text-[11px] text-stone-400 font-semibold text-center py-2">{t("msgs_none")}</p>
+            <p className="text-[11px] text-stone-500 font-semibold text-center py-2">{t("msgs_none")}</p>
           )}
           {threads.map((th) => (
             <button key={th.id} onClick={() => setActiveThread(th.id)}
@@ -2749,7 +2771,7 @@ function BaliAppScreen() {
         <div className="flex-1">
           <p className="text-sm font-extrabold text-stone-900">{t("b_score")} · <span className="text-emerald-600">98%</span></p>
           <p className="text-[11px] text-stone-500 font-semibold">{t("b_refus")} ✅ — {t("b_trust")}</p>
-          <p className="text-[10px] text-stone-400 font-semibold mt-0.5">ⓘ {t("fiab_note")}</p>
+          <p className="text-[10px] text-stone-500 font-semibold mt-0.5">ⓘ {t("fiab_note")}</p>
         </div>
       </div>
 
@@ -2774,7 +2796,7 @@ function BaliAppScreen() {
         </div>
         <div className="flex-1 text-left relative">
           <p className="text-sm font-extrabold text-white">{t("become_point")}</p>
-          <p className="text-[11px] text-stone-400 font-semibold">{t("become_sub")}</p>
+          <p className="text-[11px] text-stone-500 font-semibold">{t("become_sub")}</p>
         </div>
       </a>
 
@@ -2807,7 +2829,7 @@ function BaliAppScreen() {
           {myItems.map((it) => itemCard(it))}
         </div>
       ) : (
-        <p className="text-xs text-stone-400 font-semibold text-center py-4">Tu n'as pas encore d'annonce. Publie ton premier article !</p>
+        <p className="text-xs text-stone-500 font-semibold text-center py-4">Tu n'as pas encore d'annonce. Publie ton premier article !</p>
       )}
       <button onClick={() => setTab("sell")}
         className="w-full mt-4 border-2 border-dashed border-indigo-300 text-indigo-600 font-bold text-sm py-4 rounded-2xl flex items-center justify-center gap-2">
@@ -2824,7 +2846,7 @@ function BaliAppScreen() {
       )}
 
       <button onClick={async () => { await supabase.auth.signOut(); setMyProfile(null); setDbThreads([]); setDbThread(null); showToast(t("logout_done")); setObStep(0); setTab("home"); }}
-        className="w-full mt-4 text-stone-400 font-bold text-xs py-3">
+        className="w-full mt-4 text-stone-500 font-bold text-xs py-3">
         {t("logout")}
       </button>
     </div>
@@ -2868,7 +2890,7 @@ function BaliAppScreen() {
             <div className="text-right">
               <p className="text-2xl font-extrabold text-orange-600">{it.price} DH</p>
               {it.oldPrice && <p className="text-[11px] text-stone-400 line-through font-semibold">{it.oldPrice} DH</p>}
-              <p className="text-[10px] text-stone-400 font-semibold">{totalBuyer(it.price)} DH {t("with_prot")}</p>
+              <p className="text-[10px] text-stone-500 font-semibold">{totalBuyer(it.price)} DH {t("with_prot")}</p>
             </div>
           </div>
 
@@ -2925,7 +2947,7 @@ function BaliAppScreen() {
                         <span className="text-[9px] font-extrabold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full">{t("reco")}</span>
                       )}
                     </p>
-                    <p className="text-[9px] text-stone-400 font-bold mt-0.5">⏱ {t(d.eta)}</p>
+                    <p className="text-[9px] text-stone-500 font-bold mt-0.5">⏱ {t(d.eta)}</p>
                   </div>
                   <p className={`text-xs font-extrabold shrink-0 ${active ? "text-indigo-700" : "text-stone-500"}`}>{d.price} DH</p>
                 </button>
@@ -3521,7 +3543,7 @@ function BaliAppScreen() {
           {pObStep === 0 && (
             <>
               <p className="font-display font-extrabold text-2xl">Ton hanout 🏪</p>
-              <p className="text-xs text-stone-400 font-semibold mt-1">3 infos, 2 minutes. Validation sous 24 h.</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">3 infos, 2 minutes. Validation sous 24 h.</p>
               <input value={pObName} onChange={(e) => setPObName(e.target.value)}
                 placeholder="Nom du magasin — ex : Hanout Al Baraka"
                 className="w-full mt-5 bg-stone-800 border border-stone-700 rounded-2xl px-4 py-3.5 text-sm font-bold outline-none focus:border-amber-400 text-white placeholder-stone-500" />
@@ -3546,7 +3568,7 @@ function BaliAppScreen() {
           {pObStep === 1 && (
             <>
               <p className="font-display font-extrabold text-2xl">L'adresse du magasin 📍</p>
-              <p className="text-xs text-stone-400 font-semibold mt-1">Les scans ne seront valides qu'à cette adresse — c'est ta protection.</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">Les scans ne seront valides qu'à cette adresse — c'est ta protection.</p>
               <div className="mt-5 h-40 rounded-3xl bg-gradient-to-br from-stone-800 to-stone-700 relative overflow-hidden flex items-center justify-center border border-stone-700">
                 <span className="absolute w-16 h-16 rounded-full border-2 border-amber-400/40 animate-ping" />
                 <MapPin size={34} className="text-amber-400 relative" />
@@ -3562,7 +3584,7 @@ function BaliAppScreen() {
           {pObStep === 2 && (
             <>
               <p className="font-display font-extrabold text-2xl">Tes versements 💰</p>
-              <p className="text-xs text-stone-400 font-semibold mt-1">4 DH par colis · versé chaque lundi · tu ne touches jamais d'espèces.</p>
+              <p className="text-xs text-stone-500 font-semibold mt-1">4 DH par colis · versé chaque lundi · tu ne touches jamais d'espèces.</p>
               <input value={pObRib} onChange={(e) => setPObRib(e.target.value.replace(/[^0-9]/g, "").slice(0, 24))}
                 inputMode="numeric" placeholder="RIB (24 chiffres)"
                 className="w-full mt-5 bg-stone-800 border border-stone-700 rounded-2xl px-4 py-3.5 text-sm font-bold outline-none focus:border-amber-400 text-white placeholder-stone-500" />
@@ -3576,7 +3598,7 @@ function BaliAppScreen() {
             <>
               <CheckCircle2 size={60} className="text-emerald-400" />
               <p className="font-display font-extrabold text-2xl mt-4">Dossier envoyé ✅</p>
-              <p className="text-xs text-stone-400 font-semibold mt-2 leading-relaxed">
+              <p className="text-xs text-stone-500 font-semibold mt-2 leading-relaxed">
                 Validation sous 24 h, réponse par WhatsApp — puis 15 minutes de formation sur place et ton point est ouvert.
               </p>
               <div className="mt-5 bg-stone-800 rounded-2xl p-4 space-y-1.5 border border-stone-700">
@@ -3622,7 +3644,7 @@ function BaliAppScreen() {
             </button>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-extrabold text-stone-900">{t("deposit_title")}</p>
-              <p className="text-[10px] text-stone-400 font-bold truncate">{SALE.code} · {SALE.item.emoji} {SALE.item.title} · {SALE.buyer}</p>
+              <p className="text-[10px] text-stone-500 font-bold truncate">{SALE.code} · {SALE.item.emoji} {SALE.item.title} · {SALE.buyer}</p>
             </div>
             <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full shrink-0 ${saleDropped ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>
               {saleDropped ? t("dep_status_ok") : t("dep_status_todo")}
@@ -3642,7 +3664,7 @@ function BaliAppScreen() {
                   <div className="p-3 rounded-2xl border-2 border-stone-100 bg-white">
                     <QRCodeSVG seed={"DEP-" + SALE.code} size={168} />
                   </div>
-                  <p className="text-[10px] text-stone-400 font-bold mt-3 text-center">{t("dep_show")}</p>
+                  <p className="text-[10px] text-stone-500 font-bold mt-3 text-center">{t("dep_show")}</p>
                 </>
               )}
             </div>
@@ -3664,7 +3686,7 @@ function BaliAppScreen() {
                 <div className="flex-1">
                   <p className="text-sm font-extrabold text-stone-900">{ORDER.point.name}</p>
                   <p className="text-[11px] text-stone-500 font-semibold">{ORDER.point.addr}</p>
-                  <p className="text-[10px] text-stone-400 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
+                  <p className="text-[10px] text-stone-500 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
                 </div>
               </div>
               <div className="flex gap-2 mt-3">
@@ -3703,7 +3725,7 @@ function BaliAppScreen() {
                   </div>
                   <div className="pb-3">
                     <p className={`text-xs font-extrabold ${st.done ? "text-stone-900" : "text-stone-400"}`}>{t(st.k)}</p>
-                    <p className="text-[10px] text-stone-400 font-semibold">{st.d}</p>
+                    <p className="text-[10px] text-stone-500 font-semibold">{st.d}</p>
                   </div>
                 </div>
               ))}
@@ -3747,7 +3769,7 @@ function BaliAppScreen() {
             </button>
             <div className="flex-1">
               <p className="text-sm font-extrabold text-stone-900">{t("ticket_title")}</p>
-              <p className="text-[10px] text-stone-400 font-bold">{ORDER.code} · {ORDER.item.emoji} {ORDER.item.title}</p>
+              <p className="text-[10px] text-stone-500 font-bold">{ORDER.code} · {ORDER.item.emoji} {ORDER.item.title}</p>
             </div>
             <span className={`text-[10px] font-extrabold px-2.5 py-1 rounded-full ${delivered ? "bg-emerald-100 text-emerald-700" : "bg-indigo-100 text-indigo-700"}`}>
               {delivered ? t("tl_picked") : t("tl_arrived")}
@@ -3772,7 +3794,7 @@ function BaliAppScreen() {
                       <div className="h-full bg-indigo-500 rounded-full transition-all"
                         style={{ width: `${(qrLeft / 60) * 100}%` }} />
                     </div>
-                    <p className="text-[10px] text-stone-400 font-bold mt-2 flex items-center justify-center gap-1">
+                    <p className="text-[10px] text-stone-500 font-bold mt-2 flex items-center justify-center gap-1">
                       <Timer size={11} /> {tf("qr_regen", { s: qrLeft })} · {t("single_use")}
                     </p>
                   </div>
@@ -3794,7 +3816,7 @@ function BaliAppScreen() {
                     {pinShown ? t("hide_pin") : t("show_pin")}
                   </button>
                 </div>
-                <p className="text-[10px] text-stone-400 font-semibold mt-3 flex items-start gap-1.5">
+                <p className="text-[10px] text-stone-500 font-semibold mt-3 flex items-start gap-1.5">
                   <Lock size={11} className="mt-0.5 shrink-0" /> {t("pin_warn")}
                 </p>
               </div>
@@ -3822,7 +3844,7 @@ function BaliAppScreen() {
                 <div className="flex-1">
                   <p className="text-sm font-extrabold text-stone-900">{ORDER.point.name}</p>
                   <p className="text-[11px] text-stone-500 font-semibold">{ORDER.point.addr}</p>
-                  <p className="text-[10px] text-stone-400 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
+                  <p className="text-[10px] text-stone-500 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
                 </div>
               </div>
               <div className="flex gap-2 mt-3">
@@ -3851,7 +3873,7 @@ function BaliAppScreen() {
                   </div>
                   <div className="pb-3">
                     <p className={`text-xs font-extrabold ${st.done ? "text-stone-900" : "text-stone-400"}`}>{t(st.k)}</p>
-                    <p className="text-[10px] text-stone-400 font-semibold">{st.d}</p>
+                    <p className="text-[10px] text-stone-500 font-semibold">{st.d}</p>
                   </div>
                 </div>
               ))}
@@ -3861,7 +3883,7 @@ function BaliAppScreen() {
             {orderStatus === "delivered" && (
               <div className="bg-white rounded-3xl p-5 shadow-sm">
                 <p className="text-sm font-extrabold text-stone-900">{t("inspect_title")} 🔍</p>
-                <p className="text-[10px] text-stone-400 font-semibold mt-1">{t("inspect_hint")}</p>
+                <p className="text-[10px] text-stone-500 font-semibold mt-1">{t("inspect_hint")}</p>
                 <div className="mt-3 space-y-2">
                   {["insp_1", "insp_2", "insp_3"].map((k, i) => (
                     <button key={k} onClick={() => setInspChecks(inspChecks.map((v, j) => (j === i ? !v : v)))}
@@ -3893,7 +3915,7 @@ function BaliAppScreen() {
             {!delivered && (
               <p className="text-[10px] text-amber-700 font-bold text-center">{tf("pickup_by", { d: ORDER.deadline })}</p>
             )}
-            <p className="text-[10px] text-stone-400 font-semibold text-center flex items-center justify-center gap-1.5">
+            <p className="text-[10px] text-stone-500 font-semibold text-center flex items-center justify-center gap-1.5">
               <ShieldCheck size={12} className="text-emerald-600" /> {t("secu_line")}
             </p>
 
@@ -3935,7 +3957,7 @@ function BaliAppScreen() {
                 </div>
                 <div>
                   <p className="font-display font-extrabold text-base leading-none">bali <span className="text-amber-400">Partenaire</span></p>
-                  <p className="text-[10px] text-stone-400 font-bold mt-1">{ORDER.point.name} · {ORDER.point.owner}</p>
+                  <p className="text-[10px] text-stone-500 font-bold mt-1">{ORDER.point.name} · {ORDER.point.owner}</p>
                 </div>
               </div>
               {!isPartnerUrl && (
@@ -4128,7 +4150,7 @@ function BaliAppScreen() {
                     <div className="h-1.5 bg-stone-700 rounded-full mt-3 overflow-hidden relative">
                       <div className="h-full bg-amber-400 rounded-full transition-all" style={{ width: `${Math.min(100, (week / 150) * 100)}%` }} />
                     </div>
-                    <p className="text-[10px] text-stone-400 font-bold mt-2 relative">Objectif semaine : {week} / 150 DH · 0 espèces à gérer — versement chaque lundi</p>
+                    <p className="text-[10px] text-stone-500 font-bold mt-2 relative">Objectif semaine : {week} / 150 DH · 0 espèces à gérer — versement chaque lundi</p>
                   </div>
 
                   {/* Niveau — motivation */}
@@ -4242,7 +4264,7 @@ function BaliAppScreen() {
                   className={`w-full mt-3 font-extrabold py-4 rounded-2xl transition-colors ${pinInput.length === 4 ? "bg-stone-900 text-white" : "bg-stone-200 text-stone-400"}`}>
                   Vérifier le PIN
                 </button>
-                <p className="text-[10px] text-stone-400 font-semibold mt-3">Démo : le PIN se trouve sur le ticket du client 😉</p>
+                <p className="text-[10px] text-stone-500 font-semibold mt-3">Démo : le PIN se trouve sur le ticket du client 😉</p>
               </div>
               <button onClick={() => setPScreen("dash")} className="w-full text-xs font-extrabold text-stone-500">← Annuler</button>
             </div>
@@ -4314,7 +4336,7 @@ function BaliAppScreen() {
                     </div>
                     <div className="pb-2.5">
                       <p className="text-xs font-extrabold text-stone-900">{l}</p>
-                      <p className="text-[10px] text-stone-400 font-semibold">{d}</p>
+                      <p className="text-[10px] text-stone-500 font-semibold">{d}</p>
                     </div>
                   </div>
                 ))}
@@ -4542,7 +4564,7 @@ function BaliAppScreen() {
                       <input value={fPriceMin} onChange={(e) => setFPriceMin(e.target.value.replace(/[^0-9]/g, ""))}
                         inputMode="numeric" placeholder={t("price_min_ph")}
                         className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-400" />
-                      <span className="text-stone-400 font-bold">—</span>
+                      <span className="text-stone-500 font-bold">—</span>
                       <input value={fPriceMax} onChange={(e) => setFPriceMax(e.target.value.replace(/[^0-9]/g, ""))}
                         inputMode="numeric" placeholder={t("price_max_ph")}
                         className="flex-1 bg-stone-50 border border-stone-200 rounded-xl px-4 py-3 text-sm font-bold outline-none focus:border-indigo-400" />
@@ -4665,7 +4687,7 @@ function BaliAppScreen() {
                 </div>
               </div>
 
-              {!adminStats && <p className="text-center text-xs text-stone-400 font-semibold py-10">…</p>}
+              {!adminStats && <p className="text-center text-xs text-stone-500 font-semibold py-10">…</p>}
 
               {/* CHIFFRES */}
               {adminTab === "stats" && adminStats && (
@@ -4704,15 +4726,15 @@ function BaliAppScreen() {
                       <div key={i} className="bg-white rounded-xl px-3.5 py-2.5 shadow-sm flex items-center justify-between">
                         <div className="min-w-0">
                           <p className="text-[11px] font-extrabold text-stone-900">{o.code}</p>
-                          <p className="text-[10px] text-stone-400 font-semibold truncate">{o.items && o.items.title ? o.items.title : "—"}</p>
+                          <p className="text-[10px] text-stone-500 font-semibold truncate">{o.items && o.items.title ? o.items.title : "—"}</p>
                         </div>
                         <div className="text-right shrink-0">
                           <p className="text-[11px] font-extrabold text-stone-900">{o.total_dh} DH</p>
-                          <p className="text-[9px] text-stone-400 font-bold">{o.status}</p>
+                          <p className="text-[9px] text-stone-500 font-bold">{o.status}</p>
                         </div>
                       </div>
                     ))}
-                    {adminOrders.length === 0 && <p className="text-[11px] text-stone-400 font-semibold text-center py-3">—</p>}
+                    {adminOrders.length === 0 && <p className="text-[11px] text-stone-500 font-semibold text-center py-3">—</p>}
                   </div>
                 </div>
               )}
@@ -4727,7 +4749,7 @@ function BaliAppScreen() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-xs font-extrabold text-stone-900 truncate">{it.title}</p>
-                        <p className="text-[10px] text-stone-400 font-semibold">{it.price_dh} DH · {it.category} · <span className={it.status === "active" ? "text-emerald-500" : "text-stone-400"}>{it.status}</span></p>
+                        <p className="text-[10px] text-stone-500 font-semibold">{it.price_dh} DH · {it.category} · <span className={it.status === "active" ? "text-emerald-500" : "text-stone-400"}>{it.status}</span></p>
                       </div>
                       {it.status === "active" && (
                         <button onClick={() => adminRemoveItem(it.id)}
@@ -4737,7 +4759,7 @@ function BaliAppScreen() {
                       )}
                     </div>
                   ))}
-                  {adminItems.length === 0 && <p className="text-[11px] text-stone-400 font-semibold text-center py-6">—</p>}
+                  {adminItems.length === 0 && <p className="text-[11px] text-stone-500 font-semibold text-center py-6">—</p>}
                 </div>
               )}
             </div>
@@ -4786,7 +4808,7 @@ function BaliAppScreen() {
 
                 <div className="px-5 pt-4 space-y-2.5">
                   {list.length === 0 && (
-                    <p className="text-xs text-stone-400 font-semibold text-center py-6">{ordersTab === "buys" ? t("no_buys") : t("no_sells")}</p>
+                    <p className="text-xs text-stone-500 font-semibold text-center py-6">{ordersTab === "buys" ? t("no_buys") : t("no_sells")}</p>
                   )}
                   {list.map((o) => (
                     <div key={o.id} className="bg-white rounded-2xl p-4 shadow-sm">
@@ -4797,7 +4819,7 @@ function BaliAppScreen() {
                       <p className="text-[11px] text-stone-500 font-semibold mt-1">
                         {o.items && o.items.title ? o.items.title : "Article"} · {o.total_dh} DH
                       </p>
-                      <p className="text-[10px] text-stone-400 font-semibold mt-0.5">
+                      <p className="text-[10px] text-stone-500 font-semibold mt-0.5">
                         {o.iSell ? t("other_buyer") : t("other_seller")} : {o.otherName}
                       </p>
 
@@ -4809,7 +4831,7 @@ function BaliAppScreen() {
                         </button>
                       ) : (
                         !o.iSell && (
-                          <p className="text-[10px] text-stone-400 font-bold mt-1.5 flex items-center gap-1">
+                          <p className="text-[10px] text-stone-500 font-bold mt-1.5 flex items-center gap-1">
                             <Lock size={10} /> {t("order_pin_hidden")}
                           </p>
                         )
