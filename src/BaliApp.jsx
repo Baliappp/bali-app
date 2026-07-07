@@ -3312,10 +3312,11 @@ function BaliAppScreen() {
             <QRCodeSVG seed={"PAY-ABDL-" + qrSeed} size={140} />
           </div>
           <p className="text-[11px] text-stone-500 font-semibold text-center mt-3 leading-relaxed">{t("cashin_txt")}</p>
-          <div className="w-full mt-3 bg-stone-50 rounded-2xl p-3 flex items-center gap-3">
+          <button onClick={() => setRelayView(ORDER.point)} className="w-full mt-3 bg-stone-50 rounded-2xl p-3 flex items-center gap-3 active:scale-[0.98] transition-transform">
             <Store size={16} className="text-indigo-600 shrink-0" />
-            <p className="text-[11px] font-extrabold text-stone-700">{ORDER.point.name} · {ORDER.point.dist} · {ORDER.point.hours}</p>
-          </div>
+            <p className="text-[11px] font-extrabold text-stone-700 flex-1 text-left">{ORDER.point.name} · {ORDER.point.dist} · {ORDER.point.hours}</p>
+            <ChevronLeft size={13} className={`text-stone-400 ${cur.dir === "rtl" ? "" : "rotate-180"}`} />
+          </button>
         </div>
       </div>
     </div>
@@ -3404,7 +3405,7 @@ function BaliAppScreen() {
     const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(pt.addr) + (pt.lat ? "&query=" + pt.lat + "," + pt.lng : "");
     const wazeUrl = pt.lat ? "https://waze.com/ul?ll=" + pt.lat + "," + pt.lng + "&navigate=yes" : "https://waze.com/ul?q=" + encodeURIComponent(pt.addr);
     return (
-      <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
+      <div className="fixed inset-0 z-[60] flex justify-center bg-black/40" dir={cur.dir}>
         <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-10">
           <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
             <button onClick={() => setRelayView(null)} aria-label={t("back")}>
@@ -3486,7 +3487,7 @@ function BaliAppScreen() {
     const isFollowed = sellerId ? !!following[sellerId] : false;
     const fCount = sellerId && followerCounts[sellerId] != null ? followerCounts[sellerId] : (s.sales ? 0 : 0);
     return (
-      <div className="fixed inset-0 z-30 flex justify-center bg-black/40" dir={cur.dir}>
+      <div className="fixed inset-0 z-[60] flex justify-center bg-black/40" dir={cur.dir}>
         <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app pb-10">
           <div className="px-5 pt-5 pb-3 flex items-center gap-3 bg-white shadow-sm sticky top-0 z-10">
             <button onClick={() => setSellerView(null)} aria-label="Retour">
@@ -3966,28 +3967,21 @@ function BaliAppScreen() {
             </div>
 
             {/* Ton point de dépôt */}
-            <div className="bg-white rounded-3xl p-4 shadow-sm">
+            <button onClick={() => setRelayView(ORDER.point)} className="w-full text-left bg-white rounded-3xl p-4 shadow-sm active:scale-[0.99] transition-transform">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-2xl bg-indigo-50 flex items-center justify-center shrink-0">
                   <Store size={20} className="text-indigo-600" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-sm font-extrabold text-stone-900">{ORDER.point.name}</p>
+                  <p className="text-sm font-extrabold text-stone-900 flex items-center gap-1">{ORDER.point.name} <ChevronLeft size={13} className={`text-stone-400 ${cur.dir === "rtl" ? "" : "rotate-180"}`} /></p>
                   <p className="text-[11px] text-stone-500 font-semibold">{ORDER.point.addr}</p>
-                  <p className="text-[10px] text-stone-500 font-bold mt-0.5">{ORDER.point.hours} · {ORDER.point.dist}</p>
+                  <p className="text-[10px] text-stone-500 font-bold mt-0.5 flex items-center gap-1">
+                    <Star size={10} className="fill-amber-500 text-amber-500" /> {ORDER.point.rating} · {ORDER.point.hours} · {ORDER.point.dist}
+                  </p>
                 </div>
               </div>
-              <div className="flex gap-2 mt-3">
-                <button onClick={() => showToast("Ouverture de l'itinéraire 🗺️ (démo)")}
-                  className="flex-1 bg-indigo-600 text-white text-xs font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5">
-                  <Navigation size={13} /> {t("route")}
-                </button>
-                <button onClick={() => showToast("Appel du point relais 📞 (démo)")}
-                  className="flex-1 bg-stone-100 text-stone-700 text-xs font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5">
-                  <Phone size={13} /> {t("call_w")}
-                </button>
-              </div>
-            </div>
+              <p className="text-[10px] text-indigo-600 font-extrabold mt-2">{t("relay_see")} →</p>
+            </button>
 
             {/* Les 3 gestes avant de déposer */}
             <div className="bg-white rounded-3xl p-4 shadow-sm space-y-2.5">
@@ -4804,8 +4798,6 @@ function BaliAppScreen() {
           </div>
         )}
 
-        {sellerView && sellerScreen(sellerView)}
-        {relayView && relayScreen(relayView)}
         {item && itemDetail(item)}
         {orderOpen && ticketScreen()}
         {saleOpen && depositScreen()}
@@ -5188,6 +5180,10 @@ function BaliAppScreen() {
         )}
         {pObStep >= 0 && partnerOnboarding()}
         {notifOpen && notifSheet()}
+
+        {/* Fiches par-dessus tout : vendeur et point relais (z le plus élevé) */}
+        {sellerView && sellerScreen(sellerView)}
+        {relayView && relayScreen(relayView)}
         {langOpen && langSheet()}
       </div>
     </div>
