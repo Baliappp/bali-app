@@ -338,7 +338,7 @@ div.bg-white.border-t {
     align-items: center !important;
   }
   .fixed.inset-0.items-end > .rounded-t-3xl {
-    max-width: 30rem;
+    max-width: 34rem;
     border-radius: 1.75rem !important;
     max-height: min(88vh, 780px);
     overflow-y: auto;
@@ -347,21 +347,22 @@ div.bg-white.border-t {
     animation: bali-pop .34s cubic-bezier(.22, 1, .36, 1) both;
   }
 
-  /* b) Les PANNEAUX PLEIN ECRAN deviennent des panneaux flottants.
-        (relais, vendeur, ticket, depot, ecrans stone-50...) */
+  /* b) Les PANNEAUX PLEIN ECRAN deviennent des panneaux flottants larges.
+        (relais, vendeur, ticket, depot, ecrans stone-50, app Partenaire...) */
   .fixed.inset-0.justify-center:not(.items-end):not(.items-center) {
     align-items: center !important;
-    padding: 2.5rem 1.5rem;
+    padding: 2rem 2rem;
   }
-  .fixed.inset-0.justify-center > .bg-stone-50.overflow-y-auto,
-  .fixed.inset-0.justify-center > .bg-stone-900 {
-    max-width: 34rem;
+  /* La boite de contenu = premier enfant .max-w-md, quelle que soit sa couleur.
+     Couvre a la fois les ecrans stone-50 ET l'app Partenaire (fond stone-900). */
+  .fixed.inset-0.justify-center:not(.items-end):not(.items-center) > .max-w-md {
+    max-width: 46rem !important;
     min-height: 0 !important;
-    height: min(90vh, 840px);
+    height: min(92vh, 900px);
     border-radius: 1.75rem;
     overflow: hidden auto;
-    box-shadow: 0 40px 80px -20px rgba(var(--bali-ink), .34),
-                0 14px 30px -12px rgba(0, 0, 0, .30);
+    box-shadow: 0 40px 90px -20px rgba(var(--bali-ink), .36),
+                0 16px 34px -12px rgba(0, 0, 0, .34);
     animation: bali-pop .36s cubic-bezier(.22, 1, .36, 1) both;
   }
 
