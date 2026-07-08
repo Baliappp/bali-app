@@ -324,6 +324,59 @@ div.bg-white.border-t {
 }
 
 /* ------------------------------------------------------------------
+   10. TOUTES LES SURFACES EN VRAIE VERSION WEB (desktop >= 768px)
+   Regle globale : chaque overlay qui s'ouvre passe d'une bande
+   pleine largeur (mobile) a une fenetre/panneau flottant centre.
+   Zero JS, zero changement de structure : on retaille les motifs.
+   ------------------------------------------------------------------ */
+@media (min-width: 768px) {
+
+  /* a) Les FEUILLES DU BAS deviennent des fenetres centrees.
+        (paiement, confiance, langue, notifs, filtres, offre,
+         checkout, depot hanoutier, nom...) */
+  .fixed.inset-0.items-end {
+    align-items: center !important;
+  }
+  .fixed.inset-0.items-end > .rounded-t-3xl {
+    max-width: 30rem;
+    border-radius: 1.75rem !important;
+    max-height: min(88vh, 780px);
+    overflow-y: auto;
+    box-shadow: 0 32px 70px -16px rgba(var(--bali-ink), .32),
+                0 12px 24px -10px rgba(var(--bali-ink), .18);
+    animation: bali-pop .34s cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  /* b) Les PANNEAUX PLEIN ECRAN deviennent des panneaux flottants.
+        (relais, vendeur, ticket, depot, ecrans stone-50...) */
+  .fixed.inset-0.justify-center:not(.items-end):not(.items-center) {
+    align-items: center !important;
+    padding: 2.5rem 1.5rem;
+  }
+  .fixed.inset-0.justify-center > .bg-stone-50.overflow-y-auto,
+  .fixed.inset-0.justify-center > .bg-stone-900 {
+    max-width: 34rem;
+    min-height: 0 !important;
+    height: min(90vh, 840px);
+    border-radius: 1.75rem;
+    overflow: hidden auto;
+    box-shadow: 0 40px 80px -20px rgba(var(--bali-ink), .34),
+                0 14px 30px -12px rgba(0, 0, 0, .30);
+    animation: bali-pop .36s cubic-bezier(.22, 1, .36, 1) both;
+  }
+
+  /* c) Petite modale centree (confirmations) : juste un lift d'ombre */
+  .fixed.inset-0.items-center > .rounded-3xl {
+    box-shadow: 0 32px 70px -18px rgba(var(--bali-ink), .34);
+    animation: bali-pop .3s cubic-bezier(.22, 1, .36, 1) both;
+  }
+}
+@keyframes bali-pop {
+  from { opacity: 0; transform: translateY(14px) scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ------------------------------------------------------------------
    8. ACCESSIBILITE - reduction des animations si demandee par l'OS
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
