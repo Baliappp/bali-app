@@ -2250,40 +2250,44 @@ function BaliAppScreen() {
   /* ---------------------------------------------------------------- */
 
   const itemCard = (it) => (
-    <button key={it.id} onClick={() => openItem(it)} className="text-left bg-white rounded-2xl overflow-hidden shadow-sm active:scale-95 transition-transform">
+    <button key={it.id} onClick={() => openItem(it)} className="item-card group text-left bg-white rounded-2xl overflow-hidden shadow-sm active:scale-[0.98] transition-all">
       <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
         {it.photo ? (
-          <img src={it.photo} alt={it.title} className="w-full h-full object-cover" />
+          <img src={it.photo} alt={it.title} className="item-card-img w-full h-full object-cover" />
         ) : (
-          <span className="text-6xl">{it.emoji}</span>
+          <span className="item-card-img text-6xl">{it.emoji}</span>
         )}
-        {!it.real && (
-          <span className="absolute top-2 start-2 bg-white/85 text-stone-500 text-[9px] font-extrabold px-2 py-0.5 rounded-full">{t("beta")}</span>
+        <span className="item-card-veil absolute inset-x-0 bottom-0 h-16 pointer-events-none" />
+        {it.oldPrice && (
+          <span className="absolute top-2 start-2 z-10 bg-[#BF5233] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-sm">−{Math.round((1 - it.price / it.oldPrice) * 100)}%</span>
+        )}
+        {!it.real && !it.oldPrice && (
+          <span className="absolute top-2 start-2 z-10 bg-white/90 text-stone-500 text-[9px] font-extrabold px-2 py-0.5 rounded-full">{t("beta")}</span>
         )}
         {it.video && (
-          <span className="absolute bottom-2 left-2 bg-stone-900/80 text-white rounded-full p-1.5">
+          <span className="absolute bottom-2 left-2 z-10 bg-stone-900/80 text-white rounded-full p-1.5">
             <Video size={11} />
           </span>
         )}
         <button onClick={(e) => toggleLike(it.id, e)}
-          className="absolute top-2 right-2 bg-white/90 rounded-full px-2 py-1 flex items-center gap-1 shadow-sm">
+          className="item-like absolute top-2 right-2 z-10 bg-white/90 rounded-full px-2 py-1 flex items-center gap-1 shadow-sm active:scale-90 transition-transform">
           <Heart size={14} className={liked[it.id] ? "text-rose-500 fill-rose-500" : "text-stone-500"} />
           <span className="text-xs font-semibold text-stone-600">{it.likes + (liked[it.id] ? 1 : 0)}</span>
         </button>
       </div>
       <div className="p-3">
         <p className="text-sm font-bold text-stone-900 truncate">{it.title}</p>
-        <p className="text-xs text-stone-500 mt-0.5">{it.brand}{it.size !== "—" ? " · " + it.size : ""} · {t("conds")[it.cond]}</p>
-        <div className="flex items-baseline justify-between mt-2">
-          <p className="text-base font-extrabold text-orange-600">
+        <p className="text-xs text-stone-500 mt-0.5 truncate">{it.brand}{it.size !== "—" ? " · " + it.size : ""} · {t("conds")[it.cond]}</p>
+        <div className="flex items-baseline justify-between mt-2 gap-2">
+          <p className="text-base font-extrabold text-[#AE4527] shrink-0">
             {it.price} DH
             {it.oldPrice && <span className="text-[10px] text-stone-400 line-through font-semibold"> {it.oldPrice}</span>}
           </p>
-          <p className="text-[10px] text-stone-400 flex items-center gap-0.5">
-            <MapPin size={10} /> {it.city}
+          <p className="text-[10px] text-stone-400 flex items-center gap-0.5 truncate">
+            <MapPin size={10} className="shrink-0" /> {it.city}
           </p>
         </div>
-        <p className="text-[10px] text-emerald-700 font-semibold mt-1 flex items-center gap-1">
+        <p className="mt-2 inline-flex items-center gap-1 bg-[#EFFBF9] text-[#0C6E66] text-[10px] font-bold px-2 py-1 rounded-lg">
           <ShieldCheck size={11} /> {totalBuyer(it.price)} DH · {t("prot_incl")}
         </p>
       </div>
@@ -2310,29 +2314,34 @@ function BaliAppScreen() {
 
   const homeScreen = () => (
     <div className="pb-28 md:pb-12">
-      {/* HERO DESKTOP — bandeau d'accueil chaleureux (grand écran) */}
+      {/* HERO DESKTOP — scène immersive (prête pour photo) + recherche intégrée */}
       <div className="hidden md:block px-6 pt-6">
-        <div className="max-w-6xl mx-auto rounded-3xl overflow-hidden relative" style={{ background: "linear-gradient(120deg, #10AA9F 0%, #17C1B5 55%, #2CCEC2 100%)" }}>
-          <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.4), transparent 40%)" }} />
-          <div className="relative px-10 py-12 flex items-center justify-between gap-8">
-            <div className="max-w-xl">
-              <p className="text-white/80 font-bold text-sm mb-2">بالي · {t("banner2")}</p>
-              <h1 className="font-display font-extrabold text-4xl lg:text-5xl text-white leading-tight">{t("hero_title")}</h1>
-              <p className="text-white/90 font-semibold text-lg mt-3">{t("hero_sub")}</p>
-              <div className="flex gap-3 mt-6">
-                <button onClick={() => setTab("sell")}
-                  className="bg-white text-indigo-700 font-extrabold px-6 py-3 rounded-full active:scale-95 hover:bg-stone-100 transition-colors shadow-lg">
-                  {t("hero_sell")} →
-                </button>
-                <button onClick={() => setTab("search")}
-                  className="bg-white/15 border border-white/30 text-white font-extrabold px-6 py-3 rounded-full active:scale-95 hover:bg-white/25 transition-colors">
-                  {t("hero_browse")}
-                </button>
-              </div>
+        <div className="hero-stage max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative">
+          <div className="hero-veil absolute inset-0" />
+          <Star8 size={340} className="absolute -right-20 -top-24 text-white/10" />
+          <Star8 size={180} className="absolute right-40 bottom-[-40px] text-white/[0.07]" />
+          <div className="relative px-12 py-16 lg:py-20 max-w-3xl">
+            <p className="inline-flex items-center gap-2 text-white/90 font-bold text-xs bg-white/15 backdrop-blur border border-white/20 rounded-full px-3 py-1.5 mb-5">
+              بالي · {t("banner2")}
+            </p>
+            <h1 className="font-display font-extrabold text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight">{t("hero_title")}</h1>
+            <p className="text-white/90 font-semibold text-xl mt-4 max-w-xl">{t("hero_sub")}</p>
+            <div className="mt-8 flex items-stretch gap-2 max-w-xl">
+              <button onClick={() => setTab("search")}
+                className="flex-1 flex items-center gap-3 bg-white rounded-2xl px-5 py-4 text-left shadow-xl active:scale-[0.99] hover:shadow-2xl transition-all">
+                <Search size={20} className="text-[#AE4527] shrink-0" />
+                <span className="text-sm font-semibold text-stone-500">{t("search_ph")}</span>
+              </button>
+              <button onClick={() => setTab("sell")}
+                className="bg-[#BF5233] hover:bg-[#AE4527] text-white font-extrabold px-6 rounded-2xl active:scale-95 transition-all shadow-xl flex items-center gap-2 whitespace-nowrap">
+                <Plus size={18} /> {t("hero_sell")}
+              </button>
             </div>
-            <div className="hidden lg:flex gap-3 shrink-0">
-              {["👗", "👟", "📱"].map((e, i) => (
-                <div key={i} className={`w-24 h-24 rounded-3xl bg-white/15 backdrop-blur flex items-center justify-center text-5xl ${i === 1 ? "mt-8" : ""}`}>{e}</div>
+            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2">
+              {[["🛡️", t("badge_inspect")], ["🏪", t("ob_v2")], ["↩️", t("badge_refund")]].map(([e, txt]) => (
+                <span key={txt} className="flex items-center gap-2 text-white/90 text-sm font-bold">
+                  <span>{e}</span> {txt}
+                </span>
               ))}
             </div>
           </div>
@@ -2378,8 +2387,8 @@ function BaliAppScreen() {
       </div>
       {/* fin en-tête mobile */}
 
-      {/* Une seule bannière : promesse + cadeau */}
-      <div className="mx-5 mt-4 relative overflow-hidden rounded-3xl bg-indigo-600 text-white p-5">
+      {/* Bannière promesse + cadeau (compacte, sous le hero) */}
+      <div className="mx-5 md:max-w-6xl md:mx-auto md:px-0 mt-4 relative overflow-hidden rounded-3xl bg-indigo-600 text-white p-5">
         <Star8 size={90} className="absolute -right-4 -top-5 text-indigo-500 opacity-60" />
         <p className="font-display font-bold text-lg leading-snug relative">{t("banner1")}</p>
         <p className="text-indigo-200 text-xs mt-1.5 font-semibold relative">{t("banner2")}</p>
@@ -2390,8 +2399,60 @@ function BaliAppScreen() {
         </button>
       </div>
 
-      {/* Le parcours en 3 étapes — compris en 3 secondes */}
-      <div className="px-5 mt-3">
+      {/* 1. CATEGORIES PRINCIPALES — accès direct, priorité haute */}
+      <div className="mt-6 md:max-w-6xl md:mx-auto md:px-5">
+        <p className="px-5 md:px-0 mb-3 text-sm font-extrabold text-stone-900">{t("scats")}</p>
+        <div className="home-cats flex md:grid md:grid-cols-8 gap-3 px-5 md:px-0 overflow-x-auto no-scrollbar pb-1">
+          {CATEGORIES.map((c) => (
+            <button key={c.id} onClick={() => { setTab("search"); openFilter("cat"); }}
+              className="cat-chip group shrink-0 flex flex-col items-center gap-2">
+              <span className={`w-16 h-16 md:w-full md:aspect-square md:h-auto rounded-2xl bg-gradient-to-br ${c.grad} flex items-center justify-center text-2xl shadow-sm transition-transform`}>{c.emoji}</span>
+              <span className="text-[11px] font-bold text-stone-700 text-center leading-tight">{t("cat_" + c.id)}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 2. DEALS DU JOUR — urgence */}
+      <div className="mt-7 md:max-w-6xl md:mx-auto md:px-5">
+        <div className="px-5 md:px-0 flex items-center justify-between">
+          <p className="text-sm font-extrabold text-stone-900">{t("deals_title")}</p>
+          <span className="text-[10px] font-extrabold bg-[#FBEEE9] text-[#AE4527] px-2.5 py-1 rounded-full">
+            ⏳ {tf("ends_in", { t: fmtT(dealLeft) })}
+          </span>
+        </div>
+        <div className="flex gap-3 px-5 md:px-0 mt-3 overflow-x-auto no-scrollbar">
+          {ITEMS.filter((i) => i.oldPrice).map((it) => dealCard(it))}
+        </div>
+      </div>
+
+      {/* 3. PRODUITS — la sélection, coeur de la marketplace */}
+      <div className="md:max-w-6xl md:mx-auto md:px-5">
+        {filterChips()}
+        <p className="px-5 md:px-0 mt-5 mb-3 text-sm font-extrabold text-stone-900">{t("selection")}</p>
+        <div className="px-5 md:px-0 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+          {filteredItems.map((it) => itemCard(it))}
+        </div>
+      </div>
+
+      {/* 4. SUIVI DE COMMANDE — démotié : bande discrète en bas */}
+      {orderStatus !== "confirmed" && orderStatus !== "disputed" && (
+        <div className="px-5 md:max-w-6xl md:mx-auto mt-6">
+          <button onClick={() => setOrderOpen(true)}
+            className="w-full bg-white/70 border border-stone-200/70 rounded-2xl px-4 py-3 shadow-sm flex items-center gap-3 text-left active:scale-[0.99] transition-transform">
+            <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-base shrink-0">📦</div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[11px] font-extrabold text-stone-700 truncate">
+                {orderStatus === "ready" ? t("order_ready") : t("order_confirm_prompt")}
+              </p>
+            </div>
+            <span className="text-[10px] font-bold text-[#0C6E66] shrink-0">{t("view_ticket")} →</span>
+          </button>
+        </div>
+      )}
+
+      {/* 5. Parcours de confiance — contenu secondaire, en pied */}
+      <div className="px-5 md:max-w-6xl md:mx-auto mt-3">
         <button onClick={() => setTrustOpen(true)}
           className="w-full bg-white rounded-2xl p-3 shadow-sm flex items-center gap-1">
           <div className="flex-1 flex flex-col items-center gap-0.5">
@@ -2409,43 +2470,6 @@ function BaliAppScreen() {
             <span className="text-[9px] font-extrabold text-stone-600 text-center leading-tight">{t("s3")}</span>
           </div>
         </button>
-      </div>
-
-      {/* Suivi de commande */}
-      {orderStatus !== "confirmed" && orderStatus !== "disputed" && (
-        <div className="px-5 mt-3">
-          <button onClick={() => setOrderOpen(true)}
-            className="w-full bg-white rounded-2xl p-4 shadow-sm flex items-center gap-3 text-left active:scale-95 transition-transform">
-            <div className="w-11 h-11 rounded-2xl bg-emerald-50 flex items-center justify-center text-xl">📦</div>
-            <div className="flex-1">
-              <p className="text-xs font-extrabold text-stone-900">
-                {orderStatus === "ready" ? t("order_ready") : t("order_confirm_prompt")}
-              </p>
-              <p className="text-[10px] text-indigo-600 font-bold mt-0.5">{t("view_ticket")} →</p>
-            </div>
-            <span className="text-[10px] font-extrabold bg-indigo-50 text-indigo-700 px-2 py-1 rounded-full">{ORDER.code}</span>
-          </button>
-        </div>
-      )}
-
-      {/* Deals du jour — urgence */}
-      <div className="mt-5">
-        <div className="px-5 flex items-center justify-between">
-          <p className="text-sm font-extrabold text-stone-900">{t("deals_title")}</p>
-          <span className="text-[10px] font-extrabold bg-rose-50 text-rose-600 px-2.5 py-1 rounded-full">
-            ⏳ {tf("ends_in", { t: fmtT(dealLeft) })}
-          </span>
-        </div>
-        <div className="flex gap-3 px-5 mt-3 overflow-x-auto no-scrollbar">
-          {ITEMS.filter((i) => i.oldPrice).map((it) => dealCard(it))}
-        </div>
-      </div>
-
-      {filterChips()}
-
-      <p className="px-5 mt-5 mb-3 text-sm font-extrabold text-stone-900">{t("selection")}</p>
-      <div className="px-5 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
-        {filteredItems.map((it) => itemCard(it))}
       </div>
     </div>
   );
