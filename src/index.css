@@ -520,6 +520,57 @@ div.bg-white.border-t {
 .ob-promises { border-top: 1px solid rgba(255, 255, 255, .12); padding-top: 1.25rem; }
 
 /* ------------------------------------------------------------------
+   14. ACCUEIL PREMIUM - hero immersif, cartes vivantes, categories
+   ------------------------------------------------------------------ */
+
+/* -- HERO : scene immersive (fond turquoise + zellige, pret pour photo) -- */
+.hero-stage {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='120'%20height='120'%3E%3Cg%20fill='none'%20stroke='white'%20stroke-opacity='.06'%3E%3Crect%20x='38'%20y='38'%20width='44'%20height='44'/%3E%3Crect%20x='38'%20y='38'%20width='44'%20height='44'%20transform='rotate(45%2060%2060)'/%3E%3C/g%3E%3C/svg%3E") repeat,
+    radial-gradient(60rem 40rem at 85% 0%, rgba(44, 206, 194, .55), transparent 62%),
+    linear-gradient(130deg, #0A5851 0%, #0E837A 45%, #17C1B5 100%);
+  box-shadow: 0 30px 70px -28px rgba(10, 46, 43, .5);
+}
+/* Voile pour garantir la lisibilite du texte (indispensable avec une photo) */
+.hero-veil {
+  background: linear-gradient(90deg, rgba(6, 30, 28, .55) 0%, rgba(6, 30, 28, .12) 55%, transparent 100%);
+}
+/* Quand tu ajouteras ta photo : mets-la en background-image sur .hero-stage
+   (via style inline), le voile .hero-veil garde le texte lisible. */
+
+/* -- CARTES PRODUIT : profondeur + zoom image au survol -- */
+.item-card {
+  border: 1px solid rgba(10, 46, 43, .06);
+  transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease;
+}
+.item-card-img { transition: transform .45s cubic-bezier(.22,1,.36,1); }
+.item-card-veil {
+  background: linear-gradient(to top, rgba(10,46,43,.14), transparent);
+  opacity: 0; transition: opacity .25s ease;
+}
+@media (hover: hover) {
+  .item-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 14px -6px rgba(10,46,43,.10), 0 26px 50px -18px rgba(10,46,43,.22) !important;
+  }
+  .item-card:hover .item-card-img { transform: scale(1.07); }
+  .item-card:hover .item-card-veil { opacity: 1; }
+  .item-like:hover { background: #fff !important; transform: scale(1.05); }
+}
+
+/* -- CATEGORIES : pastilles qui reagissent -- */
+@media (hover: hover) {
+  .cat-chip:hover > span:first-child {
+    transform: translateY(-4px) scale(1.04);
+    box-shadow: 0 12px 24px -10px rgba(10,46,43,.28);
+  }
+}
+.cat-chip > span:first-child { transition: transform .2s ease, box-shadow .2s ease; }
+
+/* Apparition douce des sections d'accueil au chargement */
+.home-cats, .item-card { animation: bali-rise .5s cubic-bezier(.22,1,.36,1) both; }
+
+/* ------------------------------------------------------------------
    8. ACCESSIBILITE - reduction des animations si demandee par l'OS
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
