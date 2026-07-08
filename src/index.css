@@ -523,20 +523,34 @@ div.bg-white.border-t {
    14. ACCUEIL PREMIUM - hero immersif, cartes vivantes, categories
    ------------------------------------------------------------------ */
 
-/* -- HERO : scene immersive (fond turquoise + zellige, pret pour photo) -- */
+/* -- HERO : photographie immersive plein cadre + voile de lisibilite -- */
 .hero-stage {
   background:
-    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='120'%20height='120'%3E%3Cg%20fill='none'%20stroke='white'%20stroke-opacity='.06'%3E%3Crect%20x='38'%20y='38'%20width='44'%20height='44'/%3E%3Crect%20x='38'%20y='38'%20width='44'%20height='44'%20transform='rotate(45%2060%2060)'/%3E%3C/g%3E%3C/svg%3E") repeat,
-    radial-gradient(60rem 40rem at 85% 0%, rgba(44, 206, 194, .55), transparent 62%),
+    radial-gradient(60rem 40rem at 85% 0%, rgba(44, 206, 194, .45), transparent 62%),
     linear-gradient(130deg, #0A5851 0%, #0E837A 45%, #17C1B5 100%);
   box-shadow: 0 30px 70px -28px rgba(10, 46, 43, .5);
+  min-height: 30rem;
 }
-/* Voile pour garantir la lisibilite du texte (indispensable avec une photo) */
+/* Photo de fond (public/hero.jpg) : couvre tout le cadre, zoom cinematique */
+.hero-stage.has-photo {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: hero-zoom 16s ease-out both;
+}
+@keyframes hero-zoom {
+  from { background-size: 118%; }
+  to   { background-size: 108%; }
+}
+/* Voile degrade : sombre a gauche (texte lisible) -> transparent a droite
+   (la photo respire). Double couche pour une lisibilite parfaite. */
 .hero-veil {
-  background: linear-gradient(90deg, rgba(6, 30, 28, .55) 0%, rgba(6, 30, 28, .12) 55%, transparent 100%);
+  background:
+    linear-gradient(90deg, rgba(4, 22, 20, .82) 0%, rgba(4, 22, 20, .55) 38%, rgba(4, 22, 20, .12) 70%, transparent 100%),
+    linear-gradient(0deg, rgba(4, 22, 20, .35) 0%, transparent 40%);
 }
-/* Quand tu ajouteras ta photo : mets-la en background-image sur .hero-stage
-   (via style inline), le voile .hero-veil garde le texte lisible. */
+/* Entree en fondu du contenu du hero */
+.hero-stage .relative { animation: bali-rise .7s cubic-bezier(.22,1,.36,1) both; animation-delay: .2s; }
 
 /* -- CARTES PRODUIT : profondeur + zoom image au survol -- */
 .item-card {
@@ -569,6 +583,21 @@ div.bg-white.border-t {
 
 /* Apparition douce des sections d'accueil au chargement */
 .home-cats, .item-card { animation: bali-rise .5s cubic-bezier(.22,1,.36,1) both; }
+
+/* ------------------------------------------------------------------
+   15. VITRINE PARTENAIRE - carte de recrutement premium
+   ------------------------------------------------------------------ */
+.partner-cta { box-shadow: 0 20px 50px -22px rgba(10, 46, 43, .5); }
+.partner-cta-bg {
+  background:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='90'%20height='90'%3E%3Cg%20fill='none'%20stroke='white'%20stroke-opacity='.05'%3E%3Crect%20x='28'%20y='28'%20width='34'%20height='34'/%3E%3Crect%20x='28'%20y='28'%20width='34'%20height='34'%20transform='rotate(45%2045%2045)'/%3E%3C/g%3E%3C/svg%3E") repeat,
+    radial-gradient(26rem 26rem at 15% 0%, rgba(191, 82, 51, .35), transparent 60%),
+    linear-gradient(155deg, #1C1917 0%, #0C0A09 100%);
+}
+@media (hover: hover) {
+  .partner-cta:hover { transform: translateY(-3px); box-shadow: 0 28px 60px -22px rgba(10, 46, 43, .6); }
+  .partner-cta { transition: transform .22s ease, box-shadow .22s ease; }
+}
 
 /* ------------------------------------------------------------------
    8. ACCESSIBILITE - reduction des animations si demandee par l'OS
