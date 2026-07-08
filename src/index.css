@@ -7,3 +7,11 @@ html, body, #root {
   padding: 0;
   min-height: 100%;
 }
+
+/* Contraste desktop : le fond de la page principale passe en gris tres clair
+   (#F5F5F4) pour que les cartes blanches ressortent. Le mobile est inchange
+   (sa zone de contenu est deja en bg-stone-50). Cible uniquement le wrapper
+   principal de l'app (min-h-screen + flex-col + items-center). */
+.min-h-screen.flex-col.items-center {
+  background-color: #F5F5F4 !important;
+}
