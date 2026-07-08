@@ -3127,7 +3127,7 @@ function BaliAppScreen() {
 
   const itemDetail = (it) => (
     <div className="fixed inset-0 z-40 flex justify-center bg-black/40 md:items-center md:p-8" dir={cur.dir}>
-      <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app md:relative md:max-w-5xl md:h-[min(92vh,820px)] md:overflow-hidden md:rounded-[2rem] md:shadow-2xl md:flex">
+      <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app md:relative md:max-w-6xl md:h-[min(94vh,900px)] md:overflow-hidden md:rounded-[2rem] md:shadow-2xl md:flex">
         <div className={`relative aspect-square md:aspect-auto md:w-[52%] md:h-full md:shrink-0 bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
           {it.photo ? (
             <img src={it.photo} alt={it.title} className="w-full h-full object-cover" />
