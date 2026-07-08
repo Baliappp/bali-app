@@ -5,7 +5,7 @@ import {
   Truck, Star, MapPin, Camera, BadgeCheck, Send, Bell, SlidersHorizontal,
   Wallet, X, Check, Banknote, Package, Globe, Sparkles, Loader2, Store, Zap,
   Video, HeartHandshake, QrCode, Phone, Navigation, Lock, AlertTriangle,
-  CheckCircle2, ArrowLeft, Timer, Share2, Smartphone, CreditCard, Clock
+  CheckCircle2, ArrowLeft, ArrowRight, Timer, Share2, Smartphone, CreditCard, Clock
 } from "lucide-react";
 
 /* ------------------------------------------------------------------ */
@@ -2316,33 +2316,35 @@ function BaliAppScreen() {
     <div className="pb-28 md:pb-12">
       {/* HERO DESKTOP — scène immersive (prête pour photo) + recherche intégrée */}
       <div className="hidden md:block px-6 pt-6">
-        <div className="hero-stage max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative">
+        <div className="hero-stage has-photo max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative" style={{ backgroundImage: "url(/hero.jpg)" }}>
           <div className="hero-veil absolute inset-0" />
           <Star8 size={340} className="absolute -right-20 -top-24 text-white/10" />
           <Star8 size={180} className="absolute right-40 bottom-[-40px] text-white/[0.07]" />
-          <div className="relative px-12 py-16 lg:py-20 max-w-3xl">
-            <p className="inline-flex items-center gap-2 text-white/90 font-bold text-xs bg-white/15 backdrop-blur border border-white/20 rounded-full px-3 py-1.5 mb-5">
-              بالي · {t("banner2")}
-            </p>
-            <h1 className="font-display font-extrabold text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight">{t("hero_title")}</h1>
-            <p className="text-white/90 font-semibold text-xl mt-4 max-w-xl">{t("hero_sub")}</p>
-            <div className="mt-8 flex items-stretch gap-2 max-w-xl">
-              <button onClick={() => setTab("search")}
-                className="flex-1 flex items-center gap-3 bg-white rounded-2xl px-5 py-4 text-left shadow-xl active:scale-[0.99] hover:shadow-2xl transition-all">
-                <Search size={20} className="text-[#AE4527] shrink-0" />
-                <span className="text-sm font-semibold text-stone-500">{t("search_ph")}</span>
-              </button>
-              <button onClick={() => setTab("sell")}
-                className="bg-[#BF5233] hover:bg-[#AE4527] text-white font-extrabold px-6 rounded-2xl active:scale-95 transition-all shadow-xl flex items-center gap-2 whitespace-nowrap">
-                <Plus size={18} /> {t("hero_sell")}
-              </button>
-            </div>
-            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2">
-              {[["🛡️", t("badge_inspect")], ["🏪", t("ob_v2")], ["↩️", t("badge_refund")]].map(([e, txt]) => (
-                <span key={txt} className="flex items-center gap-2 text-white/90 text-sm font-bold">
-                  <span>{e}</span> {txt}
-                </span>
-              ))}
+          <div className="relative px-12 py-16 lg:py-24 flex items-center">
+            <div className="flex-1 max-w-2xl">
+              <p className="inline-flex items-center gap-2 text-white/90 font-bold text-xs bg-white/15 backdrop-blur border border-white/20 rounded-full px-3 py-1.5 mb-5">
+                بالي · {t("banner2")}
+              </p>
+              <h1 className="font-display font-extrabold text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight">{t("hero_title")}</h1>
+              <p className="text-white/90 font-semibold text-lg lg:text-xl mt-4">{t("hero_sub")}</p>
+              <div className="mt-8 flex items-stretch gap-2">
+                <button onClick={() => setTab("search")}
+                  className="flex-1 flex items-center gap-3 bg-white rounded-2xl px-5 py-4 text-left shadow-xl active:scale-[0.99] hover:shadow-2xl transition-all">
+                  <Search size={20} className="text-[#AE4527] shrink-0" />
+                  <span className="text-sm font-semibold text-stone-500">{t("search_ph")}</span>
+                </button>
+                <button onClick={() => setTab("sell")}
+                  className="bg-[#BF5233] hover:bg-[#AE4527] text-white font-extrabold px-6 rounded-2xl active:scale-95 transition-all shadow-xl flex items-center gap-2 whitespace-nowrap">
+                  <Plus size={18} /> {t("hero_sell")}
+                </button>
+              </div>
+              <div className="mt-7 flex flex-wrap gap-x-6 gap-y-2">
+                {[["🛡️", t("badge_inspect")], ["🏪", t("ob_v2")], ["↩️", t("badge_refund")]].map(([e, txt]) => (
+                  <span key={txt} className="flex items-center gap-2 text-white/90 text-sm font-bold">
+                    <span>{e}</span> {txt}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -3079,16 +3081,45 @@ function BaliAppScreen() {
         </div>
       </button>
 
-      {/* Devenir point bali — redirige vers l'app Partenaire dédiée */}
+      {/* Devenir point bali — vitrine premium (redirige vers l'app Partenaire) */}
       <a href="?partenaire"
-        className="w-full mt-3 bg-stone-900 rounded-2xl p-4 flex items-center gap-3 relative overflow-hidden">
-        <Star8 size={46} className="absolute -right-1 -top-2 text-stone-800" />
-        <div className="w-10 h-10 rounded-full bg-amber-400 flex items-center justify-center relative shrink-0">
-          <Store size={18} className="text-stone-900" />
-        </div>
-        <div className="flex-1 text-left relative">
-          <p className="text-sm font-extrabold text-white">{t("become_point")}</p>
-          <p className="text-[11px] text-stone-500 font-semibold">{t("become_sub")}</p>
+        className="partner-cta group block w-full mt-3 rounded-3xl relative overflow-hidden">
+        <span className="partner-cta-bg absolute inset-0" />
+        <Star8 size={220} className="absolute -right-16 -top-16 text-white/[0.06]" />
+        <Star8 size={120} className="absolute -left-10 -bottom-10 text-white/[0.05]" />
+        <div className="relative p-5">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-amber-400 flex items-center justify-center shrink-0 shadow-lg">
+              <Store size={22} className="text-stone-900" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="inline-flex items-center gap-1.5 bg-white/10 border border-white/15 rounded-full px-2.5 py-1 text-[9px] font-extrabold text-amber-300 tracking-wide mb-1">
+                <Sparkles size={10} /> bali Partenaire
+              </p>
+              <p className="font-display font-extrabold text-lg text-white leading-tight">{t("become_point")}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 mt-4">
+            {[["4-5 DH", "par colis"], ["0", "espèce à gérer"], ["10 min", "pour démarrer"]].map(([n, l]) => (
+              <div key={l} className="bg-white/10 border border-white/10 rounded-2xl px-2 py-2.5 text-center">
+                <p className="font-display font-extrabold text-base text-white leading-none">{n}</p>
+                <p className="text-[9px] font-bold text-white/60 mt-1 leading-tight">{l}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-3 space-y-1.5">
+            {[[t("badge_inspect")], ["Attire de nouveaux clients dans ta boutique"], ["Ton smartphone suffit, zéro investissement"]].map(([txt]) => (
+              <p key={txt} className="flex items-center gap-2 text-[11px] font-semibold text-white/85">
+                <ShieldCheck size={13} className="text-emerald-300 shrink-0" /> {txt}
+              </p>
+            ))}
+          </div>
+
+          <span className="mt-4 flex items-center justify-center gap-2 bg-white text-stone-900 font-extrabold text-sm py-3 rounded-2xl group-active:scale-95 transition-transform">
+            {t("become_point")} <ArrowRight size={16} />
+          </span>
         </div>
       </a>
 
