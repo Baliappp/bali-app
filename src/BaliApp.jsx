@@ -2605,9 +2605,9 @@ function BaliAppScreen() {
   };
 
   const sellScreen = () => (
-    <div className="pb-28 px-5 pt-5">
-      <p className="font-display font-bold text-xl text-stone-900">{t("sell_title")}</p>
-      <p className="text-xs text-stone-500 mt-1 font-medium">{t("sell_sub")}</p>
+    <div className="pb-28 px-5 pt-5 md:max-w-2xl md:mx-auto md:pt-10 md:pb-24">
+      <p className="font-display font-bold text-xl md:text-3xl text-stone-900">{t("sell_title")}</p>
+      <p className="text-xs md:text-sm text-stone-500 mt-1 font-medium">{t("sell_sub")}</p>
 
       {/* --- ANNONCE IA --- */}
       <div className="mt-4 relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white p-5">
@@ -3126,9 +3126,9 @@ function BaliAppScreen() {
   /* ---------------------------------------------------------------- */
 
   const itemDetail = (it) => (
-    <div className="fixed inset-0 z-40 flex justify-center bg-black/40" dir={cur.dir}>
-      <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app">
-        <div className={`relative aspect-square bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
+    <div className="fixed inset-0 z-40 flex justify-center bg-black/40 md:items-center md:p-8" dir={cur.dir}>
+      <div className="w-full max-w-md bg-stone-50 overflow-y-auto font-app md:relative md:max-w-5xl md:h-[min(92vh,820px)] md:overflow-hidden md:rounded-[2rem] md:shadow-2xl md:flex">
+        <div className={`relative aspect-square md:aspect-auto md:w-[52%] md:h-full md:shrink-0 bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
           {it.photo ? (
             <img src={it.photo} alt={it.title} className="w-full h-full object-cover" />
           ) : (
@@ -3149,7 +3149,7 @@ function BaliAppScreen() {
           </button>
         </div>
 
-        <div className="p-5 pb-44">
+        <div className="p-5 pb-44 md:flex-1 md:min-w-0 md:h-full md:overflow-y-auto md:p-8 md:pb-28">
           <div className="flex items-start justify-between gap-3">
             <div>
               <p className="font-display font-bold text-lg text-stone-900 leading-snug">{it.title}</p>
@@ -3264,9 +3264,9 @@ function BaliAppScreen() {
           </button>
         </div>
 
-        <div className="fixed bottom-0 inset-x-0 flex justify-center">
+        <div className="fixed bottom-0 inset-x-0 flex justify-center md:absolute md:justify-end md:pointer-events-none">
           {myProfile && it.real && it.seller_id === myProfile.id ? (
-            <div className="w-full max-w-md bg-white border-t border-stone-100 p-4">
+            <div className="w-full max-w-md bg-white border-t border-stone-100 p-4 md:max-w-none md:w-[48%] md:pointer-events-auto md:bg-white/95 md:backdrop-blur md:border-l md:px-6">
               <p className="text-center text-[11px] font-extrabold text-stone-500 mb-2">✋ {t("own_item")}</p>
               <button onClick={() => deleteItem(it)}
                 className="w-full border-2 border-rose-300 text-rose-600 font-extrabold text-sm py-3.5 rounded-2xl">
@@ -3274,7 +3274,7 @@ function BaliAppScreen() {
               </button>
             </div>
           ) : (
-            <div className="w-full max-w-md bg-white border-t border-stone-100 p-4 flex gap-3">
+            <div className="w-full max-w-md bg-white border-t border-stone-100 p-4 flex gap-3 md:max-w-none md:w-[48%] md:pointer-events-auto md:bg-white/95 md:backdrop-blur md:border-l md:px-6">
               <button onClick={() => { setOfferValue(String(Math.round(it.price * 0.9))); setOfferOpen(true); }}
                 className="flex-1 border-2 border-indigo-600 text-indigo-600 font-extrabold text-sm py-3.5 rounded-2xl">
                 {t("make_offer")}
@@ -3289,8 +3289,8 @@ function BaliAppScreen() {
       </div>
 
       {offerOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setOfferOpen(false)}>
-          <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/50" onClick={() => setOfferOpen(false)}>
+          <div className="w-full max-w-md bg-white rounded-t-3xl md:rounded-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <p className="font-display font-bold text-lg text-stone-900">{t("negotiate")}</p>
               <button onClick={() => setOfferOpen(false)}><X size={20} className="text-stone-400" /></button>
@@ -3325,8 +3325,8 @@ function BaliAppScreen() {
 
       {/* Checkout — choix du paiement */}
       {checkoutOpen && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/50" onClick={() => setCheckoutOpen(false)}>
-          <div className="w-full max-w-md bg-white rounded-t-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-end md:items-center justify-center bg-black/50" onClick={() => setCheckoutOpen(false)}>
+          <div className="w-full max-w-md bg-white rounded-t-3xl md:rounded-3xl p-6 font-app" dir={cur.dir} onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <p className="font-display font-bold text-lg text-stone-900">{t("checkout_title")}</p>
               <button onClick={() => setCheckoutOpen(false)}><X size={20} className="text-stone-400" /></button>
@@ -4892,7 +4892,7 @@ function BaliAppScreen() {
   if (isPartnerUrl) return partnerApp();
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center font-app">
+    <div className="min-h-screen bg-stone-100 flex flex-col items-center font-app">
       <FontStyles />
 
       {/* HEADER DESKTOP — barre horizontale, visible uniquement sur grand écran */}
