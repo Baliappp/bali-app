@@ -3788,22 +3788,34 @@ function BaliAppScreen() {
 
         <div className="flex-1 flex flex-col justify-center px-7 relative">
           {obStep === 0 && (
-            <>
+            <div className="ob-lang">
               <div className="flex items-center gap-2.5">
-                <Star8 size={30} className="text-amber-400" />
-                <span className="font-display font-extrabold text-4xl">bali</span>
+                <Star8 size={32} className="text-amber-400" />
+                <span className="font-display font-extrabold text-4xl">بالي <span className="opacity-90">bali</span></span>
               </div>
-              <p className="mt-6 text-sm font-bold text-indigo-100">Choisis ta langue · اختار اللغة ديالك</p>
-              <div className="mt-4 grid grid-cols-2 gap-2.5">
+              <p className="mt-5 font-display font-extrabold text-2xl leading-tight">Bienvenue · مرحبا</p>
+              <p className="mt-2 text-sm font-semibold text-indigo-100 leading-relaxed">Le souk dans ta poche. Choisis ta langue.<br /><span dir="rtl">اختار اللغة ديالك</span></p>
+              <div className="mt-6 grid grid-cols-2 gap-2.5">
                 {LANGS.map((l) => (
                   <button key={l.id} onClick={() => { setLang(l.id); setObStep(1); }}
-                    className="bg-white/10 border border-white/20 rounded-2xl p-3.5 text-left active:scale-95 transition-transform">
-                    <span className="text-xl">{l.flag}</span>
-                    <p className="text-sm font-extrabold mt-1" dir={l.dir}>{l.name}</p>
+                    className="ob-lang-tile group bg-white/10 border border-white/20 rounded-2xl px-4 py-3.5 flex items-center gap-3 text-left active:scale-95 transition-all">
+                    <span className="ob-lang-flag w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center text-lg shrink-0">{l.flag}</span>
+                    <span className="min-w-0">
+                      <span className="block text-sm font-extrabold truncate" dir={l.dir}>{l.name}</span>
+                      {l.beta && <span className="block text-[9px] font-bold text-amber-300 mt-0.5">BÊTA</span>}
+                    </span>
                   </button>
                 ))}
               </div>
-            </>
+              <div className="ob-promises mt-7 grid grid-cols-2 gap-2.5">
+                {[["🛡️", "Inspection avant paiement"], ["🏪", "Retrait au hanout"], ["💸", "0% commission vendeur"], ["↩️", "Remboursé 100%"]].map(([e, txt]) => (
+                  <div key={txt} className="flex items-center gap-2 bg-white/8 rounded-xl px-3 py-2.5">
+                    <span className="text-base shrink-0">{e}</span>
+                    <span className="text-[11px] font-bold text-indigo-50 leading-tight">{txt}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
 
           {obStep === 1 && (
@@ -4358,9 +4370,9 @@ function BaliAppScreen() {
     return (
       <div className="min-h-screen bg-white flex justify-center font-app">
         <FontStyles />
-        <div className="w-full max-w-md bg-stone-100 min-h-screen relative shadow-2xl pb-8">
+        <div className="partner-shell w-full max-w-md bg-stone-100 min-h-screen relative shadow-2xl pb-8">
           {/* En-tête hanout */}
-          <div className="bg-stone-900 text-white px-5 pt-5 pb-4">
+          <div className="partner-head bg-stone-900 text-white px-5 pt-5 pb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <div className="w-9 h-9 rounded-xl bg-amber-400 flex items-center justify-center">
@@ -4387,7 +4399,7 @@ function BaliAppScreen() {
 
           {/* TABLEAU DE BORD */}
           {pScreen === "dash" && (
-            <div className="px-5 pt-4 space-y-3">
+            <div className="partner-body px-5 pt-4 space-y-3">
               {/* Onglets */}
               <div className="flex gap-2">
                 {[["colis", "📦 Colis"], ["gains", "💰 Gains & niveau"]].map(([id, l]) => (
@@ -4400,7 +4412,7 @@ function BaliAppScreen() {
 
               {pTab === "colis" && (
                 <>
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="partner-stats grid grid-cols-3 gap-2">
                     {[[delivered ? "2" : "3", "À remettre"], ["2", "Arrivages"], [gains + " DH", "Gains du jour"]].map(([n, l]) => (
                       <div key={l} className="bg-white rounded-2xl p-3 text-center shadow-sm">
                         <p className="text-base font-extrabold text-stone-900">{n}</p>
