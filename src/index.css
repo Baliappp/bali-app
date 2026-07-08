@@ -31,6 +31,16 @@ html, body, #root {
   --bali-700: #0C6E66;     /* hover / texte fort : 6.11:1 */
   --bali-800: #0A5851;
   --bali-ink: 10, 46, 43;  /* base RGB des ombres froides */
+
+  /* Terracotta marocain - accent chaud du desir (CTA, prix, promos, actif) */
+  --terra-50:  #FBEEE9;
+  --terra-100: #F7DECF;
+  --terra-300: #E9A886;
+  --terra-500: #C15A38;   /* accent vif : badges, halos */
+  --terra-600: #BF5233;   /* ACTION chaude : 4.70:1 sur blanc */
+  --terra-700: #AE4527;   /* hover : 5.71:1 */
+  --terra-800: #9E3D22;   /* texte fort : 6.68:1 */
+  --terra-ink: 74, 30, 18;
 }
 
 html {
@@ -272,9 +282,9 @@ button:active { transform: scale(.985); }
     to   { background-position: 0 0, 70% 25%, 22% 78%, 0 0; }
   }
   .min-h-screen.bg-white.justify-center:has(> .bg-indigo-600) > .bg-indigo-600 {
-    min-height: min(660px, 90vh);
-    height: min(660px, 90vh);
-    max-width: 30rem;
+    min-height: min(720px, 92vh);
+    height: min(720px, 92vh);
+    max-width: 27rem;
     border-radius: 1.9rem;
     border: 1px solid rgba(255, 255, 255, .16);
     box-shadow:
@@ -376,6 +386,138 @@ div.bg-white.border-t {
   from { opacity: 0; transform: translateY(14px) scale(.985); }
   to   { opacity: 1; transform: none; }
 }
+
+/* ------------------------------------------------------------------
+   11. TERRACOTTA - accent chaud, applique avec parcimonie.
+   Regle d'or : Menthe = confiance/navigation ; Terracotta = desir
+   et actions d'engagement fort (Acheter, Payer, promos, prix).
+   On ne repeint PAS tout : on cible les moments a fort impact.
+   ------------------------------------------------------------------ */
+
+/* Prix des annonces : le orange existant -> Terracotta (plus riche) */
+.text-orange-600 { color: var(--terra-700) !important; }
+
+/* Le CTA d'ACHAT devient Terracotta (le geste d'engagement par excellence).
+   Cible : bouton plein indigo qui contient le libelle d'achat -> via .flex-1
+   sur fond indigo dans la barre d'action de la fiche. On repeint le 2e
+   bouton (achat) sans toucher au 1er (offre, en contour menthe). */
+.p-4.flex.gap-3 > button.bg-indigo-600 {
+  background-color: var(--terra-600) !important;
+  box-shadow: 0 10px 24px -10px rgba(var(--terra-ink), .5);
+}
+@media (hover: hover) {
+  .p-4.flex.gap-3 > button.bg-indigo-600:hover {
+    background-color: var(--terra-700) !important;
+    transform: translateY(-1px);
+  }
+}
+
+/* Bouton "Confirmer la commande" (checkout) : meme logique d'engagement */
+.rounded-t-3xl button.bg-indigo-600.mt-4,
+.rounded-3xl button.bg-indigo-600.mt-4 {
+  background-color: var(--terra-600) !important;
+}
+
+/* Badge promo / reduction : passe en pastille Terracotta pleine */
+.text-rose-600.font-extrabold { color: var(--terra-700) !important; }
+
+/* Etoile signature de marque : touche laiton conservee, halo terracotta
+   sur les elements festifs (aucun changement fonctionnel) */
+::selection { background: var(--terra-500); color: #FFFFFF; }
+
+/* ------------------------------------------------------------------
+   12. TABLEAU DE BORD PARTENAIRE - vraie interface desktop
+   Mobile : inchange (colonne, en-tete sombre en haut).
+   Desktop >= 900px : sidebar sombre a gauche + contenu large multi-colonnes.
+   Pur CSS : aucune modification de logique ni de handler.
+   ------------------------------------------------------------------ */
+@media (min-width: 900px) {
+  /* La coquille devient une grille : [sidebar 300px | contenu fluide] */
+  .partner-shell {
+    max-width: 78rem !important;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 20rem 1fr;
+    grid-template-rows: 100vh;
+    box-shadow: 0 30px 80px -24px rgba(var(--bali-ink), .3) !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+    background: #F4F6F5 !important;
+  }
+
+  /* L'en-tete sombre devient la SIDEBAR verticale */
+  .partner-shell > .partner-head {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    height: 100vh;
+    padding: 2rem 1.5rem !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    background:
+      radial-gradient(30rem 30rem at 20% 0%, rgba(191, 82, 51, .18), transparent 60%),
+      linear-gradient(180deg, #1C1917 0%, #0C0A09 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, .06);
+  }
+  /* Dans la sidebar : le titre et les 2 pastilles s'empilent verticalement */
+  .partner-shell > .partner-head > .flex.items-center.justify-between {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 1.5rem;
+  }
+  .partner-shell > .partner-head > .flex.gap-2 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    margin-top: auto !important;
+    gap: .6rem;
+  }
+
+  /* Le corps (dashboard, scan, etc.) occupe la colonne large et defile */
+  .partner-shell > *:not(.partner-head) {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  .partner-shell > .partner-body {
+    padding: 2.5rem 3rem !important;
+    max-width: 64rem;
+  }
+  /* Onglets Colis/Gains : alignes a gauche, pas etires plein largeur */
+  .partner-shell > .partner-body > .flex.gap-2 { max-width: 26rem; }
+
+  /* Les stats passent de 3 a 4-5 colonnes, cartes plus grandes */
+  .partner-shell .partner-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem !important;
+    max-width: 42rem;
+  }
+  .partner-shell .partner-stats > div { padding: 1.25rem !important; }
+  .partner-shell .partner-stats > div > p:first-child { font-size: 1.5rem !important; }
+
+  /* Le contenu interne (listes colis, verificateur...) en 2 colonnes fluides */
+  .partner-shell > .partner-body > * { max-width: 46rem; }
+}
+
+/* ------------------------------------------------------------------
+   13. ECRAN LANGUE PREMIUM - tuiles vivantes facon reference DIRSA
+   ------------------------------------------------------------------ */
+@media (hover: hover) {
+  .ob-lang-tile:hover {
+    background-color: rgba(255, 255, 255, .2) !important;
+    border-color: rgba(255, 255, 255, .45) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .5);
+  }
+  .ob-lang-tile:hover .ob-lang-flag {
+    background-color: var(--terra-500) !important;
+    transform: scale(1.06);
+  }
+}
+.ob-lang-flag { transition: background-color .2s ease, transform .2s ease; }
+.ob-promises > div { transition: background-color .2s ease; }
+/* La bande de promesses se detache legerement */
+.ob-promises { border-top: 1px solid rgba(255, 255, 255, .12); padding-top: 1.25rem; }
 
 /* ------------------------------------------------------------------
    8. ACCESSIBILITE - reduction des animations si demandee par l'OS
