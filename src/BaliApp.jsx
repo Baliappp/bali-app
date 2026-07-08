@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "./supabase.js";
+import heroPhoto from "../pexels-so-kenobi-323520146-18446423.jpg";
 import {
   Home, Search, Plus, MessageCircle, User, Heart, ChevronLeft, ShieldCheck,
   Truck, Star, MapPin, Camera, BadgeCheck, Send, Bell, SlidersHorizontal,
@@ -2316,7 +2317,7 @@ function BaliAppScreen() {
     <div className="pb-28 md:pb-12">
       {/* HERO DESKTOP — scène immersive (prête pour photo) + recherche intégrée */}
       <div className="hidden md:block px-6 pt-6">
-        <div className="hero-stage has-photo max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative" style={{ backgroundImage: "url(/hero.jpg)" }}>
+        <div className="hero-stage has-photo max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative" style={{ backgroundImage: `url(${heroPhoto})` }}>
           <div className="hero-veil absolute inset-0" />
           <Star8 size={340} className="absolute -right-20 -top-24 text-white/10" />
           <Star8 size={180} className="absolute right-40 bottom-[-40px] text-white/[0.07]" />
