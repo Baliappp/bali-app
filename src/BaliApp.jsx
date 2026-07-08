@@ -1245,7 +1245,9 @@ class ErrorBoundary extends React.Component {
 }
 
 function BaliAppScreen() {
-  const [lang, setLang] = useState("fr");
+  const [lang, setLang] = useState(() => {
+    try { return localStorage.getItem("bali_lang") || "fr"; } catch (e) { return "fr"; }
+  });
   const [langOpen, setLangOpen] = useState(false);
   const [tab, setTab] = useState("home");
   const [item, setItem] = useState(null);
@@ -1426,7 +1428,10 @@ function BaliAppScreen() {
   const [notifRead, setNotifRead] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
   const [payMethodI, setPayMethodI] = useState(0);
-  const [obStep, setObStep] = useState(0); // 0 langue · 1 promesse · 2 téléphone · 3 code · 4 cadeau · 5 synopsis · 6 app
+  const [obStep, setObStep] = useState(() => {
+    // Si la langue a deja ete choisie lors d'une visite precedente, on saute l'ecran langue.
+    try { return localStorage.getItem("bali_lang") ? 1 : 0; } catch (e) { return 0; }
+  }); // 0 langue · 1 promesse · 2 telephone · 3 code · 4 cadeau · 5 synopsis · 6 app
   const [authChecked, setAuthChecked] = useState(false);
   const [authUser, setAuthUser] = useState(null);
 
@@ -2316,7 +2321,7 @@ function BaliAppScreen() {
     <div className="pb-28 md:pb-12">
       {/* HERO DESKTOP — scène immersive (prête pour photo) + recherche intégrée */}
       <div className="hidden md:block px-6 pt-6">
-        <div className="hero-stage has-photo max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative" style={{ backgroundImage: "url(/pexels-so-kenobi-323520146-18446423.jpg)" }}>
+        <div className="hero-stage has-photo max-w-6xl mx-auto rounded-[2rem] overflow-hidden relative" style={{ backgroundImage: "url(/ChatGPT%20Image%208%20juil.%202026%2C%2014_51_52.png)" }}>
           <div className="hero-veil absolute inset-0" />
           <Star8 size={340} className="absolute -right-20 -top-24 text-white/10" />
           <Star8 size={180} className="absolute right-40 bottom-[-40px] text-white/[0.07]" />
@@ -3537,7 +3542,7 @@ function BaliAppScreen() {
         <div className="mt-4 space-y-1">
           {LANGS.map((l) => (
             <button key={l.id}
-              onClick={() => { setLang(l.id); setLangOpen(false); showToast(l.flag + " " + l.name); }}
+              onClick={() => { setLang(l.id); try { localStorage.setItem("bali_lang", l.id); } catch (e) {} setLangOpen(false); showToast(l.flag + " " + l.name); }}
               className={`w-full flex items-center gap-3 p-3 rounded-2xl transition-colors ${
                 lang === l.id ? "bg-indigo-50" : "active:bg-stone-50"}`}>
               <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center text-lg font-extrabold text-indigo-700">
@@ -3852,7 +3857,7 @@ function BaliAppScreen() {
               <p className="mt-2 text-sm font-semibold text-indigo-100 leading-relaxed">Le souk dans ta poche. Choisis ta langue.<br /><span dir="rtl">اختار اللغة ديالك</span></p>
               <div className="mt-6 grid grid-cols-2 gap-2.5">
                 {LANGS.map((l) => (
-                  <button key={l.id} onClick={() => { setLang(l.id); setObStep(1); }}
+                  <button key={l.id} onClick={() => { setLang(l.id); try { localStorage.setItem("bali_lang", l.id); } catch (e) {} setObStep(1); }}
                     className="ob-lang-tile group bg-white/10 border border-white/20 rounded-2xl px-4 py-3.5 flex items-center gap-3 text-left active:scale-95 transition-all">
                     <span className="ob-lang-flag w-9 h-9 rounded-xl bg-white/15 flex items-center justify-center text-lg shrink-0">{l.flag}</span>
                     <span className="min-w-0">
