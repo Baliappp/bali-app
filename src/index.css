@@ -9,18 +9,62 @@ html, body, #root {
 }
 
 /* ==================================================================
-   1. CONTRASTE APP PRINCIPALE
-   Fond de la page principale en gris tres clair (#F5F5F4) pour que
-   les cartes blanches ressortent. Mobile inchange.
+   DIRECTION ARTISTIQUE "ZELLIGE MODERNE" - bali
+   3 matieres : Menthe d'Atlas (action/confiance, calibree WCAG),
+   Laiton (ambre, moments de chaleur), Blanc/Pierre (lumiere).
+   Signature : etoile 8 branches, ombres froides douces, mouvement calme.
+   Contrainte absolue : zero changement fonctionnel (CSS pur).
    ================================================================== */
+
+/* ------------------------------------------------------------------
+   0. TOKENS + POLISH DE BASE
+   ------------------------------------------------------------------ */
+:root {
+  --bali-50:  #EFFBF9;
+  --bali-100: #DDF7F3;
+  --bali-200: #BFF0E9;
+  --bali-300: #8CE4D9;
+  --bali-400: #4ED2C4;
+  --bali-500: #22C4B7;
+  --bali-vivid: #17C1B5;   /* lumiere de marque : gradients, halos, decor */
+  --bali-600: #0E837A;     /* ACTION : contraste 4.62:1 sur blanc */
+  --bali-700: #0C6E66;     /* hover / texte fort : 6.11:1 */
+  --bali-800: #0A5851;
+  --bali-ink: 10, 46, 43;  /* base RGB des ombres froides */
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+* { -webkit-tap-highlight-color: transparent; }
+
+::selection { background: var(--bali-vivid); color: #FFFFFF; }
+
+* { scrollbar-width: thin; scrollbar-color: #C7D5D2 transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #C7D5D2; border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background: #A8BDB9; background-clip: content-box; }
+
+:where(button, [role="button"], a):focus-visible {
+  outline: 2px solid var(--bali-600);
+  outline-offset: 2px;
+  border-radius: .5rem;
+}
+
+/* ------------------------------------------------------------------
+   1. CONTRASTE APP PRINCIPALE
+   Fond de page en gris tres clair pour detacher les cartes blanches.
+   ------------------------------------------------------------------ */
 .min-h-screen.flex-col.items-center {
   background-color: #F5F5F4 !important;
 }
 
-/* ==================================================================
-   2. SPLASH D'ENTREE - rideau turquoise + logo, joue au chargement.
-   Aucun JS : pseudo-elements sur #root, disparait tout seul.
-   ================================================================== */
+/* ------------------------------------------------------------------
+   2. SPLASH D'ENTREE - rideau turquoise + logo, sans JS
+   ------------------------------------------------------------------ */
 #root::before {
   content: "";
   position: fixed;
@@ -59,13 +103,99 @@ html, body, #root {
   80%, 100%{ opacity: 0; transform: translateY(-14px); visibility: hidden; }
 }
 
-/* ==================================================================
-   3. ONBOARDING + ECRAN DE CHARGEMENT - marque turquoise vivante.
-   Remplace l'indigo plat par le degrade bali + treillis zellige +
-   halo lumineux qui derive lentement.
-   Cible : la carte d'onboarding (3778) et l'ecran de chargement (4881),
-   seuls elements combinant .min-h-screen et .bg-indigo-600.
-   ================================================================== */
+/* ------------------------------------------------------------------
+   3. UNIFICATION DE MARQUE - remap global indigo -> Menthe d'Atlas
+   295 tokens traites. Surfaces d'action et textes calibres WCAG.
+   ------------------------------------------------------------------ */
+.bg-indigo-600 { background-color: var(--bali-600) !important; }
+.bg-indigo-700, .hover\:bg-indigo-700:hover { background-color: var(--bali-700) !important; }
+.bg-indigo-500 { background-color: var(--bali-500) !important; }
+.bg-indigo-100 { background-color: var(--bali-100) !important; }
+.bg-indigo-50  { background-color: var(--bali-50) !important; }
+.bg-indigo-700\/60 { background-color: rgba(12, 110, 102, .55) !important; }
+
+.text-indigo-600 { color: var(--bali-600) !important; }
+.text-indigo-700 { color: var(--bali-700) !important; }
+.text-indigo-800 { color: var(--bali-800) !important; }
+.text-indigo-500 { color: var(--bali-600) !important; }
+.text-indigo-400 { color: #10998F !important; }
+.text-indigo-300 { color: var(--bali-300) !important; }
+.text-indigo-200 { color: var(--bali-200) !important; }
+.text-indigo-100 { color: var(--bali-100) !important; }
+.text-indigo-50  { color: var(--bali-50) !important; }
+
+.border-indigo-600 { border-color: var(--bali-600) !important; }
+.border-indigo-300 { border-color: var(--bali-300) !important; }
+.border-indigo-200 { border-color: var(--bali-200) !important; }
+.border-indigo-100 { border-color: var(--bali-100) !important; }
+.border-indigo-50  { border-color: var(--bali-50) !important; }
+
+.focus\:border-indigo-400:focus { border-color: var(--bali-600) !important; }
+.ring-indigo-400,
+.focus\:ring-indigo-400:focus,
+.focus-within\:ring-indigo-400:focus-within { --tw-ring-color: var(--bali-600) !important; }
+
+/* Banniere de l'ecran Vendre : gradient indigo/violet remplace par
+   la signature bali (identique au hero de l'accueil). */
+.from-indigo-600.to-violet-600 {
+  background-image: linear-gradient(120deg, #10AA9F 0%, #17C1B5 55%, #2CCEC2 100%) !important;
+}
+/* Placeholder carte relais : teinte menthe */
+.from-indigo-50.to-stone-100 {
+  background-image: linear-gradient(to bottom right, var(--bali-50), #F5F5F4) !important;
+}
+
+/* ------------------------------------------------------------------
+   4. LUMIERE - ombres froides raffinees (structure Tailwind preservee
+   pour rester compatibles avec les rings)
+   ------------------------------------------------------------------ */
+.shadow-sm {
+  --tw-shadow: 0 1px 2px rgba(var(--bali-ink), .05), 0 3px 10px -2px rgba(var(--bali-ink), .07);
+  --tw-shadow-colored: var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.shadow-md {
+  --tw-shadow: 0 3px 8px -2px rgba(var(--bali-ink), .08), 0 8px 20px -6px rgba(var(--bali-ink), .10);
+  --tw-shadow-colored: var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.shadow-lg {
+  --tw-shadow: 0 4px 10px -3px rgba(var(--bali-ink), .08), 0 14px 32px -8px rgba(var(--bali-ink), .14);
+  --tw-shadow-colored: var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.shadow-xl {
+  --tw-shadow: 0 8px 16px -6px rgba(var(--bali-ink), .10), 0 22px 48px -12px rgba(var(--bali-ink), .18);
+  --tw-shadow-colored: var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.shadow-2xl {
+  --tw-shadow: 0 12px 24px -10px rgba(var(--bali-ink), .12), 0 32px 70px -16px rgba(var(--bali-ink), .22);
+  --tw-shadow-colored: var(--tw-shadow);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+
+/* ------------------------------------------------------------------
+   5. INTERACTIONS UNIFIEES - chaque contact doit etre doux
+   ------------------------------------------------------------------ */
+button {
+  transition: transform .16s ease, box-shadow .16s ease,
+              background-color .16s ease, color .16s ease, border-color .16s ease;
+}
+button:active { transform: scale(.985); }
+@media (hover: hover) {
+  button.bg-indigo-600:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px -8px rgba(var(--bali-ink), .35);
+  }
+  button.bg-stone-900:hover { transform: translateY(-1px); }
+}
+
+/* ------------------------------------------------------------------
+   6. ONBOARDING + ECRAN DE CHARGEMENT - gradient de marque vivant
+   (zellige + halo qui derive). Cible les seuls elements combinant
+   .min-h-screen et .bg-indigo-600 ; prime sur le remap global.
+   ------------------------------------------------------------------ */
 .min-h-screen.bg-indigo-600 {
   background:
     url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='96'%20height='96'%3E%3Cg%20fill='none'%20stroke='white'%20stroke-opacity='.08'%3E%3Crect%20x='30'%20y='30'%20width='36'%20height='36'/%3E%3Crect%20x='30'%20y='30'%20width='36'%20height='36'%20transform='rotate(45%2048%2048)'/%3E%3C/g%3E%3C/svg%3E") 0 0 repeat,
@@ -78,7 +208,7 @@ html, body, #root {
   to   { background-position: 0 0, 78% 70%, 0 0; }
 }
 
-/* Recolorisation des teintes indigo restantes vers la palette bali */
+/* Teintes lisibles sur le gradient (priment sur le remap global) */
 .min-h-screen.bg-indigo-600 .text-indigo-50,
 .min-h-screen.bg-indigo-600 .text-indigo-100 { color: #DFFBF8 !important; }
 .min-h-screen.bg-indigo-600 .text-indigo-200 { color: #BCF4EE !important; }
@@ -108,11 +238,8 @@ html, body, #root {
   to   { opacity: 1; transform: none; }
 }
 
-/* Micro-interactions au survol (pointeurs precis uniquement) */
+/* Survol des tuiles verre (langues, options) */
 @media (hover: hover) {
-  .min-h-screen.bg-indigo-600 button {
-    transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease;
-  }
   .min-h-screen.bg-indigo-600 button:hover { transform: translateY(-2px); }
   .min-h-screen.bg-indigo-600 button:active { transform: translateY(0) scale(.97); }
   .min-h-screen.bg-indigo-600 .bg-white\/10:hover {
@@ -121,13 +248,11 @@ html, body, #root {
   }
 }
 
-/* ==================================================================
-   4. SCENE DESKTOP DE L'ONBOARDING - " souk de nuit ".
-   Sur grand ecran : fond plein ecran vert profond anime + la carte
-   d'onboarding flotte au centre (coins arrondis, bordure lumineuse,
-   ombre teintee). Scope via :has pour ne PAS toucher l'app
-   Partenaire qui partage les memes classes d'enveloppe.
-   ================================================================== */
+/* ------------------------------------------------------------------
+   7. SCENE DESKTOP DE L'ONBOARDING - "souk de nuit".
+   Fond plein ecran vert profond anime + carte flottante centree.
+   Scope :has pour ne pas toucher l'app Partenaire.
+   ------------------------------------------------------------------ */
 @media (min-width: 768px) {
   .min-h-screen.bg-white.justify-center:has(> .bg-indigo-600) {
     align-items: center;
@@ -155,12 +280,13 @@ html, body, #root {
   }
 }
 
-/* ==================================================================
-   5. ACCESSIBILITE - reduction des animations si demandee par l'OS
-   ================================================================== */
+/* ------------------------------------------------------------------
+   8. ACCESSIBILITE - reduction des animations si demandee par l'OS
+   ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   #root::before,
   #root::after { display: none; }
+  button { transition: none; }
   .min-h-screen.bg-indigo-600,
   .min-h-screen.bg-indigo-600 > svg.absolute,
   .min-h-screen.bg-indigo-600 .justify-center.px-7 > *,
