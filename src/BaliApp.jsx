@@ -2318,18 +2318,26 @@ function BaliAppScreen() {
 
   const dealCard = (it) => (
     <button key={it.id} onClick={() => openItem(it)}
-      className="shrink-0 w-36 bg-white rounded-2xl overflow-hidden shadow-sm text-left active:scale-95 transition-transform">
-      <div className={`relative h-24 bg-gradient-to-br ${it.grad} flex items-center justify-center`}>
-        <span className="text-4xl">{it.emoji}</span>
-        <span className="absolute top-1.5 left-1.5 bg-rose-500 text-white text-[9px] font-extrabold px-1.5 py-0.5 rounded-full">
+      className="deal-card group shrink-0 w-40 bg-white rounded-2xl overflow-hidden shadow-sm text-left active:scale-[0.98] transition-all">
+      <div className={`relative h-28 bg-gradient-to-br ${it.grad} flex items-center justify-center overflow-hidden`}>
+        {it.photo ? (
+          <img src={it.photo} alt={it.title} loading="lazy" className="deal-card-img w-full h-full object-cover" />
+        ) : (
+          <span className="text-4xl">{it.emoji}</span>
+        )}
+        <span className="deal-badge absolute top-1.5 start-1.5 z-10 text-white text-[10px] font-extrabold px-1.5 py-0.5 rounded-lg shadow-sm">
           −{Math.round((1 - it.price / it.oldPrice) * 100)}%
         </span>
+        {it.demo && (
+          <span className="absolute bottom-1.5 end-1.5 z-10 bg-stone-900/70 text-white/90 text-[7px] font-bold px-1 py-0.5 rounded backdrop-blur-sm">DÉMO</span>
+        )}
       </div>
       <div className="p-2.5">
         <p className="text-[11px] font-bold text-stone-900 truncate">{it.title}</p>
-        <p className="text-sm font-extrabold text-orange-600">
-          {it.price} DH <span className="text-[10px] text-stone-400 line-through font-semibold">{it.oldPrice}</span>
-        </p>
+        <div className="flex items-baseline gap-1.5 mt-0.5">
+          <p className="text-sm font-extrabold text-[#AE4527]">{it.price} DH</p>
+          <span className="text-[10px] text-stone-400 line-through font-semibold">{it.oldPrice}</span>
+        </div>
       </div>
     </button>
   );
@@ -2411,15 +2419,27 @@ function BaliAppScreen() {
       </div>
       {/* fin en-tête mobile */}
 
-      {/* Bannière promesse + cadeau (compacte, sous le hero) */}
-      <div className="mx-5 md:max-w-6xl md:mx-auto md:px-0 mt-4 relative overflow-hidden rounded-3xl bg-indigo-600 text-white p-5">
-        <Star8 size={90} className="absolute -right-4 -top-5 text-indigo-500 opacity-60" />
-        <p className="font-display font-bold text-lg leading-snug relative">{t("banner1")}</p>
-        <p className="text-indigo-200 text-xs mt-1.5 font-semibold relative">{t("banner2")}</p>
+      {/* BANDE DE CONFIANCE (position 2) — le coeur du positionnement bali */}
+      <div className="trust-band mx-5 md:max-w-6xl md:mx-auto md:px-0 mt-4 rounded-3xl overflow-hidden">
+        <div className="grid grid-cols-2 md:grid-cols-4">
+          {[
+            [ShieldCheck, t("check_l1"), "#0E837A"],
+            [Store, t("ob_v2"), "#0E837A"],
+            [Lock, t("secu_line"), "#0E837A"],
+            [BadgeCheck, t("badge_refund"), "#BF5233"],
+          ].map(([Icon, label], i) => (
+            <div key={i} className="trust-cell flex items-center gap-2.5 p-3.5 md:p-4">
+              <span className="trust-ic w-9 h-9 md:w-10 md:h-10 rounded-xl flex items-center justify-center shrink-0">
+                <Icon size={18} />
+              </span>
+              <span className="text-[11px] md:text-xs font-bold text-stone-700 leading-tight">{label}</span>
+            </div>
+          ))}
+        </div>
         <button onClick={() => showToast(t("gift_applied"))}
-          className="relative mt-3 inline-flex items-center gap-2 border border-dashed border-amber-300 rounded-full px-3 py-1.5 active:scale-95 transition-transform">
+          className="w-full flex items-center justify-center gap-2 py-2.5 border-t border-stone-100 active:bg-stone-50 transition-colors">
           <span className="text-sm">🎁</span>
-          <span className="text-[11px] font-extrabold text-amber-300 tracking-wide">MARHBA20 · −20 DH</span>
+          <span className="text-[11px] font-extrabold text-[#AE4527] tracking-wide">MARHBA20 · −20 DH — {t("gift_text")}</span>
         </button>
       </div>
 
@@ -2440,18 +2460,23 @@ function BaliAppScreen() {
         </div>
       </div>
 
-      {/* 2. DEALS DU JOUR — urgence */}
-      <div className="mt-7 md:max-w-6xl md:mx-auto md:px-5">
-        <div className="px-5 md:px-0 flex items-center justify-between">
-          <p className="text-sm font-extrabold text-stone-900">{t("deals_title")}</p>
-          <span className="text-[10px] font-extrabold bg-[#FBEEE9] text-[#AE4527] px-2.5 py-1 rounded-full">
-            ⏳ {tf("ends_in", { t: fmtT(dealLeft) })}
+      {/* 2. DEALS DU JOUR — section flash a forte personnalite */}
+      {ITEMS.filter((i) => i.oldPrice).length > 0 && (
+      <div className="deals-zone mx-5 md:max-w-6xl md:mx-auto mt-7 rounded-3xl overflow-hidden">
+        <div className="deals-head flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="deals-flash text-lg">⚡</span>
+            <p className="font-display font-extrabold text-base text-white">{t("deals_title").replace("⚡", "").trim()}</p>
+          </div>
+          <span className="flex items-center gap-1.5 bg-white/20 text-white text-[11px] font-extrabold px-2.5 py-1 rounded-full backdrop-blur-sm tabular-nums">
+            <Timer size={12} /> {fmtT(dealLeft)}
           </span>
         </div>
-        <div className="flex gap-3 px-5 md:px-0 mt-3 overflow-x-auto no-scrollbar">
+        <div className="flex gap-3 px-4 pb-4 pt-3 overflow-x-auto no-scrollbar">
           {ITEMS.filter((i) => i.oldPrice).map((it) => dealCard(it))}
         </div>
       </div>
+      )}
 
       {/* 3. PRODUITS — la sélection, coeur de la marketplace */}
       <div className="md:max-w-6xl md:mx-auto md:px-5">
@@ -3132,6 +3157,45 @@ function BaliAppScreen() {
                 <p className="text-[9px] font-bold text-white/60 mt-1 leading-tight">{l}</p>
               </div>
             ))}
+          </div>
+
+          {/* Carte du Maroc stylisee avec points relais bali */}
+          <div className="mt-4 relative rounded-2xl overflow-hidden bg-white/[0.06] border border-white/10 p-4">
+            <p className="text-[10px] font-bold text-white/70 mb-2 flex items-center gap-1.5"><MapPin size={12} className="text-[#2CCEC2]" /> Le reseau bali au Maroc</p>
+            <svg viewBox="0 0 200 150" className="w-full h-28" xmlns="http://www.w3.org/2000/svg" aria-label="Carte du Maroc avec points relais">
+              <path d="M40 20 L70 15 L95 22 L120 18 L150 30 L165 55 L160 80 L150 105 L130 125 L100 135 L70 130 L50 115 L38 90 L30 60 L35 38 Z"
+                fill="rgba(44,206,194,0.10)" stroke="rgba(44,206,194,0.35)" stroke-width="1.5" />
+              <g className="partner-dots">
+                <circle cx="70" cy="45" r="3.5" fill="#2CCEC2" />
+                <circle cx="55" cy="70" r="3.5" fill="#2CCEC2" />
+                <circle cx="100" cy="55" r="3.5" fill="#2CCEC2" />
+                <circle cx="120" cy="85" r="3.5" fill="#2CCEC2" />
+                <circle cx="90" cy="100" r="3.5" fill="#2CCEC2" />
+                <circle cx="135" cy="60" r="3.5" fill="#F4C542" />
+              </g>
+            </svg>
+            <p className="text-[9px] text-white/50 text-center mt-1">Rejoins les hanouts partenaires de ton quartier</p>
+          </div>
+
+          {/* Timeline de confiance en 4 etapes */}
+          <div className="mt-4">
+            <p className="text-[10px] font-bold text-white/70 mb-2.5">Le parcours securise, etape par etape</p>
+            <div className="space-y-0">
+              {[
+                ["1", "Le vendeur depose au hanout"],
+                ["2", "Le hanout receptionne et garde"],
+                ["3", "L'acheteur inspecte sur place"],
+                ["4", "Le paiement se debloque"],
+              ].map(([n, txt], i, arr) => (
+                <div key={n} className="flex items-start gap-3 relative">
+                  <div className="flex flex-col items-center">
+                    <span className="w-6 h-6 rounded-full bg-[#2CCEC2] text-stone-900 text-[11px] font-extrabold flex items-center justify-center shrink-0 z-10">{n}</span>
+                    {i < arr.length - 1 && <span className="w-px h-6 bg-white/20" />}
+                  </div>
+                  <span className="text-[11px] font-semibold text-white/85 pt-0.5">{txt}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-3 space-y-1.5">
