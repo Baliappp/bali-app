@@ -1122,7 +1122,15 @@ const SIZES_REF = {
   enfants: ["3 mois", "6 mois", "12 mois", "18 mois", "2 ans", "4 ans", "6 ans", "8 ans", "10 ans", "12 ans", "14 ans"],
 };
 
-const ITEMS = [
+/* ==================================================================
+   CONTENU DE DEMONSTRATION
+   DEMO_CONTENT = true  -> les annonces de demo s'affichent (site non vide au lancement)
+   DEMO_CONTENT = false -> elles disparaissent partout, sans rien casser.
+   Le jour du vrai lancement : passer cette seule valeur a false.
+   ================================================================== */
+const DEMO_CONTENT = true;
+
+const ITEMS_DEMO = [
   {
     id: 1, title: "Air Force 1 blanches", brand: "Nike", size: "42", cond: 2, video: true, oldPrice: 550, photo: "/cat-sneakers.jpg",
     price: 450, city: "Casablanca", likes: 23, emoji: "👟", grad: "from-stone-100 to-stone-300",
@@ -1172,6 +1180,12 @@ const ITEMS = [
     desc: "Authentique, acheté au Morocco Mall. Taille M, coupe normale."
   },
 ];
+
+/* ITEMS = liste effective consommee par l'app.
+   Chaque annonce de demo est marquee demo:true (pour le badge + le filtrage).
+   Si DEMO_CONTENT est false, la liste est vide et seules les vraies
+   annonces utilisateurs (dbItems, Supabase) s'afficheront. */
+const ITEMS = DEMO_CONTENT ? ITEMS_DEMO.map((it) => ({ ...it, demo: true })) : [];
 
 /* Protection acheteur : 8% + 10 DH (le vendeur reçoit 100%) */
 const fee = (p) => Math.round(p * 0.08) + 10;
@@ -2263,6 +2277,9 @@ function BaliAppScreen() {
           <span className="item-card-img text-6xl">{it.emoji}</span>
         )}
         <span className="item-card-veil absolute inset-x-0 bottom-0 h-16 pointer-events-none" />
+        {it.demo && (
+          <span className="absolute bottom-2 right-2 z-10 bg-stone-900/70 text-white/90 text-[8px] font-bold px-1.5 py-0.5 rounded-md tracking-wide backdrop-blur-sm">DÉMO</span>
+        )}
         {it.oldPrice && (
           <span className="absolute top-2 start-2 z-10 bg-[#BF5233] text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-sm">−{Math.round((1 - it.price / it.oldPrice) * 100)}%</span>
         )}
