@@ -1032,14 +1032,14 @@ const T = {
 /* ------------------------------------------------------------------ */
 
 const CATEGORIES = [
-  { id: "femmes", emoji: "👗", grad: "from-rose-100 to-pink-200" },
-  { id: "hommes", emoji: "🧥", grad: "from-sky-100 to-blue-200" },
-  { id: "enfants", emoji: "🧸", grad: "from-amber-100 to-orange-200" },
-  { id: "sneakers", emoji: "👟", grad: "from-stone-100 to-stone-300" },
-  { id: "tech", emoji: "📱", grad: "from-violet-100 to-indigo-200" },
-  { id: "maison", emoji: "🛋️", grad: "from-emerald-100 to-teal-200" },
-  { id: "trad", emoji: "🪡", grad: "from-yellow-100 to-amber-200" },
-  { id: "sport", emoji: "⚽", grad: "from-lime-100 to-green-200" },
+  { id: "femmes", emoji: "👗", grad: "from-rose-100 to-pink-200", photo: "/cat-femmes.jpg" },
+  { id: "hommes", emoji: "🧥", grad: "from-sky-100 to-blue-200", photo: "/cat-hommes.jpg" },
+  { id: "enfants", emoji: "🧸", grad: "from-amber-100 to-orange-200", photo: "/cat-enfants.jpg" },
+  { id: "sneakers", emoji: "👟", grad: "from-stone-100 to-stone-300", photo: "/cat-sneakers.jpg" },
+  { id: "tech", emoji: "📱", grad: "from-violet-100 to-indigo-200", photo: "/cat-tech.jpg" },
+  { id: "maison", emoji: "🛋️", grad: "from-emerald-100 to-teal-200", photo: "/cat-maison.jpg" },
+  { id: "trad", emoji: "🪡", grad: "from-yellow-100 to-amber-200", photo: "/cat-traditionnel.jpg" },
+  { id: "sport", emoji: "⚽", grad: "from-lime-100 to-green-200", photo: "/cat-sport.jpg" },
 ];
 
 /* Catalogue à 3 niveaux — architecture Vinted, adaptée au Maroc */
@@ -1124,25 +1124,25 @@ const SIZES_REF = {
 
 const ITEMS = [
   {
-    id: 1, title: "Air Force 1 blanches", brand: "Nike", size: "42", cond: 2, video: true, oldPrice: 550,
+    id: 1, title: "Air Force 1 blanches", brand: "Nike", size: "42", cond: 2, video: true, oldPrice: 550, photo: "/cat-sneakers.jpg",
     price: 450, city: "Casablanca", likes: 23, emoji: "👟", grad: "from-stone-100 to-stone-300",
     cat: "sneakers", seller: { name: "Yassine_Casa", rating: 4.8, sales: 34 },
     desc: "Portées 5-6 fois, aucune trace. Boîte d'origine incluse. Envoi rapide via Amana."
   },
   {
-    id: 2, title: "Caftan vert brodé main", brand: "Artisanat Fès", size: "M", cond: 1, video: false, discreet: true,
+    id: 2, title: "Caftan vert brodé main", brand: "Artisanat Fès", size: "M", cond: 1, video: false, discreet: true, photo: "/art-1.jpg",
     price: 900, city: "Rabat", likes: 41, emoji: "✨", grad: "from-emerald-100 to-teal-200",
     cat: "trad", seller: { name: "Salma.R", rating: 5.0, sales: 12 },
     desc: "Porté une seule fois pour un mariage. Broderie sfifa dorée, tissu de qualité."
   },
   {
-    id: 3, title: "iPhone 12 128 Go débloqué", brand: "Apple", size: "—", cond: 3, video: true, imei: true,
+    id: 3, title: "iPhone 12 128 Go débloqué", brand: "Apple", size: "—", cond: 3, video: true, imei: true, photo: "/art-3.jpg",
     price: 3800, city: "Marrakech", likes: 67, emoji: "📱", grad: "from-violet-100 to-indigo-200",
     cat: "tech", seller: { name: "MehdiTech", rating: 4.9, sales: 58 },
     desc: "Batterie 87%. Écran nickel, petite rayure au dos. Facture dispo. Tous opérateurs."
   },
   {
-    id: 4, title: "Sac bandoulière neuf", brand: "Zara", size: "—", cond: 0, video: false,
+    id: 4, title: "Sac bandoulière neuf", brand: "Zara", size: "—", cond: 0, video: false, photo: "/art-6.jpg",
     price: 180, city: "Tanger", likes: 15, emoji: "👜", grad: "from-rose-100 to-pink-200",
     cat: "femmes", seller: { name: "Imane_Tng", rating: 4.7, sales: 21 },
     desc: "Jamais porté, étiquette encore dessus. Cadeau en double."
@@ -1154,7 +1154,7 @@ const ITEMS = [
     desc: "Fonctionne parfaitement, sticks impeccables. Vendue avec câble USB-C."
   },
   {
-    id: 6, title: "Djellaba homme laine", brand: "Fait main", size: "L", cond: 2, video: false,
+    id: 6, title: "Djellaba homme laine", brand: "Fait main", size: "L", cond: 2, video: false, photo: "/cat-traditionnel.jpg",
     price: 350, city: "Fès", likes: 18, emoji: "🧥", grad: "from-yellow-100 to-amber-200",
     cat: "trad", seller: { name: "Hamza.Fes", rating: 4.9, sales: 26 },
     desc: "Laine véritable, coupe classique. Parfaite pour l'hiver et les fêtes."
@@ -2413,7 +2413,10 @@ function BaliAppScreen() {
           {CATEGORIES.map((c) => (
             <button key={c.id} onClick={() => { setTab("search"); openFilter("cat"); }}
               className="cat-chip group shrink-0 flex flex-col items-center gap-2">
-              <span className={`w-16 h-16 md:w-full md:aspect-square md:h-auto rounded-2xl bg-gradient-to-br ${c.grad} flex items-center justify-center text-2xl shadow-sm transition-transform`}>{c.emoji}</span>
+              <span className="cat-photo relative w-16 h-16 md:w-full md:aspect-square md:h-auto rounded-3xl overflow-hidden shadow-sm block">
+                <img src={c.photo} alt={t("cat_" + c.id)} loading="lazy" className="cat-photo-img w-full h-full object-cover" />
+                <span className="cat-photo-overlay absolute inset-0" />
+              </span>
               <span className="text-[11px] font-bold text-stone-700 text-center leading-tight">{t("cat_" + c.id)}</span>
             </button>
           ))}
