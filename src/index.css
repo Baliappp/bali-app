@@ -607,6 +607,32 @@ div.bg-white.border-t {
 }
 
 /* ------------------------------------------------------------------
+   16. CATEGORIES EN PHOTOS REELLES - premium, coherent
+   Ratio carre, overlay turquoise bali, coins 24px, zoom au survol.
+   ------------------------------------------------------------------ */
+.cat-photo {
+  border-radius: 24px;
+  border: 1px solid rgba(10, 46, 43, .06);
+}
+.cat-photo-img {
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+}
+.cat-photo-overlay {
+  background: linear-gradient(180deg, rgba(32, 199, 199, 0) 40%, rgba(14, 131, 122, .28) 100%);
+  transition: background .3s ease;
+}
+@media (hover: hover) {
+  .cat-chip:hover .cat-photo-img { transform: scale(1.08); }
+  .cat-chip:hover .cat-photo-overlay {
+    background: linear-gradient(180deg, rgba(32, 199, 199, .12) 0%, rgba(14, 131, 122, .42) 100%);
+  }
+  .cat-chip:hover .cat-photo {
+    box-shadow: 0 14px 30px -12px rgba(10, 46, 43, .30);
+  }
+}
+.cat-chip:hover > span:first-child { transform: none; }
+
+/* ------------------------------------------------------------------
    8. ACCESSIBILITE - reduction des animations si demandee par l'OS
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
