@@ -633,6 +633,58 @@ div.bg-white.border-t {
 .cat-chip:hover > span:first-child { transform: none; }
 
 /* ------------------------------------------------------------------
+   17. BANDE DE CONFIANCE - piliers du positionnement bali
+   ------------------------------------------------------------------ */
+.trust-band {
+  background: #FFFFFF;
+  border: 1px solid rgba(10, 46, 43, .07);
+  box-shadow: 0 3px 10px -3px rgba(10, 46, 43, .08);
+}
+.trust-cell { border-right: 1px solid rgba(10, 46, 43, .05); border-bottom: 1px solid rgba(10, 46, 43, .05); }
+.trust-ic { background: #EFFBF9; color: #0E837A; }
+.trust-cell:nth-child(4) .trust-ic { background: #FBEEE9; color: #BF5233; }
+@media (min-width: 768px) { .trust-cell { border-bottom: none; } }
+
+/* ------------------------------------------------------------------
+   18. DEALS DU JOUR - section flash a forte personnalite
+   ------------------------------------------------------------------ */
+.deals-zone {
+  background: #FFF;
+  border: 1px solid rgba(191, 82, 51, .18);
+  box-shadow: 0 8px 24px -12px rgba(191, 82, 51, .28);
+}
+.deals-head {
+  background:
+    radial-gradient(20rem 12rem at 100% 0%, rgba(244, 197, 66, .30), transparent 60%),
+    linear-gradient(100deg, #BF5233 0%, #D06843 55%, #E07A4E 100%);
+}
+.deals-flash { animation: deals-pulse 1.6s ease-in-out infinite; display: inline-block; }
+@keyframes deals-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.18); opacity: .8; }
+}
+.deal-badge { background: linear-gradient(135deg, #BF5233, #AE4527); }
+.deal-card-img { transition: transform .4s cubic-bezier(.22,1,.36,1); }
+@media (hover: hover) {
+  .deal-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px -14px rgba(191,82,51,.3) !important; }
+  .deal-card:hover .deal-card-img { transform: scale(1.08); }
+}
+
+/* ------------------------------------------------------------------
+   19. VITRINE PARTENAIRE - carte du Maroc animee
+   ------------------------------------------------------------------ */
+.partner-dots circle { animation: dot-pulse 2.4s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+.partner-dots circle:nth-child(2) { animation-delay: .3s; }
+.partner-dots circle:nth-child(3) { animation-delay: .6s; }
+.partner-dots circle:nth-child(4) { animation-delay: .9s; }
+.partner-dots circle:nth-child(5) { animation-delay: 1.2s; }
+.partner-dots circle:nth-child(6) { animation-delay: 1.5s; }
+@keyframes dot-pulse {
+  0%, 100% { opacity: .5; r: 3; }
+  50% { opacity: 1; r: 4.5; }
+}
+
+/* ------------------------------------------------------------------
    8. ACCESSIBILITE - reduction des animations si demandee par l'OS
    ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
